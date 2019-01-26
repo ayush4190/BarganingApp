@@ -1,0 +1,176 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView
+xmlns:android="http://schemas.android.com/apk/res/android"
+xmlns:app="http://schemas.android.com/apk/res-auto"
+
+xmlns:tools="http://schemas.android.com/tools"
+android:layout_width="match_parent"
+android:layout_height="match_parent"
+tools:context=".ShopperRegistration"
+android:orientation="vertical">
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/register"
+        android:text="Register as Shopper"
+        android:textSize="38sp"
+        android:textAlignment="center"
+        android:background="@color/colorPrimary"
+        />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20sp"
+        android:text="Name"
+        android:textSize="20sp"
+        android:layout_marginLeft="8sp"
+        />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="horizontal">
+
+        <EditText
+            android:id="@+id/firstname"
+            android:layout_width="175sp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="8sp"
+            android:hint="First Name"
+            android:maxLength="15"
+            android:singleLine="true"
+            android:inputType="textCapSentences"
+            />
+
+        <EditText
+            android:id="@+id/lastname"
+            android:layout_width="200sp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="8sp"
+            android:layout_marginRight="8sp"
+            android:hint="Last Name"
+            android:inputType="textCapSentences"
+            android:singleLine="true"
+            android:maxLength="15"
+            />
+    </LinearLayout>
+
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="8sp"
+        android:text="Email-Id"
+        android:textSize="20sp"
+        android:layout_marginTop="20sp"
+        android:singleLine="true"
+        />
+
+
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:hint="Email-Id"
+        android:id="@+id/email"
+        android:layout_marginLeft="8sp"
+        android:singleLine="true"
+
+        />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="8sp"
+        android:text="Phone Number"
+        android:textSize="20sp"
+        android:layout_marginTop="20sp" />
+
+
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Phone number"
+        android:layout_marginLeft="8sp"
+        android:id="@+id/phone"
+        android:inputType="number"
+        android:maxLength="10"
+
+        android:singleLine="true"/>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="8sp"
+        android:layout_marginTop="20sp"
+        android:hint="Date of Birth"
+        android:textSize="20sp" />
+
+    <TextView
+        android:id="@+id/dob"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="8sp"
+        android:layout_marginTop="20sp"
+        android:hint="Select Date of Birth"
+        android:textSize="20sp"
+        />
+
+
+    <LinearLayout
+
+        android:layout_width="match_parent"
+
+        android:layout_height="wrap_content"
+
+        android:layout_marginTop="14dp"
+        android:orientation="horizontal">
+
+
+        <CheckBox
+            android:id="@+id/rb"
+            android:layout_width="30dp"
+            android:layout_height="33dp"
+            android:layout_marginLeft="8dp"
+            android:layout_marginTop="10dp"
+            android:checked="false" />
+
+        <TextView
+            android:id="@+id/terms"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="8dp"
+
+            android:layout_marginTop="10dp"
+            android:text="@string/ioio"
+            android:textSize="24dp" />
+
+
+    </LinearLayout>
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Next->"
+        android:textColor="#FFFFFF"
+        android:textSize="18sp"
+        android:layout_marginTop="20sp"
+        android:layout_marginBottom="20sp"
+        android:background="@color/colorPrimary"
+        android:id="@+id/next1"
+        android:layout_marginLeft="300sp"/>
+</LinearLayout>
+
+
+
+
+
+
+</ScrollView>
+

@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "527304531921",
+    "firebase_url": "https://se-lab-7c611.firebaseio.com",
+    "project_id": "se-lab-7c611",
+    "storage_bucket": "se-lab-7c611.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:527304531921:android:4d7b09ae159be96f",
+        "android_client_info": {
+          "package_name": "com.example.ayush.finalapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "527304531921-9d2vue6rijl5kvlrfqqhkfb1icn7lsv5.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDAjW01bln6veUClNFbHonr7v4mYaXB3ls"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -1,0 +1,153 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+
+    xmlns:tools="http://schemas.android.com/tools"
+
+    android:id="@+id/LinearLayout1"
+
+    android:layout_width="match_parent"
+
+    android:layout_height="match_parent"
+
+    android:orientation="vertical"
+
+    android:padding="10dp" >
+
+
+
+    <LinearLayout
+
+        android:layout_width="wrap_content"
+
+        android:layout_height="wrap_content"
+
+        android:orientation="horizontal"
+
+        android:padding="10dp" >
+
+
+        <ImageView
+
+            android:id="@+id/profilepic"
+
+            android:layout_width="375dp"
+
+            android:layout_height="208dp"
+
+            android:src="@drawable/user" />
+
+
+
+
+
+    </LinearLayout>
+
+
+    <LinearLayout
+
+        android:layout_width="match_parent"
+
+        android:layout_height="wrap_content"
+
+        android:gravity="center"
+
+        android:padding="5dp"
+        android:layout_marginTop="20dp">
+
+
+        <Button
+
+            android:id="@+id/btnSelectPhoto"
+
+            android:layout_width="match_parent"
+
+            android:layout_height="wrap_content"
+
+            android:text="Select Photo" />
+
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Username"
+            android:textSize="20sp"
+            android:layout_marginLeft="8sp"
+            android:layout_marginTop="20sp"/>
+
+        <EditText
+            android:layout_marginTop="10dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Username"
+            android:layout_marginLeft="8sp"
+            android:singleLine="true"
+            android:id="@+id/username"
+
+            />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="8sp"
+            android:text="Password"
+            android:textSize="20sp"
+            android:layout_marginTop="20sp"
+
+            />
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Password"
+            android:layout_marginLeft="8sp"
+
+            android:id="@+id/password"
+            android:inputType="textPassword"
+            android:singleLine="true"
+            />
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="8sp"
+            android:text="Confirm Password"
+            android:textSize="20sp"
+            android:layout_marginTop="20sp"
+            />
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Confirm Password"
+            android:layout_marginLeft="8sp"
+            android:inputType="textPassword"
+
+            android:id="@+id/confirm_password"
+
+            android:singleLine="true"
+            />
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Next->"
+            android:textColor="#FFFFFF"
+            android:textSize="18sp"
+            android:layout_marginTop="20sp"
+            android:layout_marginBottom="20sp"
+            android:background="@color/colorPrimary"
+            android:id="@+id/next1"
+            android:layout_marginLeft="300sp"/>
+
+    </LinearLayout>
+
+
+
+
+</LinearLayout>
+
+

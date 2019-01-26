@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".PaymentActivity">
+    <RelativeLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content">
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:id="@+id/re1">
+
+            <TextView
+                android:id="@+id/text1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentTop="true"
+                android:background="@color/colorPrimary"
+                android:text="Mobile Wallet"
+                android:textAlignment="center"
+                android:textAllCaps="true"
+                android:textSize="42dp" />
+
+            <TextView
+                android:id="@+id/amount"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:padding="125dp"
+                android:layout_below="@id/text1"
+                android:text="amount"
+                android:textAlignment="center"
+                android:textAllCaps="true"
+
+                />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_below="@id/re1"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent">
+
+            <Button
+                android:id="@+id/button1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Initialise Payment"
+                android:padding="40dp"
+
+                />
+            <Button
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/button2"
+                android:padding="40dp"
+                android:layout_marginTop="20dp"
+                android:text="Add money to wallet"
+                android:layout_below="@id/button1"
+                />
+
+            <Button
+                android:id="@+id/button3"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/button2"
+                android:padding="40dp"
+                android:textAllCaps="true"
+                android:text="Previous transactions"
+                android:layout_marginTop="20dp"
+                android:layout_alignParentBottom="true"
+
+                />
+        </RelativeLayout>
+    </RelativeLayout>
+</ScrollView>
