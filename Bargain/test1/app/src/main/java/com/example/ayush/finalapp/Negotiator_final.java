@@ -24,6 +24,9 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
@@ -33,7 +36,9 @@ import java.io.OutputStream;
 public class Negotiator_final extends AppCompatActivity {
     ImageView viewImage;
     Button b;
-
+     String s1,s2,s3,phone;
+     private DatabaseReference databaseReference , mroot;
+     private NegotiatorField obj;
 
 
 
@@ -46,12 +51,14 @@ public class Negotiator_final extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_negotiator_final);
         final CheckBox rb2= (CheckBox) findViewById(R.id.rb);
+       mroot = FirebaseDatabase.getInstance().getReference();
+    phone = getIntent().getExtras().getString("phon");
 
         rb2.setChecked(!rb2.isChecked());
 
         b=(Button)findViewById(R.id.btnSelectID);
 
-        viewImage=(ImageView)findViewById(R.id.idimage);
+        viewImage=(ImageView)findViewById(R.id.idimage); // id picture.
 
 
         TextView term1 = (TextView)findViewById(R.id.terms);
@@ -168,10 +175,10 @@ public class Negotiator_final extends AppCompatActivity {
             public void onClick(View v) {
                 int k=2;
 
-
-                final String s1=  mySpinner1.getSelectedItem().toString().trim();
-                final String s2=  mySpinner2.getSelectedItem().toString().trim();
-                final String s3=  mySpinner3.getSelectedItem().toString().trim();
+// changed final string to variable name
+                 s1=  mySpinner1.getSelectedItem().toString().trim();// Stored value is here
+                 s2=  mySpinner2.getSelectedItem().toString().trim();
+                s3=  mySpinner3.getSelectedItem().toString().trim();
                 if (s1.equals("Select Category") && s2.equals("Select Category") && s3.equals("Select Category") ) {
                     k--;
                     Toast.makeText(Negotiator_final.this, "not all can be empty", Toast.LENGTH_SHORT).show();
@@ -183,6 +190,7 @@ public class Negotiator_final extends AppCompatActivity {
 
                 }
                 if(k==2 && rb2.isChecked()){
+                    categoryregis();
                     Intent myIntent = new Intent(Negotiator_final.this,
                             MainActivity.class);
                     startActivity(myIntent);
@@ -368,6 +376,22 @@ public class Negotiator_final extends AppCompatActivity {
             }
 
         }
+    }
+    private void categoryregis()
+    {
+        String cat1,cat2,cat3;
+        cat1 =  s1;
+        cat2 = s2;
+        cat3 = s3;
+        obj =new NegotiatorField(s1,s2,s3);
+
+
+        databaseReference = mroot.child("Negotiator");
+        databaseReference.child(phone).child("Field").setValue(obj);
+        Toast.makeText(Negotiator_final.this,"Registered successfully",Toast.LENGTH_LONG).show();
+
+
+
     }
 }
 

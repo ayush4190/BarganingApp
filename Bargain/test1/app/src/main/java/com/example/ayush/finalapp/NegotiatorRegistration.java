@@ -4,6 +4,7 @@ import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
+import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.Editable;
@@ -21,6 +22,9 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
@@ -33,6 +37,7 @@ public class NegotiatorRegistration extends AppCompatActivity {
     private EditText firstname,lastname,phno,ad1 , ad2, city, state, pincode,email;
     TextView dob ;
     private DatabaseReference databaseReference , mroot;
+    NegotiatorProfile profile;
 
 
     private static final String TAG = "NegotiatorRegistration";
@@ -46,6 +51,7 @@ public class NegotiatorRegistration extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_negotiator_registration);
         mroot = FirebaseDatabase.getInstance().getReference();
+       // firebaseAuth = FirebaseAuth.getInstance();
 
         mDisplayDate = (TextView) findViewById(R.id.dob);
 
@@ -200,8 +206,11 @@ public class NegotiatorRegistration extends AppCompatActivity {
 
                 if(k==11){
                     basicinfo();
+
                     Intent myIntent = new Intent(NegotiatorRegistration.this,
                             NegotiatorForm.class);
+                    myIntent.putExtra("phon",profile.getPhno());
+                    myIntent.putExtra("email",profile.getEmail());
                     startActivity(myIntent);
                 }
 
@@ -225,13 +234,15 @@ public class NegotiatorRegistration extends AppCompatActivity {
         mpincode= pincode.getText().toString().trim();
         memail =email.getText().toString().trim();
         mdob =dob.getText().toString().trim();
-        NegotiatorProfile profile = new NegotiatorProfile(mfirstname,mlastname,mphno,mad1 , mad2, mcity, mstate, mpincode,memail,mdob);
+        profile = new NegotiatorProfile(mfirstname,mlastname,mphno,mad1 , mad2, mcity, mstate, mpincode,memail,mdob);
         databaseReference= mroot.child("Negotiator");//setValue(profile);
-       databaseReference.child("basic").child(profile.getPhno()).setValue(profile);
+       databaseReference.child(profile.getPhno()).child("Basic").setValue(profile);
         Toast.makeText(NegotiatorRegistration.this,"Profile Saved",Toast.LENGTH_LONG).show();
 
 
     }
+
+
 
 
 }

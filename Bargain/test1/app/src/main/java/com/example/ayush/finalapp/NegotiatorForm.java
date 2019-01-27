@@ -25,6 +25,7 @@ import android.os.Environment;
 import android.os.StrictMode;
 import android.provider.MediaStore;
 
+import android.support.annotation.NonNull;
 import android.util.Log;
 
 import android.view.Menu;
@@ -36,6 +37,11 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
+
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.AuthResult;
+import com.google.firebase.auth.FirebaseAuth;
 
 import java.io.File;
 
@@ -53,10 +59,12 @@ import java.util.regex.Pattern;
 public class NegotiatorForm extends Activity {
 
 
-
+    FirebaseAuth firebaseAuth;
     ImageView viewImage;
 
-    Button b;
+    private Button b;
+   private String p,email;
+    private EditText password;
 
 
 
@@ -69,9 +77,11 @@ public class NegotiatorForm extends Activity {
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.activity_negotiator_form);
+        p = getIntent().getExtras().getString("phon");
+        email = getIntent().getExtras().getString("email");
 
         b=(Button)findViewById(R.id.btnSelectPhoto);
-
+    firebaseAuth = FirebaseAuth.getInstance();
         viewImage=(ImageView)findViewById(R.id.profilepic);
 
         b.setOnClickListener(new View.OnClickListener() {
@@ -95,11 +105,11 @@ public class NegotiatorForm extends Activity {
                 int k=4;
 
 
-                final EditText password = (EditText) findViewById(R.id.password);
+                password = (EditText) findViewById(R.id.password);
                 EditText confirmpassword = (EditText) findViewById(R.id.confirm_password);
 
                 EditText username = (EditText) findViewById(R.id.username);
-                ImageView propic = (ImageView) findViewById(R.id.profilepic);
+                ImageView propic = (ImageView) findViewById(R.id.profilepic); //profile picture
 
 
 
@@ -117,10 +127,12 @@ public class NegotiatorForm extends Activity {
                 Matcher matcher = passwordp.matcher(passwordv);
 
 
-                final ImageView test = (ImageView) findViewById(R.id.profilepic);
+                final ImageView test = (ImageView) findViewById(R.id.profilepic); //
                 final Bitmap bmap = ((BitmapDrawable)test.getDrawable()).getBitmap();
                 Drawable myDrawable = getResources().getDrawable(R.drawable.user);
                 final Bitmap myLogo = ((BitmapDrawable) myDrawable).getBitmap();
+
+
 
 
                 if(!matcher2.matches()) {
@@ -147,8 +159,11 @@ public class NegotiatorForm extends Activity {
 
                 if(k==4) {
 
+                    registeruser();
+
                     Intent myIntent = new Intent(NegotiatorForm.this,
                             Negotiator_final.class);
+                    myIntent.putExtra("phon",p);
                     startActivity(myIntent);
                 }
 
@@ -339,6 +354,24 @@ public class NegotiatorForm extends Activity {
             }
 
         }
+
+    }
+    private void registeruser()
+    {
+        String  mpassword;
+        mpassword = password.getText().toString().trim();
+        firebaseAuth.createUserWithEmailAndPassword(email,mpassword).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+            @Override
+            public void onComplete(@NonNull Task<AuthResult> task) {
+                if (task.isSuccessful()) {
+                    Toast.makeText(NegotiatorForm.this, "user registered ", Toast.LENGTH_LONG).show();
+                }
+                else
+                {
+                    Toast.makeText(NegotiatorForm.this,"Please try after sometime",Toast.LENGTH_LONG).show();
+                }
+            }
+        });
 
     }
 
