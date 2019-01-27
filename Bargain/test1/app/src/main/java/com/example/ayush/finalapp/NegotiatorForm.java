@@ -109,7 +109,7 @@ public class NegotiatorForm extends Activity {
                 EditText confirmpassword = (EditText) findViewById(R.id.confirm_password);
 
                 EditText username = (EditText) findViewById(R.id.username);
-                ImageView propic = (ImageView) findViewById(R.id.profilepic); //profile picture
+                ImageView propic = (ImageView) findViewById(R.id.profilepic);
 
 
 
@@ -127,7 +127,7 @@ public class NegotiatorForm extends Activity {
                 Matcher matcher = passwordp.matcher(passwordv);
 
 
-                final ImageView test = (ImageView) findViewById(R.id.profilepic); //
+                final ImageView test = (ImageView) findViewById(R.id.profilepic); //image stored here
                 final Bitmap bmap = ((BitmapDrawable)test.getDrawable()).getBitmap();
                 Drawable myDrawable = getResources().getDrawable(R.drawable.user);
                 final Bitmap myLogo = ((BitmapDrawable) myDrawable).getBitmap();

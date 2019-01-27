@@ -58,7 +58,7 @@ public class Negotiator_final extends AppCompatActivity {
 
         b=(Button)findViewById(R.id.btnSelectID);
 
-        viewImage=(ImageView)findViewById(R.id.idimage); // id picture.
+        viewImage=(ImageView)findViewById(R.id.idimage); // id picture for valid id .
 
 
         TextView term1 = (TextView)findViewById(R.id.terms);

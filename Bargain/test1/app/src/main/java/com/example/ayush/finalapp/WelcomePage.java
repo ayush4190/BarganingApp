@@ -16,8 +16,11 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 
 public class WelcomePage extends AppCompatActivity {
+    FirebaseAuth firebaseAuth;
+    FirebaseUser user;
 
 
 
@@ -26,6 +29,13 @@ public class WelcomePage extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_welcome_page);
 
+        firebaseAuth =FirebaseAuth.getInstance();
+       user =firebaseAuth.getCurrentUser();
+       if(user != null)
+       {
+           //start Negotiator/shopper activity
+            Toast.makeText(WelcomePage.this,"hello its done",Toast.LENGTH_LONG).show();
+       }
         // email =(EditText)findViewById(R.id.email);
         //  password = (EditText)findViewById(R.id.password);
 
