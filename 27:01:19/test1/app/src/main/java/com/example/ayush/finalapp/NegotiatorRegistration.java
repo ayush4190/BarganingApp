@@ -21,10 +21,19 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+
 import java.util.Calendar;
 import java.util.Date;
 
 public class NegotiatorRegistration extends AppCompatActivity {
+    private FirebaseAuth firebaseAuth;
+    private EditText firstname,lastname,phno,ad1 , ad2, city, state, pincode,email;
+    TextView dob ;
+    private DatabaseReference databaseReference , mroot;
+
 
     private static final String TAG = "NegotiatorRegistration";
 
@@ -36,6 +45,7 @@ public class NegotiatorRegistration extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_negotiator_registration);
+        mroot = FirebaseDatabase.getInstance().getReference();
 
         mDisplayDate = (TextView) findViewById(R.id.dob);
 
@@ -114,16 +124,16 @@ public class NegotiatorRegistration extends AppCompatActivity {
         nextButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                EditText firstname = (EditText) findViewById(R.id.firstname);
-                EditText lastname = (EditText) findViewById(R.id.lastname);
-                EditText phno = (EditText) findViewById(R.id.phone);
-                EditText ad1 = (EditText) findViewById(R.id.adlin1);
-                EditText ad2 = (EditText) findViewById(R.id.adline2);
-                EditText city = (EditText) findViewById(R.id.adcity);
-                EditText state = (EditText) findViewById(R.id.adstate);
-                EditText pincode = (EditText) findViewById(R.id.adpincode);
-                TextView dob =(TextView) findViewById(R.id.dob);
-                final EditText email = (EditText) findViewById(R.id.email);
+                 firstname = (EditText) findViewById(R.id.firstname);
+               lastname = (EditText) findViewById(R.id.lastname);
+                 phno = (EditText) findViewById(R.id.phone);
+                ad1 = (EditText) findViewById(R.id.adlin1);
+                 ad2 = (EditText) findViewById(R.id.adline2);
+                city = (EditText) findViewById(R.id.adcity);
+               state = (EditText) findViewById(R.id.adstate);
+                 pincode = (EditText) findViewById(R.id.adpincode);
+                 dob =(TextView) findViewById(R.id.dob);
+                 email = (EditText) findViewById(R.id.email);
                 String emailv = email.getText().toString().trim();
 
                 String emailPattern = "[a-zA-Z0-9._-]+@[a-z]+\\.+[a-z]+";
@@ -189,6 +199,7 @@ public class NegotiatorRegistration extends AppCompatActivity {
                 }
 
                 if(k==11){
+                    basicinfo();
                     Intent myIntent = new Intent(NegotiatorRegistration.this,
                             NegotiatorForm.class);
                     startActivity(myIntent);
@@ -200,4 +211,27 @@ public class NegotiatorRegistration extends AppCompatActivity {
 
 
     }
+    private void basicinfo()
+    {
+        String mfirstname,mlastname,mphno,mad1 , mad2, mcity, mstate, mpincode,memail,mdob ;
+
+        mfirstname =firstname.getText().toString().trim();
+        mlastname =lastname.getText().toString().trim();
+        mad1 =ad1.getText().toString().trim();
+        mad2 =ad2.getText().toString().trim();
+        mphno =phno.getText().toString().trim();
+        mcity=city.getText().toString().trim();
+        mstate =state.getText().toString().trim();
+        mpincode= pincode.getText().toString().trim();
+        memail =email.getText().toString().trim();
+        mdob =dob.getText().toString().trim();
+        NegotiatorProfile profile = new NegotiatorProfile(mfirstname,mlastname,mphno,mad1 , mad2, mcity, mstate, mpincode,memail,mdob);
+        databaseReference= mroot.child("Negotiator");//setValue(profile);
+       databaseReference.child("basic").child(profile.getPhno()).setValue(profile);
+        Toast.makeText(NegotiatorRegistration.this,"Profile Saved",Toast.LENGTH_LONG).show();
+
+
+    }
+
+
 }
