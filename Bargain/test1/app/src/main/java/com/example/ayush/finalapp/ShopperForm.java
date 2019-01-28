@@ -128,7 +128,7 @@ public class ShopperForm extends Activity {
                 if(k==4) {
 
                     Intent myIntent = new Intent(ShopperForm.this,
-                            MainActivity.class);
+                           ShopperHomepage.class);
                     startActivity(myIntent);
                 }
 

@@ -16,6 +16,13 @@
 
 
     </string-array>
+    <string-array name="query_suggestions">
+        <item>Furniture</item>
+        <item>Women Fashion</item>
+        <item>Hotels</item>
+        <item>Man Fashion</item>
+        <item>Electronics Appliances</item>
+    </string-array>
 
     <string name="ioio"><u>Accept Terms and Conditions</u></string>
 
@@ -218,4 +225,11 @@ We are committed to conducting our business in accordance with these principles 
 
 
     </string>
+    <string name="title_activity_shopper_homepage">ShopperHomepage</string>
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="nav_header_title">Android Studio</string>
+    <string name="nav_header_subtitle">android.studio@android.com</string>
+    <string name="nav_header_desc">Navigation header</string>
+    <string name="action_settings">Settings</string>
 </resources>
