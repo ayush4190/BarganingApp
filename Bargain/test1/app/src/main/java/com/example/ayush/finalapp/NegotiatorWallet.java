@@ -1,8 +1,6 @@
 package com.example.ayush.finalapp;
 
 import android.content.Intent;
-import android.net.Uri;
-import android.provider.MediaStore;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -11,16 +9,12 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
-import java.io.File;
-
-public class PaymentActivity extends AppCompatActivity {
-
+public class NegotiatorWallet extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_payment);
-
+        super.onCreate (savedInstanceState);
+        setContentView (R.layout.activity_negotiator_wallet);
         Button button1 = (Button) findViewById(R.id.button1);
         button1.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -35,7 +29,7 @@ public class PaymentActivity extends AppCompatActivity {
         button2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                AlertDialog.Builder mBuilder = new AlertDialog.Builder(PaymentActivity.this);
+                AlertDialog.Builder mBuilder = new AlertDialog.Builder(NegotiatorWallet.this);
                 View mView = getLayoutInflater().inflate(R.layout.activity_add_money,null);
                 final EditText mAmount  = (EditText) mView.findViewById(R.id.add);
                 mBuilder.setView(mView);
@@ -51,13 +45,13 @@ public class PaymentActivity extends AppCompatActivity {
 
                     }
                 });
-             //   mBuilder.setView(mView);
-              //  AlertDialog dialog = mBuilder.create();
-               // dialog.show();
-                    dialog.cancel();
+                //   mBuilder.setView(mView);
+                //  AlertDialog dialog = mBuilder.create();
+                // dialog.show();
+                dialog.cancel();
 
-               // Intent intent = new Intent(v.getContext(),AddMoney.class);
-               // v.getContext().startActivity(intent);
+                // Intent intent = new Intent(v.getContext(),AddMoney.class);
+                // v.getContext().startActivity(intent);
             }
         });
 
@@ -72,3 +66,6 @@ public class PaymentActivity extends AppCompatActivity {
 
     }
 }
+
+
+

@@ -24,6 +24,8 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
@@ -32,13 +34,16 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
+import java.io.Serializable;
 
-public class Negotiator_final extends AppCompatActivity {
+public class Negotiator_final extends AppCompatActivity implements Serializable {
     ImageView viewImage;
     Button b;
      String s1,s2,s3,phone;
      private DatabaseReference databaseReference , mroot;
      private NegotiatorField obj;
+     FirebaseUser user;
+     FirebaseAuth firebaseAuth;
 
 
 
@@ -53,6 +58,8 @@ public class Negotiator_final extends AppCompatActivity {
         final CheckBox rb2= (CheckBox) findViewById(R.id.rb);
        mroot = FirebaseDatabase.getInstance().getReference();
     phone = getIntent().getExtras().getString("phon");
+    firebaseAuth = FirebaseAuth.getInstance ();
+    user = firebaseAuth.getCurrentUser ();
 
         rb2.setChecked(!rb2.isChecked());
 
@@ -190,7 +197,7 @@ public class Negotiator_final extends AppCompatActivity {
 
                 }
                 if(k==2 && rb2.isChecked()){
-                    categoryregis();
+                   // categoryregis();
                     Intent myIntent = new Intent(Negotiator_final.this,
                             MainActivity.class);
                     startActivity(myIntent);
@@ -387,10 +394,13 @@ public class Negotiator_final extends AppCompatActivity {
         cat2 = s2;
         cat3 = s3;
         obj =new NegotiatorField(s1,s2,s3);
+        NegotiatorProfile ob1 ;
+        ob1 = (NegotiatorProfile) getIntent ().getSerializableExtra ("profile");
 
 
         databaseReference = mroot.child("Negotiator");
         databaseReference.child(phone).child("Field").setValue(obj);
+       // databaseReference.child ("Negotiator").child ("Basic").setValue (ob1);
         Toast.makeText(Negotiator_final.this,"Registered successfully",Toast.LENGTH_LONG).show();
 
 

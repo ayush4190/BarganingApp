@@ -19,7 +19,7 @@ public class PaymentGateway extends AppCompatActivity {
         setContentView(R.layout.activity_payment_gateway);
 
       // string = editText.getText().toString();
-        Button button = (Button)findViewById(R.id.PayButton);
+       /* Button button = (Button)findViewById(R.id.PayButton);
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -28,7 +28,7 @@ public class PaymentGateway extends AppCompatActivity {
                 Intent intent = new Intent(v.getContext(),PaymentActivity.class);
                 v.getContext().startActivity(intent);
             }
-        });
+        });*/
 
     }
 }

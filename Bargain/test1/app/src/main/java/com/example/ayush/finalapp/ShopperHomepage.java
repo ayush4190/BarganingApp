@@ -1,8 +1,12 @@
 package com.example.ayush.finalapp;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -12,8 +16,10 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.ImageView;
 import android.widget.SearchView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -27,18 +33,38 @@ public class ShopperHomepage extends AppCompatActivity
     private DatabaseReference fdb;
     FirebaseAuth fba;
     FirebaseUser user;
+    ImageView mwallet;
+    Fragment fragment = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        // creating wallet image button
+        mwallet = (ImageView)findViewById (R.id.wallet);
+
+        // calling wallet page using fragments
+
+
+        ////////////////
+
         msearchview=(SearchView)findViewById(R.id.search);
+
         toolbar=(Toolbar)findViewById(R.id.toolbarbottom);
+
         setContentView(R.layout.activity_shopper_homepage);
+
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+
         setSupportActionBar(toolbar);
+
         fba=FirebaseAuth.getInstance();
+
         user=fba.getCurrentUser();
+
         fdb=FirebaseDatabase.getInstance().getReference();
+
+
+
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
@@ -85,14 +111,16 @@ public class ShopperHomepage extends AppCompatActivity
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
         // Handle navigation view item clicks here.
-        TextView fullname=(TextView)findViewById(R.id.nav_drawer_username);
-        fullname.setText(user.getDisplayName());
+      //  TextView fullname=(TextView)findViewById(R.id.nav_drawer_username);
+        //fullname.setText(user.getDisplayName());
         // user.getEmail();
         //  user.getDisplayName();
+       // Fragment fragment = null;
 
         int id = item.getItemId();
 
         if (id == R.id.nav_camera) {
+            fragment = new PayementActivity ();
             // Handle the camera action
         } else if (id == R.id.nav_gallery) {
 
@@ -106,8 +134,22 @@ public class ShopperHomepage extends AppCompatActivity
 
         }
 
+
+        if(fragment != null)
+        {
+            FragmentManager fragmentManager = getSupportFragmentManager ();
+            FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction ();
+            fragmentTransaction.replace (R.id.content_frame,fragment);
+            fragmentTransaction.commit ();
+        }
+
+
+
+
+
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
     }
+
 }

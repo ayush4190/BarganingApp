@@ -3,7 +3,9 @@ package com.example.ayush.finalapp;
 import android.widget.EditText;
 import android.widget.TextView;
 
-public class NegotiatorProfile {
+import java.io.Serializable;
+
+public class NegotiatorProfile implements Serializable {
     String  firstname,lastname,phno,ad1 , ad2, city, state, pincode,email,dob ;
 
     public NegotiatorProfile(Object profile){}

@@ -42,6 +42,11 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
 
 import java.io.File;
 
@@ -52,19 +57,26 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 
 import java.io.OutputStream;
+import java.io.Serializable;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 
-public class NegotiatorForm extends Activity {
+public class NegotiatorForm extends Activity implements Serializable {
 
 
-    FirebaseAuth firebaseAuth;
-    ImageView viewImage;
+    private FirebaseAuth firebaseAuth;
+    private ImageView viewImage;
+    private FirebaseUser firebaseUser;
 
     private Button b;
    private String p,email;
     private EditText password;
+    private DatabaseReference databaseReference,mroot,temp;
+    private StorageReference storageReference;
+    private Uri uri;
+    public static final String STORAGE_PATH ="image/";
+    public static final String DATABASE_PATH ="image/";
 
 
 
@@ -79,11 +91,13 @@ public class NegotiatorForm extends Activity {
 
         setContentView(R.layout.activity_negotiator_form);
 
-        p = getIntent().getExtras().getString("phon");
-        email = getIntent().getExtras().getString("email");
+    storageReference = FirebaseStorage.getInstance ().getReference ();
+    temp = FirebaseDatabase.getInstance ().getReference ("DATABASE_PATH");
 
         b=(Button)findViewById(R.id.btnSelectPhoto);
     firebaseAuth = FirebaseAuth.getInstance();
+    firebaseUser=firebaseAuth.getCurrentUser ();
+    mroot = FirebaseDatabase.getInstance ().getReference ();
         viewImage=(ImageView)findViewById(R.id.profilepic);
 
         b.setOnClickListener(new View.OnClickListener() {
@@ -162,10 +176,14 @@ public class NegotiatorForm extends Activity {
                 if(k==4) {
 
                     registeruser();
-
+                   // Intent intent = new Intent ();
+                   // intent.setType ("image/");
+                   // intent.setAction (Intent.ACTION_GET_CONTENT);
+                   // startActivityForResult ();
+                    //basicinfo ();
                     Intent myIntent = new Intent(NegotiatorForm.this,
                             Negotiator_final.class);
-                    myIntent.putExtra("phon",p);
+
                     startActivity(myIntent);
                 }
 
@@ -362,8 +380,11 @@ public class NegotiatorForm extends Activity {
 
     private void registeruser()
     {
+       // NegotiatorProfile t;
+       // t=(NegotiatorProfile) getIntent ().getSerializableExtra ("profile");
         String  mpassword;
         mpassword = password.getText().toString().trim();
+       String email = getIntent ().getStringExtra ("email");
         firebaseAuth.createUserWithEmailAndPassword(email,mpassword).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {

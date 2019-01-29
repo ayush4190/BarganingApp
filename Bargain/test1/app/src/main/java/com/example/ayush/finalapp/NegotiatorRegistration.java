@@ -30,10 +30,11 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
+import java.io.Serializable;
 import java.util.Calendar;
 import java.util.Date;
 
-public class NegotiatorRegistration extends AppCompatActivity {
+public class NegotiatorRegistration extends AppCompatActivity implements Serializable {
     private FirebaseAuth firebaseAuth;
     private EditText firstname,lastname,phno,ad1 , ad2, city, state, pincode,email;
     TextView dob ;
@@ -52,7 +53,7 @@ public class NegotiatorRegistration extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_negotiator_registration);
         mroot = FirebaseDatabase.getInstance().getReference();
-       // firebaseAuth = FirebaseAuth.getInstance();
+       firebaseAuth = FirebaseAuth.getInstance();
 
         mDisplayDate = (TextView) findViewById(R.id.dob);
 
@@ -206,13 +207,13 @@ public class NegotiatorRegistration extends AppCompatActivity {
                 }
 
                 if(k==11){
-                   basicinfo();
 
+                        basicinfo ();
                     Intent myIntent = new Intent(NegotiatorRegistration.this,
                             NegotiatorForm.class);
                     myIntent.putExtra("phon",profile.getPhno());
-                    myIntent.putExtra("email",profile.getEmail());
-                   // myIntent.putExtra("profile", (Parcelable) profile);
+                    myIntent.putExtra("email",email.getText().toString().trim());
+                   // myIntent.putExtra("profile",  profile);
                     startActivity(myIntent);
                 }
 

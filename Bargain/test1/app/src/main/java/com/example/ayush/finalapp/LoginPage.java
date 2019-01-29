@@ -28,7 +28,7 @@ public class LoginPage extends AppCompatActivity {
         if (firebaseAuth.getCurrentUser() != null) {
             // Start activity here
             finish();
-            startActivity(new Intent(getApplicationContext(), PaymentActivity.class));
+           startActivity(new Intent(getApplicationContext(), ShopperHomepage.class));
         }
         email =(EditText)findViewById(R.id.email);
         password = (EditText)findViewById(R.id.password);
@@ -50,7 +50,7 @@ public class LoginPage extends AppCompatActivity {
         String memail = email.getText().toString().trim();
         String mpassword = password.getText().toString().trim();
 
-        firebaseAuth.signInWithEmailAndPassword(memail,mpassword).addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
+      /*  firebaseAuth.signInWithEmailAndPassword(memail,mpassword).addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
 
@@ -67,6 +67,6 @@ public class LoginPage extends AppCompatActivity {
                 }
 
             }
-        });
+        });*/
     }
 }

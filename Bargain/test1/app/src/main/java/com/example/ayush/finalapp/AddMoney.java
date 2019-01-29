@@ -28,7 +28,7 @@ public class AddMoney extends AppCompatActivity {
 
 
 
-    Button button4 = (Button)findViewById(R.id.button4);
+   /* Button button4 = (Button)findViewById(R.id.button4);
     button4.setOnClickListener(new View.OnClickListener() {
         @Override
         public void onClick(View v) {
@@ -38,6 +38,6 @@ public class AddMoney extends AppCompatActivity {
             Intent intent = new Intent(v.getContext(),PaymentActivity.class);
             v.getContext().startActivity(intent);
         }
-    });
+    });*/
     }
 }
