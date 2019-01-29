@@ -14,6 +14,7 @@ import android.os.Bundle;
 import android.os.Environment;
 import android.os.StrictMode;
 import android.provider.MediaStore;
+import android.support.annotation.NonNull;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -21,22 +22,35 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.AuthResult;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
+import java.io.Serializable;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 
-public class ShopperForm extends Activity {
+public class ShopperForm extends Activity implements Serializable {
+   private FirebaseAuth firebaseAuth;
+   private FirebaseUser firebaseUser;
+   private DatabaseReference databaseReference, mroot;
 
 
 
     ImageView viewImage;
 
     Button b;
+    String userp, passwordv;
 
 
 
@@ -49,6 +63,7 @@ public class ShopperForm extends Activity {
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.activity_shopper_form);
+        firebaseAuth = FirebaseAuth.getInstance();
 
         b=(Button)findViewById(R.id.btnSelectPhoto);
 
@@ -84,13 +99,13 @@ public class ShopperForm extends Activity {
 
 
                 //username
-                String userp=username.getText().toString().trim();
+                userp=username.getText().toString().trim();
                 final String userv = "^[a-zA-Z0-9]+([_.a-zA-Z0-9])*$";
 
                 Pattern userx= Pattern.compile(userv);
                 Matcher matcher2 = userx.matcher(userp);
 
-                String passwordv = password.getText().toString().trim();
+               passwordv = password.getText().toString().trim();
 
                 final String PASSWORD_PATTERN = "^(?=.*[0-9])(?=.*[A-Z])(?=.*[@#$%^&+=!])(?=\\S+$).{4,}$";
                 Pattern passwordp= Pattern.compile(PASSWORD_PATTERN);
@@ -126,6 +141,9 @@ public class ShopperForm extends Activity {
                 }
 
                 if(k==4) {
+                    registeruser ();
+                    firebaseUser = firebaseAuth.getCurrentUser ();
+                    basic ();
 
                     Intent myIntent = new Intent(ShopperForm.this,
                            ShopperHomepage.class);
@@ -321,7 +339,37 @@ public class ShopperForm extends Activity {
         }
 
     }
+    private void registeruser()
+    {
+        ShopperProfile profile;
+        profile = (ShopperProfile) getIntent ().getSerializableExtra ("profile");
+        String muser, mpass;
+        muser = userp;
+        mpass = passwordv;
+        firebaseAuth.createUserWithEmailAndPassword(profile.getMeamil (),mpass).addOnCompleteListener (new OnCompleteListener<AuthResult> () {
+            @Override
+            public void onComplete(@NonNull Task<AuthResult> task) {
+                if(task.isSuccessful ())
+                {
+                    Toast.makeText (ShopperForm.this,"Shopper registered successfully",Toast.LENGTH_SHORT).show ();
+                }
+                else
+                {
+                    Toast.makeText (ShopperForm.this,"please try after some time",Toast.LENGTH_SHORT).show ();
+                }
+            }
+        });
 
+    }
+
+        private  void basic()
+        {
+            mroot = FirebaseDatabase.getInstance ().getReference ();
+            ShopperProfile ob1;
+            ob1 = (ShopperProfile) getIntent ().getSerializableExtra ("profile");
+            databaseReference = mroot.child (firebaseUser.getUid ());
+            databaseReference.child ("basic").setValue (ob1);
+        }
 }
 
 

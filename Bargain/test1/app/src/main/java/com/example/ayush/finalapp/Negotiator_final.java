@@ -377,6 +377,9 @@ public class Negotiator_final extends AppCompatActivity {
 
         }
     }
+
+
+
     private void categoryregis()
     {
         String cat1,cat2,cat3;

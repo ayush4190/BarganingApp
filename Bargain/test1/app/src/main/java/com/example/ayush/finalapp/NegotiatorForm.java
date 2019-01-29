@@ -68,6 +68,7 @@ public class NegotiatorForm extends Activity {
 
 
 
+
     @Override
 
     protected void onCreate(Bundle savedInstanceState) {
@@ -77,6 +78,7 @@ public class NegotiatorForm extends Activity {
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.activity_negotiator_form);
+
         p = getIntent().getExtras().getString("phon");
         email = getIntent().getExtras().getString("email");
 
@@ -356,6 +358,8 @@ public class NegotiatorForm extends Activity {
         }
 
     }
+    // adding here
+
     private void registeruser()
     {
         String  mpassword;

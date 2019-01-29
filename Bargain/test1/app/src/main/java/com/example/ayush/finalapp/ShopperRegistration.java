@@ -19,15 +19,22 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.io.Serializable;
 import java.util.Calendar;
 import java.util.Date;
 
-public class ShopperRegistration extends AppCompatActivity {
+public class ShopperRegistration extends AppCompatActivity implements Serializable {
     AlertDialog.Builder builder2;
     private static final String TAG = "ShopperRegistration";
+    private ShopperProfile obj;
 
     private TextView mDisplayDate;
     private DatePickerDialog.OnDateSetListener mDateSetListener;
+
+    EditText firstname,lastname, phno ,email;
+    TextView dob ;
+
+    String emailv;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -130,12 +137,12 @@ public class ShopperRegistration extends AppCompatActivity {
         nextButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                EditText firstname = (EditText) findViewById(R.id.firstname);
-                EditText lastname = (EditText) findViewById(R.id.lastname);
-                EditText phno = (EditText) findViewById(R.id.phone);
-                TextView dob =(TextView) findViewById(R.id.dob);
-                final EditText email = (EditText) findViewById(R.id.email);
-                String emailv = email.getText().toString().trim();
+                 firstname = (EditText) findViewById(R.id.firstname);
+                 lastname = (EditText) findViewById(R.id.lastname);
+                 phno = (EditText) findViewById(R.id.phone);
+                dob =(TextView) findViewById(R.id.dob);
+                 email = (EditText) findViewById(R.id.email);
+                 emailv = email.getText().toString().trim();
 
                 String emailPattern = "[a-zA-Z0-9._-]+@[a-z]+\\.+[a-z]+";
 
@@ -171,8 +178,11 @@ public class ShopperRegistration extends AppCompatActivity {
                 }
 
                 if(k==5 && rb2.isChecked()){
+                    assign ();
+
                     Intent myIntent = new Intent(ShopperRegistration.this,
                             ShopperForm.class);
+                    myIntent.putExtra("profile", obj);
                     startActivity(myIntent);
                 }
 
@@ -181,5 +191,15 @@ public class ShopperRegistration extends AppCompatActivity {
         });
 
 
+    }
+    private void assign()
+    {
+        String fname , lmane, meamil,mphone,mdob;
+        fname =firstname.getText().toString().trim();
+        lmane = lastname.getText().toString().trim();
+        meamil = emailv;
+        mphone = phno.getText().toString().trim();
+        mdob = dob.getText().toString().trim();
+        obj = new ShopperProfile(fname,lmane,meamil,mphone,mdob);
     }
 }

@@ -6,7 +6,21 @@ import android.widget.TextView;
 public class NegotiatorProfile {
     String  firstname,lastname,phno,ad1 , ad2, city, state, pincode,email,dob ;
 
-    public NegotiatorProfile(){}
+    public NegotiatorProfile(Object profile){}
+
+    public NegotiatorProfile(NegotiatorProfile temp)
+    {
+        this.firstname = temp.firstname;
+        this.lastname = temp.lastname;
+        this.phno = temp.phno;
+        this.ad1 = temp.ad1;
+        this.ad2 = temp.ad2;
+        this.city = temp.city;
+        this.state = temp.state;
+        this.pincode = temp.pincode;
+        this.email = temp.email;
+        this.dob = temp.dob;
+    }
 
     public NegotiatorProfile(String firstname, String lastname, String phno, String ad1, String ad2, String city, String state, String pincode, String email, String dob) {
         this.firstname = firstname;

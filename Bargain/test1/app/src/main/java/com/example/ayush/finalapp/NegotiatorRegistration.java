@@ -4,6 +4,7 @@ import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
+import android.os.Parcelable;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -205,12 +206,13 @@ public class NegotiatorRegistration extends AppCompatActivity {
                 }
 
                 if(k==11){
-                    basicinfo();
+                   basicinfo();
 
                     Intent myIntent = new Intent(NegotiatorRegistration.this,
                             NegotiatorForm.class);
                     myIntent.putExtra("phon",profile.getPhno());
                     myIntent.putExtra("email",profile.getEmail());
+                   // myIntent.putExtra("profile", (Parcelable) profile);
                     startActivity(myIntent);
                 }
 
