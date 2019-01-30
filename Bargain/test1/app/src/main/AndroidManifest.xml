@@ -22,7 +22,8 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning">
-        <activity android:name=".NegotiatorWallet"></activity>
+        <activity android:name=".NegotiatorId"></activity>
+        <activity android:name=".NegotiatorWallet" />
         <activity
             android:name=".Negotiator_dash"
             android:label="@string/title_activity_negotiator_dash"
@@ -68,6 +69,7 @@
             android:label="ShopperHomepage"
             android:theme="@style/AppTheme.NoActionBar"
             android:windowSoftInputMode="adjustPan" />
+        <activity android:name=".SearchDisplay" />
     </application>
 
 </manifest>

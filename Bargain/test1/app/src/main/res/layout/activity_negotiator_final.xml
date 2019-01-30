@@ -1,101 +1,39 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView
 
+<!--form-->
+<ScrollView
     xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+
     xmlns:tools="http://schemas.android.com/tools"
 
-
+    android:id="@+id/LinearLayout1"
 
     android:layout_width="match_parent"
+
     android:layout_height="match_parent"
-    tools:context=".Negotiator_final"
-    android:orientation="vertical">
+
+    android:orientation="vertical"
+    android:padding="10dp">
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical" >
 
+        android:layout_height="match_parent"
 
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Select your area of expertise"
-            android:textSize="24dp"
-            android:layout_marginLeft="8dp"
-            android:layout_marginTop="10dp"
-            />
-
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="vertical" >
-
-
-            <Spinner
-                android:id="@+id/area1"
-                android:layout_width="200dp"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                />
-
-            <Spinner
-                android:id="@+id/area2"
-                android:layout_width="200dp"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                />
-            <Spinner
-                android:id="@+id/area3"
-                android:layout_width="200dp"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                />
-
-
-        </LinearLayout>
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Profit Share : "
-            android:textSize="24dp"
-            android:layout_marginLeft="8dp"
-            android:layout_marginTop="20dp"
-            />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:id="@+id/profit"
-            android:layout_height="wrap_content"
-            android:text=""
-            android:textSize="24dp"
-            android:layout_marginLeft="8dp"
-            android:layout_marginTop="10dp"
-            />
-
-
+        android:orientation="vertical">
 
 
         <LinearLayout
-
             android:layout_width="match_parent"
-
-            android:layout_height="wrap_content"
-
-
-            android:orientation="horizontal"
-            >
+            android:layout_height="match_parent"
+            android:orientation="horizontal">
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Enter a valid ID : "
                 android:textSize="24dp"
-                android:layout_marginLeft="8dp"
-                android:layout_marginTop="20dp"
-                />
 
+                android:layout_marginTop="20dp" />
 
 
 
@@ -109,21 +47,14 @@
                 android:layout_marginTop="20dp"
                 android:text="Select ID" />
 
-
-
-
         </LinearLayout>
-
         <ImageView
 
             android:id="@+id/idimage"
-
             android:layout_width="133dp"
             android:layout_height="120dp"
             android:layout_marginLeft="10dp"
-            android:layout_marginTop="10dp"
-
-            />
+            android:layout_marginTop="10dp" />
 
         <LinearLayout
 
@@ -133,7 +64,6 @@
 
             android:layout_marginTop="14dp"
             android:orientation="horizontal">
-
 
             <CheckBox
                 android:id="@+id/rb"
@@ -157,18 +87,21 @@
         </LinearLayout>
 
 
+
         <Button
-            android:id="@+id/next3"
-            android:layout_width="129dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="260sp"
+            android:text="Next->"
+            android:textColor="#FFFFFF"
+            android:textSize="18sp"
             android:layout_marginTop="20sp"
             android:layout_marginBottom="20sp"
             android:background="@color/colorPrimary"
-            android:text="Proceed"
-            android:textColor="#FFFFFF"
-            android:textSize="18sp" />
-
+            android:id="@+id/next1"
+            android:layout_marginLeft="300sp"/>
 
     </LinearLayout>
+
+
 </ScrollView>
+

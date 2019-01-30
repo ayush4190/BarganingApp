@@ -1,13 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView
     xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".NegotiatorRegistration"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:padding="10dp">
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -61,158 +60,93 @@
         </LinearLayout>
 
 
-        <!-- <EditText
-             android:layout_width="match_parent"
-             android:layout_height="wrap_content"
-             android:hint="username"
-             android:id="@+id/name"
-             android:layout_marginLeft="8sp"
-
-             />-->
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="8sp"
-            android:text="Email-Id"
-            android:textSize="20sp"
-            android:layout_marginTop="20sp"
-            android:singleLine="true"
-            />
-
-
-
-        <EditText
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:hint="Email-Id"
-            android:id="@+id/email"
-            android:layout_marginLeft="8sp"
-            android:singleLine="true"
-
-            />
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="8sp"
-            android:text="Phone Number"
-            android:textSize="20sp"
-            android:layout_marginTop="20sp" />
-
-
-
-        <EditText
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="Phone number"
-            android:layout_marginLeft="8sp"
-            android:id="@+id/phone"
-            android:inputType="number"
-            android:maxLength="10"
-
-            android:singleLine="true"/>
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="8sp"
-            android:layout_marginTop="20sp"
-            android:hint="Date of Birth"
-            android:textSize="20sp" />
-
-        <TextView
-            android:id="@+id/dob"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="8sp"
-            android:layout_marginTop="20sp"
-            android:hint="Select Date of Birth"
-            android:textSize="20sp"
-            />
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="8sp"
-            android:layout_marginTop="20sp"
-            android:text="Gender"
-            android:textSize="20sp" />
-
-        <Spinner
-            android:id="@+id/gender"
-            android:layout_width="200dp"
-            android:layout_height="wrap_content"
-
-            />
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="8sp"
-            android:layout_marginTop="20sp"
-            android:text="Address"
-            android:textSize="20sp" />
-
-        <EditText
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="House/Flat/Office"
-            android:layout_marginLeft="8sp"
-            android:id="@+id/adlin1"
-            android:singleLine="true"
-            android:maxLength="15"
-            />
-        <EditText
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="Street/Locality"
-            android:layout_marginTop="10sp"
-            android:layout_marginLeft="8sp"
-            android:id="@+id/adline2"
-            android:singleLine="true"
-            android:maxLength="35"
-            />
-        <EditText
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10sp"
-            android:hint="City"
-            android:layout_marginLeft="8sp"
-            android:id="@+id/adcity"
-
-            android:singleLine="true"
-            android:inputType="textCapSentences"
-            />
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:orientation="horizontal"
-            android:layout_marginTop="10sp">
+            android:orientation="vertical">
 
-            <EditText
-                android:layout_width="200sp"
+            <TextView
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="State"
+                android:text="Username"
+                android:textSize="20sp"
                 android:layout_marginLeft="8sp"
-                android:id="@+id/adstate"
+                android:layout_marginTop="20sp"/>
+
+            <EditText
+                android:layout_marginTop="10dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Username"
+                android:layout_marginLeft="8sp"
                 android:singleLine="true"
-                android:inputType="textCapSentences"
-                android:maxLength="20"
+                android:id="@+id/username"
+
+                />
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="8sp"
+                android:text="Email-Id"
+                android:textSize="20sp"
+                android:layout_marginTop="20sp"
+                android:singleLine="true"
+                />
+
+
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:hint="Email-Id"
+                android:id="@+id/email"
+                android:layout_marginLeft="8sp"
+                android:singleLine="true"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="8sp"
+                android:text="Password"
+                android:textSize="20sp"
+                android:layout_marginTop="20sp"
+
                 />
             <EditText
-
-                android:layout_width="125sp"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="Pincode"
-                android:layout_marginRight="8sp"
-                android:layout_marginLeft="20sp"
-                android:id="@+id/adpincode"
-                android:inputType="number"
+                android:hint="Password"
+                android:layout_marginLeft="8sp"
+
+                android:id="@+id/password"
+                android:inputType="textPassword"
                 android:singleLine="true"
-                android:maxLength="6"
+                />
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="8sp"
+                android:text="Confirm Password"
+                android:textSize="20sp"
+                android:layout_marginTop="20sp"
+                />
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Confirm Password"
+                android:layout_marginLeft="8sp"
+                android:inputType="textPassword"
+
+                android:id="@+id/confirm_password"
+
+                android:singleLine="true"
                 />
 
+
+
+            />
         </LinearLayout>
+
 
         <Button
             android:layout_width="wrap_content"

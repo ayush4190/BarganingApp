@@ -2,6 +2,7 @@ package com.example.ayush.finalapp;
 
 import android.app.AlertDialog;
 
+import android.app.DatePickerDialog;
 import android.content.DialogInterface;
 
 import android.content.Intent;
@@ -12,7 +13,9 @@ import android.graphics.Bitmap;
 
 import android.graphics.BitmapFactory;
 
+import android.graphics.Color;
 import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
 
@@ -26,27 +29,29 @@ import android.os.StrictMode;
 import android.provider.MediaStore;
 
 import android.support.annotation.NonNull;
+import android.text.TextUtils;
 import android.util.Log;
 
 import android.view.Menu;
 
 import android.view.View;
 
+import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 
+import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.ayush.finalapp.R;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.storage.FirebaseStorage;
-import com.google.firebase.storage.StorageReference;
 
 import java.io.File;
 
@@ -58,347 +63,294 @@ import java.io.IOException;
 
 import java.io.OutputStream;
 import java.io.Serializable;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 
-public class NegotiatorForm extends Activity implements Serializable {
+public class NegotiatorForm extends Activity {
+
+    //idk
+    FirebaseAuth firebaseAuth;
 
 
-    private FirebaseAuth firebaseAuth;
-    private ImageView viewImage;
-    private FirebaseUser firebaseUser;
+    //2c1
+    private EditText phno,ad1 , ad2, city, state, pincode;
+    TextView dob ;
 
+    private String s1,s2,s3;
+
+    //3
+    ImageView viewImage;
+
+    //3
     private Button b;
-   private String p,email;
-    private EditText password;
-    private DatabaseReference databaseReference,mroot,temp;
-    private StorageReference storageReference;
-    private Uri uri;
-    public static final String STORAGE_PATH ="image/";
-    public static final String DATABASE_PATH ="image/";
+
+    private String p;
+
+    //// object of negotiatordetails class
+
+    NegotiatorDetails details;
 
 
+    //2c1
+    private TextView mDisplayDate;
+    //2c1
+    private DatePickerDialog.OnDateSetListener mDateSetListener;
+
+    /// declaring tag
+    private static final String TAG = "NegotiatorForm";
 
 
+    //idk
     @Override
-
     protected void onCreate(Bundle savedInstanceState) {
-        StrictMode.VmPolicy.Builder builder = new StrictMode.VmPolicy.Builder();
-        StrictMode.setVmPolicy(builder.build());
+        //idk
+        StrictMode.VmPolicy.Builder builder = new StrictMode.VmPolicy.Builder ();
 
-        super.onCreate(savedInstanceState);
+        StrictMode.setVmPolicy (builder.build ());
+        //2
+        super.onCreate (savedInstanceState);
+        //2
+        setContentView (R.layout.activity_negotiator_form);
 
-        setContentView(R.layout.activity_negotiator_form);
+        //idk
 
-    storageReference = FirebaseStorage.getInstance ().getReference ();
-    temp = FirebaseDatabase.getInstance ().getReference ("DATABASE_PATH");
+        //idk
+        firebaseAuth = FirebaseAuth.getInstance ();
 
-        b=(Button)findViewById(R.id.btnSelectPhoto);
-    firebaseAuth = FirebaseAuth.getInstance();
-    firebaseUser=firebaseAuth.getCurrentUser ();
-    mroot = FirebaseDatabase.getInstance ().getReference ();
-        viewImage=(ImageView)findViewById(R.id.profilepic);
+        //2c1
+        //2c1
+        //  mDisplayDate = (TextView) findViewById (R.id.dob);
 
-        b.setOnClickListener(new View.OnClickListener() {
+        //2c1
+        //2
+        //2c1
+        //2c1
+        mDisplayDate = (TextView) findViewById (R.id.dob);
 
+        //2c1
+        mDisplayDate.setOnClickListener (new View.OnClickListener () {
             @Override
+            public void onClick(View view) {
+                Calendar cal = Calendar.getInstance ();
+                int year = cal.get (Calendar.YEAR);
+                int month = cal.get (Calendar.MONTH);
+                int day = cal.get (Calendar.DAY_OF_MONTH);
 
-            public void onClick(View v) {
+                DatePickerDialog dialog = new DatePickerDialog (
+                        NegotiatorForm.this,
+                        android.R.style.Theme_Holo_Light_Dialog_MinWidth,
+                        mDateSetListener,
+                        year, month, day);
 
-                selectImage();
+                dialog.getDatePicker ().setMaxDate (new Date ().getTime ());
+                dialog.getWindow ().setBackgroundDrawable (new ColorDrawable (Color.TRANSPARENT));
+                dialog.show ();
 
             }
-
         });
-        Button nextButton = (Button) findViewById(R.id.next1);
-
-
-        // Capture button clicks
-        nextButton.setOnClickListener(new View.OnClickListener() {
+        mDateSetListener = new DatePickerDialog.OnDateSetListener () {
             @Override
-            public void onClick(View v) {
-                int k=4;
+            public void onDateSet(DatePicker datePicker, int year, int month, int day) {
+                month = month + 1;
+                Log.d (TAG, "onDateSet: mm/dd/yyy: " + month + "/" + day + "/" + year);
 
-
-                password = (EditText) findViewById(R.id.password);
-                EditText confirmpassword = (EditText) findViewById(R.id.confirm_password);
-
-                EditText username = (EditText) findViewById(R.id.username);
-                ImageView propic = (ImageView) findViewById(R.id.profilepic);
-
-
-
-                //username
-                String userp=username.getText().toString().trim();
-                final String userv = "^[a-zA-Z0-9]+([_.a-zA-Z0-9])*$";
-
-                Pattern userx= Pattern.compile(userv);
-                Matcher matcher2 = userx.matcher(userp);
-
-                String passwordv = password.getText().toString().trim();
-
-                final String PASSWORD_PATTERN = "^(?=.*[0-9])(?=.*[A-Z])(?=.*[@#$%^&+=!])(?=\\S+$).{4,}$";
-                Pattern passwordp= Pattern.compile(PASSWORD_PATTERN);
-                Matcher matcher = passwordp.matcher(passwordv);
-
-
-                final ImageView test = (ImageView) findViewById(R.id.profilepic); //image stored here
-                final Bitmap bmap = ((BitmapDrawable)test.getDrawable()).getBitmap();
-                Drawable myDrawable = getResources().getDrawable(R.drawable.user);
-                final Bitmap myLogo = ((BitmapDrawable) myDrawable).getBitmap();
-
-
-
-
-                if(!matcher2.matches()) {
-                    k--;
-                    username.setError("Invalid Username");
-
-                }
-                if(!matcher.matches()) {
-                    k--;
-                    password.setError("Invalid Password");
-
-                }
-                if(!confirmpassword.getText().toString().equals(password.getText().toString())){
-                    k--;
-                    confirmpassword.setError("Passwords are not same");
-                }
-
-
-                if(bmap.sameAs(myLogo)){
-                    k--;
-                    Toast.makeText(NegotiatorForm.this, "Add Profile Picture", Toast.LENGTH_SHORT).show();
-
-                }
-
-                if(k==4) {
-
-                    registeruser();
-                   // Intent intent = new Intent ();
-                   // intent.setType ("image/");
-                   // intent.setAction (Intent.ACTION_GET_CONTENT);
-                   // startActivityForResult ();
-                    //basicinfo ();
-                    Intent myIntent = new Intent(NegotiatorForm.this,
-                            Negotiator_final.class);
-
-                    startActivity(myIntent);
-                }
-
-
+                String date = day + "/" + month + "/" + year;
+                mDisplayDate.setText (date);
             }
-
-        });
-
-    }
+            };
 
 
 
-
-
-
-
-    private void selectImage() {
-
-
-
-        final CharSequence[] options = { "Take Photo", "Choose from Gallery","Cancel" };
-
-
-
-        AlertDialog.Builder builder = new AlertDialog.Builder(NegotiatorForm.this);
-
-        builder.setTitle("Add Photo!");
-
-        builder.setItems(options, new DialogInterface.OnClickListener() {
-
-            @Override
-
-            public void onClick(DialogInterface dialog, int item) {
-
-                if (options[item].equals("Take Photo"))
-
-                {
-
-                    Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-
-                    File f = new File(android.os.Environment.getExternalStorageDirectory(), "temp.jpg");
-
-                    intent.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(f));
-
-                    startActivityForResult(intent,1);
-
-                }
-
-                else if (options[item].equals("Choose from Gallery"))
-
-                {
-
-                    Intent intent = new   Intent(Intent.ACTION_PICK,android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
-
-                    startActivityForResult(intent, 2);
-
-
-
-                }
-
-                else if (options[item].equals("Cancel")) {
-
-                    dialog.dismiss();
-
-                }
-
-            }
-
-        });
-
-        builder.show();
-
-    }
-
-
-
-    @Override
-
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        Log.v("ssasad","RESULTCODE:" + Integer.toString(requestCode) );
-
-        super.onActivityResult(requestCode, resultCode, data);
-
-        if (resultCode == RESULT_OK) {
-
-            if (requestCode == 1) {
-
-                File f = new File(Environment.getExternalStorageDirectory().toString());
-
-                for (File temp : f.listFiles()) {
-
-                    if (temp.getName().equals("temp.jpg")) {
-
-                        f = temp;
-
-                        break;
-
+            //2
+            final Spinner mySpinner = (Spinner) findViewById (R.id.gender);
+            ArrayAdapter <String> myAdapter = new ArrayAdapter <String> (NegotiatorForm.this,
+                    android.R.layout.simple_list_item_1, getResources ().getStringArray (R.array.names)) {
+                @Override
+                public boolean isEnabled(int position) {
+                    if (position == 0) {
+                        // Disable the first item from Spinner
+                        // First item will be use for hint
+                        return false;
+                    } else {
+                        return true;
                     }
-
                 }
 
-                try {
-
-                    Bitmap bitmap;
-
-                    BitmapFactory.Options bitmapOptions = new BitmapFactory.Options();
-
-
-
-                    bitmap = BitmapFactory.decodeFile(f.getAbsolutePath(),
-
-                            bitmapOptions);
-
-
-
-                    viewImage.setImageBitmap(bitmap);
-
-
-
-                    String path = android.os.Environment
-
-                            .getExternalStorageDirectory()
-
-                            + File.separator
-
-                            + "Phoenix" + File.separator + "default";
-
-                    f.delete();
-
-                    OutputStream outFile = null;
-
-                    File file = new File(path, String.valueOf(System.currentTimeMillis()) + ".jpg");
-
-                    try {
-
-                        outFile = new FileOutputStream(file);
-
-                        bitmap.compress(Bitmap.CompressFormat.JPEG, 85, outFile);
-
-                        outFile.flush();
-
-                        outFile.close();
-
-                    } catch (FileNotFoundException e) {
-
-                        e.printStackTrace();
-
-                    } catch (IOException e) {
-
-                        e.printStackTrace();
-
-                    } catch (Exception e) {
-
-                        e.printStackTrace();
-
+                @Override
+                public View getDropDownView(int position, View convertView,
+                                            ViewGroup parent) {
+                    View view = super.getDropDownView (position, convertView, parent);
+                    TextView tv = (TextView) view;
+                    if (position == 0) {
+                        // Set the hint text color gray
+                        tv.setTextColor (Color.GRAY);
+                    } else {
+                        tv.setTextColor (Color.BLACK);
                     }
+                    return view;
+                }
 
-                } catch (Exception e) {
+            };
+                        myAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                        mySpinner.setAdapter(myAdapter);
 
-                    e.printStackTrace();
+
+            Button nextButton = (Button) findViewById (R.id.next1);
+            //2c1
+
+            final Spinner mySpinner1 = (Spinner) findViewById (R.id.area1);
+            final Spinner mySpinner2 = (Spinner) findViewById (R.id.area2);
+            final Spinner mySpinner3 = (Spinner) findViewById (R.id.area3);
+
+            ArrayAdapter <String> myAdapter2 = new ArrayAdapter <String> (NegotiatorForm.this,
+                    android.R.layout.simple_list_item_1, getResources ().getStringArray (R.array.cat)) {
+
+                @Override
+                public View getDropDownView(int position, View convertView,
+                                            ViewGroup parent) {
+                    View view = super.getDropDownView (position, convertView, parent);
+                    TextView tv = (TextView) view;
+                    if (position == 0 || (mySpinner1.getSelectedItemPosition () == position) || (mySpinner2.getSelectedItemPosition () == position) || (mySpinner3.getSelectedItemPosition () == position)) {
+                        // Set the hint text color gray
+
+                        tv.setTextColor (Color.GRAY);
+                    } else {
+                        tv.setTextColor (Color.BLACK);
+                    }
+                    return view;
+                }
+
+            };
+
+
+                myAdapter2.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                mySpinner1.setAdapter(myAdapter2);
+                mySpinner2.setAdapter(myAdapter2);
+                mySpinner3.setAdapter(myAdapter2);
+            ////////////
+                myAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                mySpinner.setAdapter(myAdapter);
+
+            // Capture button clicks
+                nextButton.setOnClickListener(new View.OnClickListener()
+
+            {
+                @Override
+                public void onClick (View v){
+                //idk
+
+                //3
+                ImageView propic = (ImageView) findViewById (R.id.profilepic);
+                //2
+                phno = (EditText) findViewById (R.id.phone);
+                ad1 = (EditText) findViewById (R.id.adlin1);
+                ad2 = (EditText) findViewById (R.id.adline2);
+                city = (EditText) findViewById (R.id.adcity);
+                state = (EditText) findViewById (R.id.adstate);
+                pincode = (EditText) findViewById (R.id.adpincode);
+                dob = (TextView) findViewById (R.id.dob);
+
+
+                s1 = mySpinner1.getSelectedItem ().toString ().trim ();// Stored value is here
+                s2 = mySpinner2.getSelectedItem ().toString ().trim ();
+                s3 = mySpinner3.getSelectedItem ().toString ().trim ();
+                int k = 9;
+
+                //2
+                if (s1.equals ("Select Category") && s2.equals ("Select Category") && s3.equals ("Select Category")) {
+                    k--;
+                    Toast.makeText (NegotiatorForm.this, "not all can be empty", Toast.LENGTH_SHORT).show ();
+                }
+
+                if (TextUtils.isEmpty (dob.getText ())) {
+
+                    k--;
+                    Toast.makeText (NegotiatorForm.this, "Date of Birth is Required!", Toast.LENGTH_SHORT).show ();
+
+                }
+                //2
+                if (TextUtils.isEmpty (phno.getText ()) || phno.length () != 10) {
+
+                    k--;
+                    phno.setError ("Invalid Phone number");
+
+                }
+                //2
+                if (TextUtils.isEmpty (ad1.getText ())) {
+
+                    k--;
+                    ad1.setError ("Full address is required!");
+                }
+
+                //2
+                if (TextUtils.isEmpty (ad2.getText ())) {
+
+                    k--;
+                    ad2.setError ("Full address is required!");
+                }
+                //2
+                if (TextUtils.isEmpty (city.getText ())) {
+
+                    k--;
+                    city.setError ("City is required!");
+                }
+                //2
+                if (TextUtils.isEmpty (state.getText ())) {
+
+                    k--;
+                    state.setError ("State is required!");
+                }
+                //2
+                if (TextUtils.isEmpty (pincode.getText ()) || pincode.length () != 6) {
+                    k--;
+
+                    pincode.setError ("Invalid pincode!");
+                }
+                //2
+                if (mySpinner.getSelectedItem ().toString ().trim ().equals ("Select Gender")) {
+                    k--;
+                    Toast.makeText (NegotiatorForm.this, "Gender is Required!", Toast.LENGTH_SHORT).show ();
+                }
+                //3
+                       /* if (bmap.sameAs (myLogo)) {
+                            k--;
+                            Toast.makeText (NegotiatorForm.this, "Add Profile Picture", Toast.LENGTH_SHORT).show ();
+
+                        }*/
+
+                if (k == 9) {
+
+                    Intent intent = new Intent (NegotiatorForm.this, NegotiatorId.class);
+                    intent.putExtra ("details", (Serializable) details);
+
 
                 }
 
-            } else if (requestCode == 2) {
-
-
-
-                Uri selectedImage = data.getData();
-
-                String[] filePath = { MediaStore.Images.Media.DATA };
-
-                Cursor c = getContentResolver().query(selectedImage,filePath, null, null, null);
-
-                c.moveToFirst();
-
-                int columnIndex = c.getColumnIndex(filePath[0]);
-
-                String picturePath = c.getString(columnIndex);
-
-                c.close();
-
-                Bitmap thumbnail = (BitmapFactory.decodeFile(picturePath));
-
-                Log.w("pery", picturePath+"");
-
-                viewImage.setImageBitmap(thumbnail);
 
             }
+
+            });
 
         }
 
-    }
-    // adding here
 
-    private void registeruser()
+
+
+
+    private void negotiatordetails()
     {
-       // NegotiatorProfile t;
-       // t=(NegotiatorProfile) getIntent ().getSerializableExtra ("profile");
-        String  mpassword;
-        mpassword = password.getText().toString().trim();
-       String email = getIntent ().getStringExtra ("email");
-        firebaseAuth.createUserWithEmailAndPassword(email,mpassword).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
-            @Override
-            public void onComplete(@NonNull Task<AuthResult> task) {
-                if (task.isSuccessful()) {
-                    Toast.makeText(NegotiatorForm.this, "user registered ", Toast.LENGTH_LONG).show();
-                }
-                else
-                {
-                    Toast.makeText(NegotiatorForm.this,"Please try after sometime",Toast.LENGTH_LONG).show();
-                }
-            }
-        });
+        details = new NegotiatorDetails ();
+        details.setAddress (ad1.getText ().toString ().trim () + ad2.getText ().toString ().trim ());
+        details.setCity (city.getText ().toString ().trim ());
+        details.setState (state.getText ().toString ().trim ());
+        details.setPincode (pincode.getText ().toString ().trim ());
+        details.setDob (dob.getText ().toString ().trim ());
+        details.setPhone (phno.getText ().toString ().trim ());
 
     }
+    }
 
-}
 

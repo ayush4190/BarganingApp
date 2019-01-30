@@ -22,184 +22,112 @@ import android.widget.Toast;
 import java.io.Serializable;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class ShopperRegistration extends AppCompatActivity implements Serializable {
-    AlertDialog.Builder builder2;
-    private static final String TAG = "ShopperRegistration";
-    private ShopperProfile obj;
+ private ShopperProfile obj;
 
-    private TextView mDisplayDate;
-    private DatePickerDialog.OnDateSetListener mDateSetListener;
+    String userp, passwordv;
 
-    EditText firstname,lastname, phno ,email;
-    TextView dob ;
+    EditText firstname,lastname,email;
 
     String emailv;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_shopper_registration);
+        super.onCreate (savedInstanceState);
+        setContentView (R.layout.activity_shopper_registration);
 
-        final CheckBox rb2= (CheckBox) findViewById(R.id.rb);
-
-        rb2.setChecked(!rb2.isChecked());
-        TextView term1 = (TextView)findViewById(R.id.terms);
-
-        term1.setOnClickListener(new View.OnClickListener() {
-
-            @Override
-            public void onClick(final View v) {
-
-
-                builder2 = new AlertDialog.Builder(ShopperRegistration.this);
-
-                LayoutInflater inflater = ShopperRegistration.this.getLayoutInflater();
-                builder2.setView(inflater.inflate(R.layout.terms, null))
-                        // Add action buttons
-
-                        .setPositiveButton("Accept", new DialogInterface.OnClickListener() {
-                            @Override
-
-                            public void onClick(DialogInterface dialog, int id) {
-                                // sign in the user ...
-                                //radio
-                                CheckBox rb= (CheckBox) findViewById(R.id.rb);
-                                rb.setChecked(true);
-
-
-                            }
-                        })
-                        .setNegativeButton("Decline", new DialogInterface.OnClickListener() {
-                            public void onClick(DialogInterface dialog, int id) {
-                                CheckBox rb= (CheckBox) findViewById(R.id.rb);
-                                if(rb.isChecked())
-                                    rb.setChecked(!rb.isChecked());
-                                dialog.cancel();
-                            }
-                        });
-
-
-                //Setting message manually and performing action on button click
-                builder2.setCancelable(false);
-
-                //Creating dialog box
-                AlertDialog alert = builder2.create();
-
-                alert.show();
-
-            }
-
-
-
-
-            //
-
-        });
-        mDisplayDate = (TextView) findViewById(R.id.dob);
-
-        mDisplayDate.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Calendar cal = Calendar.getInstance();
-                int year = cal.get(Calendar.YEAR);
-                int month = cal.get(Calendar.MONTH);
-                int day = cal.get(Calendar.DAY_OF_MONTH);
-
-                DatePickerDialog dialog = new DatePickerDialog(
-                        ShopperRegistration.this,
-                        android.R.style.Theme_Holo_Light_Dialog_MinWidth,
-                        mDateSetListener,
-                        year,month,day);
-
-                dialog.getDatePicker().setMaxDate(new Date().getTime());
-                dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
-                dialog.show();
-            }
-        });
-
-        mDateSetListener = new DatePickerDialog.OnDateSetListener() {
-            @Override
-            public void onDateSet(DatePicker datePicker, int year, int month, int day) {
-                month = month + 1;
-                Log.d(TAG, "onDateSet: mm/dd/yyy: " + month + "/" + day + "/" + year);
-
-                String date = day + "/" + month + "/" + year;
-                mDisplayDate.setText(date);
-            }
-        };
-
-
-
-        Button nextButton = (Button) findViewById(R.id.next1);
+        Button nextButton = (Button) findViewById (R.id.next1);
 
         // Capture button clicks
-        nextButton.setOnClickListener(new View.OnClickListener() {
+        nextButton.setOnClickListener (new View.OnClickListener () {
             @Override
             public void onClick(View v) {
-                 firstname = (EditText) findViewById(R.id.firstname);
-                 lastname = (EditText) findViewById(R.id.lastname);
-                 phno = (EditText) findViewById(R.id.phone);
-                dob =(TextView) findViewById(R.id.dob);
-                 email = (EditText) findViewById(R.id.email);
-                 emailv = email.getText().toString().trim();
+
+                EditText username=(EditText) findViewById (R.id.username);
+                EditText confirmpassword=(EditText) findViewById (R.id.confirm_password);
+                EditText password=(EditText) findViewById (R.id.password);
+
+
+                userp = username.getText ().toString ().trim ();
+                final String userv = "^[a-zA-Z0-9]+([_.a-zA-Z0-9])*$";
+
+                Pattern userx = Pattern.compile (userv);
+                Matcher matcher2 = userx.matcher (userp);
+
+                passwordv = password.getText ().toString ().trim ();
+
+                final String PASSWORD_PATTERN = "^(?=.*[0-9])(?=.*[A-Z])(?=.*[@#$%^&+=!])(?=\\S+$).{4,}$";
+                Pattern passwordp = Pattern.compile (PASSWORD_PATTERN);
+                Matcher matcher = passwordp.matcher (passwordv);
+
+
+                firstname = (EditText) findViewById (R.id.firstname);
+                lastname = (EditText) findViewById (R.id.lastname);
+                email = (EditText) findViewById (R.id.email);
+                emailv = email.getText ().toString ().trim ();
 
                 String emailPattern = "[a-zA-Z0-9._-]+@[a-z]+\\.+[a-z]+";
 
-                int k=5;
-                if( TextUtils.isEmpty(firstname.getText())){
+                int k = 6;
+                if (TextUtils.isEmpty (firstname.getText ())) {
                     k--;
 
-                    firstname.setError( "First name is required!" );
-
-                } if( TextUtils.isEmpty(lastname.getText())){
-
-                    k--;
-                    lastname.setError( "Last name is required!" );
+                    firstname.setError ("First name is required!");
 
                 }
-                if( TextUtils.isEmpty(dob.getText())) {
+                if (TextUtils.isEmpty (lastname.getText ())) {
 
                     k--;
-                    Toast.makeText(ShopperRegistration.this, "Date of Birth is Required!", Toast.LENGTH_SHORT).show();
+                    lastname.setError ("Last name is required!");
 
                 }
-                if( TextUtils.isEmpty(phno.getText()) || phno.length()!=10) {
-
+                if (!matcher2.matches ()) {
                     k--;
-                    phno.setError("Invalid Phone number");
+                    username.setError ("Invalid Username");
 
                 }
-                if (!(emailv.matches(emailPattern)))
-                {
+                if (!matcher.matches ()) {
                     k--;
-                    email.setError("Invalid Email-Id");
+                    password.setError ("Invalid Password");
+
+                }
+                if (!confirmpassword.getText ().toString ().equals (password.getText ().toString ())) {
+                    k--;
+                    confirmpassword.setError ("Passwords are not same");
+                }
+
+                if (!(emailv.matches (emailPattern))) {
+                    k--;
+                    email.setError ("Invalid Email-Id");
                     // Toast.makeText(getApplicationContext(),"invalid email address",Toast.LENGTH_SHORT).show();
                 }
 
-                if(k==5 && rb2.isChecked()){
-                    assign ();
+                if (k == 6) {
+//                    assign ();
 
-                    Intent myIntent = new Intent(ShopperRegistration.this,
+                    Intent myIntent = new Intent (ShopperRegistration.this,
                             ShopperForm.class);
-                    myIntent.putExtra("profile", obj);
-                    startActivity(myIntent);
+//                    myIntent.putExtra ("profile", obj);
+                    startActivity (myIntent);
                 }
 
             }
 
         });
 
-
     }
-    private void assign()
-    {
-        String fname , lmane, meamil,mphone,mdob;
-        fname =firstname.getText().toString().trim();
-        lmane = lastname.getText().toString().trim();
-        meamil = emailv;
-        mphone = phno.getText().toString().trim();
-        mdob = dob.getText().toString().trim();
-        obj = new ShopperProfile(fname,lmane,meamil,mphone,mdob);
-    }
+//
+//    private void assign()
+//    {
+//        String fname , lmane, meamil,mphone,mdob;
+//        fname =firstname.getText().toString().trim();
+//        lmane = lastname.getText().toString().trim();
+//        meamil = emailv;
+//        mphone = phno.getText().toString().trim();
+//        mdob = dob.getText().toString().trim();
+//        obj = new ShopperProfile(fname,lmane,meamil,mphone,mdob);
+//    }
 }

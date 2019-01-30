@@ -2,12 +2,15 @@ package com.example.ayush.finalapp;
 
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.app.DatePickerDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Color;
 import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Bundle;
@@ -15,11 +18,16 @@ import android.os.Environment;
 import android.os.StrictMode;
 import android.provider.MediaStore;
 import android.support.annotation.NonNull;
+import android.text.TextUtils;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
+import android.widget.CheckBox;
+import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -36,21 +44,36 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.io.Serializable;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 
 public class ShopperForm extends Activity implements Serializable {
-   private FirebaseAuth firebaseAuth;
+    AlertDialog.Builder builder2;
+
+    private static final String TAG = "ShopperForm";
+
+    private FirebaseAuth firebaseAuth;
    private FirebaseUser firebaseUser;
    private DatabaseReference databaseReference, mroot;
 
+
+    EditText phno;
+    TextView dob ;
 
 
     ImageView viewImage;
 
     Button b;
-    String userp, passwordv;
+
+
+    private TextView mDisplayDate;
+    private DatePickerDialog.OnDateSetListener mDateSetListener;
+
+
+
 
 
 
@@ -61,7 +84,93 @@ public class ShopperForm extends Activity implements Serializable {
         StrictMode.setVmPolicy(builder.build());
 
         super.onCreate(savedInstanceState);
+        final CheckBox rb2= (CheckBox) findViewById(R.id.rb);
+        rb2.setChecked(!rb2.isChecked());
+        TextView term1 = (TextView)findViewById(R.id.terms);
 
+        term1.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(final View v) {
+
+
+                builder2 = new AlertDialog.Builder(ShopperForm.this);
+
+                LayoutInflater inflater = ShopperForm.this.getLayoutInflater();
+                builder2.setView(inflater.inflate(R.layout.terms, null))
+                        // Add action buttons
+
+                        .setPositiveButton("Accept", new DialogInterface.OnClickListener() {
+                            @Override
+
+                            public void onClick(DialogInterface dialog, int id) {
+                                // sign in the user ...
+                                //radio
+                                CheckBox rb= (CheckBox) findViewById(R.id.rb);
+                                rb.setChecked(true);
+
+
+                            }
+                        })
+                        .setNegativeButton("Decline", new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int id) {
+                                CheckBox rb= (CheckBox) findViewById(R.id.rb);
+                                if(rb.isChecked())
+                                    rb.setChecked(!rb.isChecked());
+                                dialog.cancel();
+                            }
+                        });
+
+
+                //Setting message manually and performing action on button click
+                builder2.setCancelable(false);
+
+                //Creating dialog box
+                AlertDialog alert = builder2.create();
+
+                alert.show();
+
+            }
+
+
+
+
+            //
+
+        });
+
+        mDisplayDate = (TextView) findViewById(R.id.dob);
+
+        mDisplayDate.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Calendar cal = Calendar.getInstance();
+                int year = cal.get(Calendar.YEAR);
+                int month = cal.get(Calendar.MONTH);
+                int day = cal.get(Calendar.DAY_OF_MONTH);
+
+                DatePickerDialog dialog = new DatePickerDialog(
+                        ShopperForm.this,
+                        android.R.style.Theme_Holo_Light_Dialog_MinWidth,
+                        mDateSetListener,
+                        year,month,day);
+
+                dialog.getDatePicker().setMaxDate(new Date ().getTime());
+                dialog.getWindow().setBackgroundDrawable(new ColorDrawable (Color.TRANSPARENT));
+                dialog.show();
+            }
+        });
+
+        mDateSetListener = new DatePickerDialog.OnDateSetListener() {
+            @Override
+            public void onDateSet(DatePicker datePicker, int year, int month, int day) {
+                month = month + 1;
+                Log.d(TAG, "onDateSet: mm/dd/yyy: " + month + "/" + day + "/" + year);
+
+                String date = day + "/" + month + "/" + year;
+                mDisplayDate.setText(date);
+            }
+        };
         setContentView(R.layout.activity_shopper_form);
         firebaseAuth = FirebaseAuth.getInstance();
 
@@ -89,6 +198,8 @@ public class ShopperForm extends Activity implements Serializable {
             public void onClick(View v) {
                 int k=4;
 
+                phno = (EditText) findViewById(R.id.phone);
+                dob =(TextView) findViewById(R.id.dob);
 
                 final EditText password = (EditText) findViewById(R.id.password);
                 EditText confirmpassword = (EditText) findViewById(R.id.confirm_password);
@@ -99,40 +210,24 @@ public class ShopperForm extends Activity implements Serializable {
 
 
                 //username
-                userp=username.getText().toString().trim();
-                final String userv = "^[a-zA-Z0-9]+([_.a-zA-Z0-9])*$";
-
-                Pattern userx= Pattern.compile(userv);
-                Matcher matcher2 = userx.matcher(userp);
-
-               passwordv = password.getText().toString().trim();
-
-                final String PASSWORD_PATTERN = "^(?=.*[0-9])(?=.*[A-Z])(?=.*[@#$%^&+=!])(?=\\S+$).{4,}$";
-                Pattern passwordp= Pattern.compile(PASSWORD_PATTERN);
-                Matcher matcher = passwordp.matcher(passwordv);
-
 
                 final ImageView test = (ImageView) findViewById(R.id.profilepic);
                 final Bitmap bmap = ((BitmapDrawable)test.getDrawable()).getBitmap();
                 Drawable myDrawable = getResources().getDrawable(R.drawable.user);
                 final Bitmap myLogo = ((BitmapDrawable) myDrawable).getBitmap();
 
+                if( TextUtils.isEmpty(dob.getText())) {
 
-                if(!matcher2.matches()) {
                     k--;
-                    username.setError("Invalid Username");
+                    Toast.makeText(ShopperForm.this, "Date of Birth is Required!", Toast.LENGTH_SHORT).show();
 
                 }
-                if(!matcher.matches()) {
+                if( TextUtils.isEmpty(phno.getText()) || phno.length()!=10) {
+
                     k--;
-                    password.setError("Invalid Password");
+                    phno.setError("Invalid Phone number");
 
                 }
-                if(!confirmpassword.getText().toString().equals(password.getText().toString())){
-                    k--;
-                    confirmpassword.setError("Passwords are not same");
-                }
-
 
                 if(bmap.sameAs(myLogo)){
                     k--;
@@ -140,11 +235,11 @@ public class ShopperForm extends Activity implements Serializable {
 
                 }
 
-                if(k==4) {
-                    registeruser ();
+                if(k==4  && rb2.isChecked()) {
+//                    registeruser ();
                     firebaseUser = firebaseAuth.getCurrentUser ();
-                    basic ();
-
+                   // basic ();
+//// open this activity only when shoper is signed in or has  registered successfully.
                     Intent myIntent = new Intent(ShopperForm.this,
                            ShopperHomepage.class);
                     startActivity(myIntent);
@@ -339,37 +434,38 @@ public class ShopperForm extends Activity implements Serializable {
         }
 
     }
-    private void registeruser()
-    {
-        ShopperProfile profile;
-        profile = (ShopperProfile) getIntent ().getSerializableExtra ("profile");
-        String muser, mpass;
-        muser = userp;
-        mpass = passwordv;
-        firebaseAuth.createUserWithEmailAndPassword(profile.getMeamil (),mpass).addOnCompleteListener (new OnCompleteListener<AuthResult> () {
-            @Override
-            public void onComplete(@NonNull Task<AuthResult> task) {
-                if(task.isSuccessful ())
-                {
-                    Toast.makeText (ShopperForm.this,"Shopper registered successfully",Toast.LENGTH_SHORT).show ();
-                }
-                else
-                {
-                    Toast.makeText (ShopperForm.this,"please try after some time",Toast.LENGTH_SHORT).show ();
-                }
-            }
-        });
 
-    }
+//    private void registeruser()
+//    {
+//        ShopperProfile profile;
+//        profile = (ShopperProfile) getIntent ().getSerializableExtra ("profile");
+//        String muser, mpass;
+//        muser = userp;
+//        mpass = passwordv;
+//        firebaseAuth.createUserWithEmailAndPassword(profile.getMeamil (),mpass).addOnCompleteListener (new OnCompleteListener<AuthResult> () {
+//            @Override
+//            public void onComplete(@NonNull Task<AuthResult> task) {
+//                if(task.isSuccessful ())
+//                {
+//                    Toast.makeText (ShopperForm.this,"Shopper registered successfully",Toast.LENGTH_SHORT).show ();
+//                }
+//                else
+//                {
+//                    Toast.makeText (ShopperForm.this,"please try after some time",Toast.LENGTH_SHORT).show ();
+//                }
+//            }
+//        });
+//
+//    }
 
-        private  void basic()
+      /*  private  void basic()
         {
             mroot = FirebaseDatabase.getInstance ().getReference ();
             ShopperProfile ob1;
             ob1 = (ShopperProfile) getIntent ().getSerializableExtra ("profile");
             databaseReference = mroot.child (firebaseUser.getUid ());
             databaseReference.child ("basic").setValue (ob1);
-        }
+        }*/
 }
 
 
