@@ -1,5 +1,6 @@
 package com.example.ayush.finalapp;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
@@ -36,16 +37,12 @@ public class ShopperHomepage extends AppCompatActivity
     ImageView mwallet;
     Fragment fragment = null;
 
+    @SuppressLint("WrongViewCast")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        // creating wallet image button
-        mwallet = (ImageView)findViewById (R.id.wallet);
-
-        // calling wallet page using fragments
 
 
-        ////////////////
 
         msearchview=(SearchView)findViewById(R.id.search);
 
@@ -62,7 +59,19 @@ public class ShopperHomepage extends AppCompatActivity
         user=fba.getCurrentUser();
 
         fdb=FirebaseDatabase.getInstance().getReference();
+        ////////// creating wallet butoon
+        mwallet = (ImageView) findViewById (R.id.wallet);
 
+        // calling wallet page using fragments
+        mwallet.setOnClickListener (new View.OnClickListener () {
+            @Override
+            public void onClick(View v) {
+                FragmentTransaction fragmentTransaction = getSupportFragmentManager ().beginTransaction ();
+                fragmentTransaction.add (R.id.content_frame,new PayementActivity ());
+                fragmentTransaction.commit ();
+
+            }
+        });
 
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
@@ -120,7 +129,7 @@ public class ShopperHomepage extends AppCompatActivity
         int id = item.getItemId();
 
         if (id == R.id.nav_camera) {
-            fragment = new PayementActivity ();
+
             // Handle the camera action
         } else if (id == R.id.nav_gallery) {
 
@@ -135,13 +144,13 @@ public class ShopperHomepage extends AppCompatActivity
         }
 
 
-        if(fragment != null)
+      /*  if(fragment != null)
         {
             FragmentManager fragmentManager = getSupportFragmentManager ();
             FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction ();
             fragmentTransaction.replace (R.id.content_frame,fragment);
             fragmentTransaction.commit ();
-        }
+        }*/
 
 
 
