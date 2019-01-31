@@ -17,6 +17,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.SearchView;
 import android.widget.TextView;
@@ -30,21 +31,19 @@ import com.google.firebase.database.FirebaseDatabase;
 public class ShopperHomepage extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
     Toolbar toolbar;
-    SearchView msearchview;
     private DatabaseReference fdb;
     FirebaseAuth fba;
     FirebaseUser user;
     ImageView mwallet;
     Fragment fragment = null;
+    ImageView mcommunity;
+    ImageView mfav;
+
 
     @SuppressLint("WrongViewCast")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-
-
-        msearchview=(SearchView)findViewById(R.id.search);
 
         toolbar=(Toolbar)findViewById(R.id.toolbarbottom);
 
@@ -59,20 +58,49 @@ public class ShopperHomepage extends AppCompatActivity
         user=fba.getCurrentUser();
 
         fdb=FirebaseDatabase.getInstance().getReference();
-        ////////// creating wallet butoon
-        mwallet = (ImageView) findViewById (R.id.wallet);
+
+        mwallet = (ImageView) findViewById (R.id.wallet);//creating the buttons
+        mcommunity=(ImageView)findViewById(R.id.communityimage);
+        mfav=(ImageView)findViewById(R.id.favimage);
+        // notification =(MenuItem) findViewById(R.id.action_notification);
+
+
+
+        //setting the first fragment
+        FragmentTransaction fragmentTransaction = getSupportFragmentManager ().beginTransaction ();
+        fragmentTransaction.replace(R.id.content_frame,new HomeShopperfrag ());
+        fragmentTransaction.commit ();
 
         // calling wallet page using fragments
         mwallet.setOnClickListener (new View.OnClickListener () {
             @Override
             public void onClick(View v) {
                 FragmentTransaction fragmentTransaction = getSupportFragmentManager ().beginTransaction ();
-                fragmentTransaction.add (R.id.content_frame,new PayementActivity ());
+                fragmentTransaction.replace(R.id.content_frame,new PayementActivity ());
                 fragmentTransaction.commit ();
 
             }
         });
+        // calling community page using fragments
+        mcommunity.setOnClickListener (new View.OnClickListener () {
+            @Override
+            public void onClick(View v) {
+                FragmentTransaction fragmentTransaction = getSupportFragmentManager ().beginTransaction ();
+                fragmentTransaction.replace(R.id.content_frame,new CommunityFragment());
+                fragmentTransaction.commit ();
 
+            }
+        });
+        //calling favourite page
+        mfav.setOnClickListener (new View.OnClickListener () {
+            @Override
+            public void onClick(View v) {
+                FragmentTransaction fragmentTransaction = getSupportFragmentManager ().beginTransaction ();
+                fragmentTransaction.replace(R.id.content_frame,new HomeShopperfrag());
+                fragmentTransaction.commit ();
+
+            }
+        });
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
@@ -112,6 +140,12 @@ public class ShopperHomepage extends AppCompatActivity
         if (id == R.id.action_search) {//R.id.action_setting
             return true;
         }
+        if(id == R.id.action_notification){
+//to open notification as a fragment
+            FragmentTransaction fragmentTransaction = getSupportFragmentManager ().beginTransaction ();
+            fragmentTransaction.replace(R.id.content_frame,new NotificationFrag());
+            fragmentTransaction.commit ();
+        }
 
         return super.onOptionsItemSelected(item);
     }
@@ -120,11 +154,11 @@ public class ShopperHomepage extends AppCompatActivity
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
         // Handle navigation view item clicks here.
-      //  TextView fullname=(TextView)findViewById(R.id.nav_drawer_username);
+        //  TextView fullname=(TextView)findViewById(R.id.nav_drawer_username);
         //fullname.setText(user.getDisplayName());
         // user.getEmail();
         //  user.getDisplayName();
-       // Fragment fragment = null;
+        // Fragment fragment = null;
 
         int id = item.getItemId();
 

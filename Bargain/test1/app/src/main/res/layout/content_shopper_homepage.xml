@@ -17,30 +17,7 @@
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical">
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:layout_marginLeft="8dp">
 
-
-                <Button
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Select\nLocation"
-                    android:textSize="12dp"/>
-
-                <SearchView
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_gravity="end"
-                    android:id="@+id/search"
-                    android:clickable="true"
-                    android:queryHint="Search by product or shop "
-                    android:iconifiedByDefault="false"
-                    />
-
-            </LinearLayout>
 
             <ListView
                 android:id="@+id/list_view"
@@ -82,19 +59,22 @@
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
                         android:layout_weight="25"
-                        android:src="@drawable/ic_group_black_24dp"/>
+                        android:src="@drawable/ic_group_black_24dp"
+                        android:id="@+id/communityimage"/>
 
                     <ImageView
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
                         android:layout_weight="25"
-                        android:src="@drawable/ic_favorite_black_24dp"/>
+                        android:src="@drawable/ic_favorite_black_24dp"
+                        android:id="@+id/favimage"/>
 
                     <ImageView
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
                         android:layout_weight="25"
-                        android:src="@drawable/ic_settings_black_24dp"/>
+                        android:src="@drawable/ic_settings_black_24dp"
+                        android:id="@+id/settingimage"/>
 
 
 

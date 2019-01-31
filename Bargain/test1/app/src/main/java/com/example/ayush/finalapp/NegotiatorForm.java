@@ -1,38 +1,20 @@
 package com.example.ayush.finalapp;
 
-import android.app.AlertDialog;
-
 import android.app.DatePickerDialog;
-import android.content.DialogInterface;
 
 import android.content.Intent;
 
-import android.database.Cursor;
-
-import android.graphics.Bitmap;
-
-import android.graphics.BitmapFactory;
-
 import android.graphics.Color;
-import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.ColorDrawable;
-import android.graphics.drawable.Drawable;
-import android.net.Uri;
 
 import android.os.Bundle;
 
 import android.app.Activity;
 
-import android.os.Environment;
-
 import android.os.StrictMode;
-import android.provider.MediaStore;
 
-import android.support.annotation.NonNull;
 import android.text.TextUtils;
 import android.util.Log;
-
-import android.view.Menu;
 
 import android.view.View;
 
@@ -47,32 +29,25 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.ayush.finalapp.R;
-import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
-import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
-import java.io.File;
-
-import java.io.FileNotFoundException;
-
-import java.io.FileOutputStream;
-
-import java.io.IOException;
-
-import java.io.OutputStream;
 import java.io.Serializable;
 import java.util.Calendar;
 import java.util.Date;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 
 public class NegotiatorForm extends Activity {
 
     //idk
     FirebaseAuth firebaseAuth;
+
+    ////Firebase user object gor getting user id
+
+    FirebaseUser mUser;
 
 
     //2c1
@@ -119,6 +94,8 @@ public class NegotiatorForm extends Activity {
 
         //idk
         firebaseAuth = FirebaseAuth.getInstance ();
+
+        mUser = firebaseAuth.getCurrentUser ();
 
         //2c1
         //2c1
@@ -322,9 +299,11 @@ public class NegotiatorForm extends Activity {
                         }*/
 
                 if (k == 9) {
+                    negotiatordetails ();
 
                     Intent intent = new Intent (NegotiatorForm.this, NegotiatorId.class);
-                    intent.putExtra ("details", (Serializable) details);
+                   // intent.putExtra ("details", (Serializable) details);
+
 
 
                 }
@@ -349,6 +328,10 @@ public class NegotiatorForm extends Activity {
         details.setPincode (pincode.getText ().toString ().trim ());
         details.setDob (dob.getText ().toString ().trim ());
         details.setPhone (phno.getText ().toString ().trim ());
+        DatabaseReference mroot = FirebaseDatabase.getInstance ().getReference ();
+        Task <Void> databaseReference = mroot.child ("Negotiator").child (mUser.getUid ()).setValue (details);
+        Toast.makeText (NegotiatorForm.this,"details entered",Toast.LENGTH_SHORT).show ();
+
 
     }
     }
