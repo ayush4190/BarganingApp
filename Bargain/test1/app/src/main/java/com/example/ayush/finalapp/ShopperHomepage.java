@@ -8,6 +8,7 @@ import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
+import android.util.Log;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -45,9 +46,13 @@ public class ShopperHomepage extends AppCompatActivity
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+
+
+
         toolbar=(Toolbar)findViewById(R.id.toolbarbottom);
 
         setContentView(R.layout.activity_shopper_homepage);
+
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
 
@@ -68,7 +73,7 @@ public class ShopperHomepage extends AppCompatActivity
 
         //setting the first fragment
         FragmentTransaction fragmentTransaction = getSupportFragmentManager ().beginTransaction ();
-        fragmentTransaction.replace(R.id.content_frame,new HomeShopperfrag ());
+        fragmentTransaction.replace(R.id.content_frame,new HomeShopperfrag (),"Homefrag");
         fragmentTransaction.commit ();
 
         // calling wallet page using fragments
@@ -77,6 +82,7 @@ public class ShopperHomepage extends AppCompatActivity
             public void onClick(View v) {
                 FragmentTransaction fragmentTransaction = getSupportFragmentManager ().beginTransaction ();
                 fragmentTransaction.replace(R.id.content_frame,new PayementActivity ());
+                fragmentTransaction.addToBackStack("wallet");
                 fragmentTransaction.commit ();
 
             }
@@ -87,6 +93,7 @@ public class ShopperHomepage extends AppCompatActivity
             public void onClick(View v) {
                 FragmentTransaction fragmentTransaction = getSupportFragmentManager ().beginTransaction ();
                 fragmentTransaction.replace(R.id.content_frame,new CommunityFragment());
+                fragmentTransaction.addToBackStack("community");
                 fragmentTransaction.commit ();
 
             }
@@ -97,6 +104,7 @@ public class ShopperHomepage extends AppCompatActivity
             public void onClick(View v) {
                 FragmentTransaction fragmentTransaction = getSupportFragmentManager ().beginTransaction ();
                 fragmentTransaction.replace(R.id.content_frame,new HomeShopperfrag());
+                fragmentTransaction.addToBackStack("fav");
                 fragmentTransaction.commit ();
 
             }
@@ -112,14 +120,19 @@ public class ShopperHomepage extends AppCompatActivity
         navigationView.setNavigationItemSelectedListener(this);
     }
 
+
     @Override
     public void onBackPressed() {
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+
+       DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         if (drawer.isDrawerOpen(GravityCompat.START)) {
-            drawer.closeDrawer(GravityCompat.START);
-        } else {
+            drawer.closeDrawer(GravityCompat.START);}
+        else
+        {
             super.onBackPressed();
+            getSupportFragmentManager().popBackStackImmediate(null, FragmentManager.POP_BACK_STACK_INCLUSIVE);
         }
+
     }
 
     @Override
@@ -144,6 +157,7 @@ public class ShopperHomepage extends AppCompatActivity
 //to open notification as a fragment
             FragmentTransaction fragmentTransaction = getSupportFragmentManager ().beginTransaction ();
             fragmentTransaction.replace(R.id.content_frame,new NotificationFrag());
+            fragmentTransaction.addToBackStack("notification");
             fragmentTransaction.commit ();
         }
 
