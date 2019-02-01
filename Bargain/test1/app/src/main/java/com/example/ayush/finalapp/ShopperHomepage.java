@@ -179,6 +179,11 @@ public class ShopperHomepage extends AppCompatActivity
         if (id == R.id.nav_camera) {
 
             // Handle the camera action
+
+            fba.signOut ();
+            finish ();
+            startActivity (new Intent (ShopperHomepage.this,WelcomePage.class));
+
         } else if (id == R.id.nav_gallery) {
 
         } else if (id == R.id.nav_slideshow) {

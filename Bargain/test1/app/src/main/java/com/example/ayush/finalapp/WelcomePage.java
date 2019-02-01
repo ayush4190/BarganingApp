@@ -33,13 +33,11 @@ public class WelcomePage extends AppCompatActivity {
        user =firebaseAuth.getCurrentUser();
        if(user != null)
        {
-           //start Negotiator/shopper activity
-            Toast.makeText(WelcomePage.this,"hello its done",Toast.LENGTH_LONG).show();
-           // Intent intent = new Intent (WelcomePage.this,PaymentActivity.class);
-           // startActivity (intent);
+
+            Toast.makeText(WelcomePage.this,"Welcome to the shoppers homepage",Toast.LENGTH_LONG).show();
+            startActivity (new Intent (WelcomePage.this,ShopperHomepage.class));
        }
-        // email =(EditText)findViewById(R.id.email);
-        //  password = (EditText)findViewById(R.id.password);
+
 
 
         TextView textView = (TextView) findViewById(R.id.textView3);
