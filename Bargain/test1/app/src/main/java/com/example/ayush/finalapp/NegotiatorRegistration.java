@@ -147,8 +147,8 @@ public class NegotiatorRegistration extends AppCompatActivity {
                 if(k==6){
                    registeruser ();
                         ///// call this intent after the email verification is done
-                    finish();
-                    startActivity (new Intent (NegotiatorRegistration.this,NegotiatorForm.class));
+                   // finish();
+                   // startActivity (new Intent (NegotiatorRegistration.this,NegotiatorForm.class));
 
 
                 }
@@ -176,6 +176,8 @@ public class NegotiatorRegistration extends AppCompatActivity {
             public void onComplete(@NonNull Task <AuthResult> task) {
                 if (task.isSuccessful ()) {
                     Toast.makeText (NegotiatorRegistration.this, "i am here", Toast.LENGTH_SHORT).show ();
+                    finish();
+                    startActivity (new Intent (NegotiatorRegistration.this,NegotiatorForm.class));
 
 
 

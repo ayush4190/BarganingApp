@@ -4,16 +4,16 @@ import java.io.Serializable;
 
 public class ShopperProfile implements Serializable {
 
-    String fname , lmane, meamil,mphone,dob;
-    public ShopperProfile()
-    {}
+    String fname , lname , email,password;
 
-    public ShopperProfile(String fname, String lmane, String meamil, String mphone, String dob) {
+    public ShopperProfile(String fname, String lname, String email, String password) {
         this.fname = fname;
-        this.lmane = lmane;
-        this.meamil = meamil;
-        this.mphone = mphone;
-        this.dob = dob;
+        this.lname = lname;
+        this.email = email;
+        this.password = password;
+    }
+
+    public ShopperProfile() {
     }
 
     public String getFname() {
@@ -24,35 +24,27 @@ public class ShopperProfile implements Serializable {
         this.fname = fname;
     }
 
-    public String getLmane() {
-        return lmane;
+    public String getLname() {
+        return lname;
     }
 
-    public void setLmane(String lmane) {
-        this.lmane = lmane;
+    public void setLname(String lname) {
+        this.lname = lname;
     }
 
-    public String getMeamil() {
-        return meamil;
+    public String getEmail() {
+        return email;
     }
 
-    public void setMeamil(String meamil) {
-        this.meamil = meamil;
+    public void setEmail(String email) {
+        this.email = email;
     }
 
-    public String getMphone() {
-        return mphone;
+    public String getPassword() {
+        return password;
     }
 
-    public void setMphone(String mphone) {
-        this.mphone = mphone;
-    }
-
-    public String getDob() {
-        return dob;
-    }
-
-    public void setDob(String dob) {
-        this.dob = dob;
+    public void setPassword(String password) {
+        this.password = password;
     }
 }

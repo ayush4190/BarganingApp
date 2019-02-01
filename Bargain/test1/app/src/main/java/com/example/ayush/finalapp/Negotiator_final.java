@@ -25,7 +25,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.ayush.finalapp.MainActivity;
-import com.example.ayush.finalapp.NegotiatorField;
+import com.example.ayush.finalapp.profileSource;
 import com.example.ayush.finalapp.R;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -54,8 +54,6 @@ public class Negotiator_final extends AppCompatActivity {
 
     private FirebaseUser mUser;
 
-
-    private NegotiatorField obj;
 
     // creating object of Negotiatordetails
 
@@ -380,12 +378,7 @@ public class Negotiator_final extends AppCompatActivity {
 
 
     //3
-    private void Finalregistration() {
-        DatabaseReference mroot = FirebaseDatabase.getInstance ().getReference ();
-        DatabaseReference databaseReference = mroot.child ("Negotiator").child ("");
 
-
-    }
 }
 
 

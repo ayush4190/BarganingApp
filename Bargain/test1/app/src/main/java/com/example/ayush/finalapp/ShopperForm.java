@@ -56,7 +56,9 @@ public class ShopperForm extends Activity implements Serializable {
     private static final String TAG = "ShopperForm";
 
     private FirebaseAuth firebaseAuth;
+
    private FirebaseUser firebaseUser;
+
    private DatabaseReference databaseReference, mroot;
 
 
@@ -70,7 +72,11 @@ public class ShopperForm extends Activity implements Serializable {
 
 
     private TextView mDisplayDate;
+
     private DatePickerDialog.OnDateSetListener mDateSetListener;
+
+
+    private  CheckBox rb2;
 
 
 
@@ -84,7 +90,10 @@ public class ShopperForm extends Activity implements Serializable {
         StrictMode.setVmPolicy(builder.build());
 
         super.onCreate(savedInstanceState);
-        final CheckBox rb2= (CheckBox) findViewById(R.id.rb);
+        setContentView(R.layout.activity_shopper_form);
+
+        rb2= (CheckBox) findViewById(R.id.rb);
+
         rb2.setChecked(!rb2.isChecked());
         TextView term1 = (TextView)findViewById(R.id.terms);
 
@@ -171,8 +180,12 @@ public class ShopperForm extends Activity implements Serializable {
                 mDisplayDate.setText(date);
             }
         };
-        setContentView(R.layout.activity_shopper_form);
+        ////////////
         firebaseAuth = FirebaseAuth.getInstance();
+
+
+
+        firebaseUser = firebaseAuth.getCurrentUser ();
 
         b=(Button)findViewById(R.id.btnSelectPhoto);
 
@@ -236,10 +249,10 @@ public class ShopperForm extends Activity implements Serializable {
                 }
 
                 if(k==4  && rb2.isChecked()) {
-//                    registeruser ();
-                    firebaseUser = firebaseAuth.getCurrentUser ();
-                   // basic ();
-//// open this activity only when shoper is signed in or has  registered successfully.
+//
+
+                    basic ();
+                    //// open this activity only when shoper is signed in or has  registered successfully.
                     Intent myIntent = new Intent(ShopperForm.this,
                            ShopperHomepage.class);
                     startActivity(myIntent);
@@ -435,37 +448,19 @@ public class ShopperForm extends Activity implements Serializable {
 
     }
 
-//    private void registeruser()
-//    {
-//        ShopperProfile profile;
-//        profile = (ShopperProfile) getIntent ().getSerializableExtra ("profile");
-//        String muser, mpass;
-//        muser = userp;
-//        mpass = passwordv;
-//        firebaseAuth.createUserWithEmailAndPassword(profile.getMeamil (),mpass).addOnCompleteListener (new OnCompleteListener<AuthResult> () {
-//            @Override
-//            public void onComplete(@NonNull Task<AuthResult> task) {
-//                if(task.isSuccessful ())
-//                {
-//                    Toast.makeText (ShopperForm.this,"Shopper registered successfully",Toast.LENGTH_SHORT).show ();
-//                }
-//                else
-//                {
-//                    Toast.makeText (ShopperForm.this,"please try after some time",Toast.LENGTH_SHORT).show ();
-//                }
-//            }
-//        });
-//
-//    }
 
-      /*  private  void basic()
+
+        private  void basic()
         {
+            ShopperPhoto detail = new ShopperPhoto ();
             mroot = FirebaseDatabase.getInstance ().getReference ();
-            ShopperProfile ob1;
-            ob1 = (ShopperProfile) getIntent ().getSerializableExtra ("profile");
-            databaseReference = mroot.child (firebaseUser.getUid ());
-            databaseReference.child ("basic").setValue (ob1);
-        }*/
+            detail.setDob (dob.getText ().toString ().trim ());
+            detail.setPhone (phno.getText ().toString ().trim ());
+            ShopperProfile ob1 = (ShopperProfile) getIntent ().getSerializableExtra ("profile");
+            databaseReference = mroot.child ("Shopper");
+            databaseReference.child (firebaseUser.getUid ()).setValue (detail);
+            databaseReference.child (firebaseUser.getUid ()).setValue (ob1);
+        }
 }
 
 

@@ -302,7 +302,7 @@ public class NegotiatorForm extends Activity {
                     negotiatordetails ();
 
                     Intent intent = new Intent (NegotiatorForm.this, NegotiatorId.class);
-                   // intent.putExtra ("details", (Serializable) details);
+                   startActivity (intent);
 
 
 
@@ -328,6 +328,9 @@ public class NegotiatorForm extends Activity {
         details.setPincode (pincode.getText ().toString ().trim ());
         details.setDob (dob.getText ().toString ().trim ());
         details.setPhone (phno.getText ().toString ().trim ());
+        details.setCategory1 (s1);
+        details.setCategory2(s2);
+        details.setCategory3 (s3);
         DatabaseReference mroot = FirebaseDatabase.getInstance ().getReference ();
         Task <Void> databaseReference = mroot.child ("Negotiator").child (mUser.getUid ()).setValue (details);
         Toast.makeText (NegotiatorForm.this,"details entered",Toast.LENGTH_SHORT).show ();

@@ -47,7 +47,7 @@ public class WelcomePage extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-                Intent intent = new Intent(v.getContext(), ShopperHomepage.class);
+                Intent intent = new Intent(v.getContext(), NegotiatorForm.class);
                 v.getContext().startActivity(intent);
 
             }
@@ -68,7 +68,7 @@ public class WelcomePage extends AppCompatActivity {
         button1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(v.getContext(), NegotiatorRegistration.class);
+                Intent intent = new Intent(v.getContext(), NegotiatorId.class);
                 v.getContext().startActivity(intent);
             }
         });
