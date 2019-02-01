@@ -5,6 +5,8 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Vibrator;
 import android.support.v4.app.ActivityCompat;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.SparseArray;
@@ -93,8 +95,10 @@ public class QrCode extends AppCompatActivity {
                             textView.setOnClickListener(new View.OnClickListener() {
                                 @Override
                                 public void onClick(View v) {
-                                    Intent intent = new Intent(v.getContext(),PaymentGateway.class);
-                                    v.getContext().startActivity(intent);
+                                    FragmentTransaction fragmentTransaction = getSupportFragmentManager ().beginTransaction ();
+                                    fragmentTransaction.replace(R.id.content_frame,new FinalpayementFragment ());
+                                    fragmentTransaction.commit ();
+
                                 }
                             });
 
@@ -107,3 +111,4 @@ public class QrCode extends AppCompatActivity {
 
     }
 }
+//////////////////////////  check why the fragment is not working
