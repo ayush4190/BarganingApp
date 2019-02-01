@@ -41,9 +41,7 @@
         <activity
             android:name=".PreviousTransactions"
             android:label="Previous Transations" />
-        <activity
-            android:name=".PaymentActivity"
-            android:label="Payment Mode" />
+
         <activity
             android:name=".NegotiatorRegistration"
             android:label="User Details" />
