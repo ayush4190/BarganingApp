@@ -17,6 +17,7 @@ public class NegotiatorDetails {
         this.category3 = category3;
         this.firstname=firstname;
         this.lastname=lastname;
+
     }
 
     public  NegotiatorDetails(NegotiatorDetails w){
@@ -39,9 +40,7 @@ public class NegotiatorDetails {
 
     }
 
-    public void setBl(String bl) {
-        this.bl = bl;
-    }
+
 
     public void setFirstname(String firstname) {
         this.firstname = firstname;
@@ -142,4 +141,9 @@ public class NegotiatorDetails {
     public void setCategory3(String category3) {
         this.category3 = category3;
     }
+
+    public void setBl(String bl) {
+        this.bl = bl;
+    }
+
 }

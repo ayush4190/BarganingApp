@@ -331,6 +331,7 @@ public class NegotiatorForm extends Activity {
         details.setCategory1 (s1);
         details.setCategory2(s2);
         details.setCategory3 (s3);
+        details.setBl ("true");
         DatabaseReference mroot = FirebaseDatabase.getInstance ().getReference ();
         Task <Void> databaseReference = mroot.child ("Negotiator").child (mUser.getUid ()).setValue (details);
         Toast.makeText (NegotiatorForm.this,"details entered",Toast.LENGTH_SHORT).show ();

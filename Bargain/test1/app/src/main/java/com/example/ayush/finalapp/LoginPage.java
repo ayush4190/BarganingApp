@@ -13,11 +13,22 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 public class LoginPage extends AppCompatActivity {
     EditText email, password;
     FirebaseAuth firebaseAuth;
     Button button;
+    FirebaseUser user;
+    FirebaseDatabase data;
+    DatabaseReference ref ,mroot;
+    String s;
+
 
 
     @Override
@@ -26,9 +37,7 @@ public class LoginPage extends AppCompatActivity {
         setContentView(R.layout.activity_login_page);
         firebaseAuth = FirebaseAuth.getInstance();
         if (firebaseAuth.getCurrentUser() != null) {
-            // Start activity here
-            finish();
-           startActivity(new Intent(getApplicationContext(), ShopperHomepage.class));
+            showdata ();
         }
         email =(EditText)findViewById(R.id.email);
         password = (EditText)findViewById(R.id.password);
@@ -41,6 +50,10 @@ public class LoginPage extends AppCompatActivity {
 
             }
         });
+        data = FirebaseDatabase.getInstance ();
+        ref = FirebaseDatabase.getInstance ().getReference ();
+        user =firebaseAuth.getCurrentUser();
+
 
 
 
@@ -50,16 +63,13 @@ public class LoginPage extends AppCompatActivity {
         String memail = email.getText().toString().trim();
         String mpassword = password.getText().toString().trim();
 
-      /*  firebaseAuth.signInWithEmailAndPassword(memail,mpassword).addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
+       firebaseAuth.signInWithEmailAndPassword(memail,mpassword).addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
 
                 if (task.isSuccessful())
                 {
-                    Toast.makeText(LoginPage.this,"Login sucess",Toast.LENGTH_SHORT).show();
-                    finish();
-                    Intent intent = new Intent(LoginPage.this,PaymentActivity.class);
-                    startActivity(intent);
+                    showdata ();
                 }
                 else
                 {
@@ -67,6 +77,33 @@ public class LoginPage extends AppCompatActivity {
                 }
 
             }
-        });*/
+        });
+    }
+    private void showdata() {
+
+
+        DatabaseReference mref = FirebaseDatabase.getInstance ().getReference ();
+        DatabaseReference mroot = mref.child ("Negotiator").child (user.getUid ());
+        mroot.addValueEventListener (new ValueEventListener () {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                NegotiatorDetails details;
+                details = dataSnapshot.getValue (NegotiatorDetails.class);
+                assert details != null;
+                s = details.getBl ();
+                if (s.compareToIgnoreCase ("true") == 0) {
+                    startActivity (new Intent (LoginPage.this, Negotiator_dash.class));
+                } else {
+                    startActivity (new Intent (LoginPage.this, ShopperHomepage.class));
+                }
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+
+            }
+        });
     }
 }
