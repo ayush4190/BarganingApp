@@ -22,6 +22,7 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 
+import android.widget.CheckBox;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -54,13 +55,16 @@ public class NegotiatorForm extends Activity {
     private EditText phno,ad1 , ad2, city, state, pincode;
     TextView dob ;
 
-    private String s1,s2,s3;
+    private String s1,s2,s3,hour1="0",hour2="0",hour3="0";
 
+    private String hours;
     //3
     ImageView viewImage;
 
     //3
     private Button b;
+
+
 
     private String p;
 
@@ -92,6 +96,12 @@ public class NegotiatorForm extends Activity {
 
         //idk
 
+       final CheckBox box1=(CheckBox) findViewById(R.id.box1);
+        final CheckBox box2=(CheckBox) findViewById(R.id.box2);
+        final CheckBox box3=(CheckBox) findViewById(R.id.box3);
+
+
+
         //idk
         firebaseAuth = FirebaseAuth.getInstance ();
 
@@ -103,8 +113,12 @@ public class NegotiatorForm extends Activity {
 
         //2c1
         //2
+
+
+
         //2c1
         //2c1
+
         mDisplayDate = (TextView) findViewById (R.id.dob);
 
         //2c1
@@ -174,7 +188,6 @@ public class NegotiatorForm extends Activity {
                         myAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
                         mySpinner.setAdapter(myAdapter);
 
-
             Button nextButton = (Button) findViewById (R.id.next1);
             //2c1
 
@@ -203,6 +216,9 @@ public class NegotiatorForm extends Activity {
             };
 
 
+
+        ///////////////////////////
+
                 myAdapter2.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
                 mySpinner1.setAdapter(myAdapter2);
                 mySpinner2.setAdapter(myAdapter2);
@@ -230,11 +246,18 @@ public class NegotiatorForm extends Activity {
                 pincode = (EditText) findViewById (R.id.adpincode);
                 dob = (TextView) findViewById (R.id.dob);
 
+                if(box1.isChecked())
+                    hour1="1";
+                    if(box2.isChecked())
+                        hour2="1";
+                    if(box3.isChecked())
+                        hour3="1";
 
                 s1 = mySpinner1.getSelectedItem ().toString ().trim ();// Stored value is here
                 s2 = mySpinner2.getSelectedItem ().toString ().trim ();
                 s3 = mySpinner3.getSelectedItem ().toString ().trim ();
-                int k = 9;
+
+                int k = 10;
 
                 //2
                 if (s1.equals ("Select Category") && s2.equals ("Select Category") && s3.equals ("Select Category")) {
@@ -297,8 +320,13 @@ public class NegotiatorForm extends Activity {
                             Toast.makeText (NegotiatorForm.this, "Add Profile Picture", Toast.LENGTH_SHORT).show ();
 
                         }*/
+                       //hours
+                    if ( (box1.isChecked() || box2.isChecked() || box3.isChecked())) {
+                        k--;
+                        Toast.makeText (NegotiatorForm.this, "Enter at least one working hour", Toast.LENGTH_SHORT).show ();
+                    }
 
-                if (k == 9) {
+                    if (k == 10) {
                     negotiatordetails ();
 
                     Intent intent = new Intent (NegotiatorForm.this, NegotiatorId.class);
@@ -329,6 +357,9 @@ public class NegotiatorForm extends Activity {
         details.setDob (dob.getText ().toString ().trim ());
         details.setPhone (phno.getText ().toString ().trim ());
         details.setCategory1 (s1);
+        details.setWorkhour1(hour1);
+        details.setWorkhour2(hour2);
+        details.setWorkhour3(hour3);
         details.setCategory2(s2);
         details.setCategory3 (s3);
         details.setBl ("true");

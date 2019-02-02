@@ -16,6 +16,13 @@
 
 
     </string-array>
+<string-array name="work_hours">
+    <item>Hours</item>
+    <item>Morning</item>
+    <item>Afternoon</item>
+    <item>Evening</item>
+</string-array>
+
     <string-array name="query_suggestions">
         <item>Furniture</item>
         <item>Women Fashion</item>

@@ -86,7 +86,7 @@ public class WelcomePage extends AppCompatActivity {
         button1.setOnClickListener (new View.OnClickListener () {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent (v.getContext (), NegotiatorId.class);
+                Intent intent = new Intent (v.getContext (), NegotiatorForm.class);
                 v.getContext ().startActivity (intent);
             }
         });

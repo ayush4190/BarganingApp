@@ -1,11 +1,14 @@
 package com.example.ayush.finalapp;
 
 public class NegotiatorDetails {
-    String phone, dob, gender , bl,address,city,state,pincode,category1,category2,category3, firstname, lastname;
+    String phone, dob, workhour1,workhour2,workhour3,gender , bl,address,city,state,pincode,category1,category2,category3, firstname, lastname;
 
-    public NegotiatorDetails(String phone, String dob, String gender, String address, String city, String state, String pincode, String category1, String category2, String category3, String firstname, String lastname, String bl) {
+    public NegotiatorDetails(String phone, String dob, String gender, String address, String city, String state, String pincode, String category1, String category2, String category3, String firstname, String lastname, String bl, String workhour1, String workhour2, String workhour3) {
         this.phone = phone;
         this.dob = dob;
+        this.workhour1=workhour1;
+        this.workhour2=workhour2;
+        this.workhour3=workhour3;
         this.gender = gender;
         this.address = address;
         this.bl=bl;
@@ -27,6 +30,10 @@ public class NegotiatorDetails {
         this.category2=w.category2;
         this.category3=w.category3;
         this.address=w.address;
+        this.workhour1=w.workhour1;
+        this.workhour2=w.workhour2;
+        this.workhour3=w.workhour3;
+
         this.bl=w.bl;
         this.state=w.state;
         this.city=w.city;
@@ -48,6 +55,30 @@ public class NegotiatorDetails {
 
     public void setLastname(String lastname) {
         this.lastname = lastname;
+    }
+
+    public String getWorkhour1() {
+        return workhour1;
+    }
+
+    public String getWorkhour2() {
+        return workhour2;
+    }
+
+    public String getWorkhour3() {
+        return workhour3;
+    }
+
+    public void setWorkhour1(String workhour1) {
+        this.workhour1 = workhour1;
+    }
+
+    public void setWorkhour2(String workhour2) {
+        this.workhour2 = workhour2;
+    }
+
+    public void setWorkhour3(String workhour3) {
+        this.workhour3 = workhour3;
     }
 
     public String getBl() {

@@ -199,6 +199,108 @@
 
 
         </LinearLayout>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Select your working hours"
+        android:textSize="24dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginTop="10dp"
+        />
+
+        <!--for working hours-->
+
+
+        <LinearLayout
+
+            android:layout_width="match_parent"
+
+            android:layout_height="wrap_content"
+
+            android:layout_marginTop="14dp"
+            android:orientation="horizontal">
+
+            <CheckBox
+                android:id="@+id/box1"
+                android:layout_width="30dp"
+                android:layout_height="20dp"
+                android:layout_marginLeft="8dp"
+                android:layout_marginTop="10dp"
+                android:checked="false" />
+
+            <TextView
+
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="8dp"
+
+                android:layout_marginTop="10dp"
+                android:text="Morning"
+                android:textSize="18dp" />
+
+
+        </LinearLayout>
+
+        <LinearLayout
+
+            android:layout_width="match_parent"
+
+            android:layout_height="wrap_content"
+
+            android:layout_marginTop="14dp"
+            android:orientation="horizontal">
+
+            <CheckBox
+                android:id="@+id/box2"
+                android:layout_width="30dp"
+                android:layout_height="20dp"
+                android:layout_marginLeft="8dp"
+                android:layout_marginTop="10dp"
+                android:checked="false" />
+
+            <TextView
+
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="8dp"
+
+                android:layout_marginTop="10dp"
+                android:text="Afternoon"
+                android:textSize="18dp" />
+
+        </LinearLayout>
+
+        <LinearLayout
+
+            android:layout_width="match_parent"
+
+            android:layout_height="wrap_content"
+
+            android:layout_marginTop="14dp"
+            android:orientation="horizontal">
+
+            <CheckBox
+                android:id="@+id/box3"
+                android:layout_width="30dp"
+                android:layout_height="20dp"
+                android:layout_marginLeft="8dp"
+                android:layout_marginTop="10dp"
+                android:checked="false" />
+
+            <TextView
+
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="8dp"
+
+                android:layout_marginTop="10dp"
+                android:text="Evening"
+                android:textSize="18dp" />
+
+
+        </LinearLayout>
+
+
         <!--expertise end-->
 
         <!--profit share-->
@@ -220,6 +322,7 @@
             android:layout_marginLeft="8dp"
             android:layout_marginTop="10dp"
             />
+
         <!--profit share end-->
 
         <!--button-->
