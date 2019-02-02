@@ -3,6 +3,7 @@ package com.example.ayush.finalapp;
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
@@ -26,8 +27,11 @@ import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 public class ShopperHomepage extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -54,6 +58,12 @@ public class ShopperHomepage extends AppCompatActivity
         setContentView(R.layout.activity_shopper_homepage);
 
 
+
+
+
+
+
+
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
 
         setSupportActionBar(toolbar);
@@ -63,6 +73,32 @@ public class ShopperHomepage extends AppCompatActivity
         user=fba.getCurrentUser();
 
         fdb=FirebaseDatabase.getInstance().getReference();
+
+
+
+        DatabaseReference mref = fdb.child ("Shopper").child (user.getUid ());
+        mref.addValueEventListener (new ValueEventListener () {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+
+                ShopperProfile obj ;
+                obj = dataSnapshot.getValue (ShopperProfile.class);
+
+                assert obj != null;
+                TextView textView = (TextView)findViewById (R.id.nav_drawer_username);
+                textView.setText ((obj.getFname () + obj.getLname ()));
+                    
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+
+
+
 
         mwallet = (ImageView) findViewById (R.id.wallet);//creating the buttons
         mcommunity=(ImageView)findViewById(R.id.communityimage);
