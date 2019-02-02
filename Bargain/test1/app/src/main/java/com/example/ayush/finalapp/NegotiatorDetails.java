@@ -1,22 +1,58 @@
 package com.example.ayush.finalapp;
 
 public class NegotiatorDetails {
-    String phone, Dob, gender , Address,city,state,pincode,category1,category2,category3;
+    String phone, dob, gender , bl,address,city,state,pincode,category1,category2,category3, firstname, lastname;
 
-    public NegotiatorDetails(String phone, String dob, String gender, String address, String city, String state, String pincode, String category1, String category2, String category3) {
+    public NegotiatorDetails(String phone, String dob, String gender, String address, String city, String state, String pincode, String category1, String category2, String category3, String firstname, String lastname, String bl) {
         this.phone = phone;
-        Dob = dob;
+        this.dob = dob;
         this.gender = gender;
-        Address = address;
+        this.address = address;
+        this.bl=bl;
         this.city = city;
         this.state = state;
         this.pincode = pincode;
         this.category1 = category1;
         this.category2 = category2;
         this.category3 = category3;
+        this.firstname=firstname;
+        this.lastname=lastname;
     }
 
+    public  NegotiatorDetails(NegotiatorDetails w){
+        this.lastname=w.lastname;
+        this.firstname=w.firstname;
+        this.category1=w.category1;
+        this.category2=w.category2;
+        this.category3=w.category3;
+        this.address=w.address;
+        this.bl=w.bl;
+        this.state=w.state;
+        this.city=w.city;
+        this.phone=w.phone;
+        this.dob=w.dob;
+        this.gender=w.gender;
+        this.pincode=w.pincode;
+
+    }
     public NegotiatorDetails() {
+
+    }
+
+    public void setBl(String bl) {
+        this.bl = bl;
+    }
+
+    public void setFirstname(String firstname) {
+        this.firstname = firstname;
+    }
+
+    public void setLastname(String lastname) {
+        this.lastname = lastname;
+    }
+
+    public String getBl() {
+        return bl;
     }
 
     public String getPhone() {
@@ -28,11 +64,11 @@ public class NegotiatorDetails {
     }
 
     public String getDob() {
-        return Dob;
+        return dob;
     }
 
     public void setDob(String dob) {
-        Dob = dob;
+        dob = dob;
     }
 
     public String getGender() {
@@ -44,11 +80,11 @@ public class NegotiatorDetails {
     }
 
     public String getAddress() {
-        return Address;
+        return address;
     }
 
     public void setAddress(String address) {
-        Address = address;
+        address = address;
     }
 
     public String getCity() {
@@ -57,6 +93,14 @@ public class NegotiatorDetails {
 
     public void setCity(String city) {
         this.city = city;
+    }
+
+    public String getLastname() {
+        return lastname;
+    }
+
+    public String getFirstname() {
+        return firstname;
     }
 
     public String getState() {

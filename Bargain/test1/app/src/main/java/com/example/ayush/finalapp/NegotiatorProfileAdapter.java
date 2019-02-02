@@ -12,11 +12,11 @@ import java.util.List;
 
 public class NegotiatorProfileAdapter extends RecyclerView.Adapter<NegotiatorProfileAdapter.NegotiatorProfileViewHolder>{
 
-    private List <NegotiatorProfile> negotiatorProfileList;
+    private List <NegotiatorDetails> negotiatorProfileList;
 
-    public static NegotiatorProfile n;
+    public static NegotiatorDetails n;
 
-    public NegotiatorProfileAdapter(List<NegotiatorProfile> negotiatorProfileList) {
+    public NegotiatorProfileAdapter(List<NegotiatorDetails> negotiatorProfileList) {
         this.negotiatorProfileList = negotiatorProfileList;
     }
 
@@ -28,13 +28,13 @@ public class NegotiatorProfileAdapter extends RecyclerView.Adapter<NegotiatorPro
         public TextView phone;
 
 
+
         public NegotiatorProfileViewHolder(View view) {
             super(view);
 
             first =(TextView) view.findViewById(R.id.first_name);
             last =(TextView) view.findViewById(R.id.last_name);
             phone=(TextView) view.findViewById(R.id.ph_no);
-
 
 
         }
@@ -52,11 +52,11 @@ public class NegotiatorProfileAdapter extends RecyclerView.Adapter<NegotiatorPro
     public void onBindViewHolder(NegotiatorProfileViewHolder holder, final int position) {
         n = negotiatorProfileList.get(position);
 
-        NegotiatorProfile negotiatorProfile=negotiatorProfileList.get(position);
+        NegotiatorDetails negotiatorProfile=negotiatorProfileList.get(position);
 
-       // holder.first.setText(n.getFirstname());
-     //   holder.last.setText(n.getLastname());
-     //   holder.phone.setText(n.getPhno());
+        holder.first.setText(n.getFirstname());
+        holder.last.setText(n.getLastname());
+       holder.phone.setText(n.getPhone());
 
 
 ////////////
@@ -92,7 +92,7 @@ public class NegotiatorProfileAdapter extends RecyclerView.Adapter<NegotiatorPro
     ////////////////////////////
 
 
-    public void addItem(NegotiatorProfile eventsList)
+    public void addItem(NegotiatorDetails eventsList)
     {
         this.negotiatorProfileList.add(eventsList);
     }
