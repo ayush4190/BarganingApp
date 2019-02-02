@@ -87,7 +87,7 @@ public class ShopperHomepage extends AppCompatActivity
                 assert obj != null;
                 TextView textView = (TextView)findViewById (R.id.nav_drawer_username);
                 textView.setText ((obj.getFname () + obj.getLname ()));
-                    
+
 
             }
 
