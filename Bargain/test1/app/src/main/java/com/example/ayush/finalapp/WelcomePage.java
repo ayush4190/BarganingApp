@@ -59,7 +59,7 @@ public class WelcomePage extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-                Intent intent = new Intent(v.getContext(), NegotiatorForm.class);
+                Intent intent = new Intent(v.getContext(), ShopperHomepage.class);
                 v.getContext().startActivity(intent);
 
             }
