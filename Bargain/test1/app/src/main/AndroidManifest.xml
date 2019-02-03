@@ -24,7 +24,7 @@
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
-        android:label="Bargaining App"
+        android:label="Bargainer App"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
@@ -51,7 +51,7 @@
             android:label="Personal Details" />
 
 
-        <activity android:name=".LoginShopper"></activity>
+        <activity android:name=".LoginShopper"  android:theme="@style/AppTheme.NoActionBar"></activity>
         <!--
              The API key for Google Maps-based APIs is defined as a string resource.
              (See the file "res/values/google_maps_api.xml").
@@ -93,7 +93,9 @@
         <activity android:name=".QrCode" />
         <activity
             android:name=".LoginPage"
-            android:label="Login page" />
+            android:label="Login page"
+            android:theme="@style/AppTheme.NoActionBar"
+            />
 
 
 

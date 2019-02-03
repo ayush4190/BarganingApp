@@ -135,7 +135,7 @@ public class ShopperRegistration extends AppCompatActivity implements Serializab
                 } else
                     password_w.setErrorEnabled(false);
 
-                if (!confirmpassword_q.getText ().toString ().equals (password_q.getText ().toString ())) {
+                if (!confirmpassword_q.getText ().toString ().equals (password_q.getText ().toString ()) || confirmpassword_q.getText ().toString ().isEmpty ()) {
                     k--;
                     confirmpassword_w.setError ("Passwords are not same");
                 } else

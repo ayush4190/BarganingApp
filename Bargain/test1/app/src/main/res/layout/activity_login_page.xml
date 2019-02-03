@@ -23,6 +23,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="  Email"
+        android:textColorHint="@color/colorGrey"
+        android:textColor="@color/colorGrey"
         android:background="@drawable/custom_login_edit"
         android:drawableLeft="@drawable/ic_login_username"
         android:id="@+id/email"/>
@@ -32,6 +34,9 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="  Password"
+        android:textColorHint="@color/colorGrey"
+        android:textColor="@color/colorGrey"
+        android:inputType="textPassword"
         android:background="@drawable/custom_login_edit"
         android:drawableLeft="@drawable/ic_password_login"
         android:layout_marginTop="8dp"
@@ -54,6 +59,7 @@
         android:layout_height="wrap_content"
         android:text="Not a user? Sign up here"
         android:layout_gravity="center"
+        android:textColor="@color/colorGrey"
         android:textAlignment="center"/>
 
 </LinearLayout>
