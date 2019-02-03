@@ -36,7 +36,7 @@ public class SearchDisplayFrag extends Fragment{
     //String searchvalue = (Searchfrag)getIntent().getExtras("Searchtext");
     String searchvalue;
     Binder binder;
-    int age =-1;
+    int age =0;
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -165,7 +165,14 @@ public class SearchDisplayFrag extends Fragment{
                     // for(DataSnapshot issue: dataSnapshot.getChildren()) {
                     Log.v("inside loop" , "hello ");
                     NegotiatorDetails data =dataSnapshot.getValue(NegotiatorDetails.class);
-                    if(data.getYear ().compareToIgnoreCase (String.valueOf (age))==0||age==0){
+                    if(age==0)
+                    {
+                        adapter.addItem(data);
+                        adapter.notifyDataSetChanged();
+                        recyclerView.setAdapter(adapter);
+                    //   }
+                    }
+                    else if(data.getYear ().compareToIgnoreCase (String.valueOf (age))==0){
                     //    Log.v("display data" , data.getFirstname());
                     adapter.addItem(data);
                     adapter.notifyDataSetChanged();
@@ -213,14 +220,21 @@ public class SearchDisplayFrag extends Fragment{
                     NegotiatorDetails data =dataSnapshot.getValue(NegotiatorDetails.class);
                     //    Log.v("display data" , data.getFirstname());
 
-                    if(data.getYear ().compareToIgnoreCase (String.valueOf (age))==0||age==0){
+
+                    if(age==0)
+                    {
+                        adapter.addItem(data);
+                        adapter.notifyDataSetChanged();
+                        recyclerView.setAdapter(adapter);
+                        //   }
+                    }
+                    else if(data.getYear ().compareToIgnoreCase (String.valueOf (age))==0){
                         //    Log.v("display data" , data.getFirstname());
                         adapter.addItem(data);
                         adapter.notifyDataSetChanged();
                         recyclerView.setAdapter(adapter);
                         //   }
-                    }   //   }
-                }
+                    }}
             }
 
             @Override
@@ -264,14 +278,21 @@ public class SearchDisplayFrag extends Fragment{
                     NegotiatorDetails data =dataSnapshot.getValue(NegotiatorDetails.class);
                     //    Log.v("display data" , data.getFirstname());
 
-                    if(data.getYear ().compareToIgnoreCase (String.valueOf (age))==0||age==0){
+
+                    if(age==0)
+                    {
+                        adapter.addItem(data);
+                        adapter.notifyDataSetChanged();
+                        recyclerView.setAdapter(adapter);
+                        //   }
+                    }
+                    else if(data.getYear ().compareToIgnoreCase (String.valueOf (age))==0){
                         //    Log.v("display data" , data.getFirstname());
                         adapter.addItem(data);
                         adapter.notifyDataSetChanged();
                         recyclerView.setAdapter(adapter);
                         //   }
-                    }//   }
-                }
+                    }}
             }
 
             @Override

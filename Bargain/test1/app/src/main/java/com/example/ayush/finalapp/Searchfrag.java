@@ -60,7 +60,7 @@ public class Searchfrag extends Fragment {
         if(bundle != null)
             age = getArguments().getString ("Agevalue");
         else
-            age = "-1";
+            age = "0";
         Log.v ("age",age);
 
 
