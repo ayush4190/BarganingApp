@@ -12,6 +12,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 import android.content.Context;
@@ -72,7 +73,7 @@ public class WelcomePage extends AppCompatActivity {
             }
         });
 
-        Button button = (Button) findViewById (R.id.shopper);
+        ImageButton button = (ImageButton) findViewById (R.id.shopper);
         button.setOnClickListener (new View.OnClickListener () {
             @Override
             public void onClick(View v) {
@@ -83,7 +84,7 @@ public class WelcomePage extends AppCompatActivity {
             }
         });
 
-        Button button1 = (Button) findViewById (R.id.Negotiator);
+        ImageButton button1 = (ImageButton) findViewById (R.id.Negotiator);
         button1.setOnClickListener (new View.OnClickListener () {
             @Override
             public void onClick(View v) {

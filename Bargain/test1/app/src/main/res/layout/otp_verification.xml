@@ -18,14 +18,14 @@
             android:layout_height="125dp"
             android:layout_centerHorizontal="true"
             android:layout_centerVertical="true"
-            android:background="@drawable/logo" />
+            android:background="@drawable/images" />
 
     </RelativeLayout>
 
     <ImageView
         android:id="@+id/imageView"
         android:layout_width="match_parent"
-        android:layout_height="60dp"
+        android:layout_height="50dp"
         android:layout_below="@id/relativeLayout"
         android:layout_marginTop="-50dp"
         />
@@ -56,7 +56,7 @@
             android:layout_marginTop="20dp"
             android:digits="0123456789"
             android:drawablePadding="10dp"
-            android:hint="enter your mobile number"
+            android:hint="Enter your mobile number"
             android:inputType="phone"
             android:maxLength="10" />
 
@@ -67,8 +67,8 @@
             android:layout_below="@id/editTextMobile"
             android:layout_centerHorizontal="true"
             android:layout_marginTop="15dp"
-            android:background="@color/colorPrimaryDark"
-            android:text="Continue"
+            android:background="@color/colorPrimary"
+            android:text="CONTINUE"
             android:textAllCaps="false"
             android:textColor="#cdd8f1" />
 
