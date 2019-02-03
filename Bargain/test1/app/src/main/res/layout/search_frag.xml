@@ -1,23 +1,38 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView
     xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:id="@+id/searchfrag">
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical">
+        android:orientation="horizontal">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_sort_black_24dp"
+            android:id="@+id/filter"/>
 
     <SearchView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_gravity="end"
         android:id="@+id/search"
+
         android:clickable="true"
         android:queryHint="Search by product or shop "
         android:iconifiedByDefault="false"
         android:focusableInTouchMode="false"
+        >
 
-        />
 
-    </LinearLayout>
+
+    </SearchView>
+
+
+</LinearLayout>
+
+
+
 </ScrollView>

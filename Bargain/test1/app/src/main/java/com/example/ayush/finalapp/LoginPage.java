@@ -11,6 +11,7 @@ import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.android.gms.vision.L;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -37,7 +38,10 @@ public class LoginPage extends AppCompatActivity {
         setContentView(R.layout.activity_login_page);
         firebaseAuth = FirebaseAuth.getInstance();
         if (firebaseAuth.getCurrentUser() != null) {
-            showdata ();
+
+            //commenting it for testing period
+           // showdata ();
+            Toast.makeText (LoginPage.this,"in testing mode",Toast.LENGTH_SHORT).show ();
         }
         email =(EditText)findViewById(R.id.email);
         password = (EditText)findViewById(R.id.password);
@@ -68,8 +72,10 @@ public class LoginPage extends AppCompatActivity {
             public void onComplete(@NonNull Task<AuthResult> task) {
 
                 if (task.isSuccessful())
+
                 {
-                    showdata ();
+                    Toast.makeText (LoginPage.this,"you are loggned in in testing mode",Toast.LENGTH_SHORT).show ();
+                   // showdata ();
                 }
                 else
                 {

@@ -56,7 +56,11 @@ public class WelcomePage extends AppCompatActivity {
         user = firebaseAuth.getCurrentUser ();
         if (user != null) {
 
-            showdata ();
+
+
+            Toast.makeText (WelcomePage.this,"in testing mode",Toast.LENGTH_SHORT).show ();
+            //// for verifying the user type
+            //showdata ();
            // startActivity (new Intent (WelcomePage.this,NegotiatorForm.class));
         }
 
@@ -66,7 +70,7 @@ public class WelcomePage extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-                Intent intent = new Intent (v.getContext (), LoginPage.class);
+                Intent intent = new Intent (v.getContext (), ShopperHomepage.class);
                 v.getContext ().startActivity (intent);
 
             }
@@ -77,7 +81,7 @@ public class WelcomePage extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-                Intent intent = new Intent (v.getContext (), ShopperRegistration.class);
+                Intent intent = new Intent (v.getContext (), ShopperHomepage.class);
                 v.getContext ().startActivity (intent);
 
             }
@@ -87,7 +91,7 @@ public class WelcomePage extends AppCompatActivity {
         button1.setOnClickListener (new View.OnClickListener () {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent (v.getContext (), NegotiatorId.class);
+                Intent intent = new Intent (v.getContext (), NegotiatorRegistration.class);
                 v.getContext ().startActivity (intent);
             }
         });

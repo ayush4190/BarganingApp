@@ -76,7 +76,7 @@ public class ShopperHomepage extends AppCompatActivity
 
 
 
-        DatabaseReference mref = fdb.child ("Shopper").child (user.getUid ());
+/*        DatabaseReference mref = fdb.child ("Shopper").child (user.getUid ());
         mref.addValueEventListener (new ValueEventListener () {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
@@ -95,7 +95,7 @@ public class ShopperHomepage extends AppCompatActivity
             public void onCancelled(@NonNull DatabaseError databaseError) {
 
             }
-        });
+        });*/
 
 
 

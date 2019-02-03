@@ -36,6 +36,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
 import java.io.Serializable;
+import java.time.Year;
 import java.util.Calendar;
 import java.util.Date;
 
@@ -48,6 +49,8 @@ public class NegotiatorForm extends Activity {
     ////Firebase user object gor getting user id
 
     FirebaseUser mUser;
+
+    int year;
 
 
     //2c1
@@ -112,7 +115,7 @@ public class NegotiatorForm extends Activity {
             @Override
             public void onClick(View view) {
                 Calendar cal = Calendar.getInstance ();
-                int year = cal.get (Calendar.YEAR);
+                 year = cal.get (Calendar.YEAR);
                 int month = cal.get (Calendar.MONTH);
                 int day = cal.get (Calendar.DAY_OF_MONTH);
 
@@ -333,6 +336,7 @@ public class NegotiatorForm extends Activity {
         details.setCategory2(s2);
         details.setCategory3 (s3);
         details.setBl ("true");
+        details.setYear (String.valueOf (2019 -year));
         DatabaseReference mroot = FirebaseDatabase.getInstance ().getReference ();
         Task <Void> databaseReference = mroot.child ("Negotiator").child (mUser.getUid ()).setValue (details);
         Toast.makeText (NegotiatorForm.this,"details entered",Toast.LENGTH_SHORT).show ();
