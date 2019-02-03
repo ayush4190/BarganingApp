@@ -47,7 +47,7 @@ public class VerifyPhoneActivity extends AppCompatActivity {
 
         //getting mobile number from the previous activity
         //and sending the verification code to the number
-        Intent intent = getIntent();
+        final Intent intent = getIntent();
         final String mobile = intent.getStringExtra("mobile");
         sendVerificationCode(mobile);
 
@@ -67,6 +67,7 @@ public class VerifyPhoneActivity extends AppCompatActivity {
 
                 //verifying the code entered manually
                 verifyVerificationCode(code);
+
             }
         });
 
@@ -100,6 +101,7 @@ public class VerifyPhoneActivity extends AppCompatActivity {
                 editTextCode.setText(code);
                 //verifying the code
                 verifyVerificationCode(code);
+
             }
         }
 
@@ -133,6 +135,7 @@ public class VerifyPhoneActivity extends AppCompatActivity {
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
                             //verification successful we will start the profile activity
+                            Toast.makeText (VerifyPhoneActivity.this,"verified",Toast.LENGTH_SHORT).show ();
                             Intent intent = new Intent(VerifyPhoneActivity.this, NegotiatorId.class);
                             intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                             startActivity(intent);

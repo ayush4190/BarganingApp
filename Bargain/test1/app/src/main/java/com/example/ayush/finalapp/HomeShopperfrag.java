@@ -70,6 +70,7 @@ public class HomeShopperfrag extends Fragment {
             public boolean onTouch(View v, MotionEvent event) {
                 FragmentTransaction fragmentTransaction = getFragmentManager().beginTransaction ();
                 fragmentTransaction.replace(R.id.content_frame,new Searchfrag ());
+                fragmentTransaction.addToBackStack ("SearchTagEdit");
                 fragmentTransaction.commit ();
                 return false;
             }
@@ -80,6 +81,7 @@ public class HomeShopperfrag extends Fragment {
             public void onClick(View v) {
                 FragmentTransaction fragmentTransaction = getFragmentManager().beginTransaction ();
                 fragmentTransaction.replace(R.id.content_frame,new Searchfrag ());
+                fragmentTransaction.addToBackStack ("SearchTag");
                 fragmentTransaction.commit ();
 
             }
@@ -110,8 +112,7 @@ public class HomeShopperfrag extends Fragment {
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (requestCode == PLACE_PICKER_REQUEST) {
             if (RESULT_OK == resultCode) {
-
-                    Place place = PlacePicker.getPlace (getActivity (), data);
+                Place place = PlacePicker.getPlace (getActivity (), data);
                     location_selector.setText (place.getName ());
 
             }

@@ -18,6 +18,8 @@ import android.os.Environment;
 import android.os.StrictMode;
 import android.provider.MediaStore;
 import android.support.annotation.NonNull;
+import android.support.design.widget.TextInputEditText;
+import android.support.design.widget.TextInputLayout;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -61,8 +63,9 @@ public class ShopperForm extends Activity implements Serializable {
 
    private DatabaseReference databaseReference, mroot;
 
+    TextInputEditText phno ;
+    TextInputLayout phno_w ;
 
-    EditText phno;
     TextView dob ;
 
 
@@ -203,6 +206,8 @@ public class ShopperForm extends Activity implements Serializable {
 
         });
         Button nextButton = (Button) findViewById(R.id.next1);
+        phno= findViewById(R.id.phone);
+        phno_w= findViewById(R.id.phone_up);
 
 
         // Capture button clicks
@@ -211,14 +216,7 @@ public class ShopperForm extends Activity implements Serializable {
             public void onClick(View v) {
                 int k=4;
 
-                phno = (EditText) findViewById(R.id.phone);
                 dob =(TextView) findViewById(R.id.dob);
-
-                final EditText password = (EditText) findViewById(R.id.password);
-                EditText confirmpassword = (EditText) findViewById(R.id.confirm_password);
-
-                EditText username = (EditText) findViewById(R.id.username);
-                ImageView propic = (ImageView) findViewById(R.id.profilepic);
 
 
 
@@ -230,27 +228,25 @@ public class ShopperForm extends Activity implements Serializable {
                 final Bitmap myLogo = ((BitmapDrawable) myDrawable).getBitmap();
 
                 if( TextUtils.isEmpty(dob.getText())) {
-
                     k--;
                     Toast.makeText(ShopperForm.this, "Date of Birth is Required!", Toast.LENGTH_SHORT).show();
-
                 }
+
                 if( TextUtils.isEmpty(phno.getText()) || phno.length()!=10) {
 
                     k--;
-                    phno.setError("Invalid Phone number");
+                    phno_w.setError("Invalid Phone number");
 
-                }
+                }else
+                    phno_w.setErrorEnabled(false);
 
                 if(bmap.sameAs(myLogo)){
                     k--;
                     Toast.makeText(ShopperForm.this, "Add Profile Picture", Toast.LENGTH_SHORT).show();
-
                 }
 
                 if(k==4  && rb2.isChecked()) {
 //
-
                     basic ();
                     //// open this activity only when shoper is signed in or has  registered successfully.
                     Intent myIntent = new Intent(ShopperForm.this,

@@ -36,7 +36,7 @@ public class SearchDisplayFrag extends Fragment{
     //String searchvalue = (Searchfrag)getIntent().getExtras("Searchtext");
     String searchvalue;
     Binder binder;
-    int age;
+    int age =-1;
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -51,8 +51,10 @@ public class SearchDisplayFrag extends Fragment{
         Bundle bundle = this.getArguments ();
         if(bundle != null)
         {
+
             searchvalue = getArguments().getString("Searchtext");
-            age=Integer.parseInt(getArguments().getString("Agevalue"));
+            age=Integer.parseInt(getArguments().getString ("Agevalue"));
+            //Toast.makeText (getActivity (),"here",Toast.LENGTH_SHORT).show ();
 
         }
 
@@ -63,11 +65,12 @@ public class SearchDisplayFrag extends Fragment{
        // Log.v("filter position" , pos);
 
 
-       Log.v("Serachdis age:",Integer.toString(age));
+       Log.v("Serachdis age:",String.valueOf (age));
        Log.v("Searchdis Search text" , searchvalue);
         // Toast.makeText(SearchDisplay.this,searchvalue,Toast.LENGTH_SHORT);
         recyclerView = (RecyclerView) view.findViewById(R.id.recyclerView);//
         adapter = new NegotiatorProfileAdapter(negotiatorList);
+
 
         firebaseDatabase = FirebaseDatabase.getInstance();
         Log.v("before getdata" , "hello ");
@@ -84,6 +87,7 @@ public class SearchDisplayFrag extends Fragment{
 
 
     void GetDataFireBase() {
+
 
 //        databaseReference=firebaseDatabase.getReference().child("Negotiator");
 ////        Query query=databaseReference.child("Negotiator").child("category1").startAt(searchvalue).endAt(searchvalue+'\uf8ff');
@@ -146,24 +150,28 @@ public class SearchDisplayFrag extends Fragment{
         Query query=databaseReference.orderByChild("category1").equalTo(searchvalue);
         Log.v("inside query 1" , "hello ");
 
+
         query.addChildEventListener(new ChildEventListener() {
+
             @Override
             public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
                 Log.v("inondata beforeifexists" , "hello ");
 
+
                 if(dataSnapshot.exists()){
                     Log.v("inondata after ifexists" , "hello ");
 
+
                     // for(DataSnapshot issue: dataSnapshot.getChildren()) {
                     Log.v("inside loop" , "hello ");
-
                     NegotiatorDetails data =dataSnapshot.getValue(NegotiatorDetails.class);
+                    if(data.getYear ().compareToIgnoreCase (String.valueOf (age))==0||age==0){
                     //    Log.v("display data" , data.getFirstname());
                     adapter.addItem(data);
                     adapter.notifyDataSetChanged();
                     recyclerView.setAdapter(adapter);
                     //   }
-                }
+                }}
             }
 
             @Override
@@ -204,10 +212,14 @@ public class SearchDisplayFrag extends Fragment{
 
                     NegotiatorDetails data =dataSnapshot.getValue(NegotiatorDetails.class);
                     //    Log.v("display data" , data.getFirstname());
-                    adapter.addItem(data);
-                    adapter.notifyDataSetChanged();
-                    recyclerView.setAdapter(adapter);
-                    //   }
+
+                    if(data.getYear ().compareToIgnoreCase (String.valueOf (age))==0||age==0){
+                        //    Log.v("display data" , data.getFirstname());
+                        adapter.addItem(data);
+                        adapter.notifyDataSetChanged();
+                        recyclerView.setAdapter(adapter);
+                        //   }
+                    }   //   }
                 }
             }
 
@@ -251,10 +263,14 @@ public class SearchDisplayFrag extends Fragment{
 
                     NegotiatorDetails data =dataSnapshot.getValue(NegotiatorDetails.class);
                     //    Log.v("display data" , data.getFirstname());
-                    adapter.addItem(data);
-                    adapter.notifyDataSetChanged();
-                    recyclerView.setAdapter(adapter);
-                    //   }
+
+                    if(data.getYear ().compareToIgnoreCase (String.valueOf (age))==0||age==0){
+                        //    Log.v("display data" , data.getFirstname());
+                        adapter.addItem(data);
+                        adapter.notifyDataSetChanged();
+                        recyclerView.setAdapter(adapter);
+                        //   }
+                    }//   }
                 }
             }
 

@@ -13,6 +13,8 @@ import android.app.Activity;
 
 import android.os.StrictMode;
 
+import android.support.design.widget.TextInputEditText;
+import android.support.design.widget.TextInputLayout;
 import android.text.TextUtils;
 import android.util.Log;
 
@@ -49,12 +51,23 @@ public class NegotiatorForm extends Activity {
     ////Firebase user object gor getting user id
 
     FirebaseUser mUser;
+    TextInputEditText phno ;
+    TextInputEditText ad1;
+    TextInputEditText ad2 ;
+    TextInputEditText city;
+    TextInputEditText state ;
+    TextInputEditText pincode;
 
+    TextInputLayout phno_w ;
+    TextInputLayout ad1_w ;
+    TextInputLayout ad2_w ;
+    TextInputLayout city_w;
+    TextInputLayout state_w;
+    TextInputLayout pincode_w;
     int year;
 
 
     //2c1
-    private EditText phno,ad1 , ad2, city, state, pincode;
     TextView dob ;
 
     private String s1,s2,s3;
@@ -215,6 +228,20 @@ public class NegotiatorForm extends Activity {
                 mySpinner.setAdapter(myAdapter);
 
             // Capture button clicks
+        phno_w= findViewById(R.id.phone_up);
+        ad1_w = findViewById(R.id.adlin1_up);
+        ad2_w =  findViewById(R.id.adlin2_up);
+        state_w =  findViewById(R.id.adstate_up);
+        pincode_w =  findViewById(R.id.adpincode_up);
+        city_w =  findViewById(R.id.adcity_up);
+
+        phno= findViewById(R.id.phone);
+        ad1 = findViewById(R.id.adlin1);
+        ad2 =  findViewById(R.id.adlin2);
+        state =  findViewById(R.id.adstate);
+        pincode =  findViewById(R.id.adpincode);
+        city =  findViewById(R.id.adcity);
+        dob=(TextView)findViewById(R.id.dob) ;
                 nextButton.setOnClickListener(new View.OnClickListener()
 
             {
@@ -225,13 +252,7 @@ public class NegotiatorForm extends Activity {
                 //3
                 ImageView propic = (ImageView) findViewById (R.id.profilepic);
                 //2
-                phno = (EditText) findViewById (R.id.phone);
-                ad1 = (EditText) findViewById (R.id.adlin1);
-                ad2 = (EditText) findViewById (R.id.adline2);
-                city = (EditText) findViewById (R.id.adcity);
-                state = (EditText) findViewById (R.id.adstate);
-                pincode = (EditText) findViewById (R.id.adpincode);
-                dob = (TextView) findViewById (R.id.dob);
+
 
 
                 s1 = mySpinner1.getSelectedItem ().toString ().trim ();// Stored value is here
@@ -240,71 +261,84 @@ public class NegotiatorForm extends Activity {
                 int k = 9;
 
                 //2
-                if (s1.equals ("Select Category") && s2.equals ("Select Category") && s3.equals ("Select Category")) {
-                    k--;
-                    Toast.makeText (NegotiatorForm.this, "not all can be empty", Toast.LENGTH_SHORT).show ();
-                }
 
-                if (TextUtils.isEmpty (dob.getText ())) {
+                    if (s1.equals ("Select Category") && s2.equals ("Select Category") && s3.equals ("Select Category")) {
+                        k--;
+                        Toast.makeText (NegotiatorForm.this, "not all can be empty", Toast.LENGTH_SHORT).show ();
+                    }
 
-                    k--;
-                    Toast.makeText (NegotiatorForm.this, "Date of Birth is Required!", Toast.LENGTH_SHORT).show ();
+                    if (TextUtils.isEmpty (dob.getText ())) {
 
-                }
-                //2
-                if (TextUtils.isEmpty (phno.getText ()) || phno.length () != 10) {
+                        k--;
+                        Toast.makeText (NegotiatorForm.this, "Date of Birth is Required!", Toast.LENGTH_SHORT).show ();
 
-                    k--;
-                    phno.setError ("Invalid Phone number");
+                    }
+                    //2
+                    if (TextUtils.isEmpty (phno.getText ()) || phno.length () != 10) {
 
-                }
-                //2
-                if (TextUtils.isEmpty (ad1.getText ())) {
+                        k--;
+                        phno_w.setError ("Invalid Phone number");
 
-                    k--;
-                    ad1.setError ("Full address is required!");
-                }
+                    }else
+                        phno_w.setErrorEnabled(false);
+                    //2
+                    if (TextUtils.isEmpty (ad1.getText ())) {
 
-                //2
-                if (TextUtils.isEmpty (ad2.getText ())) {
+                        k--;
+                        ad1_w.setError ("Full address is required!");
+                    }else
+                        ad1_w.setErrorEnabled(false);
 
-                    k--;
-                    ad2.setError ("Full address is required!");
-                }
-                //2
-                if (TextUtils.isEmpty (city.getText ())) {
+                    //2
+                    if (TextUtils.isEmpty (ad2.getText ())) {
 
-                    k--;
-                    city.setError ("City is required!");
-                }
-                //2
-                if (TextUtils.isEmpty (state.getText ())) {
+                        k--;
+                        ad2_w.setError ("Full address is required!");
+                    }else
+                        ad2_w.setErrorEnabled(false);
+                    //2
+                    if (TextUtils.isEmpty (city.getText ())) {
 
-                    k--;
-                    state.setError ("State is required!");
-                }
-                //2
-                if (TextUtils.isEmpty (pincode.getText ()) || pincode.length () != 6) {
-                    k--;
+                        k--;
+                        city_w.setError ("City is required!");
+                    }else
+                        city_w.setErrorEnabled(false);
+                    //2
+                    if (TextUtils.isEmpty (state.getText ())) {
 
-                    pincode.setError ("Invalid pincode!");
-                }
-                //2
-                if (mySpinner.getSelectedItem ().toString ().trim ().equals ("Select Gender")) {
-                    k--;
-                    Toast.makeText (NegotiatorForm.this, "Gender is Required!", Toast.LENGTH_SHORT).show ();
-                }
-                //3
+                        k--;
+                        state_w.setError ("State is required!");
+                    }else
+                        state_w.setErrorEnabled(false);
+                    //2
+                    if (TextUtils.isEmpty (pincode.getText ()) || pincode.length () != 6) {
+                        k--;
+
+                        pincode_w.setError ("Invalid pincode!");
+                    }else
+                        pincode_w.setErrorEnabled(false);
+                    //2
+                    if (mySpinner.getSelectedItem ().toString ().trim ().equals ("Select Gender")) {
+                        k--;
+                        Toast.makeText (NegotiatorForm.this, "Gender is Required!", Toast.LENGTH_SHORT).show ();
+                    }
+                    //3
                        /* if (bmap.sameAs (myLogo)) {
                             k--;
                             Toast.makeText (NegotiatorForm.this, "Add Profile Picture", Toast.LENGTH_SHORT).show ();
 
                         }*/
+                    //hours
+//                    if ( (box1.isChecked() || box2.isChecked() || box3.isChecked())) {
+//                        k--;
+//                        Toast.makeText (NegotiatorForm.this, "Enter at least one working hour", Toast.LENGTH_SHORT).show ();
+//                    }
 
-                if (k == 9) {
-                    negotiatordetails ();
+                    if (k == 9) {
+                         negotiatordetails ();
 
-                    Intent intent = new Intent (NegotiatorForm.this, VerifyPhoneActivity.class);
+
+                        Intent intent = new Intent (NegotiatorForm.this, VerifyPhoneActivity.class);
                     intent.putExtra ("mobile",phno.getText ().toString ().trim ());
                    startActivity (intent);
 

@@ -17,7 +17,6 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-
         android:layout_height="match_parent"
 
         android:orientation="vertical">
@@ -61,13 +60,11 @@
 
 
         <Button
-
             android:id="@+id/btnSelectPhoto"
-
             android:layout_width="match_parent"
-
+            android:textColor="#FFFFFF"
+            android:background="@color/colorPrimaryDark"
             android:layout_height="wrap_content"
-
             android:text="Select Photo" />
 
     </LinearLayout>
@@ -81,7 +78,7 @@
             android:textSize="18sp"
             android:layout_marginTop="20sp"
             android:layout_marginBottom="20sp"
-            android:background="@color/colorPrimary"
+            android:background="@color/colorPrimaryDark"
             android:id="@+id/next1"
             android:layout_marginLeft="300sp"/>
 

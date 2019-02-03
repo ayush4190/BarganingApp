@@ -5,12 +5,14 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.SeekBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 public class Filterfrag extends Fragment{
      TextView agetext;
@@ -35,7 +37,7 @@ public class Filterfrag extends Fragment{
             @Override
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
                 ageprogress=progress;
-                agetext.setText(Integer.toString(ageprogress));
+                agetext.setText(String.valueOf (ageprogress));
             }
 
             @Override
@@ -52,14 +54,20 @@ public class Filterfrag extends Fragment{
     submitButton.setOnClickListener(new View.OnClickListener() {
         @Override
         public void onClick(View v) {
+//            Toast.makeText (getActivity (),"here",Toast.LENGTH_SHORT).show ();
             FragmentManager fragmentManager = getActivity().getFragmentManager();
+
+            assert getFragmentManager() != null;
             FragmentTransaction fragmentTransaction = getFragmentManager().beginTransaction();
+
             Searchfrag ldf = new Searchfrag ();
             Bundle args = new Bundle();
-            args.putString ("Agevalue", Integer.toString (ageprogress));
+            args.putString ("Agevalue", String.valueOf (ageprogress));
             ldf.setArguments(args);
             fragmentTransaction.addToBackStack("Age");
+
             fragmentTransaction.replace(R.id.content_frame, ldf).commit();
+
         }
     });
 

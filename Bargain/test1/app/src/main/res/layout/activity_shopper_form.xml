@@ -1,136 +1,157 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
 
-xmlns:tools="http://schemas.android.com/tools"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
 
-android:id="@+id/ScrollView1"
+    android:id="@+id/ScrollView1"
 
-android:layout_width="fill_parent"
+    android:layout_width="fill_parent"
 
-android:layout_height="fill_parent"
+    android:layout_height="fill_parent"
 
-android:orientation="vertical"
+    android:orientation="vertical"
 
-android:padding="10dp" >
-
-
-    <RelativeLayout
+    android:padding="10dp">
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        >
+
+
 
     <ImageView
 
         android:id="@+id/profilepic"
-
         android:layout_width="375dp"
-
         android:layout_height="208dp"
-
-        android:src="@drawable/user" />
-
-
+        android:src="@drawable/user"
+        />
 
 <!--photo close-->
 
     <Button
-        android:layout_below="@+id/profilepic"
         android:id="@+id/btnSelectPhoto"
-        android:layout_marginTop="15dp"
+        android:layout_marginTop="25dp"
+        android:textColor="@color/toolbarwhite"
+        android:background="@color/colorPrimaryDark"
         android:layout_width="match_parent"
 
         android:layout_height="wrap_content"
-
         android:text="Select Photo"
-
         />
 
 
+        <android.support.design.widget.TextInputLayout
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            android:layout_width="match_parent"
+            android:id="@+id/phone_up"
+            android:layout_height="wrap_content"
+            android:textColor="@color/colorPrimaryDark"
+            android:textColorHint="@color/primaryLightColor"
+            app:errorEnabled="true"
 
-    <TextView
-        android:layout_below="@+id/btnSelectPhoto"
-        android:layout_width="match_parent"
-        android:id="@+id/texthoneshopper"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="8sp"
-        android:layout_marginTop="20sp"
-        android:text="Phone Number"
-        android:textSize="20sp" />
+            app:boxBackgroundMode="outline"
+            app:boxCornerRadiusBottomEnd="10dp"
+            app:boxCornerRadiusBottomStart="10dp"
+            app:boxCornerRadiusTopEnd="10dp"
+            app:boxCornerRadiusTopStart="10dp"
 
+            app:boxStrokeColor="@color/colorPrimaryDark"
+            app:boxStrokeWidth="20dp"
+            app:hintAnimationEnabled="true"
+            app:hintEnabled="true"
+            android:layout_marginTop="15dp"
+            android:layout_marginLeft="8sp"
+            android:layout_marginRight="8sp"
+            >
 
-    <EditText
-        android:id="@+id/phone"
-        android:layout_below="@+id/texthoneshopper"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="8sp"
-        android:hint="Phone number"
-        android:inputType="number"
-        android:maxLength="10"
+            <android.support.design.widget.TextInputEditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Phone number"
+                android:id="@+id/phone"
+                android:singleLine="true"
+                android:inputType="number"
+                android:maxLength="10"
 
-        android:singleLine="true" />
+                />
 
-    <TextView
-        android:layout_below="@+id/phone"
-        android:id="@+id/dob_text"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="8sp"
-        android:layout_marginTop="20sp"
-        android:hint="Date of Birth"
-        android:textSize="20sp" />
-
-    <TextView
-        android:id="@+id/dob"
-        android:layout_below="@+id/dob_text"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="8sp"
-        android:layout_marginTop="20sp"
-        android:hint="Select Date of Birth"
-        android:textSize="20sp" />
+        </android.support.design.widget.TextInputLayout>
 
 
-        <CheckBox
-            android:id="@+id/rb"
-            android:layout_below="@+id/dob"
-            android:layout_width="30dp"
-            android:layout_height="33dp"
-            android:layout_alignParentStart="true"
-            android:layout_alignParentLeft="true"
-            android:layout_marginTop="10dp"
-            android:checked="false" />
+
 
         <TextView
 
-            android:id="@+id/terms"
-            android:layout_below="@id/dob"
-            android:layout_width="wrap_content"
-            android:layout_alignLeft="@+id/rb"
+            android:id="@+id/dob_text"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="40dp"
+            android:layout_marginLeft="8sp"
+            android:layout_marginTop="20sp"
+            android:text="Date of birth"
+            android:textSize="18sp"
+            android:textColor="@color/colorPrimaryDark"
+            />
 
-            android:layout_marginTop="10dp"
-            android:text="@string/ioio"
-            android:textSize="24dp" />
+        <TextView
+            android:id="@+id/dob"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="8sp"
+            android:layout_marginTop="10sp"
+            android:textColorHint="@color/primaryLightColor"
+            android:hint="Select Date of birth"
+            android:textSize="18sp" />
+
+        <LinearLayout
+
+            android:layout_width="match_parent"
+
+            android:layout_height="wrap_content"
+
+            android:layout_marginTop="30dp"
+            android:orientation="horizontal">
+
+            <CheckBox
+                android:id="@+id/rb"
+                android:layout_width="30dp"
+                android:layout_height="33dp"
+                android:layout_marginLeft="8dp"
+                android:layout_marginTop="10dp"
+                android:checked="false" />
+
+            <TextView
+                android:id="@+id/terms"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="8dp"
+                android:textColor="@color/colorPrimaryDark"
+                android:layout_marginTop="10dp"
+                android:text="@string/ioio"
+                android:textSize="20dp" />
 
 
+        </LinearLayout>
 
 
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/terms"
-        android:text="Proceed"
+
+        android:text="Next->"
         android:textColor="#FFFFFF"
         android:textSize="18sp"
-        android:layout_marginTop="20dp"
-        android:layout_marginBottom="20dp"
-        android:background="@color/colorPrimary"
+        android:layout_marginTop="20sp"
+        android:layout_marginBottom="20sp"
+        android:layout_gravity="bottom"
+        android:background="@color/colorPrimaryDark"
         android:id="@+id/next1"
         android:layout_marginLeft="300dp"/>
 
-    </RelativeLayout>
+    </LinearLayout>
+
 </ScrollView>
 
 

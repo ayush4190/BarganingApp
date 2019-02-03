@@ -55,9 +55,13 @@ public class Searchfrag extends Fragment {
     public void onViewCreated(@NonNull final View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
+
         Bundle bundle = this.getArguments ();
         if(bundle != null)
             age = getArguments().getString ("Agevalue");
+        else
+            age = "-1";
+        Log.v ("age",age);
 
 
 ///// check for int =0;
@@ -137,6 +141,7 @@ public class Searchfrag extends Fragment {
                 args.putString("Searchtext", searchtext);
                 args.putString("Agevalue", (age));
                 ldf.setArguments(args);
+
                 fragmentTransaction.addToBackStack("searchbar");
                 fragmentTransaction.replace(R.id.content_frame, ldf).commit();
 

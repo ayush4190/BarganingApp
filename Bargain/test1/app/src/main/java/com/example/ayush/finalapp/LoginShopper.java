@@ -11,41 +11,35 @@ import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
-import com.google.android.gms.vision.L;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
 
-public class LoginPage extends AppCompatActivity {
+public class LoginShopper extends AppCompatActivity {
+
     EditText email, password;
     FirebaseAuth firebaseAuth;
     Button button;
     FirebaseUser user;
-    FirebaseDatabase data;
-    DatabaseReference ref ,mroot;
     String s;
-
-
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_login_page);
+        super.onCreate (savedInstanceState);
+        setContentView (R.layout.activity_login_shopper);
+
+
+
         firebaseAuth = FirebaseAuth.getInstance();
         if (firebaseAuth.getCurrentUser() != null) {
-            if(s.compareToIgnoreCase ("nego")==0)
+            if(s.compareToIgnoreCase ("shop")==0)
             {
-                startActivity (new Intent (LoginPage.this,Negotiator_dash.class));
+                startActivity (new Intent (LoginShopper.this,ShopperHomepage.class));
             }
             else
             {
-                startActivity (new Intent (LoginPage.this,Negotiator_dash.class));
+                startActivity (new Intent (LoginShopper.this,Negotiator_dash.class));
             }
 
 
@@ -61,8 +55,8 @@ public class LoginPage extends AppCompatActivity {
 
             }
         });
-        data = FirebaseDatabase.getInstance ();
-        ref = FirebaseDatabase.getInstance ().getReference ();
+
+
         user =firebaseAuth.getCurrentUser();
 
 
@@ -74,24 +68,24 @@ public class LoginPage extends AppCompatActivity {
         String memail = email.getText().toString().trim();
         String mpassword = password.getText().toString().trim();
 
-       firebaseAuth.signInWithEmailAndPassword(memail,mpassword).addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
+        firebaseAuth.signInWithEmailAndPassword(memail,mpassword).addOnCompleteListener(this, new OnCompleteListener<AuthResult> () {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
 
                 if (task.isSuccessful())
 
                 {
-                    Toast.makeText (LoginPage.this,"you are logged in in testing mode",Toast.LENGTH_SHORT).show ();
-                    s= "nego";
-                   startActivity (new Intent (LoginPage.this,Negotiator_dash.class));
+                    Toast.makeText (LoginShopper.this,"you are logged in in testing mode",Toast.LENGTH_SHORT).show ();
+                    s= "shop";
+                    startActivity (new Intent (LoginShopper.this,Negotiator_dash.class));
                 }
                 else
                 {
-                    Toast.makeText(LoginPage.this,"not a valid client",Toast.LENGTH_SHORT).show();
+                    Toast.makeText(LoginShopper.this,"not a valid client",Toast.LENGTH_SHORT).show();
                 }
 
             }
         });
     }
 
-}
+    }

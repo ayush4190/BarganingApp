@@ -37,6 +37,7 @@ public class SearchDisplay extends AppCompatActivity {
         setContentView(R.layout.activity_search_display);
         Bundle bundle = getIntent().getExtras();
         //anime
+        if(bundle != null)
         searchvalue = bundle.getString("Searchtext");
         Log.v("Search text" , searchvalue);
        // Toast.makeText(SearchDisplay.this,searchvalue,Toast.LENGTH_SHORT);

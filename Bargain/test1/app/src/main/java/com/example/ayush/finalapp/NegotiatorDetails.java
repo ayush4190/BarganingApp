@@ -1,9 +1,9 @@
 package com.example.ayush.finalapp;
 
 public class NegotiatorDetails {
-    String phone, dob, gender , bl,address,city,state,pincode,category1,category2,category3, firstname, lastname , year;
+    String phone, dob, gender , bl,address,city,state,pincode,category1,category2,category3, firstname, lastname,year ;
 
-    public NegotiatorDetails(String phone, String dob, String gender, String address, String city, String state, String pincode, String category1, String category2, String category3, String firstname, String lastname, String bl ,String year) {
+    public NegotiatorDetails(String phone, String dob, String gender, String address, String city, String year,String state, String pincode, String category1, String category2, String category3, String firstname, String lastname, String bl ) {
         this.phone = phone;
         this.dob = dob;
         this.gender = gender;
@@ -108,6 +108,14 @@ public class NegotiatorDetails {
         return state;
     }
 
+    public String getYear() {
+        return year;
+    }
+
+    public void setYear(String year) {
+        this.year = year;
+    }
+
     public void setState(String state) {
         this.state = state;
     }
@@ -148,11 +156,11 @@ public class NegotiatorDetails {
         this.bl = bl;
     }
 
-    public String getYear() {
-        return year;
-    }
-
-    public void setYear(String year) {
-        this.year = year;
-    }
+//    public String getYear() {
+//        return year;
+//    }
+//
+//    public void setYear(String year) {
+//        this.year = year;
+//    }
 }

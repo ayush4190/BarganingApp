@@ -10,16 +10,7 @@
             android:layout_height="match_parent"
             android:id="@+id/re1">
 
-            <TextView
-                android:id="@+id/text1"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_alignParentTop="true"
-                android:background="@color/colorPrimary"
-                android:text="Mobile Wallet"
-                android:textAlignment="center"
-                android:textAllCaps="true"
-                android:textSize="42dp" />
+
 
             <TextView
                 android:id="@+id/amount"
@@ -46,6 +37,8 @@
                 android:layout_height="wrap_content"
                 android:text="Initialise Payment"
                 android:padding="40dp"
+                android:background="@color/colorPrimary"
+                android:textColor="#FFFFFF"
 
                 />
             <Button
@@ -56,6 +49,8 @@
                 android:layout_marginTop="20dp"
                 android:text="Add money to wallet"
                 android:layout_below="@id/button1"
+                android:background="@color/colorPrimary"
+                android:textColor="#FFFFFF"
                 />
 
             <Button
@@ -68,6 +63,8 @@
                 android:text="Previous transactions"
                 android:layout_marginTop="20dp"
                 android:layout_alignParentBottom="true"
+                android:background="@color/colorPrimary"
+                android:textColor="#FFFFFF"
 
                 />
         </RelativeLayout>

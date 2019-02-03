@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -13,142 +12,280 @@
         android:layout_height="match_parent"
         android:orientation="vertical">
 
-        <TextView
-            android:id="@+id/register"
+        <ImageView
+            android:layout_width="220dp"
+            android:layout_height="220dp"
+            android:src="@drawable/img"
+            android:layout_gravity="center"
+            />
+
+        <android.support.design.widget.TextInputLayout
+
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            android:id="@+id/firstname_up"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@color/colorPrimary"
-            android:text="Register as Shopper"
-            android:textAlignment="center"
-            android:textSize="38sp" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
             android:layout_marginLeft="8sp"
-            android:layout_marginTop="20sp"
-            android:text="Name"
-            android:textSize="20sp" />
+            android:layout_marginTop="30dp"
+            android:layout_marginRight="8dp"
+
+            android:textColor="@color/colorPrimaryDark"
+            android:textColorHint="@color/primaryLightColor"
+            app:boxBackgroundMode="outline"
+            app:boxCornerRadiusBottomEnd="10dp"
+            app:boxCornerRadiusBottomStart="10dp"
+            app:boxCornerRadiusTopEnd="10dp"
+            app:boxCornerRadiusTopStart="10dp"
+            app:errorEnabled="true"
+            app:boxStrokeColor="@color/colorPrimaryDark"
+            app:boxStrokeWidth="20dp"
+            app:hintAnimationEnabled="true"
+            app:hintEnabled="true"
+
+
+            >
+
+            <android.support.design.widget.TextInputEditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="First name"
+                android:id="@+id/firstname"
+                android:maxLength="15"
+                android:singleLine="true"
+                android:inputType="textCapSentences"
+                />
+
+        </android.support.design.widget.TextInputLayout>
+
+
+        <android.support.design.widget.TextInputLayout
+
+            android:id="@+id/lastname_up"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:errorEnabled="true"
+
+            android:textColor="@color/colorPrimaryDark"
+            android:textColorHint="@color/primaryLightColor"
+            app:boxBackgroundMode="outline"
+            app:boxCornerRadiusBottomEnd="10dp"
+            app:boxCornerRadiusBottomStart="10dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginRight="8sp"
+            android:layout_marginLeft="8dp"
+
+            app:boxCornerRadiusTopEnd="10dp"
+            app:boxCornerRadiusTopStart="10dp"
+
+            app:boxStrokeColor="@color/colorPrimaryDark"
+            app:boxStrokeWidth="20dp"
+            app:hintAnimationEnabled="true"
+            app:hintEnabled="true"
+
+
+            >
+
+            <android.support.design.widget.TextInputEditText
+                android:layout_width="match_parent"
+                android:id="@+id/lastname"
+                android:layout_height="wrap_content"
+                android:hint="Last name"
+                android:inputType="textCapSentences"
+                android:singleLine="true"
+                android:maxLength="15"
+                />
+
+        </android.support.design.widget.TextInputLayout>
+
+
+
 
         <LinearLayout
             android:layout_width="match_parent"
+
             android:layout_height="match_parent"
-            android:orientation="horizontal">
+            android:orientation="vertical">
 
-            <EditText
-                android:id="@+id/firstname"
-                android:layout_width="175sp"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="8sp"
-                android:hint="First Name"
-                android:inputType="textCapSentences"
-                android:maxLength="15"
-                android:singleLine="true" />
+            <!--username-->
+            <android.support.design.widget.TextInputLayout
 
-            <EditText
-                android:id="@+id/lastname"
-                android:layout_width="200sp"
+
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                android:layout_width="match_parent"
+                android:id="@+id/username_up"
                 android:layout_height="wrap_content"
+                app:errorEnabled="true"
+
+                android:textColor="@color/colorPrimaryDark"
+                android:textColorHint="@color/primaryLightColor"
+                app:boxBackgroundMode="outline"
+                app:boxCornerRadiusBottomEnd="10dp"
+                app:boxCornerRadiusBottomStart="10dp"
+                app:boxCornerRadiusTopEnd="10dp"
+                app:boxCornerRadiusTopStart="10dp"
+
+                app:boxStrokeColor="@color/colorPrimaryDark"
+                app:boxStrokeWidth="20dp"
+                app:hintAnimationEnabled="true"
+                app:hintEnabled="true"
+                android:layout_marginTop="10dp"
                 android:layout_marginLeft="8sp"
                 android:layout_marginRight="8sp"
-                android:hint="Last Name"
-                android:inputType="textCapSentences"
-                android:maxLength="15"
-                android:singleLine="true" />
+                >
+
+                <android.support.design.widget.TextInputEditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="Username"
+                    android:singleLine="true"
+                    android:id="@+id/username"
+                    />
+
+            </android.support.design.widget.TextInputLayout>
+
+
+            <!--emailid-->
+            <android.support.design.widget.TextInputLayout
+
+
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                android:layout_width="match_parent"
+                android:id="@+id/email_up"
+                android:layout_height="wrap_content"
+                android:textColor="@color/colorPrimaryDark"
+                android:textColorHint="@color/primaryLightColor"
+                app:errorEnabled="true"
+
+                app:boxBackgroundMode="outline"
+                app:boxCornerRadiusBottomEnd="10dp"
+                app:boxCornerRadiusBottomStart="10dp"
+                app:boxCornerRadiusTopEnd="10dp"
+                app:boxCornerRadiusTopStart="10dp"
+
+                app:boxStrokeColor="@color/colorPrimaryDark"
+                app:boxStrokeWidth="20dp"
+                app:hintAnimationEnabled="true"
+                app:hintEnabled="true"
+                android:layout_marginTop="10dp"
+                android:layout_marginLeft="8sp"
+                android:layout_marginRight="8sp"
+
+
+                >
+
+                <android.support.design.widget.TextInputEditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="Email-id"
+                    android:id="@+id/email"
+                    android:singleLine="true"
+
+                    />
+
+            </android.support.design.widget.TextInputLayout>
+
+            <!--password-->
+            <android.support.design.widget.TextInputLayout
+
+
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                app:errorEnabled="true"
+                android:id="@+id/password_up"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColor="@color/colorPrimaryDark"
+                android:textColorHint="@color/primaryLightColor"
+                app:boxBackgroundMode="outline"
+                app:boxCornerRadiusBottomEnd="10dp"
+                app:boxCornerRadiusBottomStart="10dp"
+                app:boxCornerRadiusTopEnd="10dp"
+                app:boxCornerRadiusTopStart="10dp"
+
+                app:boxStrokeColor="@color/colorPrimaryDark"
+                app:boxStrokeWidth="20dp"
+                app:hintAnimationEnabled="true"
+                android:layout_marginTop="10dp"
+                android:layout_marginLeft="8sp"
+                android:layout_marginRight="8sp"
+                app:passwordToggleEnabled="true"
+                app:hintEnabled="true"
+
+                >
+
+                <android.support.design.widget.TextInputEditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="Password"
+                    android:inputType="textPassword"
+                    android:id="@+id/password"
+                    android:singleLine="true"
+
+                    />
+
+            </android.support.design.widget.TextInputLayout>
+
+            <android.support.design.widget.TextInputLayout
+
+
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/confirm_password_up"
+                android:textColor="@color/colorPrimaryDark"
+                android:textColorHint="@color/primaryLightColor"
+                app:errorEnabled="true"
+
+                app:boxBackgroundMode="outline"
+                app:boxCornerRadiusBottomEnd="10dp"
+                app:boxCornerRadiusBottomStart="10dp"
+                app:boxCornerRadiusTopEnd="10dp"
+                app:boxCornerRadiusTopStart="10dp"
+
+                app:boxStrokeColor="@color/colorPrimaryDark"
+                app:boxStrokeWidth="20dp"
+                app:hintAnimationEnabled="true"
+                app:hintEnabled="true"
+                android:layout_marginTop="10dp"
+                android:layout_marginLeft="8sp"
+                android:layout_marginRight="8sp"
+                app:passwordToggleEnabled="true"
+
+                >
+
+                <android.support.design.widget.TextInputEditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="Confirm"
+                    android:inputType="textPassword"
+                    android:id="@+id/confirm_password"
+                    android:singleLine="true"
+                    />
+
+            </android.support.design.widget.TextInputLayout>
+
+
+
+
         </LinearLayout>
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="8sp"
-            android:layout_marginTop="20sp"
-            android:singleLine="true"
-            android:text="Email-Id"
-            android:textSize="20sp" />
-
-
-        <EditText
-            android:id="@+id/email"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_marginLeft="8sp"
-            android:hint="Email-Id"
-            android:singleLine="true"
-
-            />
-
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Username"
-            android:textSize="20sp"
-            android:layout_marginLeft="8sp"
-            android:layout_marginTop="20sp"/>
-
-        <EditText
-            android:layout_marginTop="10dp"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="Username"
-            android:layout_marginLeft="8sp"
-            android:singleLine="true"
-            android:id="@+id/username"
-
-            />
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="8sp"
-            android:text="Password"
-            android:textSize="20sp"
-            android:layout_marginTop="20sp"
-
-            />
-        <EditText
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="Password"
-            android:layout_marginLeft="8sp"
-
-            android:id="@+id/password"
-            android:inputType="textPassword"
-            android:singleLine="true"
-            />
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="8sp"
-            android:text="Confirm Password"
-            android:textSize="20sp"
-            android:layout_marginTop="20sp"
-            />
-        <EditText
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="Confirm Password"
-            android:layout_marginLeft="8sp"
-            android:inputType="textPassword"
-
-            android:id="@+id/confirm_password"
-
-            android:singleLine="true"
-            />
 
 
         <Button
-            android:id="@+id/next1"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="300sp"
-            android:layout_marginTop="20sp"
-            android:layout_marginBottom="20sp"
-            android:background="@color/colorPrimary"
+            android:layout_height="match_parent"
             android:text="Next->"
-            android:textColor="#FFFFFF"
-            android:textSize="18sp" />
+            android:textColor="@color/toolbarwhite"
+            android:textSize="18sp"
+            android:layout_marginTop="20sp"
+            android:layout_gravity="right"
+            android:layout_marginBottom="20sp"
+            android:background="@color/colorPrimaryDark"
+            android:id="@+id/next1"
+            />
+
     </LinearLayout>
+
+
 
 
 </ScrollView>

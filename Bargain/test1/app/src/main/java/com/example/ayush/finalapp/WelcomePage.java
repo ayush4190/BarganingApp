@@ -12,6 +12,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 import android.content.Context;
@@ -46,7 +47,7 @@ public class WelcomePage extends AppCompatActivity {
 
         int Permission_All = 1;
 
-        String[] Permissions = {Manifest.permission.ACCESS_COARSE_LOCATION, Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.CAMERA,};
+        String[] Permissions = {Manifest.permission.ACCESS_COARSE_LOCATION, Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.CAMERA,Manifest.permission.READ_SMS};
         if (!hasPermissions (this, Permissions)) {
             ActivityCompat.requestPermissions (this, Permissions, Permission_All);
         }
@@ -59,13 +60,11 @@ public class WelcomePage extends AppCompatActivity {
 
 
             Toast.makeText (WelcomePage.this,"in testing mode",Toast.LENGTH_SHORT).show ();
-            //// for verifying the user type
-            //showdata ();
-           // startActivity (new Intent (WelcomePage.this,NegotiatorForm.class));
+
         }
 
 
-        TextView textView = (TextView) findViewById (R.id.textView3);
+        ImageView textView = (ImageView) findViewById (R.id.negotiatorwelcome);
         textView.setOnClickListener (new View.OnClickListener () {
             @Override
             public void onClick(View v) {
@@ -76,25 +75,33 @@ public class WelcomePage extends AppCompatActivity {
             }
         });
 
-        Button button = (Button) findViewById (R.id.shopper);
-        button.setOnClickListener (new View.OnClickListener () {
+       ImageView imageView =(ImageView) findViewById (R.id.shopperwelcome);
+       imageView.setOnClickListener (new View.OnClickListener () {
+           @Override
+           public void onClick(View v) {
+               Intent intent = new Intent (v.getContext (),ShopperRegistration.class);
+               v.getContext ().startActivity (intent);
+           }
+       });
+
+       TextView textView1 = (TextView)findViewById (R.id.negotiatorwelcometext);
+       textView1.setOnClickListener (new View.OnClickListener () {
+           @Override
+           public void onClick(View v) {
+               Intent intent = new Intent (v.getContext (),LoginPage.class);
+               v.getContext ().startActivity (intent);
+           }
+       });
+
+        TextView textView2 = (TextView)findViewById (R.id.shopperwelcometext);
+        textView2.setOnClickListener (new View.OnClickListener () {
             @Override
             public void onClick(View v) {
-
-                Intent intent = new Intent (v.getContext (), ShopperHomepage.class);
+                Intent intent = new Intent (v.getContext (),LoginShopper.class);
                 v.getContext ().startActivity (intent);
-
             }
         });
 
-        Button button1 = (Button) findViewById (R.id.Negotiator);
-        button1.setOnClickListener (new View.OnClickListener () {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent (v.getContext (), NegotiatorRegistration.class);
-                v.getContext ().startActivity (intent);
-            }
-        });
     }
 
     public static boolean hasPermissions(Context context, String... permissions) {
@@ -110,33 +117,6 @@ public class WelcomePage extends AppCompatActivity {
     }
 
 
-    private void showdata() {
 
-
-        DatabaseReference mref = FirebaseDatabase.getInstance ().getReference ();
-        DatabaseReference mroot = mref.child ("Negotiator").child (user.getUid ());
-        mroot.addValueEventListener (new ValueEventListener () {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                NegotiatorDetails details;
-                details = dataSnapshot.getValue (NegotiatorDetails.class);
-                assert details != null;
-                s = details.getBl ();
-                if (s.compareToIgnoreCase ("true") == 0) {
-                    startActivity (new Intent (WelcomePage.this, Negotiator_dash.class));
-                } else {
-                    startActivity (new Intent (WelcomePage.this, ShopperHomepage.class));
-                }
-
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-
-
-            }
-        });
-
-    }
 }
 

@@ -2,7 +2,6 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     package="com.example.ayush.finalapp">
-
     <!--
          The ACCESS_COARSE/FINE_LOCATION permissions are not required to use
          Google Maps Android API v2, but you must specify either coarse or fine
@@ -31,6 +30,28 @@
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning">
 
+        <activity
+            android:name=".NegotiatorRegistration"
+            android:label="Create your account" />
+        <activity
+            android:name=".NegotiatorForm"
+            android:label="Personal details"/>
+        <activity
+            android:name=".NegotiatorId"
+            android:label="Upload Profile Photo"/>
+        <activity
+            android:name=".Negotiator_final"
+            android:label="Upload an ID"/>
+
+        <activity
+            android:name=".ShopperRegistration"
+            android:label="Registration For Shopper" />
+        <activity
+            android:name=".ShopperForm"
+            android:label="Personal Details" />
+
+
+        <activity android:name=".LoginShopper"></activity>
         <!--
              The API key for Google Maps-based APIs is defined as a string resource.
              (See the file "res/values/google_maps_api.xml").
@@ -45,8 +66,8 @@
 
         <activity
             android:name=".MapsActivity"
-            android:label="@string/title_activity_maps"></activity>
-        <activity android:name=".NegotiatorId" />
+            android:label="@string/title_activity_maps" />
+
         <activity android:name=".NegotiatorWallet" />
         <activity
             android:name=".Negotiator_dash"
@@ -65,20 +86,16 @@
         <activity
             android:name=".PreviousTransactions"
             android:label="Previous Transations" />
-        <activity
-            android:name=".NegotiatorRegistration"
-            android:label="User Details" />
-        <activity android:name=".WelcomePage" />
-        <activity android:name=".NegotiatorForm" />
+
+        <activity android:name=".WelcomePage"
+            android:theme="@style/AppTheme.NoActionBar"/>
+
         <activity android:name=".QrCode" />
         <activity
             android:name=".LoginPage"
             android:label="Login page" />
-        <activity
-            android:name=".ShopperRegistration"
-            android:label="Registration For Shopper" />
-        <activity android:name=".ShopperForm" />
-        <activity android:name=".Negotiator_final" />
+
+
 
         <uses-library
             android:name="org.apache.http.legacy"
