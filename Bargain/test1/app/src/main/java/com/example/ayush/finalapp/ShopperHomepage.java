@@ -76,26 +76,26 @@ public class ShopperHomepage extends AppCompatActivity
 
 
 
-        DatabaseReference mref = fdb.child ("Shopper").child (user.getUid ());
-        mref.addValueEventListener (new ValueEventListener () {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-
-                ShopperProfile obj ;
-                obj = dataSnapshot.getValue (ShopperProfile.class);
-
-                assert obj != null;
-                TextView textView = (TextView)findViewById (R.id.nav_drawer_username);
-                textView.setText ((obj.getFname () + obj.getLname ()));
-                    
-
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-
-            }
-        });
+//        DatabaseReference mref = fdb.child ("Shopper").child (user.getUid ());
+//        mref.addValueEventListener (new ValueEventListener () {
+//            @Override
+//            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+//
+//                ShopperProfile obj ;
+//                obj = dataSnapshot.getValue (ShopperProfile.class);
+//
+//                assert obj != null;
+//                TextView textView = (TextView)findViewById (R.id.nav_drawer_username);
+//                textView.setText ((obj.getFname () + obj.getLname ()));
+//
+//
+//            }
+//
+//            @Override
+//            public void onCancelled(@NonNull DatabaseError databaseError) {
+//
+//            }
+//        });
 
 
 

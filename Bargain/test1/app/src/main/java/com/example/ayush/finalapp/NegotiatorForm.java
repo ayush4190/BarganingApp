@@ -100,8 +100,6 @@ public class NegotiatorForm extends Activity {
         final CheckBox box2=(CheckBox) findViewById(R.id.box2);
         final CheckBox box3=(CheckBox) findViewById(R.id.box3);
 
-
-
         //idk
         firebaseAuth = FirebaseAuth.getInstance ();
 
