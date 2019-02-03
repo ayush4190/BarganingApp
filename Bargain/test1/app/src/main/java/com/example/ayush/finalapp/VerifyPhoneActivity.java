@@ -48,9 +48,9 @@ public class VerifyPhoneActivity extends AppCompatActivity {
         //getting mobile number from the previous activity
         //and sending the verification code to the number
         Intent intent = getIntent();
-        String mobile = intent.getStringExtra("mobile");
+        final String mobile = intent.getStringExtra("mobile");
         sendVerificationCode(mobile);
-        final String phno = getIntent().getExtras("mobile");
+
 
 
         //if the automatic sms detection did not work, user can also enter the code manually
@@ -58,7 +58,7 @@ public class VerifyPhoneActivity extends AppCompatActivity {
         findViewById(R.id.buttonSignIn).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String code = phno;
+                String code = mobile;
                 if (code.isEmpty() || code.length() < 6) {
                     editTextCode.setError("Enter valid code");
                     editTextCode.requestFocus();

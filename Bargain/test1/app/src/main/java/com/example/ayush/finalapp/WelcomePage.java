@@ -57,6 +57,7 @@ public class WelcomePage extends AppCompatActivity {
         if (user != null) {
 
             showdata ();
+           // startActivity (new Intent (WelcomePage.this,NegotiatorForm.class));
         }
 
 

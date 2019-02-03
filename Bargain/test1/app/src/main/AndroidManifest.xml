@@ -15,6 +15,8 @@
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+    <uses-permission android:name="android.permission.READ_SMS"/>
+
 
     <application
         android:allowBackup="true"
@@ -62,6 +64,8 @@
         <uses-library
             android:name="org.apache.http.legacy"
             android:required="false" />
+        <activity android:name=".VerifyPhoneActivity"
+            android:label="Otp_Verification"/>
 
         <activity
             android:name=".ShopperHomepage"

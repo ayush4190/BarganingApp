@@ -301,7 +301,7 @@ public class NegotiatorForm extends Activity {
                 if (k == 9) {
                     negotiatordetails ();
 
-                    Intent intent = new Intent (NegotiatorForm.this, NegotiatorId.class);
+                    Intent intent = new Intent (NegotiatorForm.this, VerifyPhoneActivity.class);
                     intent.putExtra ("mobile",phno.getText ().toString ().trim ());
                    startActivity (intent);
 

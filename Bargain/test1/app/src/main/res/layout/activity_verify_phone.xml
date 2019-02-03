@@ -34,7 +34,7 @@
         android:id="@+id/container"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_alignParentStart="true"
+        android:layout_alignParentLeft="true"
         android:layout_alignParentTop="true"
         android:orientation="vertical"
         android:padding="20dp">
@@ -83,4 +83,4 @@
 
     </RelativeLayout>
 
-</RelativeLayout>android.support.constraint.ConstraintLayout>
+</RelativeLayout>
