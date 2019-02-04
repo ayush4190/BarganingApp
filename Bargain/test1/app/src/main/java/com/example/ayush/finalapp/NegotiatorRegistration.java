@@ -23,6 +23,7 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseAuthException;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
 public class NegotiatorRegistration extends AppCompatActivity {
@@ -179,7 +180,7 @@ public class NegotiatorRegistration extends AppCompatActivity {
                 if(k==6){
                         registeruser ();
 
-                    // finish();
+                  finish();
                     startActivity (new Intent (NegotiatorRegistration.this,NegotiatorForm.class));
 
 
@@ -196,7 +197,7 @@ public class NegotiatorRegistration extends AppCompatActivity {
 
     private void registeruser() {
 
-        NegotiatorProfile profile = new NegotiatorProfile ();
+        final NegotiatorProfile profile = new NegotiatorProfile ();
         profile.setFname (firstname_q.getText ().toString ().trim ());
         profile.setLname (lastname_q.getText ().toString ().trim ());
         profile.setMemail (email_q.getText ().toString ().trim ());
@@ -207,9 +208,13 @@ public class NegotiatorRegistration extends AppCompatActivity {
             @Override
             public void onComplete(@NonNull Task <AuthResult> task) {
                 if (task.isSuccessful ()) {
-                    Toast.makeText (NegotiatorRegistration.this, "i am here", Toast.LENGTH_SHORT).show ();
+                    Toast.makeText (NegotiatorRegistration.this, "Sign up successfull", Toast.LENGTH_SHORT).show ();
                     finish();
-                    startActivity (new Intent (NegotiatorRegistration.this,NegotiatorForm.class));
+                  //  startActivity (new Intent (NegotiatorRegistration.this,NegotiatorForm.class));
+                    Intent intent = new Intent (NegotiatorRegistration.this,NegotiatorForm.class);
+                    intent.putExtra ("basic",profile);
+
+                    startActivity (intent);
 
 
 

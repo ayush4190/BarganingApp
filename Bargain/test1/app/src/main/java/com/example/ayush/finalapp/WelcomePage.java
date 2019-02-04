@@ -6,6 +6,7 @@ import android.content.pm.PackageManager;
 import android.graphics.Color;
 import android.os.Build;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
@@ -24,6 +25,7 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -63,9 +65,9 @@ public class WelcomePage extends AppCompatActivity {
         user = firebaseAuth.getCurrentUser ();
         if (user != null) {
 
+                checkuser();
 
-
-            Toast.makeText (WelcomePage.this,"in testing mode",Toast.LENGTH_SHORT).show ();
+          //  Toast.makeText (WelcomePage.this,"in testing mode",Toast.LENGTH_SHORT).show ();
 
         }
 
@@ -75,7 +77,7 @@ public class WelcomePage extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-                Intent intent = new Intent (v.getContext (), ShopperHomepage.class);
+                Intent intent = new Intent (v.getContext (), NegotiatorRegistration.class);
                 v.getContext ().startActivity (intent);
 
             }
@@ -120,6 +122,45 @@ public class WelcomePage extends AppCompatActivity {
             }
         }
         return true;
+    }
+    private void checkuser()
+    {
+
+        DatabaseReference mref = FirebaseDatabase.getInstance ().getReference ().child (user.getUid ());
+       mref.addChildEventListener (new ChildEventListener () {
+           @Override
+           public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
+               test temp = new test ();
+               temp = dataSnapshot.getValue (test.class);
+             //  temp.setDecide (dataSnapshot.getValue (test.class));
+               assert temp!=null;
+               temp.setDecide (dataSnapshot.getValue (test.class));
+               if(temp.getDecide ().compareTo ("true") == 0)
+               {
+                   Toast.makeText (WelcomePage.this,"its done",Toast.LENGTH_SHORT).show ();
+               }
+           }
+
+           @Override
+           public void onChildChanged(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
+
+           }
+
+           @Override
+           public void onChildRemoved(@NonNull DataSnapshot dataSnapshot) {
+
+           }
+
+           @Override
+           public void onChildMoved(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
+
+           }
+
+           @Override
+           public void onCancelled(@NonNull DatabaseError databaseError) {
+
+           }
+       });
     }
 
 

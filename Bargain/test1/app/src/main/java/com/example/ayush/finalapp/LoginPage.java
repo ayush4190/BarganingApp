@@ -47,14 +47,14 @@ public class LoginPage extends AppCompatActivity {
             window.setStatusBarColor (getResources ().getColor (R.color.colorPrimary));
         }
         if (firebaseAuth.getCurrentUser() != null) {
-            if(s.compareToIgnoreCase ("nego")==0)
-            {
-                startActivity (new Intent (LoginPage.this,Negotiator_dash.class));
-            }
-            else
-            {
-                startActivity (new Intent (LoginPage.this,Negotiator_dash.class));
-            }
+//           if()
+//            {
+//                startActivity (new Intent (LoginPage.this,Negotiator_dash.class));
+//            }
+//            else
+//            {
+//                startActivity (new Intent (LoginPage.this,Negotiator_dash.class));
+//            }
 
 
         }
@@ -90,7 +90,6 @@ public class LoginPage extends AppCompatActivity {
 
                 {
                     Toast.makeText (LoginPage.this,"you are logged in in testing mode",Toast.LENGTH_SHORT).show ();
-                    s= "nego";
                    startActivity (new Intent (LoginPage.this,Negotiator_dash.class));
                 }
                 else

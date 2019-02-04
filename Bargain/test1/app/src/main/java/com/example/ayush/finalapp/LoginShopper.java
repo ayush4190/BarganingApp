@@ -41,14 +41,7 @@ public class LoginShopper extends AppCompatActivity {
 
         firebaseAuth = FirebaseAuth.getInstance();
         if (firebaseAuth.getCurrentUser() != null) {
-            if(s.compareToIgnoreCase ("shop")==0)
-            {
-                startActivity (new Intent (LoginShopper.this,ShopperHomepage.class));
-            }
-            else
-            {
-                startActivity (new Intent (LoginShopper.this,Negotiator_dash.class));
-            }
+            Toast.makeText (LoginShopper.this,"testing mode",Toast.LENGTH_SHORT).show ();
 
 
         }

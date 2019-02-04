@@ -370,9 +370,13 @@ public class NegotiatorForm extends Activity {
         details.setCategory2(s2);
         details.setCategory3 (s3);
         details.setBl ("true");
+        NegotiatorProfile obj = new NegotiatorProfile ();
+        obj=(NegotiatorProfile)getIntent ().getSerializableExtra ("basic");
         details.setYear (String.valueOf (2019 -year));
         DatabaseReference mroot = FirebaseDatabase.getInstance ().getReference ();
         Task <Void> databaseReference = mroot.child ("Negotiator").child (mUser.getUid ()).setValue (details);
+        databaseReference = mroot.child ("Negotiator").child (mUser.getUid ()).setValue (obj);
+         mroot.child (mUser.getUid ()).setValue ("true");
         Toast.makeText (NegotiatorForm.this,"details entered",Toast.LENGTH_SHORT).show ();
 
 
