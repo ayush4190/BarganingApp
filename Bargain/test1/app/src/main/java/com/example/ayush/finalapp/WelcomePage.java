@@ -72,6 +72,7 @@ public class WelcomePage extends AppCompatActivity {
         }
 
 
+
         ImageView textView = (ImageView) findViewById (R.id.negotiatorwelcome);
         textView.setOnClickListener (new View.OnClickListener () {
             @Override
@@ -138,6 +139,10 @@ public class WelcomePage extends AppCompatActivity {
                if(temp.getDecide ().compareTo ("true") == 0)
                {
                    Toast.makeText (WelcomePage.this,"its done",Toast.LENGTH_SHORT).show ();
+               }
+               else
+               {
+                   Toast.makeText (WelcomePage.this,"more effort is required",Toast.LENGTH_SHORT).show ();
                }
            }
 
