@@ -3,7 +3,7 @@
 
     <item android:drawable="@drawable/circle"/>
     <item android:drawable="@drawable/shopperwelcome"
-        android:height="75dp"
-        android:width="75dp"
+        android:height="125dp"
+        android:width="110dp"
         android:gravity="center"/>
 </layer-list>

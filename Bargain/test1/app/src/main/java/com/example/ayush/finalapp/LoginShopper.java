@@ -17,7 +17,11 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 public class LoginShopper extends AppCompatActivity {
 
@@ -76,9 +80,8 @@ public class LoginShopper extends AppCompatActivity {
                 if (task.isSuccessful())
 
                 {
-                    Toast.makeText (LoginShopper.this,"you are logged in in testing mode",Toast.LENGTH_SHORT).show ();
-                    s= "shop";
-                    startActivity (new Intent (LoginShopper.this,Negotiator_dash.class));
+                    ver ();
+
                 }
                 else
                 {
@@ -87,6 +90,34 @@ public class LoginShopper extends AppCompatActivity {
 
             }
         });
+    }
+    private void ver()
+    {
+        DatabaseReference data = FirebaseDatabase.getInstance ().getReference ();
+        DatabaseReference reference= data.child (user.getUid ());
+        reference.addValueEventListener (new ValueEventListener () {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                test temp = new test ();
+                temp.setDecide ((String) dataSnapshot.getValue ());
+                if(temp.getDecide ().compareTo ("true") == 0)
+                {
+                    startActivity (new Intent (LoginShopper.this,Negotiator_dash.class));
+                }
+                else if(temp.getDecide ().compareTo ("false")==0)
+                {
+                    startActivity (new Intent (LoginShopper.this,ShopperHomepage.class));
+                }
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+        // Toast.makeText (LoginPage.this,""+s,Toast.LENGTH_SHORT).show ();
+
     }
 
     }

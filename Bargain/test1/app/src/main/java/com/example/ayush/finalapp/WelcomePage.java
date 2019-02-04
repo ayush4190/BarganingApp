@@ -65,7 +65,7 @@ public class WelcomePage extends AppCompatActivity {
         user = firebaseAuth.getCurrentUser ();
         if (user != null) {
 
-                checkuser();
+                ver ();
 
           //  Toast.makeText (WelcomePage.this,"in testing mode",Toast.LENGTH_SHORT).show ();
 
@@ -78,7 +78,7 @@ public class WelcomePage extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-                Intent intent = new Intent (v.getContext (), ShopperHomepage.class);
+                Intent intent = new Intent (v.getContext (), NegotiatorRegistration.class);
                 v.getContext ().startActivity (intent);
 
             }
@@ -124,49 +124,42 @@ public class WelcomePage extends AppCompatActivity {
         }
         return true;
     }
-    private void checkuser()
+
+    //// here its providing null value
+    private void ver()
     {
+        DatabaseReference data = FirebaseDatabase.getInstance ().getReference ();
+        DatabaseReference reference= data.child (user.getUid ());
+        reference.addValueEventListener (new ValueEventListener () {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                test temp = new test ();
+                temp.setDecide ((String) dataSnapshot.getValue ());
+                if(temp.getDecide () != null) {
+                    if (temp.getDecide ().compareTo ("true") == 0) {
+                        startActivity (new Intent (WelcomePage.this, Negotiator_dash.class));
+                        finish ();
+                    } else if (temp.getDecide ().compareTo ("false") == 0) {
+                        startActivity (new Intent (WelcomePage.this, ShopperHomepage.class));
+                        finish ();
+                    }
+                }
+                else
+                {
+                    Toast.makeText (WelcomePage.this," " + temp.getDecide (),Toast.LENGTH_SHORT).show ();
+                }
 
-        DatabaseReference mref = FirebaseDatabase.getInstance ().getReference ().child (user.getUid ());
-       mref.addChildEventListener (new ChildEventListener () {
-           @Override
-           public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
-               test temp = new test ();
-               temp = dataSnapshot.getValue (test.class);
-             //  temp.setDecide (dataSnapshot.getValue (test.class));
-               assert temp!=null;
-               temp.setDecide (dataSnapshot.getValue (test.class));
-               if(temp.getDecide ().compareTo ("true") == 0)
-               {
-                   Toast.makeText (WelcomePage.this,"its done",Toast.LENGTH_SHORT).show ();
-               }
-               else
-               {
-                   Toast.makeText (WelcomePage.this,"more effort is required",Toast.LENGTH_SHORT).show ();
-               }
-           }
+            }
 
-           @Override
-           public void onChildChanged(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
 
-           }
+            }
+        });
+        // Toast.makeText (LoginPage.this,""+s,Toast.LENGTH_SHORT).show ();
 
-           @Override
-           public void onChildRemoved(@NonNull DataSnapshot dataSnapshot) {
-
-           }
-
-           @Override
-           public void onChildMoved(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
-
-           }
-
-           @Override
-           public void onCancelled(@NonNull DatabaseError databaseError) {
-
-           }
-       });
     }
+
 
 
 

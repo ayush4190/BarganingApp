@@ -18,6 +18,5 @@ public class test {
         this.decide = decide;
     }
 
-    public void setDecide(test value) {
-    }
+
 }

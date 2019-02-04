@@ -456,6 +456,7 @@ public class ShopperForm extends Activity implements Serializable {
             databaseReference = mroot.child ("Shopper");
             databaseReference.child (firebaseUser.getUid ()).setValue (detail);
             databaseReference.child (firebaseUser.getUid ()).setValue (ob1);
+            mroot.child (firebaseUser.getUid ()).setValue ("false");
         }
 }
 

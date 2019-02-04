@@ -117,6 +117,7 @@ public class NegotiatorId extends AppCompatActivity {
                     Intent myIntent = new Intent (NegotiatorId.this,
                             Negotiator_final.class);
                     startActivity (myIntent);
+                    finish ();
 
                 }
             }

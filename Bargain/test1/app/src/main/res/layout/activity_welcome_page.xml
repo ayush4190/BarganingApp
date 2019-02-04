@@ -11,13 +11,14 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:layout_gravity="center">
+        android:layout_gravity="top">
         <ImageView
             android:layout_width="match_parent"
             android:layout_height="100dp"
             android:src="@drawable/applogo"
-            android:layout_marginBottom="50dp"
+            android:layout_marginBottom="25dp"
             />
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -29,8 +30,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical">
-
-
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -38,10 +37,10 @@
                     android:fontFamily="cursive"
                     android:textColor="#FFFFFF"
                     android:gravity="center"
-                    android:textSize="40dp"/>
+                    android:textSize="50dp"/>
                 <ImageView
                     android:layout_width="match_parent"
-                    android:layout_height="100dp"
+                    android:layout_height="165dp"
                     android:id="@+id/negotiatorwelcome"
                     android:src="@drawable/negoreg"
 
@@ -51,6 +50,7 @@
                     android:layout_height="wrap_content"
                     android:text="Already Signed up?Login Here."
                     android:id="@+id/negotiatorwelcometext"
+                    android:fontFamily="sans-serif-light"
                     android:textColor="#FFFFFF"
                     android:gravity="center"
                     android:textSize="18dp"
@@ -70,7 +70,7 @@
                     android:fontFamily="cursive"
                     android:textColor="#FFFFFF"
                     android:gravity="center"
-                    android:textSize="40dp"/>
+                    android:textSize="50dp"/>
                 <ImageView
                     android:layout_marginTop="10dp"
                     android:layout_width="wrap_content"
@@ -84,6 +84,7 @@
                     android:layout_height="wrap_content"
                     android:text="Already Signed up?Login Here."
                     android:id="@+id/shopperwelcometext"
+                    android:fontFamily="sans-serif-light"
                     android:textColor="#FFFFFF"
                     android:gravity="center"
                     android:textSize="18dp"

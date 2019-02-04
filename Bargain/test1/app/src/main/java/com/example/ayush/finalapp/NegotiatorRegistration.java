@@ -180,8 +180,8 @@ public class NegotiatorRegistration extends AppCompatActivity {
                 if(k==6){
                         registeruser ();
 
-                  finish();
-                    startActivity (new Intent (NegotiatorRegistration.this,NegotiatorForm.class));
+
+
 
 
                 }
@@ -209,12 +209,13 @@ public class NegotiatorRegistration extends AppCompatActivity {
             public void onComplete(@NonNull Task <AuthResult> task) {
                 if (task.isSuccessful ()) {
                     Toast.makeText (NegotiatorRegistration.this, "Sign up successfull", Toast.LENGTH_SHORT).show ();
-                    finish();
+
                   //  startActivity (new Intent (NegotiatorRegistration.this,NegotiatorForm.class));
                     Intent intent = new Intent (NegotiatorRegistration.this,NegotiatorForm.class);
                     intent.putExtra ("basic",profile);
 
                     startActivity (intent);
+                    finish ();// adding here
 
 
 

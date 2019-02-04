@@ -341,6 +341,7 @@ public class NegotiatorForm extends Activity {
                         Intent intent = new Intent (NegotiatorForm.this, VerifyPhoneActivity.class);
                     intent.putExtra ("mobile",phno.getText ().toString ().trim ());
                    startActivity (intent);
+                   finish (); // added here
 
 
 

@@ -208,6 +208,7 @@ public class Negotiator_final extends AppCompatActivity {
                     Intent myIntent = new Intent (Negotiator_final.this,
                            Negotiator_dash.class);
                     startActivity (myIntent);
+                    finish (); // added here
                 }
             }
 
