@@ -19,7 +19,7 @@
                 android:layout_alignParentBottom="true"
                 android:padding="125dp"
                 android:layout_below="@id/text1"
-                android:text="amount"
+                android:text="1000"
                 android:textAlignment="center"
                 android:textAllCaps="true"
 
