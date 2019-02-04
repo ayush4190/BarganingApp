@@ -206,7 +206,7 @@ public class Negotiator_final extends AppCompatActivity {
                if (k == 1 && rb2.isChecked ()) {
                     //categoryregis();
                     Intent myIntent = new Intent (Negotiator_final.this,
-                            MainActivity.class);
+                           Negotiator_dash.class);
                     startActivity (myIntent);
                 }
             }

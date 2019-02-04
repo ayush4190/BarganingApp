@@ -48,6 +48,7 @@ public class LoginPage extends AppCompatActivity {
         }
         if (firebaseAuth.getCurrentUser() != null) {
 //           if()
+            Toast.makeText (LoginPage.this,"in testing mode",Toast.LENGTH_SHORT).show ();
 //            {
 //                startActivity (new Intent (LoginPage.this,Negotiator_dash.class));
 //            }
