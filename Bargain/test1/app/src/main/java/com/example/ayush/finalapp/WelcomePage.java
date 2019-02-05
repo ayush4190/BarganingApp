@@ -65,9 +65,9 @@ public class WelcomePage extends AppCompatActivity {
         user = firebaseAuth.getCurrentUser ();
         if (user != null) {
 
-                ver ();
+                //ver ();
 
-          //  Toast.makeText (WelcomePage.this,"in testing mode",Toast.LENGTH_SHORT).show ();
+            Toast.makeText (WelcomePage.this,"in testing mode",Toast.LENGTH_SHORT).show ();
 
         }
 

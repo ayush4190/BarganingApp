@@ -46,6 +46,7 @@ public class LoginShopper extends AppCompatActivity {
         firebaseAuth = FirebaseAuth.getInstance();
         if (firebaseAuth.getCurrentUser() != null) {
             Toast.makeText (LoginShopper.this,"testing mode",Toast.LENGTH_SHORT).show ();
+       //     ver ();
 
 
         }
@@ -107,6 +108,10 @@ public class LoginShopper extends AppCompatActivity {
                 else if(temp.getDecide ().compareTo ("false")==0)
                 {
                     startActivity (new Intent (LoginShopper.this,ShopperHomepage.class));
+                }
+                else
+                {
+                    Toast.makeText (LoginShopper.this,temp.getDecide (),Toast.LENGTH_SHORT).show ();
                 }
 
             }

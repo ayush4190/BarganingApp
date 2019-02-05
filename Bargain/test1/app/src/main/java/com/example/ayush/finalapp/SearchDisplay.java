@@ -42,7 +42,7 @@ public class SearchDisplay extends AppCompatActivity {
         Log.v("Search text" , searchvalue);
        // Toast.makeText(SearchDisplay.this,searchvalue,Toast.LENGTH_SHORT);
         recyclerView = (RecyclerView) findViewById(R.id.recyclerView);//
-        adapter = new NegotiatorProfileAdapter(negotiatorList);
+        adapter = new NegotiatorProfileAdapter(negotiatorList,this);
         firebaseDatabase = FirebaseDatabase.getInstance();
         Log.v("before getdata" , "hello ");
 

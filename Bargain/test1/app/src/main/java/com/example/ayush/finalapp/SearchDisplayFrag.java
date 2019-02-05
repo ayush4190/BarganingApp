@@ -59,7 +59,6 @@ public class SearchDisplayFrag extends Fragment{
         }
 
 
-
         //String pos=bundle.getString("filter_result_pos");
         //anime
        // Log.v("filter position" , pos);
@@ -69,7 +68,7 @@ public class SearchDisplayFrag extends Fragment{
        Log.v("Searchdis Search text" , searchvalue);
         // Toast.makeText(SearchDisplay.this,searchvalue,Toast.LENGTH_SHORT);
         recyclerView = (RecyclerView) view.findViewById(R.id.recyclerView);//
-        adapter = new NegotiatorProfileAdapter(negotiatorList);
+        adapter = new NegotiatorProfileAdapter(negotiatorList,getActivity ());
 
 
         firebaseDatabase = FirebaseDatabase.getInstance();

@@ -1,5 +1,6 @@
 package com.example.ayush.finalapp;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -24,7 +25,7 @@ public class Negotiator_dash extends AppCompatActivity
 
     private DatabaseReference fdb;
     FirebaseAuth fba;
-    FirebaseUser user;
+    FirebaseUser muser;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,6 +33,7 @@ public class Negotiator_dash extends AppCompatActivity
         setContentView(R.layout.activity_negotiator_dash);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+        fba = FirebaseAuth.getInstance ();
 
       /*  FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
@@ -41,7 +43,7 @@ public class Negotiator_dash extends AppCompatActivity
                         .setAction("Action", null).show();
             }
         });*/
-
+//        muser=fba.getCurrentUser ();
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
@@ -91,6 +93,10 @@ public class Negotiator_dash extends AppCompatActivity
         int id = item.getItemId();
 
         if (id == R.id.nav_camera) {
+            muser=fba.getCurrentUser ();
+            finish ();
+            startActivity (new Intent (Negotiator_dash.this,WelcomePage.class));
+
             // Handle the camera action
         } else if (id == R.id.nav_gallery) {
 

@@ -13,10 +13,11 @@
             android:id="@+id/card_view"
             android:layout_marginLeft="8dp"
             android:layout_marginRight="8dp"
-            app:strokeColor="@color/colorPrimaryDark"
-            app:cardCornerRadius="15dp"
+
+            app:strokeColor="@color/colorGrey"
+            app:cardCornerRadius="5dp"
             app:contentPadding="5dp"
-            app:strokeWidth="5dp"
+            app:strokeWidth="1dp"
             android:layout_marginTop="8dp"
             app:cardBackgroundColor="@color/toolbarwhite"
 
@@ -72,19 +73,17 @@
                             android:textSize="17dp"
                             />
 
-                        <TextView
-                            android:id="@+id/rating"
-                            android:layout_alignParentRight="true"
-
-                            style="@style/TextAppearance.AppCompat.Subhead"
+                        <ImageButton
                             android:layout_width="wrap_content"
-                            android:layout_marginLeft="10dp"
                             android:layout_height="wrap_content"
                             android:layout_below="@id/ph_no"
-                            android:padding="8dp"
-                            android:text="Rating"
-                            android:textSize="17dp"
+                            android:layout_alignParentEnd="true"
+                            android:background="@color/toolbarwhite"
+                            android:layout_alignParentRight="true"
+                            android:src="@drawable/ic_keyboard_arrow_down_black_24dp"
+                                android:id="@+id/card_click"
                             />
+
 
                 </RelativeLayout>
         </android.support.design.card.MaterialCardView>

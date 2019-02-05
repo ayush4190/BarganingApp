@@ -50,6 +50,7 @@ public class LoginPage extends AppCompatActivity {
         if (firebaseAuth.getCurrentUser() != null) {
 
             Toast.makeText (LoginPage.this,"in testing mode",Toast.LENGTH_SHORT).show ();
+//            ver ();
 
 
 
@@ -104,6 +105,7 @@ public class LoginPage extends AppCompatActivity {
              public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                  test temp = new test ();
                  temp.setDecide ((String) dataSnapshot.getValue ());
+                 Toast.makeText (LoginPage.this,temp.getDecide (),Toast.LENGTH_SHORT).show ();
                  if(temp.getDecide ().compareTo ("true") == 0)
                  {
                      startActivity (new Intent (LoginPage.this,Negotiator_dash.class));
