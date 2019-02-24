@@ -43,7 +43,8 @@ public class ShopperHomepage extends AppCompatActivity
     Fragment fragment = null;
     ImageView mcommunity;
     ImageView mfav;
-
+    // for user name
+    FirebaseDatabase firebaseDatabase;
 
     @SuppressLint("WrongViewCast")
     @Override
@@ -73,6 +74,11 @@ public class ShopperHomepage extends AppCompatActivity
         user=fba.getCurrentUser();
 
         fdb=FirebaseDatabase.getInstance().getReference();
+
+
+
+
+
 
 
 
@@ -154,6 +160,29 @@ public class ShopperHomepage extends AppCompatActivity
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+
+        //// added new content here
+        final TextView textView = (TextView) findViewById (R.id.shopper_name);
+        DatabaseReference shopper = fdb.child ("Shopper").child (user.getUid ());
+
+        shopper.addValueEventListener (new ValueEventListener () {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                ShopperProfile profile = dataSnapshot.getValue (ShopperProfile.class);
+                assert profile != null;
+                String key = profile.getFname () ;
+                Toast.makeText (ShopperHomepage.this,key,Toast.LENGTH_SHORT).show ();
+                // problem is in setting the user name try someother method
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+/////////////////////
+
     }
 
 
@@ -240,6 +269,7 @@ public class ShopperHomepage extends AppCompatActivity
             fragmentTransaction.replace (R.id.content_frame,fragment);
             fragmentTransaction.commit ();
         }*/
+
 
 
 
