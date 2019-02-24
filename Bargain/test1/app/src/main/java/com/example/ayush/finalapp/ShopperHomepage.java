@@ -170,9 +170,16 @@ public class ShopperHomepage extends AppCompatActivity
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 ShopperProfile profile = dataSnapshot.getValue (ShopperProfile.class);
                 assert profile != null;
-                String key = profile.getFname () ;
-                Toast.makeText (ShopperHomepage.this,key,Toast.LENGTH_SHORT).show ();
-                // problem is in setting the user name try someother method
+                String key = profile.getFname () + profile.getLname () ;
+
+
+                NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
+                View headerView = navigationView.getHeaderView(0);
+                TextView navUsername = (TextView) headerView.findViewById(R.id.shopper_name);
+                navUsername.setText(key);
+                TextView user_email =(TextView) headerView.findViewById (R.id.shopper_drawer_mail);
+                user_email.setText (profile.getEmail ());
+
 
             }
 
