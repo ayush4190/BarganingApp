@@ -97,7 +97,7 @@ public class WelcomePage extends AppCompatActivity {
        textView1.setOnClickListener (new View.OnClickListener () {
            @Override
            public void onClick(View v) {
-               Intent intent = new Intent (v.getContext (),LoginPage.class);
+               Intent intent = new Intent (v.getContext (),LoginShopper.class);
                v.getContext ().startActivity (intent);
            }
        });

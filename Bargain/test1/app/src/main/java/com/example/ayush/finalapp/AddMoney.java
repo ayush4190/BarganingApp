@@ -21,9 +21,9 @@ public class AddMoney extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_money);
 
-         editText = (EditText)findViewById(R.id.add);
-         Amount = editText.getText();
-          s = Amount.toString();
+//         editText = (EditText)findViewById(R.id.add);
+//         Amount = editText.getText();
+//          s = Amount.toString();
 
 
 

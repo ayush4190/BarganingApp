@@ -1,6 +1,7 @@
 package com.example.ayush.finalapp;
 
 import android.app.AlertDialog;
+import android.content.ContentResolver;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
@@ -8,18 +9,22 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Environment;
+import android.os.Handler;
 import android.os.StrictMode;
 import android.provider.MediaStore;
+import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.webkit.MimeTypeMap;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -27,10 +32,16 @@ import android.widget.Toast;
 import com.example.ayush.finalapp.MainActivity;
 import com.example.ayush.finalapp.profileSource;
 import com.example.ayush.finalapp.R;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.OnProgressListener;
+import com.google.firebase.storage.StorageReference;
+import com.google.firebase.storage.UploadTask;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -59,6 +70,12 @@ public class Negotiator_final extends AppCompatActivity {
 
     NegotiatorDetails details;
 
+    private DatabaseReference databaseReference;
+
+    private StorageReference storageReference;
+
+    private  Uri selectedImage;
+
 
 
     AlertDialog.Builder builder2;
@@ -73,6 +90,7 @@ public class Negotiator_final extends AppCompatActivity {
 
         mauth = FirebaseAuth.getInstance ();
 
+        mUser = mauth.getCurrentUser ();
 
         final CheckBox rb2 = (CheckBox) findViewById (R.id.rb);
 
@@ -175,6 +193,7 @@ public class Negotiator_final extends AppCompatActivity {
         Button nextButton = (Button) findViewById (R.id.next1);
 
 
+
         nextButton.setOnClickListener (new View.OnClickListener () {
 
 
@@ -204,7 +223,7 @@ public class Negotiator_final extends AppCompatActivity {
 //
 //                }
                if (k == 1 && rb2.isChecked ()) {
-                    //categoryregis();
+                    upload_image ();
                     Intent myIntent = new Intent (Negotiator_final.this,
                            Negotiator_dash.class);
                     startActivity (myIntent);
@@ -353,7 +372,7 @@ public class Negotiator_final extends AppCompatActivity {
                 } else if (requestCode == 2) {
 
 
-                    Uri selectedImage = data.getData ();
+                    selectedImage = data.getData ();
 
                     String[] filePath = {MediaStore.Images.Media.DATA};
 
@@ -378,7 +397,57 @@ public class Negotiator_final extends AppCompatActivity {
         }
 
 
+        private String getFileextension(Uri uri)
+        {
+            ContentResolver contentResolver = getContentResolver ();
+            MimeTypeMap mimeTypeMap = MimeTypeMap.getSingleton ();
+
+            return mimeTypeMap.getExtensionFromMimeType (contentResolver.getType (uri)) ;
+        }
     //3
+    private void upload_image()
+    {
+        storageReference = FirebaseStorage.getInstance ().getReference ("Upload");
+        databaseReference= FirebaseDatabase.getInstance ().getReference ();
+        if(selectedImage != null)
+        {
+            StorageReference mstorage = storageReference.child (System.currentTimeMillis ()+"."+getFileextension (selectedImage));
+
+            mstorage.putFile (selectedImage).addOnSuccessListener (new OnSuccessListener <UploadTask.TaskSnapshot> () {
+                @Override
+                public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                    Handler handler = new Handler ();
+                    handler.postDelayed (new Runnable () {
+                        @Override
+                        public void run() {
+                            Toast.makeText (Negotiator_final.this,"image uploaded",Toast.LENGTH_SHORT).show ();
+                        }
+                    },5000);
+
+
+
+                }
+            }).addOnFailureListener (new OnFailureListener () {
+                @Override
+                public void onFailure(@NonNull Exception e) {
+                    Toast.makeText (Negotiator_final.this,e.getMessage (),Toast.LENGTH_SHORT).show ();
+
+                }
+            }).addOnProgressListener (new OnProgressListener <UploadTask.TaskSnapshot> () {
+                @Override
+                public void onProgress(UploadTask.TaskSnapshot taskSnapshot) {
+
+                            double progress=(100.0 * taskSnapshot.getBytesTransferred () / taskSnapshot.getTotalByteCount ());
+
+                }
+            });
+
+        }
+        else
+        {
+            Toast.makeText (Negotiator_final.this,"no photo",Toast.LENGTH_SHORT).show ();
+        }
+    }
 
 }
 

@@ -1,5 +1,6 @@
 package com.example.ayush.finalapp;
 
+import android.app.AlertDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -12,6 +13,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
+import android.content.DialogInterface;
 
 public class PayementActivity extends Fragment {
     @Nullable
@@ -36,35 +38,35 @@ public class PayementActivity extends Fragment {
         });
 
 
-      /*  Button button2 = (Button) view.findViewById(R.id.button2);
+       Button button2 = (Button) view.findViewById(R.id.button2);
         button2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                AlertDialog.Builder mBuilder = new AlertDialog.Builder(PaymentActivity.this);
+               AlertDialog.Builder mBuilder = new AlertDialog.Builder(v.getContext ());
                 View mView = getLayoutInflater().inflate(R.layout.activity_add_money,null);
                 final EditText mAmount  = (EditText) mView.findViewById(R.id.add);
                 mBuilder.setView(mView);
                 AlertDialog dialog = mBuilder.create();
+
                 dialog.show();
+
+
                 Button button = (Button) mView.findViewById(R.id.button4);
                 button.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        TextView textView = (TextView) findViewById(R.id.amount);
+                        TextView textView = (TextView) v.findViewById (R.id.amount);
                         textView.setText(mAmount.getText().toString());
 
 
                     }
                 });
-                //   mBuilder.setView(mView);
-                //  AlertDialog dialog = mBuilder.create();
-                // dialog.show();
+
                 dialog.cancel();
 
-                // Intent intent = new Intent(v.getContext(),AddMoney.class);
-                // v.getContext().startActivity(intent);
+
             }
-        });*/
+        });
 
         Button button3 = (Button) view.findViewById(R.id.button3);
         button3.setOnClickListener(new View.OnClickListener() {
