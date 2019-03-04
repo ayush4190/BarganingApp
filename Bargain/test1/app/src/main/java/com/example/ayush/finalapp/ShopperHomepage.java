@@ -154,7 +154,7 @@ public class ShopperHomepage extends AppCompatActivity
         });
 
         //calling faq page
-        mfav.setOnClickListener (new View.OnClickListener () {
+        mfaq.setOnClickListener (new View.OnClickListener () {
             @Override
             public void onClick(View v) {
                 FragmentTransaction fragmentTransaction = getSupportFragmentManager ().beginTransaction ();
