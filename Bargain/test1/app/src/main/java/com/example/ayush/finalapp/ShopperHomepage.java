@@ -42,7 +42,7 @@ public class ShopperHomepage extends AppCompatActivity
     ImageView mwallet;
     Fragment fragment = null;
     ImageView mcommunity;
-    ImageView mfav;
+    ImageView mfav, mfaq;
     // for user name
     FirebaseDatabase firebaseDatabase;
 
@@ -109,6 +109,7 @@ public class ShopperHomepage extends AppCompatActivity
         mwallet = (ImageView) findViewById (R.id.wallet);//creating the buttons
         mcommunity=(ImageView)findViewById(R.id.communityimage);
         mfav=(ImageView)findViewById(R.id.favimage);
+        mfaq=(ImageView)findViewById(R.id.faq);
         // notification =(MenuItem) findViewById(R.id.action_notification);
 
 
@@ -147,6 +148,18 @@ public class ShopperHomepage extends AppCompatActivity
                 FragmentTransaction fragmentTransaction = getSupportFragmentManager ().beginTransaction ();
                 fragmentTransaction.replace(R.id.content_frame,new HomeShopperfrag());
                 fragmentTransaction.addToBackStack("fav");
+                fragmentTransaction.commit ();
+
+            }
+        });
+
+        //calling faq page
+        mfav.setOnClickListener (new View.OnClickListener () {
+            @Override
+            public void onClick(View v) {
+                FragmentTransaction fragmentTransaction = getSupportFragmentManager ().beginTransaction ();
+                fragmentTransaction.replace(R.id.content_frame,new FAQ());
+                fragmentTransaction.addToBackStack("faq");
                 fragmentTransaction.commit ();
 
             }
