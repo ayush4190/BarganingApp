@@ -235,4 +235,7 @@ We are committed to conducting our business in accordance with these principles 
     <string name="action_settings">Settings</string>
     <string name="title_activity_negotiator_dash">Negotiator_dash</string>
     <string name="title_activity_maps">Map</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>
