@@ -7,6 +7,7 @@ import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.CircleOptions;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 
@@ -38,6 +39,10 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
 
+        mMap.addCircle(new CircleOptions ()
+                .radius(800)
+                .strokeWidth(0f)
+                .fillColor(0x550000FF));
         // Add a marker in Sydney and move the camera
         LatLng sydney = new LatLng (-34, 151);
         mMap.addMarker (new MarkerOptions ().position (sydney).title ("Marker in Sydney"));

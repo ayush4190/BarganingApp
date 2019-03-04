@@ -81,6 +81,8 @@ public class ShopperForm extends Activity implements Serializable {
 
     private  CheckBox rb2;
 
+    shopperPhone_dob detail ;
+
 
 
 
@@ -94,6 +96,8 @@ public class ShopperForm extends Activity implements Serializable {
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_shopper_form);
+
+        detail = new shopperPhone_dob ();
 
         rb2= (CheckBox) findViewById(R.id.rb);
 
@@ -248,6 +252,7 @@ public class ShopperForm extends Activity implements Serializable {
                 if(k==4  && rb2.isChecked()) {
 //
                     basic ();
+
                     //// open this activity only when shoper is signed in or has  registered successfully.
                     Intent myIntent = new Intent(ShopperForm.this,
                            ShopperHomepage.class);
@@ -448,15 +453,18 @@ public class ShopperForm extends Activity implements Serializable {
 
         private  void basic()
         {
-            ShopperPhoto detail = new ShopperPhoto ();
+
             mroot = FirebaseDatabase.getInstance ().getReference ();
-            detail.setDob (dob.getText ().toString ().trim ());
-            detail.setPhone (phno.getText ().toString ().trim ());
             ShopperProfile ob1 = (ShopperProfile) getIntent ().getSerializableExtra ("profile");
-            databaseReference = mroot.child ("Shopper");
-            databaseReference.child (firebaseUser.getUid ()).setValue (detail);
-            databaseReference.child (firebaseUser.getUid ()).setValue (ob1);
+            detail.setFname (ob1.getFname ());
+            detail.setLname (ob1.getLname ());
+            detail.setEmail (ob1.getEmail ());
             mroot.child (firebaseUser.getUid ()).setValue ("false");
+            detail.setPhone (phno.getText ().toString ().trim ());
+            detail.setDob (mDisplayDate.getText ().toString ().trim ());
+            databaseReference= mroot.child ("Shopper");
+            databaseReference.child (firebaseUser.getUid ()).setValue (detail);
+            Toast.makeText (ShopperForm.this,"Shopper profile Initialised",Toast.LENGTH_SHORT).show ();
         }
 }
 
