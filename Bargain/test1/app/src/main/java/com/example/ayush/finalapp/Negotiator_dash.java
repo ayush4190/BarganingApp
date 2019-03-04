@@ -5,6 +5,8 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -14,6 +16,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.google.firebase.auth.FirebaseAuth;
@@ -31,6 +34,13 @@ public class Negotiator_dash extends AppCompatActivity
     private DatabaseReference fdb;
     FirebaseAuth fba;
     FirebaseUser muser;
+    FirebaseUser user;
+    ImageView mwallet, nfaq;
+    Fragment fragment = null;
+
+
+    // for user name
+    FirebaseDatabase firebaseDatabase;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -59,7 +69,33 @@ public class Negotiator_dash extends AppCompatActivity
         navigationView.setNavigationItemSelectedListener(this);
 
 
+        mwallet = (ImageView) findViewById (R.id.wallet);//creating the buttons
+        nfaq = (ImageView) findViewById(R.id.faq); //faqfragbutton
 
+
+        // calling wallet page using fragments
+        mwallet.setOnClickListener (new View.OnClickListener () {
+            @Override
+            public void onClick(View v) {
+                FragmentTransaction fragmentTransaction = getSupportFragmentManager ().beginTransaction ();
+                fragmentTransaction.replace(R.id.content_frame,new PayementActivity ());
+                fragmentTransaction.addToBackStack("wallet");
+                fragmentTransaction.commit ();
+
+            }
+        });
+
+        // calling wallet page using fragments
+        nfaq.setOnClickListener (new View.OnClickListener () {
+            @Override
+            public void onClick(View v) {
+                FragmentTransaction fragmentTransaction = getSupportFragmentManager ().beginTransaction ();
+                fragmentTransaction.replace(R.id.content_frame,new FAQ ());
+                fragmentTransaction.addToBackStack("faq");
+                fragmentTransaction.commit ();
+
+            }
+        });
 
         //// added new content here
         final TextView textView = (TextView) findViewById (R.id.shopper_name);

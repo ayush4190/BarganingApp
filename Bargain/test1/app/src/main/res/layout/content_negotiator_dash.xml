@@ -75,24 +75,32 @@
                     <ImageView
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
-                        android:layout_weight="25"
-                        android:src="@drawable/ic_account_balance_wallet_black_24dp"/>
+                        android:layout_weight="20"
+                        android:src="@drawable/ic_account_balance_wallet_black_24dp"
+                        android:id="@+id/wallet"/>
                     <ImageView
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
-                        android:layout_weight="25"
+                        android:layout_weight="20"
                         android:src="@drawable/ic_group_black_24dp"/>
 
                     <ImageView
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
-                        android:layout_weight="25"
+                        android:layout_weight="20"
                         android:src="@drawable/ic_account_circle_black_24dp"/>
 
                     <ImageView
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
-                        android:layout_weight="25"
+                        android:layout_weight="20"
+                        android:src="@drawable/ic_help_outline_black_24dp"
+                        android:id="@+id/faq"/>
+
+                    <ImageView
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="20"
                         android:src="@drawable/ic_settings_black_24dp"/>
 
 
