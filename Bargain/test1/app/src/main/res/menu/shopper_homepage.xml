@@ -10,12 +10,17 @@
         android:title="Notifications">
     </item>
     <item
-        android:id="@+id/action_search"
+        android:id="@+id/action_chat"
         android:orderInCategory="100"
         android:icon="@drawable/ic_message_white_24dp"
         app:showAsAction="ifRoom|collapseActionView"
         android:title="Chat">
 
     </item>
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="&#xA;        android:title=&quot;Notifications&quot;>&#xA;    &lt;/item>" />
 
 </menu>
