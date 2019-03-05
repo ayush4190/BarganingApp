@@ -10,7 +10,7 @@
         android:title="Notifications">
     </item>
     <item
-        android:id="@+id/action_chat"
+        android:id="@+id/action_chatbox"
         android:orderInCategory="100"
         android:icon="@drawable/ic_message_white_24dp"
         app:showAsAction="ifRoom|collapseActionView"
