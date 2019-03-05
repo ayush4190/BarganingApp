@@ -1,12 +1,16 @@
 package com.example.ayush.finalapp;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
+import android.location.Address;
+import android.location.Geocoder;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
@@ -19,9 +23,13 @@ import android.widget.Toast;
 import com.google.android.gms.common.GooglePlayServicesNotAvailableException;
 import com.google.android.gms.common.GooglePlayServicesRepairableException;
 import com.google.android.gms.location.places.Place;
+import com.google.android.gms.location.places.Places;
 import com.google.android.gms.location.places.ui.PlacePicker;
+import com.google.android.gms.maps.model.LatLng;
 
+import java.io.IOException;
 import java.util.List;
+import java.util.Locale;
 
 import static android.app.Activity.RESULT_OK;
 
@@ -31,6 +39,11 @@ public class HomeShopperfrag extends Fragment {
     Button location_selector;
     int PLACE_PICKER_REQUEST = 1;
     String loc_cat;
+    Place place;
+    Geocoder geocoder;
+    List <Address> addresses;
+
+    String pincode;
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -115,7 +128,13 @@ public class HomeShopperfrag extends Fragment {
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (requestCode == PLACE_PICKER_REQUEST) {
             if (RESULT_OK == resultCode) {
-                Place place = PlacePicker.getPlace(getActivity(), data);
+              place = PlacePicker.getPlace(getActivity(), data);
+                Log.d ("checking", String.valueOf (place.getLatLng ()));
+                // here i am getting the latitue and longitute
+                pincode =test ();
+    /// here is the value transfer this to the shopperHomepage activity and display the list of negotiators there.
+
+
                 location_selector.setText(place.getName());
                 List<Integer> a = place.getPlaceTypes();
                 int ab = a.get(0);
@@ -148,5 +167,26 @@ public class HomeShopperfrag extends Fragment {
             }
             }
         }
+
+        public String test()
+        {
+            geocoder = new Geocoder(getContext (), Locale.getDefault());
+                double latitude = place.getLatLng ().latitude;
+                double longitiute = place.getLatLng ().longitude;
+            try {
+                addresses = geocoder.getFromLocation (latitude,longitiute, 1); // Here 1 represent max location result to returned, by documents it recommended 1 to 5
+            } catch (IOException e) {
+                e.printStackTrace ();
+            }
+
+
+            String postalCode = addresses.get(0).getPostalCode();
+            Log.d ("pincode",postalCode);
+
+    return postalCode;
+        }
+
+
     }
+
 
