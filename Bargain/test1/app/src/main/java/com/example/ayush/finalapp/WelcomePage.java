@@ -78,7 +78,7 @@ public class WelcomePage extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-                Intent intent = new Intent (v.getContext (), Negotiator_dash.class);
+                Intent intent = new Intent (v.getContext (), NegotiatorRegistration.class);
                 v.getContext ().startActivity (intent);
 
             }

@@ -18,6 +18,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -99,6 +100,7 @@ public class Negotiator_dash extends AppCompatActivity
 
         //// added new content here
         final TextView textView = (TextView) findViewById (R.id.shopper_name);
+        fdb = FirebaseDatabase.getInstance ().getReference ();
         DatabaseReference shopper = fdb.child ("Negotiator").child (muser.getUid ());
 
         shopper.addValueEventListener (new ValueEventListener () {
@@ -108,6 +110,10 @@ public class Negotiator_dash extends AppCompatActivity
                 assert profile != null;
                 String key = profile.getFirstname () + profile.getLastname () ;
 
+                if(key == null)
+                {
+                    Toast.makeText (Negotiator_dash.this,"name is not present",Toast.LENGTH_SHORT).show ();
+                }
 
                 NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
                 View headerView = navigationView.getHeaderView(0);

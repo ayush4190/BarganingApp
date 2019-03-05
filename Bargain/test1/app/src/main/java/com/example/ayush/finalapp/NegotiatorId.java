@@ -12,6 +12,7 @@ import android.graphics.drawable.Drawable;
 import android.media.Image;
 import android.net.Uri;
 import android.os.Environment;
+import android.os.Handler;
 import android.os.StrictMode;
 import android.provider.MediaStore;
 import android.support.annotation.NonNull;
@@ -39,6 +40,8 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
+import java.net.URI;
+import java.net.URL;
 
 public class NegotiatorId extends AppCompatActivity {
     ImageView viewImage;
@@ -51,6 +54,10 @@ public class NegotiatorId extends AppCompatActivity {
     private FirebaseStorage mstorage;
 
     private StorageReference store;
+
+    private StorageReference storageReference;
+
+    private DatabaseReference databaseReference;
 
     //
     DatabaseReference data;
@@ -112,7 +119,7 @@ public class NegotiatorId extends AppCompatActivity {
                     Toast.makeText (NegotiatorId.this, "Add Profile Picture", Toast.LENGTH_SHORT).show ();
 
                 } else {
-                   // uploadprofilephoto ();
+                    upload_image ();
                     Toast.makeText (NegotiatorId.this, "what the ",Toast.LENGTH_SHORT).show ();
                     Intent myIntent = new Intent (NegotiatorId.this,
                             Negotiator_final.class);
@@ -192,6 +199,11 @@ public class NegotiatorId extends AppCompatActivity {
                     if (temp.getName ().equals ("temp.jpg")) {
 
                         f = temp;
+
+                        // adding new peice of code here
+                     selectedImage =  Uri.fromFile (new File (f.toString ()));
+
+                        ///
 
                         break;
 
@@ -290,38 +302,63 @@ public class NegotiatorId extends AppCompatActivity {
 
 
 
-   /* public String getImage(Uri uri)
-    {
+   /// adding code for negotiator profile photo upload
 
+    private String getFileextension(Uri uri)
+    {
         ContentResolver contentResolver = getContentResolver ();
         MimeTypeMap mimeTypeMap = MimeTypeMap.getSingleton ();
-        return mimeTypeMap.getExtensionFromMimeType (contentResolver.getType (uri));
+
+        return mimeTypeMap.getExtensionFromMimeType (contentResolver.getType (uri)) ;
     }
-    ///// function to add image
-    //// function not complete yet*/
-
-    private void uploadprofilephoto() {
-
-        StorageReference str;
 
 
-            str = FirebaseStorage.getInstance ().getReference ().child ("photo").child (selectedImage.getLastPathSegment ());
-            profileSource src = new profileSource (str.toString ());
-            str.putFile (selectedImage).addOnSuccessListener (new OnSuccessListener <UploadTask.TaskSnapshot> () {
+    private void upload_image()
+    {
+        storageReference = FirebaseStorage.getInstance ().getReference ("Upload");
+        databaseReference= FirebaseDatabase.getInstance ().getReference ();
+        if(selectedImage != null)
+        {
+            StorageReference mstorage = storageReference.child (System.currentTimeMillis ()+"."+getFileextension (selectedImage));
+
+            mstorage.putFile (selectedImage).addOnSuccessListener (new OnSuccessListener <UploadTask.TaskSnapshot> () {
                 @Override
                 public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                    Toast.makeText (NegotiatorId.this,"hello uploaded",Toast.LENGTH_SHORT).show ();
+                    Handler handler = new Handler ();
+                    handler.postDelayed (new Runnable () {
+                        @Override
+                        public void run() {
+                            Toast.makeText (NegotiatorId.this,"image uploaded",Toast.LENGTH_SHORT).show ();
+                        }
+                    },5000);
+
+
 
                 }
             }).addOnFailureListener (new OnFailureListener () {
                 @Override
                 public void onFailure(@NonNull Exception e) {
-                    Toast.makeText (NegotiatorId.this,"hello " + e.getMessage (),Toast.LENGTH_SHORT).show ();
+                    Toast.makeText (NegotiatorId.this,e.getMessage (),Toast.LENGTH_SHORT).show ();
+
+                }
+            }).addOnProgressListener (new OnProgressListener <UploadTask.TaskSnapshot> () {
+                @Override
+                public void onProgress(UploadTask.TaskSnapshot taskSnapshot) {
+
+                    double progress=(100.0 * taskSnapshot.getBytesTransferred () / taskSnapshot.getTotalByteCount ());
 
                 }
             });
 
+        }
+        else
+        {
+            Toast.makeText (NegotiatorId.this,"no photo",Toast.LENGTH_SHORT).show ();
+        }
     }
+
+
+    /////
 }
 
 
