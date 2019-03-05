@@ -111,7 +111,7 @@ public class LoginShopper extends AppCompatActivity {
                 }
                 else
                 {
-                    Toast.makeText (LoginShopper.this,temp.getDecide (),Toast.LENGTH_SHORT).show ();
+                    Toast.makeText (LoginShopper.this,"not a valid client",Toast.LENGTH_SHORT).show ();
                 }
 
             }
