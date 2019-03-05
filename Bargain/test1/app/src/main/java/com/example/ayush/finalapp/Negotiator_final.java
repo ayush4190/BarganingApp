@@ -303,6 +303,7 @@ public class Negotiator_final extends AppCompatActivity {
                         if (temp.getName ().equals ("temp.jpg")) {
 
                             f = temp;
+                            selectedImage = Uri.fromFile (new File (f.toString ()));
 
                             break;
 
