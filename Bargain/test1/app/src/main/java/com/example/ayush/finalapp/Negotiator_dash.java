@@ -104,17 +104,17 @@ public class Negotiator_dash extends AppCompatActivity
         shopper.addValueEventListener (new ValueEventListener () {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                NegotiatorProfile profile = dataSnapshot.getValue (NegotiatorProfile.class);
+                NegotiatorDetails profile = dataSnapshot.getValue (NegotiatorDetails.class);
                 assert profile != null;
-                String key = profile.getFname () + profile.getLname () ;
+                String key = profile.getFirstname () + profile.getLastname () ;
 
 
                 NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
                 View headerView = navigationView.getHeaderView(0);
-                TextView navUsername = (TextView) headerView.findViewById(R.id.shopper_name);
+                TextView navUsername = (TextView) headerView.findViewById(R.id.nego_name);
                 navUsername.setText(key);
-                TextView user_email =(TextView) headerView.findViewById (R.id.shopper_drawer_mail);
-                user_email.setText (profile.getMemail ());
+                TextView user_email =(TextView) headerView.findViewById (R.id.nego_email);
+                user_email.setText (profile.getEmail ());
 
 
             }
