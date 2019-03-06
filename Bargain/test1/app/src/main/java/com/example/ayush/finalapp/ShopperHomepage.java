@@ -246,8 +246,8 @@ public class ShopperHomepage extends AppCompatActivity
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_chatbox) {//R.id.action_setting
 
-//            Intent intent = new Intent (ShopperHomepage.this, chatbox.class);
-//            startActivity (intent);
+            Intent intent = new Intent (ShopperHomepage.this,ChatBox.class);
+            startActivity (intent);
         }
         if (id == R.id.action_notification) {
 //to open notification as a fragment
