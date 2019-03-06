@@ -86,9 +86,6 @@
         <activity
             android:name=".PreviousTransactions"
             android:label="Previous Transations" />
-        <activity
-            android:name=".chatbox"
-            android:label="chatbox" />
 
         <activity android:name=".WelcomePage"
             android:theme="@style/AppTheme.NoActionBar"/>
