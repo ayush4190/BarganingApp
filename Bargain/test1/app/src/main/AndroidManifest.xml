@@ -30,6 +30,7 @@
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning">
 
+
         <activity
             android:name=".NegotiatorRegistration"
             android:label="Create your account" />

@@ -47,6 +47,11 @@ dependencies {
     implementation 'com.scaledrone:scaledrone-java:0.6.0'
     implementation 'com.firebaseui:firebase-ui-storage:3.0.0'
 
+    implementation ('com.paytm:pgplussdk:1.3.3'){
+        transitive = true;
+    }
+
+
 
 
 }

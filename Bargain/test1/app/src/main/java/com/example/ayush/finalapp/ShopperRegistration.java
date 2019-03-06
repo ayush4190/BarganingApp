@@ -176,6 +176,7 @@ public class ShopperRegistration extends AppCompatActivity implements Serializab
         profile.setEmail (email_q.getText ().toString ().trim ());
         profile.setFname (firstname_q.getText ().toString ().trim ());
         profile.setLname (lastname_q.getText ().toString ().trim ());
+        profile.setUsername (username_q.getText ().toString ().trim ());
 
 
         mAuth.createUserWithEmailAndPassword (emailv,passwordv).addOnCompleteListener (new OnCompleteListener <AuthResult> () {

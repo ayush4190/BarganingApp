@@ -1,14 +1,15 @@
 package com.example.ayush.finalapp;
 
 public class shopperPhone_dob {
-    private String dob , phone,fname , lname , email;
+    private String dob , phone,fname , lname , email, username;
 
-    public shopperPhone_dob(String dob, String phone, String fname, String lname, String email) {
+    public shopperPhone_dob(String dob, String phone, String fname, String lname, String email , String username) {
         this.dob = dob;
         this.phone = phone;
         this.fname = fname;
         this.lname = lname;
         this.email = email;
+        this.username = username;
     }
 
     public shopperPhone_dob() {
@@ -52,5 +53,13 @@ public class shopperPhone_dob {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
     }
 }

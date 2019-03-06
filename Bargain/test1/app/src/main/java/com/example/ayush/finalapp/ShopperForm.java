@@ -462,6 +462,7 @@ public class ShopperForm extends Activity implements Serializable {
             mroot.child (firebaseUser.getUid ()).setValue ("false");
             detail.setPhone (phno.getText ().toString ().trim ());
             detail.setDob (mDisplayDate.getText ().toString ().trim ());
+            detail.setUsername (ob1.getUsername ());
             databaseReference= mroot.child ("Shopper");
             databaseReference.child (firebaseUser.getUid ()).setValue (detail);
             Toast.makeText (ShopperForm.this,"Shopper profile Initialised",Toast.LENGTH_SHORT).show ();
