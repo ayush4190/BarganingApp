@@ -29,30 +29,28 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning">
-
-
+        <activity android:name=".ChatBox"></activity>
         <activity
             android:name=".NegotiatorRegistration"
             android:label="Create your account" />
         <activity
             android:name=".NegotiatorForm"
-            android:label="Personal details"/>
+            android:label="Personal details" />
         <activity
             android:name=".NegotiatorId"
-            android:label="Upload Profile Photo"/>
+            android:label="Upload Profile Photo" />
         <activity
             android:name=".Negotiator_final"
-            android:label="Upload an ID"/>
-
+            android:label="Upload an ID" />
         <activity
             android:name=".ShopperRegistration"
             android:label="Registration For Shopper" />
         <activity
             android:name=".ShopperForm"
             android:label="Personal Details" />
-
-
-        <activity android:name=".LoginShopper"  android:theme="@style/AppTheme.NoActionBar"></activity>
+        <activity
+            android:name=".LoginShopper"
+            android:theme="@style/AppTheme.NoActionBar" />
         <!--
              The API key for Google Maps-based APIs is defined as a string resource.
              (See the file "res/values/google_maps_api.xml").
@@ -68,7 +66,6 @@
         <activity
             android:name=".MapsActivity"
             android:label="@string/title_activity_maps" />
-
         <activity android:name=".NegotiatorWallet" />
         <activity
             android:name=".Negotiator_dash"
@@ -87,18 +84,14 @@
         <activity
             android:name=".PreviousTransactions"
             android:label="Previous Transations" />
-
-        <activity android:name=".WelcomePage"
-            android:theme="@style/AppTheme.NoActionBar"/>
-
+        <activity
+            android:name=".WelcomePage"
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity android:name=".QrCode" />
         <activity
             android:name=".LoginPage"
             android:label="Login page"
-            android:theme="@style/AppTheme.NoActionBar"
-            />
-
-
+            android:theme="@style/AppTheme.NoActionBar" />
 
         <uses-library
             android:name="org.apache.http.legacy"
