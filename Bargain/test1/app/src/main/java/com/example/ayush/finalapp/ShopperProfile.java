@@ -4,18 +4,26 @@ import java.io.Serializable;
 
 public class ShopperProfile implements Serializable {
 
-    String fname , lname , email,password , username;
+    String fname , lname , email,password,dob,username;
 
-    public ShopperProfile(String fname, String lname, String email, String password , String username) {
+    public ShopperProfile(String fname, String lname, String email, String password,String dob,String username) {
         this.fname = fname;
         this.lname = lname;
         this.email = email;
         this.password = password;
-        this.username = username;
-
+        this.dob=dob;
+        this.username=username;
     }
 
     public ShopperProfile() {
+    }
+
+    public String getDob() {
+        return dob;
+    }
+
+    public void setDob(String dob) {
+        this.dob = dob;
     }
 
     public String getFname() {
@@ -50,11 +58,11 @@ public class ShopperProfile implements Serializable {
         this.password = password;
     }
 
-    public String getUsername() {
-        return username;
-    }
-
     public void setUsername(String username) {
         this.username = username;
+    }
+
+    public String getUsername() {
+        return username;
     }
 }

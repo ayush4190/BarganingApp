@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:id="@+id/searchfrag">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <SearchView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_gravity="end"
+            android:id="@+id/searchcommunitynext"
+            android:clickable="true"
+            android:queryHint="Search by product or shop "
+            android:iconifiedByDefault="false"
+            android:focusableInTouchMode="false"
+            >
+        </SearchView>
+
+        <android.support.v7.widget.RecyclerView
+
+            xmlns:android="http://schemas.android.com/apk/res/android"
+            android:id="@+id/recyclerView_community"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:autofillHints="search here"
+            android:background="@color/cardview_light_background"
+            android:scrollbars="vertical"
+            android:textAlignment="center"
+            android:scrollbarSize="5dip">
+
+        </android.support.v7.widget.RecyclerView>
+
+        <!--<TextView-->
+            <!--android:id="@+id/textview_community"-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:text="i am here"-->
+            <!--android:textSize="24dp"/>-->
+    </LinearLayout>
+</ScrollView>

@@ -61,14 +61,14 @@ public class SearchDisplayFrag extends Fragment{
 
         //String pos=bundle.getString("filter_result_pos");
         //anime
-       // Log.v("filter position" , pos);
+        // Log.v("filter position" , pos);
 
 
-       Log.v("Serachdis age:",String.valueOf (age));
-       Log.v("Searchdis Search text" , searchvalue);
+        Log.v("Serachdis age:",String.valueOf (age));
+        Log.v("Searchdis Search text" , searchvalue);
         // Toast.makeText(SearchDisplay.this,searchvalue,Toast.LENGTH_SHORT);
         recyclerView = (RecyclerView) view.findViewById(R.id.recyclerView);//
-        adapter = new NegotiatorProfileAdapter(negotiatorList,getActivity ());
+        adapter = new NegotiatorProfileAdapter(negotiatorList,getActivity (),0);
 
 
         firebaseDatabase = FirebaseDatabase.getInstance();
@@ -149,13 +149,10 @@ public class SearchDisplayFrag extends Fragment{
         Query query=databaseReference.orderByChild("category1").equalTo(searchvalue);
         Log.v("inside query 1" , "hello ");
 
-
         query.addChildEventListener(new ChildEventListener() {
-
             @Override
             public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
                 Log.v("inondata beforeifexists" , "hello ");
-
 
                 if(dataSnapshot.exists()){
                     Log.v("inondata after ifexists" , "hello ");
@@ -166,18 +163,18 @@ public class SearchDisplayFrag extends Fragment{
                     NegotiatorDetails data =dataSnapshot.getValue(NegotiatorDetails.class);
                     if(age==0)
                     {
-                        adapter.addItem(data);
+                        adapter.addItem(data,dataSnapshot.getKey());
                         adapter.notifyDataSetChanged();
                         recyclerView.setAdapter(adapter);
-                    //   }
+                        //   }
                     }
                     else if(data.getYear ().compareToIgnoreCase (String.valueOf (age))==0){
-                    //    Log.v("display data" , data.getFirstname());
-                    adapter.addItem(data);
-                    adapter.notifyDataSetChanged();
-                    recyclerView.setAdapter(adapter);
-                    //   }
-                }}
+                        //    Log.v("display data" , data.getFirstname());
+                        adapter.addItem(data,dataSnapshot.getKey());
+                        adapter.notifyDataSetChanged();
+                        recyclerView.setAdapter(adapter);
+                        //   }
+                    }}
             }
 
             @Override
@@ -222,14 +219,14 @@ public class SearchDisplayFrag extends Fragment{
 
                     if(age==0)
                     {
-                        adapter.addItem(data);
+                        adapter.addItem(data,dataSnapshot.getKey());
                         adapter.notifyDataSetChanged();
                         recyclerView.setAdapter(adapter);
                         //   }
                     }
                     else if(data.getYear ().compareToIgnoreCase (String.valueOf (age))==0){
                         //    Log.v("display data" , data.getFirstname());
-                        adapter.addItem(data);
+                        adapter.addItem(data,dataSnapshot.getKey());
                         adapter.notifyDataSetChanged();
                         recyclerView.setAdapter(adapter);
                         //   }
@@ -280,14 +277,14 @@ public class SearchDisplayFrag extends Fragment{
 
                     if(age==0)
                     {
-                        adapter.addItem(data);
+                        adapter.addItem(data,dataSnapshot.getKey());
                         adapter.notifyDataSetChanged();
                         recyclerView.setAdapter(adapter);
                         //   }
                     }
                     else if(data.getYear ().compareToIgnoreCase (String.valueOf (age))==0){
                         //    Log.v("display data" , data.getFirstname());
-                        adapter.addItem(data);
+                        adapter.addItem(data,dataSnapshot.getKey());
                         adapter.notifyDataSetChanged();
                         recyclerView.setAdapter(adapter);
                         //   }

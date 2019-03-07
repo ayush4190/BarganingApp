@@ -1,17 +1,41 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
+<ScrollView
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
-
-
-    <TextView
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:gravity="center"
-        android:text="Community"
-        android:textSize="50dp"
-        app:layout_constraintStart_toStartOf="parent" />
+        android:orientation="vertical">
 
-</RelativeLayout>
+
+    <SearchView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_gravity="end"
+        android:id="@+id/searchcommunity"
+        android:clickable="true"
+        android:queryHint="Search by product or shop "
+        android:iconifiedByDefault="false"
+        />
+
+
+    <android.support.v7.widget.RecyclerView
+
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/recyclerViewcommunityfrag"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:autofillHints="search here"
+        android:background="@color/cardview_light_background"
+        android:scrollbars="vertical"
+        android:textAlignment="center"
+        android:scrollbarSize="5dip">
+
+    </android.support.v7.widget.RecyclerView>
+    </LinearLayout>
+
+
+</ScrollView>

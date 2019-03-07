@@ -25,10 +25,10 @@ public class SearchDisplay extends AppCompatActivity {
 
     private List<NegotiatorDetails> negotiatorList = new ArrayList<>();
     private RecyclerView recyclerView;
-     private NegotiatorProfileAdapter adapter;
+    private NegotiatorProfileAdapter adapter;
     FirebaseDatabase firebaseDatabase;
     DatabaseReference databaseReference;
-  //String searchvalue = (Searchfrag)getIntent().getExtras("Searchtext");
+    //String searchvalue = (Searchfrag)getIntent().getExtras("Searchtext");
     String searchvalue;
 
     @Override
@@ -38,11 +38,11 @@ public class SearchDisplay extends AppCompatActivity {
         Bundle bundle = getIntent().getExtras();
         //anime
         if(bundle != null)
-        searchvalue = bundle.getString("Searchtext");
+            searchvalue = bundle.getString("Searchtext");
         Log.v("Search text" , searchvalue);
-       // Toast.makeText(SearchDisplay.this,searchvalue,Toast.LENGTH_SHORT);
+        // Toast.makeText(SearchDisplay.this,searchvalue,Toast.LENGTH_SHORT);
         recyclerView = (RecyclerView) findViewById(R.id.recyclerView);//
-        adapter = new NegotiatorProfileAdapter(negotiatorList,this);
+        adapter = new NegotiatorProfileAdapter(negotiatorList,this,0);
         firebaseDatabase = FirebaseDatabase.getInstance();
         Log.v("before getdata" , "hello ");
 
@@ -51,10 +51,8 @@ public class SearchDisplay extends AppCompatActivity {
 
         recyclerView.setAdapter(adapter);
         RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getApplicationContext());//
-        recyclerView.setLayoutManager(mLayoutManager);//n
-
+        recyclerView.setLayoutManager(mLayoutManager);
         adapter.notifyDataSetChanged();
-
     }
 
 
@@ -129,15 +127,15 @@ public class SearchDisplay extends AppCompatActivity {
                 if(dataSnapshot.exists()){
                     Log.v("inondata after ifexists" , "hello ");
 
-                   // for(DataSnapshot issue: dataSnapshot.getChildren()) {
-                        Log.v("inside loop" , "hello ");
+                    // for(DataSnapshot issue: dataSnapshot.getChildren()) {
+                    Log.v("inside loop" , "hello ");
 
-                        NegotiatorDetails data =dataSnapshot.getValue(NegotiatorDetails.class);
-                       //    Log.v("display data" , data.getFirstname());
-                        adapter.addItem(data);
-                        adapter.notifyDataSetChanged();
-                        recyclerView.setAdapter(adapter);
-                 //   }
+                    NegotiatorDetails data =dataSnapshot.getValue(NegotiatorDetails.class);
+                    //    Log.v("display data" , data.getFirstname());
+                    adapter.addItem(data,dataSnapshot.getKey());
+                    adapter.notifyDataSetChanged();
+                    recyclerView.setAdapter(adapter);
+                    //   }
                 }
             }
 
@@ -179,7 +177,7 @@ public class SearchDisplay extends AppCompatActivity {
 
                     NegotiatorDetails data =dataSnapshot.getValue(NegotiatorDetails.class);
                     //    Log.v("display data" , data.getFirstname());
-                    adapter.addItem(data);
+                    adapter.addItem(data,dataSnapshot.getKey());
                     adapter.notifyDataSetChanged();
                     recyclerView.setAdapter(adapter);
                     //   }
@@ -226,7 +224,7 @@ public class SearchDisplay extends AppCompatActivity {
 
                     NegotiatorDetails data =dataSnapshot.getValue(NegotiatorDetails.class);
                     //    Log.v("display data" , data.getFirstname());
-                    adapter.addItem(data);
+                    adapter.addItem(data,dataSnapshot.getKey());
                     adapter.notifyDataSetChanged();
                     recyclerView.setAdapter(adapter);
                     //   }
@@ -295,7 +293,7 @@ public class SearchDisplay extends AppCompatActivity {
     }
 }
 
-        //
+//
 
 //
 //

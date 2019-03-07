@@ -6,6 +6,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.os.Parcelable;
+import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentTransaction;
@@ -14,18 +15,33 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
+import com.google.firebase.database.ValueEventListener;
+
+import java.util.ArrayList;
 import java.util.List;
 
 
 public class NegotiatorProfileAdapter extends RecyclerView.Adapter<NegotiatorProfileAdapter.NegotiatorProfileViewHolder>{
 
     private List <NegotiatorDetails> negotiatorProfileList;
-
+    private List <ShopperDetails> shopperProfileList;
+    private List <String> s;
+    //    static View v1;
 //    CardFrag cardFrag;
     AlertDialog.Builder builder2;
     public TextView fname;
@@ -36,15 +52,18 @@ public class NegotiatorProfileAdapter extends RecyclerView.Adapter<NegotiatorPro
     public TextView cat2;
     public TextView cat3;
     public TextView phno;
-   FragmentActivity mContext;
-//   // FragmentActivity mContext;
+    FragmentActivity mContext;
+    int favbool;
+    //   // FragmentActivity mContext;
     Bundle mBundle;
 
     public static NegotiatorDetails n;
 
-    public NegotiatorProfileAdapter(List<NegotiatorDetails> negotiatorProfileList,FragmentActivity f) {
+    public NegotiatorProfileAdapter(List<NegotiatorDetails> negotiatorProfileList,FragmentActivity f,int favbool) {
         this.mContext= f;
         this.negotiatorProfileList = negotiatorProfileList;
+        this.s= new ArrayList<String>();
+        this.favbool=favbool;
     }
 
 
@@ -55,7 +74,6 @@ public class NegotiatorProfileAdapter extends RecyclerView.Adapter<NegotiatorPro
         ImageButton imgbutton;
         public TextView last;
         public TextView phone;
-
 
 
 
@@ -80,8 +98,8 @@ public class NegotiatorProfileAdapter extends RecyclerView.Adapter<NegotiatorPro
     //////////////////////////
     @Override
     public void onBindViewHolder(NegotiatorProfileViewHolder holder, final int position) {
-         n = negotiatorProfileList.get(position);
-         final NegotiatorDetails nego =negotiatorProfileList.get(position);
+        n = negotiatorProfileList.get(position);
+        final NegotiatorDetails nego =negotiatorProfileList.get(position);
 
         holder.first.setText(n.getFirstname());
         holder.last.setText(n.getLastname());
@@ -118,13 +136,74 @@ public class NegotiatorProfileAdapter extends RecyclerView.Adapter<NegotiatorPro
                 cat1.setText(n.getCategory1());
                 cat3.setText(n.getCategory3());
                 phno.setText(n.getPhone());
-                        builder2.setNegativeButton ("Close", new DialogInterface.OnClickListener () {
-                            public void onClick(DialogInterface dialog, int id) {
-                                dialog.cancel ();
-                            }
-                        });
+                builder2.setNegativeButton ("Close", new DialogInterface.OnClickListener () {
+                    public void onClick(DialogInterface dialog, int id) {
+                        dialog.cancel ();
 
-                        // Add action buttons
+                    }
+                });
+
+
+
+                final ImageView fav = (ImageView) v1.findViewById(R.id.favbuttoncard);
+                final  ImageView favdone=(ImageView)v1.findViewById(R.id.favbuttoncarddone);
+
+                if(favbool==1){
+                    fav.setVisibility(View.GONE);
+                    favdone.setVisibility(View.VISIBLE);
+                }
+
+                fav.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        fav.setVisibility(View.GONE);
+                        favdone.setVisibility(View.VISIBLE);
+                        String negokey = s.get(position);
+                        Log.v("fsgfht",s.get(position));
+                        FirebaseUser firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
+                        DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference();
+                        DatabaseReference favourite;
+                        favourite=databaseReference.child("Shopper").child(firebaseUser.getUid());
+                        favourite.child("Favourite").push().setValue(negokey);
+
+//
+                    }
+                });
+
+                favdone.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        favdone.setVisibility(View.GONE);
+                        fav.setVisibility(View.VISIBLE);
+                        String negokey = s.get(position);
+                        FirebaseUser firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
+                        DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference();
+                        DatabaseReference favourite;
+                        favourite = databaseReference.child("Shopper").child(firebaseUser.getUid());
+                        Query qremove = favourite.child("Favourite").orderByValue().equalTo(negokey);
+                        qremove.addListenerForSingleValueEvent(new ValueEventListener() {
+                            @Override
+                            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                                for (DataSnapshot itemSnapshot : dataSnapshot.getChildren()) {
+                                    itemSnapshot.getRef().removeValue();
+                                }
+                            }
+
+                            @Override
+                            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                            }
+
+
+                        });
+                    }
+
+
+                });
+
+
+
+                // Add action buttons
 
                 //Setting message manually and performing action on button click
                 builder2.setCancelable (false);
@@ -164,7 +243,7 @@ public class NegotiatorProfileAdapter extends RecyclerView.Adapter<NegotiatorPro
         });
 
 ////////////
-                n=negotiatorProfileList.get(position);
+        n=negotiatorProfileList.get(position);
 
 //
 ////////////
@@ -189,9 +268,9 @@ public class NegotiatorProfileAdapter extends RecyclerView.Adapter<NegotiatorPro
 //                    });
 
 
-                }//bind end
+    }//bind end
 
-        ////////
+    ////////
 //
 //    ////////////////////////////
 //    public void switchContent(int id, CardFrag fragment) {
@@ -203,7 +282,7 @@ public class NegotiatorProfileAdapter extends RecyclerView.Adapter<NegotiatorPro
 //            CardFrag frag = fragment;
 //            m.switchContent(id, fragment);
 ////        }
-     //   }
+    //   }
 
 
 //
@@ -217,8 +296,9 @@ public class NegotiatorProfileAdapter extends RecyclerView.Adapter<NegotiatorPro
 //        switchContent(R.layout.card_frag, cardFrag);
 //    }
 
-    public void addItem(NegotiatorDetails eventsList)
+    public void addItem(NegotiatorDetails eventsList,String t)
     {
+        this.s.add(t);
         this.negotiatorProfileList.add(eventsList);
     }
 

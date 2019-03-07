@@ -1,0 +1,211 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    >
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_gravity="top">
+
+
+                <ImageView
+                    android:id="@+id/shopperprofilepicani"
+                    android:layout_width="100dp"
+                    android:layout_height="100dp"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="10dp"
+                    android:src="@drawable/user"/>
+
+<Button
+    android:id="@+id/selectbtnprofile"
+    android:layout_marginTop="10dp"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_gravity="center"
+    android:text="Select Photo"
+    android:background="@color/colorPrimary"
+    android:textColor="@color/toolbarwhite"
+    android:minHeight="35dp"
+    android:minWidth="125dp"
+    />
+
+           <LinearLayout
+               android:layout_width="wrap_content"
+               android:layout_height="wrap_content"
+               android:orientation="vertical"
+               android:layout_marginTop="10dp"
+               android:layout_marginLeft="8dp">
+
+
+
+               <TextView
+                   android:layout_width="wrap_content"
+                   android:layout_height="wrap_content"
+                   android:text="Name"
+                   android:textSize="18dp"
+                   />
+    <LinearLayout
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal">
+               <EditText
+                   android:id="@+id/shoppernameanifirst"
+                   android:layout_marginTop="5dp"
+                   android:layout_width="wrap_content"
+                   android:layout_height="wrap_content"
+                   android:hint="First Name "
+                   android:textSize="18dp"
+                   android:inputType="none"
+                   android:background="@null"
+                   />
+
+                   <EditText
+                       android:id="@+id/shoppernameanilast"
+                       android:layout_marginTop="5dp"
+                       android:layout_width="wrap_content"
+                       android:layout_height="wrap_content"
+                       android:hint="First Name Last Name"
+                       android:textSize="18dp"
+                       android:inputType="none"
+                       android:background="@null"
+                       />
+    </LinearLayout>
+           </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="8dp"
+            android:layout_marginTop="10dp"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Phone Number"
+                android:textSize="18dp" />
+
+            <EditText
+                android:id="@+id/shopperphonenumberani"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:background="@null"
+                android:hint="Phone Number"
+                android:inputType="none"
+                android:textSize="18dp" />
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_marginTop="10dp"
+            android:layout_marginLeft="8dp">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Email id"
+                android:textSize="18dp"
+                />
+            <EditText
+                android:id="@+id/shopperprofilemailani"
+                android:layout_marginTop="5dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:hint="Email id"
+                android:textSize="18dp"
+                android:inputType="none"
+                android:background="@null"
+                />
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_marginTop="10dp"
+            android:layout_marginLeft="8dp">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="User name"
+                android:visibility="gone"
+                android:textSize="18dp"
+                />
+            <EditText
+                android:id="@+id/shopperprofileusernameani"
+                android:layout_marginTop="5dp"
+                android:visibility="gone"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:hint="Username"
+                android:textSize="18dp"
+                android:inputType="none"
+                android:background="@null"
+                />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginTop="10dp"
+            android:layout_marginLeft="8dp"
+            >
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Date of birth"
+                android:id="@+id/dobtextview"
+                android:textSize="18dp"
+                />
+            <TextView
+                android:id="@+id/shopperprofiledobani"
+                android:layout_marginLeft="5dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="00/00/00"
+                android:textSize="18dp"
+                android:inputType="none"
+                android:background="@null"
+                />
+
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="right">
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Edit"
+                android:minHeight="35dp"
+                android:textColor="#FFFFFF"
+                android:layout_marginLeft="30dp"
+                android:textSize="18sp"
+                android:layout_marginTop="20sp"
+                android:background="@color/colorPrimary"
+                android:id="@+id/editbutton"
+                android:layout_marginRight="10dp"
+                />
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Save"
+                android:minHeight="35dp"
+                android:textColor="#FFFFFF"
+                android:layout_marginLeft="30dp"
+                android:visibility="gone"
+                android:textSize="18sp"
+                android:layout_marginTop="20sp"
+                android:background="@color/colorPrimary"
+                android:id="@+id/savebutton"
+                android:layout_marginRight="10dp"
+                />
+
+        </LinearLayout>
+
+    </LinearLayout>
+</ScrollView>

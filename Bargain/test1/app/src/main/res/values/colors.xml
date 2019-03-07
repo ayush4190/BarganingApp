@@ -9,4 +9,5 @@
     <color name="skyBlue">#00c5ff</color>
     <color name="primaryLightColor">#40657e</color>
     <color name="primaryTextColor">#ffffff</color>
+    <color name="diabledgray">#808080</color>
 </resources>

@@ -5,7 +5,7 @@
     xmlns:card_view="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-  >
+    >
 
     <android.support.design.card.MaterialCardView
         android:layout_width="match_parent"
@@ -47,6 +47,24 @@
                 android:id="@+id/neg_profile_text"
                 android:layout_centerHorizontal="true"
                 android:textSize="24sp"
+                />
+
+            <ImageView
+                android:id="@+id/favbuttoncard"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:src="@drawable/ic_favorite_border_black_24dp"
+
+                />
+            <ImageView
+                android:id="@+id/favbuttoncarddone"
+                android:layout_width="35dp"
+                android:visibility="gone"
+                android:layout_height="35dp"
+                android:layout_alignParentRight="true"
+                android:src="@drawable/ic_favorite_black_24dp"
+
                 />
 
             <TextView
@@ -192,30 +210,30 @@
                 android:layout_below="@id/neg_profile_cat2"
                 android:layout_alignParentRight="true"/>
             <!--<TextView-->
-                <!--android:layout_width="wrap_content"-->
-                <!--android:layout_height="wrap_content"-->
-                <!--android:layout_alignParentStart="true"-->
-                <!--android:layout_marginTop="20dp"-->
-                <!--android:layout_marginStart="20dp"-->
-                <!--android:layout_marginLeft="20dp"-->
-                <!--android:text="Age : "-->
-                <!--android:textSize="18sp"-->
-                <!--android:id="@+id/neg_profile_agehard"-->
-                <!--android:layout_below="@id/neg_profile_cat3hard"-->
-                <!--android:layout_alignParentLeft="true"-->
-                <!--/>-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_alignParentStart="true"-->
+            <!--android:layout_marginTop="20dp"-->
+            <!--android:layout_marginStart="20dp"-->
+            <!--android:layout_marginLeft="20dp"-->
+            <!--android:text="Age : "-->
+            <!--android:textSize="18sp"-->
+            <!--android:id="@+id/neg_profile_agehard"-->
+            <!--android:layout_below="@id/neg_profile_cat3hard"-->
+            <!--android:layout_alignParentLeft="true"-->
+            <!--/>-->
             <!--<TextView-->
-                <!--android:layout_width="wrap_content"-->
-                <!--android:layout_height="wrap_content"-->
-                <!--android:layout_alignParentEnd="true"-->
-                <!--android:layout_marginTop="20dp"-->
-                <!--android:layout_marginEnd="20dp"-->
-                <!--android:id="@+id/neg_profile_age"-->
-                <!--android:layout_marginRight="20dp"-->
-                <!--android:text="EnterAgeHere"-->
-                <!--android:textSize="18sp"-->
-                <!--android:layout_below="@id/neg_profile_cat3"-->
-                <!--android:layout_alignParentRight="true"/>-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_alignParentEnd="true"-->
+            <!--android:layout_marginTop="20dp"-->
+            <!--android:layout_marginEnd="20dp"-->
+            <!--android:id="@+id/neg_profile_age"-->
+            <!--android:layout_marginRight="20dp"-->
+            <!--android:text="EnterAgeHere"-->
+            <!--android:textSize="18sp"-->
+            <!--android:layout_below="@id/neg_profile_cat3"-->
+            <!--android:layout_alignParentRight="true"/>-->
 
             <TextView
                 android:layout_width="wrap_content"
@@ -245,11 +263,11 @@
                 android:layout_below="@id/neg_profile_cat3hard"
                 android:layout_alignParentRight="true"/>
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@id/neg_profile_phnohard"
-                    android:layout_marginTop="20dp"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/neg_profile_phnohard"
+                android:layout_marginTop="20dp"/>
 
         </RelativeLayout>
     </android.support.design.card.MaterialCardView>
