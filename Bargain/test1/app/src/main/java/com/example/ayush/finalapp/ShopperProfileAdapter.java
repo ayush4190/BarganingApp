@@ -108,7 +108,7 @@ public class ShopperProfileAdapter extends RecyclerView.Adapter<ShopperProfileAd
 ////////////////
                 builder2 = new AlertDialog.Builder (mContext);
                 LayoutInflater inflater = mContext.getLayoutInflater ();
-                View v1= inflater.inflate(R.layout.card_frag,null);
+                View v1= inflater.inflate(R.layout.card_frag_1,null);
                 builder2.setView (v1);
 
                 fname=(TextView) v1.findViewById(R.id.neg_profile_firstname);
