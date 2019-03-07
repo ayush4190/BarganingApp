@@ -4,6 +4,7 @@ import android.app.AlertDialog;
 import android.app.FragmentManager;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Parcelable;
 import android.support.annotation.NonNull;
@@ -117,102 +118,113 @@ public class NegotiatorProfileAdapter extends RecyclerView.Adapter<NegotiatorPro
 //use alert dialog
 ////////////////
 
-                builder2 = new AlertDialog.Builder (mContext);
-                LayoutInflater inflater = mContext.getLayoutInflater ();
-                View v1= inflater.inflate(R.layout.card_frag,null);
-                builder2.setView (v1);
-                fname=(TextView) v1.findViewById(R.id.first_name);
-                lname=(TextView) v1.findViewById(R.id.last_name);
-                phno=v1.findViewById(R.id.card_phone);
-                pincode=v1.findViewById(R.id.card_pincode);
-                cat1=v1.findViewById(R.id.card_cat1);
-                cat2=v1.findViewById(R.id.card_cat2);
-                cat3=v1.findViewById(R.id.card_cat3);
-                city=(TextView) v1.findViewById(R.id.card_city);
-                city.setText(n.getCity());
-                fname.setText(n.getFirstname());
-                lname.setText(n.getLastname());
-                pincode.setText(n.getPincode());
-                cat2.setText(n.getCategory2());
-                cat1.setText(n.getCategory1());
-                cat3.setText(n.getCategory3());
-                phno.setText(n.getPhone());
-                builder2.setNegativeButton ("Close", new DialogInterface.OnClickListener () {
-                    public void onClick(DialogInterface dialog, int id) {
-                        dialog.cancel ();
+//                myIntent.putExtra ("profile", profile);
 
-                    }
-                });
-
-
-
-                final ImageView fav = (ImageView) v1.findViewById(R.id.fav);
-                final  ImageView favdone=(ImageView)v1.findViewById(R.id.favdone);
-
-                if(favbool==1){
-                    fav.setVisibility(View.GONE);
-                    favdone.setVisibility(View.VISIBLE);
-                }
-
-                fav.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        fav.setVisibility(View.GONE);
-                        favdone.setVisibility(View.VISIBLE);
-                        String negokey = s.get(position);
-                        Log.v("fsgfht",s.get(position));
-                        FirebaseUser firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
-                        DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference();
-                        DatabaseReference favourite;
-                        favourite=databaseReference.child("Shopper").child(firebaseUser.getUid());
-                        favourite.child("Favourite").push().setValue(negokey);
-
+                Intent intent = new Intent (v.getContext (),CardDetails.class);
+//                intent.putExtra();
+                v.getContext ().startActivity (intent);
 //
-                    }
-                });
-
-                favdone.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        favdone.setVisibility(View.GONE);
-                        fav.setVisibility(View.VISIBLE);
-                        String negokey = s.get(position);
-                        FirebaseUser firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
-                        DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference();
-                        DatabaseReference favourite;
-                        favourite = databaseReference.child("Shopper").child(firebaseUser.getUid());
-                        Query qremove = favourite.child("Favourite").orderByValue().equalTo(negokey);
-                        qremove.addListenerForSingleValueEvent(new ValueEventListener() {
-                            @Override
-                            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                                for (DataSnapshot itemSnapshot : dataSnapshot.getChildren()) {
-                                    itemSnapshot.getRef().removeValue();
-                                }
-                            }
-
-                            @Override
-                            public void onCancelled(@NonNull DatabaseError databaseError) {
-
-                            }
-
-
-                        });
-                    }
-
-
-                });
-
-
-
-                // Add action buttons
-
-                //Setting message manually and performing action on button click
-                builder2.setCancelable (false);
-
-                //Creating dialog box
-                AlertDialog alert = builder2.create ();
-
-                alert.show ();
+//                FragmentTransaction fragmentTransaction = mContext.getSupportFragmentManager ().beginTransaction ();
+//                fragmentTransaction.replace (R.id.content_frame, new CardFrag ());
+//                fragmentTransaction.addToBackStack ("cardfrag");
+//                fragmentTransaction.commit ();
+//
+//                builder2 = new AlertDialog.Builder (mContext);
+//                LayoutInflater inflater = mContext.getLayoutInflater ();
+//                View v1= inflater.inflate(R.layout.card_frag,null);
+//                builder2.setView (v1);
+//                fname=(TextView) v1.findViewById(R.id.first_name);
+//                lname=(TextView) v1.findViewById(R.id.last_name);
+//                phno=v1.findViewById(R.id.card_phone);
+//                pincode=v1.findViewById(R.id.card_pincode);
+//                cat1=v1.findViewById(R.id.card_cat1);
+//                cat2=v1.findViewById(R.id.card_cat2);
+//                cat3=v1.findViewById(R.id.card_cat3);
+//                city=(TextView) v1.findViewById(R.id.card_city);
+//                city.setText(n.getCity());
+//                fname.setText(n.getFirstname());
+//                lname.setText(n.getLastname());
+//                pincode.setText(n.getPincode());
+//                cat2.setText(n.getCategory2());
+//                cat1.setText(n.getCategory1());
+//                cat3.setText(n.getCategory3());
+//                phno.setText(n.getPhone());
+//                builder2.setNegativeButton ("Close", new DialogInterface.OnClickListener () {
+//                    public void onClick(DialogInterface dialog, int id) {
+//                        dialog.cancel ();
+//
+//                    }
+//                });
+//
+//
+//
+//                final ImageView fav = (ImageView) v1.findViewById(R.id.fav);
+//                final  ImageView favdone=(ImageView)v1.findViewById(R.id.favdone);
+//
+//                if(favbool==1){
+//                    fav.setVisibility(View.GONE);
+//                    favdone.setVisibility(View.VISIBLE);
+//                }
+//
+//                fav.setOnClickListener(new View.OnClickListener() {
+//                    @Override
+//                    public void onClick(View v) {
+//                        fav.setVisibility(View.GONE);
+//                        favdone.setVisibility(View.VISIBLE);
+//                        String negokey = s.get(position);
+//                        Log.v("fsgfht",s.get(position));
+//                        FirebaseUser firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
+//                        DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference();
+//                        DatabaseReference favourite;
+//                        favourite=databaseReference.child("Shopper").child(firebaseUser.getUid());
+//                        favourite.child("Favourite").push().setValue(negokey);
+//
+////
+//                    }
+//                });
+//
+//                favdone.setOnClickListener(new View.OnClickListener() {
+//                    @Override
+//                    public void onClick(View v) {
+//                        favdone.setVisibility(View.GONE);
+//                        fav.setVisibility(View.VISIBLE);
+//                        String negokey = s.get(position);
+//                        FirebaseUser firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
+//                        DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference();
+//                        DatabaseReference favourite;
+//                        favourite = databaseReference.child("Shopper").child(firebaseUser.getUid());
+//                        Query qremove = favourite.child("Favourite").orderByValue().equalTo(negokey);
+//                        qremove.addListenerForSingleValueEvent(new ValueEventListener() {
+//                            @Override
+//                            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+//                                for (DataSnapshot itemSnapshot : dataSnapshot.getChildren()) {
+//                                    itemSnapshot.getRef().removeValue();
+//                                }
+//                            }
+//
+//                            @Override
+//                            public void onCancelled(@NonNull DatabaseError databaseError) {
+//
+//                            }
+//
+//
+//                        });
+//                    }
+//
+//
+//                });
+//
+//
+//
+//                // Add action buttons
+//
+//                //Setting message manually and performing action on button click
+//                builder2.setCancelable (false);
+//
+//                //Creating dialog box
+//                AlertDialog alert = builder2.create ();
+//
+//                alert.show ();
 
                 ///////////////
 //                fragmentJump(n);
