@@ -29,14 +29,15 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning">
-        <activity android:name=".ChatBox"></activity>
+        <activity android:name=".CardDetails"></activity>
+        <activity android:name=".ChatBox" />
         <activity
             android:name=".NegotiatorRegistration"
             android:label="Create your account" />
         <activity
             android:name=".NegotiatorForm"
             android:label="Personal details" />
-        <activity android:name=".SettingsActivity"></activity>
+        <activity android:name=".SettingsActivity" />
         <activity
             android:name=".NegotiatorId"
             android:label="Upload Profile Photo" />

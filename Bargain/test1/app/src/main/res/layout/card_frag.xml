@@ -1,14 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
+<ScrollView
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    >
+<RelativeLayout
+
     xmlns:card_view="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
     <RelativeLayout
         android:id="@+id/parent_of_card"
         android:layout_width="match_parent"
-        android:layout_height="260dp"
+        android:layout_height="220dp"
         android:background="@drawable/electronics">
         <LinearLayout
             android:layout_width="wrap_content"
@@ -44,7 +49,7 @@
     android:layout_width="150dp"
     android:id="@+id/sportsImage"
     android:layout_centerHorizontal="true"
-    android:layout_marginTop="90dp"
+    android:layout_marginTop="50dp"
     android:adjustViewBounds="true"
     android:src="@drawable/negoreg"
     android:layout_height="150dp"
@@ -55,7 +60,7 @@
         app:cardCornerRadius="10dp"
         android:layout_height="70dp"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="220dp">
+        android:layout_marginTop="180dp">
 
 
         <LinearLayout
@@ -75,7 +80,7 @@
                     android:text="Firstname"
                     android:textColor="@color/colorPrimaryDark"
                     android:layout_marginRight="10dp"
-                    android:textSize="20dp" />
+                    android:textSize="25dp" />
 
                 <TextView
                     android:id="@+id/last_name"
@@ -86,7 +91,7 @@
 
                     android:text="Lastname"
                     android:textColor="@color/colorPrimaryDark"
-                    android:textSize="20dp" />
+                    android:textSize="25dp" />
             </LinearLayout>
 
             <RatingBar
@@ -94,7 +99,7 @@
 
                 android:layout_below="@+id/sportsImage"
                 android:layout_width="wrap_content"
-
+                style="?android:attr/ratingBarStyleIndicator"
                 android:layout_centerHorizontal="true"
                 android:layout_height="wrap_content" />
         </LinearLayout>
@@ -112,25 +117,48 @@
             android:layout_height="wrap_content"
             android:layout_centerHorizontal="true"
             android:layout_marginTop="10dp"
+            android:elevation="10dp"
+            android:paddingTop="10dp"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
+            android:paddingBottom="10dp"
+
+
+            android:layout_marginRight="15dp"
+            android:layout_marginLeft="15dp"
             app:cardCornerRadius="10dp">
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical">
+                android:orientation="vertical"
+                android:paddingTop="20dp"
+                android:paddingLeft="20dp"
+                android:paddingRight="20dp"
+                android:paddingBottom="20dp"
+              >
 
                 <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal">
-
+                    <ImageView
+                        android:layout_width="35dp"
+                        android:layout_height="35dp"
+                        android:src="@drawable/ic_phone_black_24dp"
+                        />
+                    <View
+                        android:layout_width="1dp"
+                        android:layout_height="35dp"
+                        android:background="#BDBDBD"
+                        />
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="8dp"
                         android:text="Contact: "
                         android:textColor="@color/colorPrimaryDark"
-                        android:textSize="18sp" />
+                        android:textSize="20dp" />
 
                     <TextView
                         android:id="@+id/card_phone"
@@ -139,7 +167,7 @@
                         android:layout_marginLeft="5dp"
                         android:text="914545454"
                         android:textColor="@color/colorPrimaryDark"
-                        android:textSize="18sp" />
+                        android:textSize="20dp" />
                 </LinearLayout>
 
                 <LinearLayout
@@ -147,14 +175,23 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dp"
                     android:orientation="horizontal">
-
+                    <ImageView
+                        android:layout_width="35dp"
+                        android:layout_height="35dp"
+                        android:src="@drawable/ic_mail_outline_black_35dp"
+                        />
+                    <View
+                        android:layout_width="1dp"
+                        android:layout_height="35dp"
+                        android:background="#BDBDBD"
+                        />
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="8dp"
                         android:text="Email:     "
                         android:textColor="@color/colorPrimaryDark"
-                        android:textSize="18sp" />
+                        android:textSize="20dp" />
 
                     <TextView
                         android:id="@+id/card_email"
@@ -164,35 +201,55 @@
                         android:gravity="right"
                         android:text="ani@ani.com"
                         android:textColor="@color/colorPrimaryDark"
-                        android:textSize="18sp" />
+                        android:textSize="20dp" />
                 </LinearLayout>
             </LinearLayout>
         </android.support.design.card.MaterialCardView>
 
         <android.support.design.card.MaterialCardView
             android:layout_width="match_parent"
+            android:layout_marginRight="15dp"
+            android:layout_marginLeft="15dp"
+            android:paddingTop="10dp"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
+            android:paddingBottom="10dp"
             android:layout_height="wrap_content"
             android:layout_centerHorizontal="true"
+            android:elevation="10dp"
             android:layout_marginTop="10dp"
             app:cardCornerRadius="10dp">
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical">
+                android:orientation="vertical"
+                android:paddingTop="20dp"
+                android:paddingLeft="20dp"
+                android:paddingRight="20dp"
+                android:paddingBottom="20dp">
 
                 <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal">
-
+                    <ImageView
+                        android:layout_width="35dp"
+                        android:layout_height="35dp"
+                        android:src="@drawable/ic_home_black_24dp"
+                        />
+                    <View
+                        android:layout_width="1dp"
+                        android:layout_height="35dp"
+                        android:background="#BDBDBD"
+                        />
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="8dp"
                         android:text="City:        "
                         android:textColor="@color/colorPrimaryDark"
-                        android:textSize="18sp" />
+                        android:textSize="20dp" />
 
                     <TextView
                         android:id="@+id/card_city"
@@ -201,21 +258,30 @@
                         android:layout_marginLeft="5dp"
                         android:text="Groceries"
                         android:textColor="@color/colorPrimaryDark"
-                        android:textSize="18sp" />
+                        android:textSize="20dp" />
                 </LinearLayout>
                 <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal"
                     android:layout_marginTop="5dp">
-
+                    <ImageView
+                        android:layout_width="35dp"
+                        android:layout_height="35dp"
+                        android:src="@drawable/ic_location_city_black_24dp"
+                        />
+                    <View
+                        android:layout_width="1dp"
+                        android:layout_height="35dp"
+                        android:background="#BDBDBD"
+                        />
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="8dp"
                         android:text="State:      "
                         android:textColor="@color/colorPrimaryDark"
-                        android:textSize="18sp" />
+                        android:textSize="20dp" />
 
                     <TextView
                         android:id="@+id/card_state"
@@ -224,7 +290,7 @@
                         android:layout_marginLeft="5dp"
                         android:text="Groceries"
                         android:textColor="@color/colorPrimaryDark"
-                        android:textSize="18sp" />
+                        android:textSize="20dp" />
                 </LinearLayout>
 
 
@@ -233,14 +299,23 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="5dp"
                     android:orientation="horizontal">
-
+                    <ImageView
+                        android:layout_width="35dp"
+                        android:layout_height="35dp"
+                        android:src="@drawable/ic_pin_drop_black_24dp"
+                        />
+                    <View
+                        android:layout_width="1dp"
+                        android:layout_height="35dp"
+                        android:background="#BDBDBD"
+                        />
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="8dp"
                         android:text="Pincode: "
                         android:textColor="@color/colorPrimaryDark"
-                        android:textSize="18sp" />
+                        android:textSize="20dp"/>
 
                     <TextView
                         android:id="@+id/card_pincode"
@@ -250,14 +325,19 @@
                         android:gravity="right"
                         android:text="Groceries"
                         android:textColor="@color/colorPrimaryDark"
-                        android:textSize="18sp" />
+                        android:textSize="20dp" />
 
                 </LinearLayout>
             </LinearLayout>
         </android.support.design.card.MaterialCardView>
         <android.support.design.card.MaterialCardView
             android:layout_width="match_parent"
+
+            android:layout_marginRight="15dp"
+            android:layout_marginLeft="15dp"
+
             android:layout_height="wrap_content"
+            android:elevation="10dp"
             android:layout_centerHorizontal="true"
             android:layout_marginTop="10dp"
             app:cardCornerRadius="10dp">
@@ -265,20 +345,33 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical">
+                android:orientation="vertical"
+                android:paddingTop="20dp"
+                android:paddingLeft="20dp"
+                android:paddingRight="20dp"
+                android:paddingBottom="20dp">
 
                 <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal">
-
+                    <ImageView
+                        android:layout_width="35dp"
+                        android:layout_height="35dp"
+                        android:src="@drawable/ic_view_list_black_24dp"
+                        />
+                    <View
+                        android:layout_width="1dp"
+                        android:layout_height="35dp"
+                        android:background="#BDBDBD"
+                        />
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="8dp"
                         android:text="Category:"
                         android:textColor="@color/colorPrimaryDark"
-                        android:textSize="18sp" />
+                        android:textSize="20dp" />
 
                     <TextView
                         android:id="@+id/card_cat1"
@@ -287,21 +380,30 @@
                         android:layout_marginLeft="5dp"
                         android:text="Groceries"
                         android:textColor="@color/colorPrimaryDark"
-                        android:textSize="18sp" />
+                        android:textSize="20dp" />
                 </LinearLayout>
                 <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal"
                     android:layout_marginTop="5dp">
-
+                    <ImageView
+                        android:layout_width="35dp"
+                        android:layout_height="35dp"
+                        android:src="@drawable/ic_view_list_black_24dp"
+                        />
+                    <View
+                        android:layout_width="1dp"
+                        android:layout_height="35dp"
+                        android:background="#BDBDBD"
+                        />
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="8dp"
                         android:text="Category:"
                         android:textColor="@color/colorPrimaryDark"
-                        android:textSize="18sp" />
+                        android:textSize="20dp" />
 
                     <TextView
                         android:id="@+id/card_cat2"
@@ -310,7 +412,7 @@
                         android:layout_marginLeft="5dp"
                         android:text="Groceries"
                         android:textColor="@color/colorPrimaryDark"
-                        android:textSize="18sp" />
+                        android:textSize="20dp" />
                 </LinearLayout>
 
 
@@ -319,14 +421,23 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="5dp"
                     android:orientation="horizontal">
-
+                    <ImageView
+                        android:layout_width="35dp"
+                        android:layout_height="35dp"
+                        android:src="@drawable/ic_view_list_black_24dp"
+                        />
+                    <View
+                        android:layout_width="1dp"
+                        android:layout_height="35dp"
+                        android:background="#BDBDBD"
+                        />
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="8dp"
                         android:text="Category:"
                         android:textColor="@color/colorPrimaryDark"
-                        android:textSize="18sp" />
+                        android:textSize="20dp" />
 
                     <TextView
                         android:id="@+id/card_cat3"
@@ -336,7 +447,7 @@
                         android:gravity="right"
                         android:text="Groceries"
                         android:textColor="@color/colorPrimaryDark"
-                        android:textSize="18sp" />
+                        android:textSize="20dp" />
 
                 </LinearLayout>
             </LinearLayout>
@@ -345,3 +456,4 @@
 
     </LinearLayout>
 </RelativeLayout>
+</ScrollView>
