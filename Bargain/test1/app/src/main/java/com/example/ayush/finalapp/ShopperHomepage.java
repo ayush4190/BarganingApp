@@ -2,6 +2,7 @@ package com.example.ayush.finalapp;
 
 import android.Manifest;
 import android.annotation.SuppressLint;
+import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.location.Geocoder;
@@ -53,7 +54,8 @@ public class ShopperHomepage extends AppCompatActivity
     ImageView mwallet;
     Fragment fragment = null;
     ImageView mcommunity;
-    ImageView mfav, mfaq;
+    ImageView mfav, msetting;
+    public static Context contextOfApplication;
     int zip;
     // for user name
     FirebaseDatabase firebaseDatabase;
@@ -77,7 +79,7 @@ public class ShopperHomepage extends AppCompatActivity
 
         setContentView (R.layout.activity_shopper_homepage);
 
-
+        contextOfApplication=getApplicationContext();
         Toolbar toolbar = (Toolbar) findViewById (R.id.toolbar);
 
         setSupportActionBar (toolbar);
@@ -120,7 +122,8 @@ public class ShopperHomepage extends AppCompatActivity
         mwallet = (ImageView) findViewById (R.id.wallet);//creating the buttons
         mcommunity = (ImageView) findViewById (R.id.communityimage);
         mfav = (ImageView) findViewById (R.id.favimage);
-        mfaq = (ImageView) findViewById (R.id.faq);
+        msetting=(ImageView)findViewById(R.id.settingimage);
+        //mfaq = (ImageView) findViewById (R.id.faq);
         // notification =(MenuItem) findViewById(R.id.action_notification);
 
 
@@ -162,18 +165,23 @@ public class ShopperHomepage extends AppCompatActivity
 
             }
         });
-
-        //calling faq page
-        mfaq.setOnClickListener (new View.OnClickListener () {
+        msetting.setOnClickListener (new View.OnClickListener () {
             @Override
             public void onClick(View v) {
-                FragmentTransaction fragmentTransaction = getSupportFragmentManager ().beginTransaction ();
-                fragmentTransaction.replace (R.id.content_frame, new FAQ ());
-                fragmentTransaction.addToBackStack ("faq");
-                fragmentTransaction.commit ();
+                startActivity(new Intent(ShopperHomepage.this, SettingsActivity.class));
 
             }
         });
+
+
+//        //calling faq page
+//        mfaq.setOnClickListener (new View.OnClickListener () {
+//            @Override
+//            public void onClick(View v) {
+//
+//
+//            }
+//        });
 
         DrawerLayout drawer = (DrawerLayout) findViewById (R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle (
@@ -281,10 +289,19 @@ public class ShopperHomepage extends AppCompatActivity
             startActivity (new Intent (ShopperHomepage.this, WelcomePage.class));
 
         } else if (id == R.id.nav_gallery) {
+            FragmentTransaction fragmentTransaction = getSupportFragmentManager ().beginTransaction ();
+            fragmentTransaction.replace(R.id.content_frame,new ShopperProfileFragment());
+            fragmentTransaction.addToBackStack("fav");
+            fragmentTransaction.commit ();
            // pincode ();
 
 
-        } else if (id == R.id.nav_slideshow) {
+        } else if (id == R.id.nav_faq) {
+
+            FragmentTransaction fragmentTransaction = getSupportFragmentManager ().beginTransaction ();
+            fragmentTransaction.replace (R.id.content_frame, new FAQ ());
+            fragmentTransaction.addToBackStack ("faq");
+            fragmentTransaction.commit ();
 
         } else if (id == R.id.nav_manage) {
 
@@ -366,7 +383,12 @@ public class ShopperHomepage extends AppCompatActivity
 
     }
 
-
-
-
+    public static Context getContextOfApplication()
+    {
+        return contextOfApplication;
+    }
 }
+
+
+
+

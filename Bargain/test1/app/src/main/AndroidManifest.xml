@@ -36,6 +36,7 @@
         <activity
             android:name=".NegotiatorForm"
             android:label="Personal details" />
+        <activity android:name=".SettingsActivity"></activity>
         <activity
             android:name=".NegotiatorId"
             android:label="Upload Profile Photo" />
