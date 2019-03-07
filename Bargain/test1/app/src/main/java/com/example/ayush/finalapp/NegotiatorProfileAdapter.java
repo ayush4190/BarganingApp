@@ -116,18 +116,19 @@ public class NegotiatorProfileAdapter extends RecyclerView.Adapter<NegotiatorPro
                 //////////////////////
 //use alert dialog
 ////////////////
+
                 builder2 = new AlertDialog.Builder (mContext);
                 LayoutInflater inflater = mContext.getLayoutInflater ();
                 View v1= inflater.inflate(R.layout.card_frag,null);
                 builder2.setView (v1);
-                fname=(TextView) v1.findViewById(R.id.neg_profile_firstname);
-                lname=(TextView) v1.findViewById(R.id.neg_profile_lastname);
-                phno=v1.findViewById(R.id.neg_profile_phno);
-                pincode=v1.findViewById(R.id.neg_profile_pincode);
-                cat1=v1.findViewById(R.id.neg_profile_cat1);
-                cat2=v1.findViewById(R.id.neg_profile_cat2);
-                cat3=v1.findViewById(R.id.neg_profile_cat3);
-                city=(TextView) v1.findViewById(R.id.neg_profile_city);
+                fname=(TextView) v1.findViewById(R.id.first_name);
+                lname=(TextView) v1.findViewById(R.id.last_name);
+                phno=v1.findViewById(R.id.card_phone);
+                pincode=v1.findViewById(R.id.card_pincode);
+                cat1=v1.findViewById(R.id.card_cat1);
+                cat2=v1.findViewById(R.id.card_cat2);
+                cat3=v1.findViewById(R.id.card_cat3);
+                city=(TextView) v1.findViewById(R.id.card_city);
                 city.setText(n.getCity());
                 fname.setText(n.getFirstname());
                 lname.setText(n.getLastname());
@@ -145,8 +146,8 @@ public class NegotiatorProfileAdapter extends RecyclerView.Adapter<NegotiatorPro
 
 
 
-                final ImageView fav = (ImageView) v1.findViewById(R.id.favbuttoncard);
-                final  ImageView favdone=(ImageView)v1.findViewById(R.id.favbuttoncarddone);
+                final ImageView fav = (ImageView) v1.findViewById(R.id.fav);
+                final  ImageView favdone=(ImageView)v1.findViewById(R.id.favdone);
 
                 if(favbool==1){
                     fav.setVisibility(View.GONE);
