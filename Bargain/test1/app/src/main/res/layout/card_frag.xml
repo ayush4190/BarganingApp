@@ -14,34 +14,18 @@
         android:id="@+id/parent_of_card"
         android:layout_width="match_parent"
         android:layout_height="220dp"
-        android:background="@drawable/electronics">
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:layout_alignParentRight="true">
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:src="@drawable/ic_message_white_40dp"
-                android:id="@+id/message_button"
-                />
+        android:background="@drawable/clothing">
+        <ImageView
 
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/fav"
-                android:src="@drawable/ic_favorite_border_white_40dp"
-                />
+            android:layout_width="35dp"
+            android:layout_height="35dp"
+            android:id="@+id/backarrow"
+            android:src="@drawable/ic_arrow_back_black_24dp"
+            android:layout_marginLeft="8dp"
+            android:layout_marginTop="8dp">
 
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/favdone"
-                android:src="@drawable/ic_favorite_white_40dp"
-                android:visibility="gone"
-                />
-        </LinearLayout>
+        </ImageView>
+
 
     </RelativeLayout>
 
@@ -60,7 +44,8 @@
         app:cardCornerRadius="10dp"
         android:layout_height="70dp"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="180dp">
+        android:layout_marginTop="180dp"
+        android:id="@+id/ratecard">
 
 
         <LinearLayout
@@ -105,11 +90,93 @@
         </LinearLayout>
     </android.support.design.card.MaterialCardView>
 
+    <android.support.design.card.MaterialCardView
+        android:layout_width="wrap_content"
+        android:layout_marginRight="15dp"
+        android:layout_marginLeft="15dp"
+        android:layout_height="wrap_content"
+        android:elevation="10dp"
+
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="10dp"
+        app:cardCornerRadius="10dp"
+        android:layout_below="@+id/ratecard">
+        <LinearLayout
+            android:layout_width="220dp"
+            android:layout_height="60dp"
+            android:paddingLeft="15dp"
+            android:orientation="horizontal"
+            android:layout_alignParentRight="true"
+            android:background="@color/colorPrimary"
+            android:gravity="center"
+            >
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:gravity="center"
+                android:id="@+id/linearchat"
+                >
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Chat"
+                android:textSize="18dp"
+                android:textColor="@color/white"/>
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_message_white_24dp"
+                android:id="@+id/message_button"
+                />
+            </LinearLayout>
+            <View
+                android:layout_width="1dp"
+                android:layout_marginLeft="35dp"
+                android:layout_marginRight="20dp"
+                android:layout_height="35dp"
+                android:background="#FFFFFF"
+                />
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:gravity="center"
+                android:id="@+id/linearfavourite">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Favourite"
+                    android:textSize="18dp"
+                    android:textColor="@color/white"/>
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/fav"
+                    android:src="@drawable/ic_favorite_border_white_40dp"
+                    />
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/favdone"
+                    android:src="@drawable/ic_favorite_white_40dp"
+                    android:visibility="gone"
+                    />
+            </LinearLayout>
+
+        </LinearLayout>
+
+
+    </android.support.design.card.MaterialCardView>
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@+id/parent_of_card"
-        android:layout_marginTop="50dp"
+        android:layout_below="@+id/ratecard"
+        android:layout_marginTop="70dp"
         android:orientation="vertical">
 
         <android.support.design.card.MaterialCardView
@@ -122,8 +189,6 @@
             android:paddingLeft="10dp"
             android:paddingRight="10dp"
             android:paddingBottom="10dp"
-
-
             android:layout_marginRight="15dp"
             android:layout_marginLeft="15dp"
             app:cardCornerRadius="10dp">
@@ -158,7 +223,7 @@
                         android:layout_marginLeft="8dp"
                         android:text="Contact: "
                         android:textColor="@color/colorPrimaryDark"
-                        android:textSize="20dp" />
+                        android:textSize="18dp" />
 
                     <TextView
                         android:id="@+id/card_phone"
@@ -167,7 +232,7 @@
                         android:layout_marginLeft="5dp"
                         android:text="914545454"
                         android:textColor="@color/colorPrimaryDark"
-                        android:textSize="20dp" />
+                        android:textSize="18dp" />
                 </LinearLayout>
 
                 <LinearLayout
@@ -191,7 +256,7 @@
                         android:layout_marginLeft="8dp"
                         android:text="Email:     "
                         android:textColor="@color/colorPrimaryDark"
-                        android:textSize="20dp" />
+                        android:textSize="18dp" />
 
                     <TextView
                         android:id="@+id/card_email"
@@ -201,7 +266,7 @@
                         android:gravity="right"
                         android:text="ani@ani.com"
                         android:textColor="@color/colorPrimaryDark"
-                        android:textSize="20dp" />
+                        android:textSize="16dp" />
                 </LinearLayout>
             </LinearLayout>
         </android.support.design.card.MaterialCardView>
@@ -249,7 +314,7 @@
                         android:layout_marginLeft="8dp"
                         android:text="City:        "
                         android:textColor="@color/colorPrimaryDark"
-                        android:textSize="20dp" />
+                        android:textSize="18dp" />
 
                     <TextView
                         android:id="@+id/card_city"
@@ -258,7 +323,7 @@
                         android:layout_marginLeft="5dp"
                         android:text="Groceries"
                         android:textColor="@color/colorPrimaryDark"
-                        android:textSize="20dp" />
+                        android:textSize="18dp" />
                 </LinearLayout>
                 <LinearLayout
                     android:layout_width="wrap_content"
@@ -281,7 +346,7 @@
                         android:layout_marginLeft="8dp"
                         android:text="State:      "
                         android:textColor="@color/colorPrimaryDark"
-                        android:textSize="20dp" />
+                        android:textSize="18dp" />
 
                     <TextView
                         android:id="@+id/card_state"
@@ -290,7 +355,7 @@
                         android:layout_marginLeft="5dp"
                         android:text="Groceries"
                         android:textColor="@color/colorPrimaryDark"
-                        android:textSize="20dp" />
+                        android:textSize="18dp" />
                 </LinearLayout>
 
 
@@ -315,7 +380,7 @@
                         android:layout_marginLeft="8dp"
                         android:text="Pincode: "
                         android:textColor="@color/colorPrimaryDark"
-                        android:textSize="20dp"/>
+                        android:textSize="18dp"/>
 
                     <TextView
                         android:id="@+id/card_pincode"
@@ -325,7 +390,7 @@
                         android:gravity="right"
                         android:text="Groceries"
                         android:textColor="@color/colorPrimaryDark"
-                        android:textSize="20dp" />
+                        android:textSize="18dp" />
 
                 </LinearLayout>
             </LinearLayout>
@@ -371,7 +436,7 @@
                         android:layout_marginLeft="8dp"
                         android:text="Category:"
                         android:textColor="@color/colorPrimaryDark"
-                        android:textSize="20dp" />
+                        android:textSize="18dp" />
 
                     <TextView
                         android:id="@+id/card_cat1"
@@ -380,7 +445,7 @@
                         android:layout_marginLeft="5dp"
                         android:text="Groceries"
                         android:textColor="@color/colorPrimaryDark"
-                        android:textSize="20dp" />
+                        android:textSize="18dp" />
                 </LinearLayout>
                 <LinearLayout
                     android:layout_width="wrap_content"
@@ -403,7 +468,7 @@
                         android:layout_marginLeft="8dp"
                         android:text="Category:"
                         android:textColor="@color/colorPrimaryDark"
-                        android:textSize="20dp" />
+                        android:textSize="18dp" />
 
                     <TextView
                         android:id="@+id/card_cat2"
@@ -412,7 +477,7 @@
                         android:layout_marginLeft="5dp"
                         android:text="Groceries"
                         android:textColor="@color/colorPrimaryDark"
-                        android:textSize="20dp" />
+                        android:textSize="18dp" />
                 </LinearLayout>
 
 
@@ -437,7 +502,7 @@
                         android:layout_marginLeft="8dp"
                         android:text="Category:"
                         android:textColor="@color/colorPrimaryDark"
-                        android:textSize="20dp" />
+                        android:textSize="18dp" />
 
                     <TextView
                         android:id="@+id/card_cat3"
@@ -447,7 +512,7 @@
                         android:gravity="right"
                         android:text="Groceries"
                         android:textColor="@color/colorPrimaryDark"
-                        android:textSize="20dp" />
+                        android:textSize="18dp" />
 
                 </LinearLayout>
             </LinearLayout>

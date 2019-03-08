@@ -1,0 +1,270 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    >
+    <RelativeLayout
+
+        xmlns:card_view="http://schemas.android.com/apk/res-auto"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <RelativeLayout
+            android:id="@+id/parent_of_card"
+            android:layout_width="match_parent"
+            android:layout_height="220dp"
+            android:background="@drawable/electronics">
+            <ImageView
+
+                android:layout_width="35dp"
+                android:layout_height="35dp"
+                android:id="@+id/backarrow"
+                android:src="@drawable/ic_arrow_back_black_24dp"
+                android:layout_marginLeft="8dp"
+                android:layout_marginTop="8dp">
+
+            </ImageView>
+
+
+        </RelativeLayout>
+
+        <ImageView
+            android:layout_width="150dp"
+            android:id="@+id/sportsImage"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="50dp"
+            android:adjustViewBounds="true"
+            android:src="@drawable/negoreg"
+            android:layout_height="150dp"
+            />
+
+        <android.support.design.card.MaterialCardView
+            android:layout_width="290dp"
+            app:cardCornerRadius="10dp"
+            android:layout_height="50dp"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="180dp"
+            android:id="@+id/ratecard">
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:gravity="center">
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:layout_gravity="center">
+                    <TextView
+                        android:id="@+id/first_name"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Firstname"
+                        android:textColor="@color/colorPrimaryDark"
+                        android:layout_marginRight="10dp"
+                        android:textSize="25dp" />
+
+                    <TextView
+                        android:id="@+id/last_name"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="5dp"
+                        android:layout_toRightOf="@+id/first_name"
+
+                        android:text="Lastname"
+                        android:textColor="@color/colorPrimaryDark"
+                        android:textSize="25dp" />
+                </LinearLayout>
+
+
+            </LinearLayout>
+        </android.support.design.card.MaterialCardView>
+
+        <android.support.design.card.MaterialCardView
+            android:layout_width="wrap_content"
+            android:layout_marginRight="15dp"
+            android:layout_marginLeft="15dp"
+            android:layout_height="wrap_content"
+            android:elevation="10dp"
+
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="10dp"
+            app:cardCornerRadius="10dp"
+            android:layout_below="@+id/ratecard">
+            <LinearLayout
+                android:layout_width="220dp"
+                android:layout_height="60dp"
+                android:paddingLeft="15dp"
+                android:orientation="horizontal"
+                android:layout_alignParentRight="true"
+                android:background="@color/colorPrimary"
+                android:gravity="center"
+                >
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:gravity="center"
+                    android:id="@+id/linearchat"
+                    >
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Chat"
+                        android:textSize="18dp"
+                        android:textColor="@color/white"/>
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/ic_message_white_24dp"
+                        android:id="@+id/message_button"
+                        />
+                </LinearLayout>
+                <View
+                    android:layout_width="1dp"
+                    android:layout_marginLeft="35dp"
+                    android:layout_marginRight="20dp"
+                    android:layout_height="35dp"
+                    android:background="#FFFFFF"
+                    />
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:gravity="center"
+                    android:id="@+id/linearfavourite">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Favourite"
+                        android:textSize="18dp"
+                        android:textColor="@color/white"/>
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/fav"
+                        android:src="@drawable/ic_favorite_border_white_40dp"
+                        />
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/favdone"
+                        android:src="@drawable/ic_favorite_white_40dp"
+                        android:visibility="gone"
+                        />
+                </LinearLayout>
+
+            </LinearLayout>
+
+
+        </android.support.design.card.MaterialCardView>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_below="@+id/ratecard"
+            android:layout_marginTop="70dp"
+            android:orientation="vertical">
+
+            <android.support.design.card.MaterialCardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="10dp"
+                android:elevation="10dp"
+                android:paddingTop="10dp"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp"
+                android:paddingBottom="10dp"
+                android:layout_marginRight="15dp"
+                android:layout_marginLeft="15dp"
+                app:cardCornerRadius="10dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:paddingTop="20dp"
+                    android:paddingLeft="20dp"
+                    android:paddingRight="20dp"
+                    android:paddingBottom="20dp"
+                    >
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+                        <ImageView
+                            android:layout_width="35dp"
+                            android:layout_height="35dp"
+                            android:src="@drawable/ic_person_black_24dp"
+                            />
+                        <View
+                            android:layout_width="1dp"
+                            android:layout_height="35dp"
+                            android:background="#BDBDBD"
+                            />
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="8dp"
+                            android:text="Username: "
+                            android:textColor="@color/colorPrimaryDark"
+                            android:textSize="18dp" />
+
+                        <TextView
+                            android:id="@+id/card_phone"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="5dp"
+                            android:text="914545454"
+                            android:textColor="@color/colorPrimaryDark"
+                            android:textSize="18dp" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        android:orientation="horizontal">
+                        <ImageView
+                            android:layout_width="35dp"
+                            android:layout_height="35dp"
+                            android:src="@drawable/ic_mail_outline_black_35dp"
+                            />
+                        <View
+                            android:layout_width="1dp"
+                            android:layout_height="35dp"
+                            android:background="#BDBDBD"
+                            />
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="8dp"
+                            android:text="Email:     "
+                            android:textColor="@color/colorPrimaryDark"
+                            android:textSize="20dp" />
+
+                        <TextView
+                            android:id="@+id/card_email"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="5dp"
+                            android:gravity="right"
+                            android:text="ani@ani.com"
+                            android:textColor="@color/colorPrimaryDark"
+                            android:textSize="20dp" />
+                    </LinearLayout>
+                </LinearLayout>
+            </android.support.design.card.MaterialCardView>
+
+
+        </LinearLayout>
+    </RelativeLayout>
+</ScrollView>
