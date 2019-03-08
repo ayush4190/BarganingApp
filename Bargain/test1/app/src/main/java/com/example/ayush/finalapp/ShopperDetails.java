@@ -1,7 +1,9 @@
 package com.example.ayush.finalapp;
 
 
-public class ShopperDetails {
+import java.io.Serializable;
+
+public class ShopperDetails implements Serializable {
 
         String fname , lname , email, dob, phno;
 

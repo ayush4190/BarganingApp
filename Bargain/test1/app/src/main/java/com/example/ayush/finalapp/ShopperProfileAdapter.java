@@ -2,9 +2,11 @@ package com.example.ayush.finalapp;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.FragmentActivity;
+import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -64,6 +66,7 @@ public class ShopperProfileAdapter extends RecyclerView.Adapter<ShopperProfileAd
         ImageButton imgbutton;
         public TextView last;
         public TextView phone;
+        CardView cardView;
 
 
 
@@ -71,9 +74,11 @@ public class ShopperProfileAdapter extends RecyclerView.Adapter<ShopperProfileAd
             super(view);
 
             first =(TextView) view.findViewById(R.id.first_name);
+            cardView=(CardView) view.findViewById(R.id.card_view);
             last =(TextView) view.findViewById(R.id.last_name);
-            phone=(TextView) view.findViewById(R.id.ph_no);
-            imgbutton= (ImageButton) view.findViewById(R.id.card_click);
+            cardView =(CardView) view.findViewById(R.id.card_view);
+//            phone=(TextView) view.findViewById(R.id.ph_no);
+//            imgbutton= (ImageButton) view.findViewById(R.id.card_click);
 
         }
     }
@@ -93,116 +98,119 @@ public class ShopperProfileAdapter extends RecyclerView.Adapter<ShopperProfileAd
 
         holder.first.setText(n.getFname());
         holder.last.setText(n.getLname());
-        holder.phone.setText(n.getPhno());
+//        holder.phone.setText(n.getPhno());
+      //  holder.city.setText(n.getCity());
 
 
         final ShopperDetails shopperProfile=shopperProfileList.get(position);
-        holder.imgbutton.setOnClickListener(new View.OnClickListener() {
+        holder.cardView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
                 n = shopperProfileList.get(position);
 
-                //////////////////////
-//use alert dialog
-////////////////
-                builder2 = new AlertDialog.Builder (mContext);
-                LayoutInflater inflater = mContext.getLayoutInflater ();
-                View v1= inflater.inflate(R.layout.card_frag_1,null);
-                builder2.setView (v1);
+                Intent intent = new Intent (v.getContext (),ShopperCardDetails.class);
+                intent.putExtra("shop_data",n);
+                intent.putExtra("favbool",favbool);
+                intent.putExtra("pos",s.get(position));
+                v.getContext ().startActivity (intent);
+//                builder2 = new AlertDialog.Builder (mContext);
+//                LayoutInflater inflater = mContext.getLayoutInflater ();
+//                View v1= inflater.inflate(R.layout.card_frag_1,null);
+//                builder2.setView (v1);
 
-                fname=(TextView) v1.findViewById(R.id.neg_profile_firstname);
-                lname=(TextView) v1.findViewById(R.id.neg_profile_lastname);
-                phno=v1.findViewById(R.id.neg_profile_phno);
+//                fname=(TextView) v1.findViewById(R.id.neg_profile_firstname);
+//                lname=(TextView) v1.findViewById(R.id.neg_profile_lastname);
+//                phno=v1.findViewById(R.id.neg_profile_phno);
 //                pincode=v1.findViewById(R.id.neg_profile_pincode);
 //                cat1=v1.findViewById(R.id.neg_profile_cat1);
 //                cat2=v1.findViewById(R.id.neg_profile_cat2);
-//                cat3=v1.findViewById(R.id.neg_profile_cat3);
-//                city=(TextView) v1.findViewById(R.id.neg_profile_city);
-//                city.setText(n.getCity());
-                fname.setText(n.getFname());
-                lname.setText(n.getLname());
-//                pincode.setText(n.getPincode());
-//                cat2.setText(n.getCategory2());
-//                cat1.setText(n.getCategory1());
-//                cat3.setText(n.getCategory3());
-                phno.setText(n.getPhno());
-                builder2.setNegativeButton ("Close", new DialogInterface.OnClickListener () {
-                    public void onClick(DialogInterface dialog, int id) {
-                        dialog.cancel ();
-
-                    }
-                });
-
-
-
-                final ImageView fav = (ImageView) v1.findViewById(R.id.favbuttoncard);
-                final  ImageView favdone=(ImageView)v1.findViewById(R.id.favbuttoncarddone);
-
-                if(favbool==1){
-                    fav.setVisibility(View.GONE);
-                    favdone.setVisibility(View.VISIBLE);
-                }
-
-                fav.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        fav.setVisibility(View.GONE);
-                        favdone.setVisibility(View.VISIBLE);
-                        String negokey = s.get(position);
-                        Log.v("fsgfht",s.get(position));
-                        FirebaseUser firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
-                        DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference();
-                        DatabaseReference favourite;
-                        favourite=databaseReference.child("Shopper").child(firebaseUser.getUid());
-                        favourite.child("Community").push().setValue(negokey);
+////                cat3=v1.findViewById(R.id.neg_profile_cat3);
+////                city=(TextView) v1.findViewById(R.id.neg_profile_city);
+////                city.setText(n.getCity());
+//                fname.setText(n.getFname());
+//                lname.setText(n.getLname());
+////                pincode.setText(n.getPincode());
+////                cat2.setText(n.getCategory2());
+////                cat1.setText(n.getCategory1());
+////                cat3.setText(n.getCategory3());
+//                phno.setText(n.getPhno());
+//                builder2.setNegativeButton ("Close", new DialogInterface.OnClickListener () {
+//                    public void onClick(DialogInterface dialog, int id) {
+//                        dialog.cancel ();
+//
+//                    }
+//                });
 
 //
-                    }
-                });
-
-                favdone.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        favdone.setVisibility(View.GONE);
-                        fav.setVisibility(View.VISIBLE);
-                        String negokey = s.get(position);
-                        FirebaseUser firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
-                        DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference();
-                        DatabaseReference favourite;
-                        favourite = databaseReference.child("Shopper").child(firebaseUser.getUid());
-                        Query qremove = favourite.child("Community").orderByValue().equalTo(negokey);
-                        qremove.addListenerForSingleValueEvent(new ValueEventListener() {
-                            @Override
-                            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                                for (DataSnapshot itemSnapshot : dataSnapshot.getChildren()) {
-                                    itemSnapshot.getRef().removeValue();
-                                }
-                            }
-
-                            @Override
-                            public void onCancelled(@NonNull DatabaseError databaseError) {
-
-                            }
-
-
-                        });
-                    }
-
-
-                });
+//
+//                final ImageView fav = (ImageView) v1.findViewById(R.id.favbuttoncard);
+//                final  ImageView favdone=(ImageView)v1.findViewById(R.id.favbuttoncarddone);
+//
+//                if(favbool==1){
+//                    fav.setVisibility(View.GONE);
+//                    favdone.setVisibility(View.VISIBLE);
+//                }
+//
+//                fav.setOnClickListener(new View.OnClickListener() {
+//                    @Override
+//                    public void onClick(View v) {
+//                        fav.setVisibility(View.GONE);
+//                        favdone.setVisibility(View.VISIBLE);
+//                        String negokey = s.get(position);
+//                        Log.v("fsgfht",s.get(position));
+//                        FirebaseUser firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
+//                        DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference();
+//                        DatabaseReference favourite;
+//                        favourite=databaseReference.child("Shopper").child(firebaseUser.getUid());
+//                        favourite.child("Community").push().setValue(negokey);
+//
+////
+//                    }
+//                });
+//
+//                favdone.setOnClickListener(new View.OnClickListener() {
+//                    @Override
+//                    public void onClick(View v) {
+//                        favdone.setVisibility(View.GONE);
+//                        fav.setVisibility(View.VISIBLE);
+//                        String negokey = s.get(position);
+//                        FirebaseUser firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
+//                        DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference();
+//                        DatabaseReference favourite;
+//                        favourite = databaseReference.child("Shopper").child(firebaseUser.getUid());
+//                        Query qremove = favourite.child("Community").orderByValue().equalTo(negokey);
+//                        qremove.addListenerForSingleValueEvent(new ValueEventListener() {
+//                            @Override
+//                            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+//                                for (DataSnapshot itemSnapshot : dataSnapshot.getChildren()) {
+//                                    itemSnapshot.getRef().removeValue();
+//                                }
+//                            }
+//
+//                            @Override
+//                            public void onCancelled(@NonNull DatabaseError databaseError) {
+//
+//                            }
+//
+//
+//                        });
+//                    }
+//
+//
+//                });
 
 
 
                 // Add action buttons
 
                 //Setting message manually and performing action on button click
-                builder2.setCancelable (false);
-
-                //Creating dialog box
-                AlertDialog alert = builder2.create ();
-
-                alert.show ();
+//                builder2.setCancelable (false);
+//
+//                //Creating dialog box
+//                AlertDialog alert = builder2.create ();
+//
+//                alert.show ();
 
                 ///////////////
 //                fragmentJump(n);
