@@ -1,5 +1,6 @@
 package com.example.ayush.finalapp;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -79,7 +80,7 @@ public class Negotiator_dash extends AppCompatActivity
             @Override
             public void onClick(View v) {
                 FragmentTransaction fragmentTransaction = getSupportFragmentManager ().beginTransaction ();
-                fragmentTransaction.replace(R.id.content_frame,new PayementActivity ());
+                fragmentTransaction.replace(R.id.content_frame,new NegotiatorWallet ());
                 fragmentTransaction.addToBackStack("wallet");
                 fragmentTransaction.commit ();
 
