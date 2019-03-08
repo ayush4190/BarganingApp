@@ -19,10 +19,7 @@
         android:orientation="vertical"
         >
 
-
-
     <ImageView
-
         android:id="@+id/profilepic"
         android:layout_width="375dp"
         android:layout_height="208dp"

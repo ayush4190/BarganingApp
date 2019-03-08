@@ -105,6 +105,7 @@
             android:layout_width="220dp"
             android:layout_height="60dp"
             android:paddingLeft="15dp"
+            android:id="@+id/card_frag_fav"
             android:orientation="horizontal"
             android:layout_alignParentRight="true"
             android:background="@color/colorPrimary"
@@ -135,6 +136,7 @@
                 android:layout_width="1dp"
                 android:layout_marginLeft="35dp"
                 android:layout_marginRight="20dp"
+
                 android:layout_height="35dp"
                 android:background="#FFFFFF"
                 />
