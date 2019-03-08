@@ -33,11 +33,12 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
 
-public class NegotiatorProfileAdapter extends RecyclerView.Adapter<NegotiatorProfileAdapter.NegotiatorProfileViewHolder>{
+public class NegotiatorProfileAdapter extends RecyclerView.Adapter<NegotiatorProfileAdapter.NegotiatorProfileViewHolder> implements Serializable {
 
     private List <NegotiatorDetails> negotiatorProfileList;
     private List <ShopperDetails> shopperProfileList;
@@ -121,7 +122,9 @@ public class NegotiatorProfileAdapter extends RecyclerView.Adapter<NegotiatorPro
 //                myIntent.putExtra ("profile", profile);
 
                 Intent intent = new Intent (v.getContext (),CardDetails.class);
-//                intent.putExtra();
+                intent.putExtra("nego_data",n);
+                intent.putExtra("favbool",favbool);
+                intent.putExtra("pos",s.get(position));
                 v.getContext ().startActivity (intent);
 //
 //                FragmentTransaction fragmentTransaction = mContext.getSupportFragmentManager ().beginTransaction ();
