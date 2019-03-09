@@ -1,4 +1,4 @@
-package com.example.myapplication;
+package com.example.ayush.finalapp;
 
 import android.graphics.Bitmap;
 import android.os.Bundle;

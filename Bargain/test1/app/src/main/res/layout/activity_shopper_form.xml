@@ -19,7 +19,7 @@
         android:orientation="vertical"
         >
 
-    <ImageView
+    <de.hdodenhof.circleimageview.CircleImageView
         android:id="@+id/profilepic"
         android:layout_width="375dp"
         android:layout_height="208dp"
@@ -131,6 +131,10 @@
 
 
         </LinearLayout>
+        <android.support.v4.widget.ContentLoadingProgressBar
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/progress_shopper_image"/>
 
 
     <Button

@@ -7,6 +7,8 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentActivity;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.widget.CardView;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -20,6 +22,7 @@ import android.content.DialogInterface;
 
 public class PayementActivity extends Fragment {
     private static final int TEZ_REQUEST_CODE = 123;
+    FragmentActivity f;
 
     private static final String GOOGLE_TEZ_PACKAGE_NAME = "com.google.android.apps.nbu.paisa.user";
     @Nullable
@@ -61,23 +64,24 @@ final TextView tez = (TextView)view.findViewById (R.id.tez);
             @Override
             public void onClick(View v) {
 
-                Uri uri =
-                        new Uri.Builder()
-                                .scheme("upi")
-                                .authority("pay")
-                                .appendQueryParameter("pa", "a.ayushkumar1997@okaxis")
-                                .appendQueryParameter("pn", "Test Merchant")
-                                .appendQueryParameter("mc", "1234")
-                                .appendQueryParameter("tr", "123456789")
-                                .appendQueryParameter("tn", "test transaction note")
-                                .appendQueryParameter("am", "10.01")
-                                .appendQueryParameter("cu", "INR")
-                                .appendQueryParameter("url", "a.ayushkumar1997@okaxis")
-                                .build();
-                Intent intent = new Intent(Intent.ACTION_VIEW);
-                intent.setData(uri);
-                intent.setPackage(GOOGLE_TEZ_PACKAGE_NAME);
-                startActivityForResult(intent, TEZ_REQUEST_CODE);
+//                Uri uri =
+//                        new Uri.Builder()
+//                                .scheme("upi")
+//                                .authority("pay")
+//                                .appendQueryParameter("pa", "a.ayushkumar1997@okaxis")
+//                                .appendQueryParameter("pn", "Test Merchant")
+//                                .appendQueryParameter("mc", "1234")
+//                                .appendQueryParameter("tr", "123456789")
+//                                .appendQueryParameter("tn", "test transaction note")
+//                                .appendQueryParameter("am", "10.01")
+//                                .appendQueryParameter("cu", "INR")
+//                                .appendQueryParameter("url", "a.ayushkumar1997@okaxis")
+//                                .build();
+//                Intent intent = new Intent(Intent.ACTION_VIEW);
+//                intent.setData(uri);
+//                intent.setPackage(GOOGLE_TEZ_PACKAGE_NAME);
+//                startActivityForResult(intent, TEZ_REQUEST_CODE);
+                Toast.makeText (getActivity (),"in trail mode ",Toast.LENGTH_SHORT).show ();
 
             }
         });
@@ -113,14 +117,21 @@ final TextView tez = (TextView)view.findViewById (R.id.tez);
             }
         });
 
-
+         f = getActivity ();
 
         TextView passbook =(TextView) view.findViewById (R.id.passbook);
         passbook.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(v.getContext(),PreviousTransactions.class);
-                v.getContext().startActivity(intent);
+//                Intent intent = new Intent(v.getContext(),PreviousTransactions.class);
+//                v.getContext().startActivity(intent);
+                assert f != null;
+                previouspayment_fragment next= new previouspayment_fragment ();
+                f.getSupportFragmentManager ().beginTransaction()
+                        .replace(R.id.content_frame, next, "passbook")
+                        .addToBackStack(null)
+                        .commit();
+
             }
         });
 

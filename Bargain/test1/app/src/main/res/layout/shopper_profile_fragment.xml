@@ -1,58 +1,105 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
     android:layout_height="match_parent"
-    >
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
         android:layout_gravity="top">
+        <android.support.design.card.MaterialCardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="15dp"
+            android:elevation="10dp"
+            android:paddingTop="50dp"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
+            android:paddingBottom="50dp"
+            android:layout_marginRight="15dp"
+            android:layout_marginLeft="15dp"
+            app:cardCornerRadius="10dp"
+            >
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="220dp"
+    android:orientation="vertical"
+    android:gravity="center"
+    android:background="@drawable/shopperprofileback"
+    >
 
 
-                <ImageView
+    <de.hdodenhof.circleimageview.CircleImageView
                     android:id="@+id/shopperprofilepicani"
-                    android:layout_width="100dp"
-                    android:layout_height="100dp"
+                    android:layout_width="150dp"
+                    android:layout_height="150dp"
                     android:layout_gravity="center"
-                    android:layout_marginTop="10dp"
+                    android:layout_marginTop="5dp"
                     android:src="@drawable/user"/>
 
-<Button
+
+
+<android.support.design.button.MaterialButton
     android:id="@+id/selectbtnprofile"
-    android:layout_marginTop="10dp"
+    android:layout_marginTop="8dp"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:layout_gravity="center"
+    app:cornerRadius="8dp"
     android:text="Select Photo"
+    android:textSize="18dp"
     android:background="@color/colorPrimary"
     android:textColor="@color/toolbarwhite"
-    android:minHeight="35dp"
-    android:minWidth="125dp"
+    android:paddingTop="5dp"
+    android:paddingBottom="5dp"
+    android:paddingLeft="25dp"
+    android:paddingRight="25dp"
+    style="@style/XXXXXXAppTheme"
     />
 
-           <LinearLayout
-               android:layout_width="wrap_content"
-               android:layout_height="wrap_content"
-               android:orientation="vertical"
-               android:layout_marginTop="10dp"
-               android:layout_marginLeft="8dp">
+</LinearLayout>
+        </android.support.design.card.MaterialCardView>
+
+        <android.support.design.card.MaterialCardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="15dp"
+            android:elevation="10dp"
+            android:paddingTop="50dp"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
+            android:paddingBottom="50dp"
+            android:layout_marginRight="15dp"
+            android:layout_marginLeft="15dp"
+            app:cardCornerRadius="10dp"
+            >
 
 
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginTop="8dp"
+            >
 
                <TextView
                    android:layout_width="wrap_content"
                    android:layout_height="wrap_content"
-                   android:text="Name"
+                   android:text="Name:        "
+                   android:layout_marginTop="4dp"
                    android:textSize="18dp"
+                   android:layout_marginLeft="8dp"
                    />
-    <LinearLayout
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:orientation="horizontal">
+
+
                <EditText
                    android:id="@+id/shoppernameanifirst"
                    android:layout_marginTop="5dp"
+
                    android:layout_width="wrap_content"
                    android:layout_height="wrap_content"
                    android:hint="First Name "
@@ -66,25 +113,26 @@
                        android:layout_marginTop="5dp"
                        android:layout_width="wrap_content"
                        android:layout_height="wrap_content"
-                       android:hint="First Name Last Name"
+                       android:hint="Last Name"
                        android:textSize="18dp"
                        android:inputType="none"
                        android:background="@null"
                        />
-    </LinearLayout>
+
            </LinearLayout>
 
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="8dp"
-            android:layout_marginTop="10dp"
-            android:orientation="vertical">
+            android:layout_marginTop="60dp"
+            android:orientation="horizontal">
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Phone Number"
+                android:text="Ph No.:       "
+                android:layout_marginTop="4dp"
                 android:textSize="18dp" />
 
             <EditText
@@ -97,16 +145,18 @@
                 android:inputType="none"
                 android:textSize="18dp" />
         </LinearLayout>
+
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:layout_marginTop="10dp"
+            android:orientation="horizontal"
+            android:layout_marginTop="110dp"
             android:layout_marginLeft="8dp">
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Email id"
+                android:layout_marginTop="4dp"
+                android:text="Email Id:     "
                 android:textSize="18dp"
                 />
             <EditText
@@ -120,23 +170,24 @@
                 android:background="@null"
                 />
         </LinearLayout>
+
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:layout_marginTop="10dp"
+            android:orientation="horizontal"
+            android:layout_marginTop="160dp"
             android:layout_marginLeft="8dp">
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="User name"
-                android:visibility="gone"
+                android:text="Username: "
+                android:layout_marginTop="4dp"
                 android:textSize="18dp"
                 />
             <EditText
                 android:id="@+id/shopperprofileusernameani"
                 android:layout_marginTop="5dp"
-                android:visibility="gone"
+
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:hint="Username"
@@ -147,17 +198,18 @@
 
         </LinearLayout>
 
+
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:layout_marginTop="10dp"
+            android:layout_marginTop="215dp"
             android:layout_marginLeft="8dp"
             >
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Date of birth"
+                android:text="DOB:          "
                 android:id="@+id/dobtextview"
                 android:textSize="18dp"
                 />
@@ -170,39 +222,55 @@
                 android:textSize="18dp"
                 android:inputType="none"
                 android:background="@null"
+                android:layout_marginBottom="10dp"
                 />
 
         </LinearLayout>
+        </android.support.design.card.MaterialCardView>
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="right">
-            <Button
+            <android.support.design.button.MaterialButton
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Edit"
-                android:minHeight="35dp"
+                android:paddingLeft="25dp"
+                android:paddingRight="25dp"
+                app:cornerRadius="8dp"
+                android:paddingTop="10dp"
+                android:paddingBottom="10dp"
+                android:minHeight="40dp"
                 android:textColor="#FFFFFF"
                 android:layout_marginLeft="30dp"
-                android:textSize="18sp"
-                android:layout_marginTop="20sp"
+                android:textSize="20sp"
+                android:layout_marginTop="10sp"
                 android:background="@color/colorPrimary"
                 android:id="@+id/editbutton"
-                android:layout_marginRight="10dp"
+                android:layout_marginRight="12dp"
+                style="@style/XXXXXXAppTheme"
                 />
-            <Button
+
+
+            <android.support.design.button.MaterialButton
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Save"
-                android:minHeight="35dp"
+                android:paddingLeft="25dp"
+                android:paddingRight="25dp"
+                app:cornerRadius="8dp"
+                android:paddingTop="10dp"
+                android:paddingBottom="10dp"
+                android:minHeight="40dp"
                 android:textColor="#FFFFFF"
                 android:layout_marginLeft="30dp"
                 android:visibility="gone"
-                android:textSize="18sp"
-                android:layout_marginTop="20sp"
+                android:textSize="20sp"
+                android:layout_marginTop="10sp"
                 android:background="@color/colorPrimary"
                 android:id="@+id/savebutton"
-                android:layout_marginRight="10dp"
+                android:layout_marginRight="12dp"
+                style="@style/XXXXXXAppTheme"
                 />
 
         </LinearLayout>

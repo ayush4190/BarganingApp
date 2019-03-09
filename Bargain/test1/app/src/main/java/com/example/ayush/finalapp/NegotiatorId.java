@@ -45,8 +45,10 @@ import java.io.OutputStream;
 import java.net.URI;
 import java.net.URL;
 
+import de.hdodenhof.circleimageview.CircleImageView;
+
 public class NegotiatorId extends AppCompatActivity {
-    ImageView viewImage;
+    CircleImageView viewImage;
     Button b;
     ////// java class for adding profile photo
     private Uri selectedImage;
@@ -65,6 +67,8 @@ public class NegotiatorId extends AppCompatActivity {
 
     //
     DatabaseReference data;
+
+    boolean aBoolean = false;
 
     //
     public static final String FB_STORAGE_PATH = "image/";
@@ -89,7 +93,7 @@ public class NegotiatorId extends AppCompatActivity {
 
         b = (Button) findViewById (R.id.btnSelectPhoto);
 
-        viewImage = (ImageView) findViewById (R.id.profilepic);
+        viewImage = (CircleImageView) findViewById (R.id.profilepic);
 
 
         b.setOnClickListener (new View.OnClickListener () {
@@ -124,10 +128,10 @@ public class NegotiatorId extends AppCompatActivity {
 
                 } else {
                     upload_image ();
-                    Toast.makeText (NegotiatorId.this, "what the ",Toast.LENGTH_SHORT).show ();
-                    Intent myIntent = new Intent (NegotiatorId.this,
-                            Negotiator_final.class);
-                    startActivity (myIntent);
+//                    Toast.makeText (NegotiatorId.this, "what the ",Toast.LENGTH_SHORT).show ();
+//                    Intent myIntent = new Intent (NegotiatorId.this,
+//                            Negotiator_final.class);
+//                    startActivity (myIntent);
                     finish ();
 
                 }
@@ -338,6 +342,12 @@ public class NegotiatorId extends AppCompatActivity {
                             Toast.makeText (NegotiatorId.this,"image uploaded",Toast.LENGTH_SHORT).show ();
                         }
                     },5000);
+                    aBoolean = true;
+                    if(aBoolean)
+                    {
+                        startActivity (new Intent (NegotiatorId.this,Negotiator_final.class));
+                        finish ();
+                    }
 
 
 

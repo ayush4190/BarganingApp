@@ -13,6 +13,7 @@ import android.os.Handler;
 import android.os.StrictMode;
 import android.provider.MediaStore;
 import android.support.annotation.NonNull;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -76,9 +77,10 @@ public class Negotiator_final extends AppCompatActivity {
 
     private  Uri selectedImage;
 
-
+ProgressBar mprogressbar;
 
     AlertDialog.Builder builder2;
+    boolean bool = false;
 
 
     @Override
@@ -101,7 +103,7 @@ public class Negotiator_final extends AppCompatActivity {
 
         rb2.setChecked (!rb2.isChecked ());
 
-
+    mprogressbar = (ProgressBar) findViewById (R.id.progress_image);
 
         TextView term1 = (TextView) findViewById (R.id.terms);
 
@@ -224,10 +226,10 @@ public class Negotiator_final extends AppCompatActivity {
 //                }
                if (k == 1 && rb2.isChecked ()) {
                     upload_image ();
-                    Intent myIntent = new Intent (Negotiator_final.this,
-                           Negotiator_dash.class);
-                    startActivity (myIntent);
-                    finish (); // added here
+//                    Intent myIntent = new Intent (Negotiator_final.this,
+//                           Negotiator_dash.class);
+//                    startActivity (myIntent);
+//                    finish (); // added here
                 }
             }
 
@@ -413,7 +415,7 @@ public class Negotiator_final extends AppCompatActivity {
         if(selectedImage != null)
         {
 //            StorageReference mstorage = storageReference.child (System.currentTimeMillis ()+"."+getFileextension (selectedImage));
-            StorageReference mstorage = storageReference.child (mUser.getUid ()+"."+getFileextension (selectedImage));
+            final StorageReference mstorage = storageReference.child (mUser.getUid ()+"."+getFileextension (selectedImage));
 
             mstorage.putFile (selectedImage).addOnSuccessListener (new OnSuccessListener <UploadTask.TaskSnapshot> () {
                 @Override
@@ -422,9 +424,16 @@ public class Negotiator_final extends AppCompatActivity {
                     handler.postDelayed (new Runnable () {
                         @Override
                         public void run() {
-                            Toast.makeText (Negotiator_final.this,"image uploaded",Toast.LENGTH_SHORT).show ();
+                            mprogressbar.setProgress (0);
                         }
                     },5000);
+                     bool = true;
+                    Toast.makeText (Negotiator_final.this,"Image uploaded",Toast.LENGTH_LONG).show ();
+                    if(bool)
+                    {
+                        startActivity (new Intent (Negotiator_final.this,Negotiator_dash.class));
+                        finish ();
+                    }
 
 
 
@@ -440,6 +449,8 @@ public class Negotiator_final extends AppCompatActivity {
                 public void onProgress(UploadTask.TaskSnapshot taskSnapshot) {
 
                             double progress=(100.0 * taskSnapshot.getBytesTransferred () / taskSnapshot.getTotalByteCount ());
+                          mprogressbar.setProgress ((int)progress);
+
 
                 }
             });

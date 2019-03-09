@@ -34,5 +34,6 @@
 
     <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
     <!-- adding here -->
+    <style name="XXXXXXAppTheme" parent="@style/Theme.MaterialComponents.Light.DarkActionBar"/>
 
 </resources>

@@ -29,12 +29,11 @@
 
     </RelativeLayout>
 
-<ImageView
+<de.hdodenhof.circleimageview.CircleImageView
     android:layout_width="150dp"
     android:id="@+id/sportsImage"
     android:layout_centerHorizontal="true"
     android:layout_marginTop="50dp"
-    android:adjustViewBounds="true"
     android:src="@drawable/negoreg"
     android:layout_height="150dp"
    />

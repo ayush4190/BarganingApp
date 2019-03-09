@@ -12,22 +12,18 @@ import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
-import android.os.Bundle;
 import android.os.Environment;
 import android.os.Handler;
 import android.provider.MediaStore;
 import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
+import android.support.v7.app.AppCompatActivity;
+import android.os.Bundle;
 import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.webkit.MimeTypeMap;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
-import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -51,14 +47,13 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
+import java.io.Serializable;
 import java.util.Calendar;
 import java.util.Date;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
-import static android.app.Activity.RESULT_OK;
-
-public class ShopperProfileFragment extends Fragment {
+public class ShopperProfileActivity extends AppCompatActivity implements Serializable {
     private DatabaseReference fdb;
     FirebaseAuth fba;
     FirebaseUser user;
@@ -75,34 +70,30 @@ public class ShopperProfileFragment extends Fragment {
     StorageReference storageReference;
     private FirebaseUser firebaseUser;
     Uri selectedImage;
-    View viewusage;
     private DatePickerDialog.OnDateSetListener mDateSetListener;
-    @Nullable
+    private String bool= "false";
+
     @Override
-    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        return inflater.inflate (R.layout.shopper_profile_fragment,null);
-    }
-    @Override
-    public void onViewCreated(@NonNull final View view, @Nullable Bundle savedInstanceState) {
-        super.onViewCreated (view, savedInstanceState);
-        viewusage=view;
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.shopper_profile_fragment);
         fdb= FirebaseDatabase.getInstance().getReference();
         fba=FirebaseAuth.getInstance();
         user=fba.getCurrentUser();
         DatabaseReference shopper = fdb.child ("Shopper").child (user.getUid ());
         applicationContext = ShopperHomepage.getContextOfApplication();
-         profile_name_first = (EditText) view.findViewById(R.id.shoppernameanifirst);
-         profile_name_last = (EditText) view.findViewById(R.id.shoppernameanilast);
-        final EditText profile_email =(EditText) view.findViewById (R.id.shopperprofilemailani);
-        final Button edit = (Button) view.findViewById(R.id.editbutton);
-        final Button save = (Button) view.findViewById(R.id.savebutton);
-        final EditText profile_phone=(EditText) view.findViewById(R.id.shopperphonenumberani);
-         profile_dob=(TextView) view.findViewById(R.id.shopperprofiledobani);
-        final EditText profile_username=(EditText) view.findViewById(R.id.shopperprofileusernameani);
-        final  TextView textView=(TextView)view.findViewById(R.id.dobtextview);
-        final Button select = (Button)view.findViewById(R.id.selectbtnprofile);
+        profile_name_first = (EditText) findViewById(R.id.shoppernameanifirst);
+        profile_name_last = (EditText) findViewById(R.id.shoppernameanilast);
+        final EditText profile_email =(EditText) findViewById (R.id.shopperprofilemailani);
+        final Button edit = (Button) findViewById(R.id.editbutton);
+        final Button save = (Button) findViewById(R.id.savebutton);
+        final EditText profile_phone=(EditText) findViewById(R.id.shopperphonenumberani);
+        profile_dob=(TextView) findViewById(R.id.shopperprofiledobani);
+        final EditText profile_username=(EditText) findViewById(R.id.shopperprofileusernameani);
+        final  TextView textView=(TextView)findViewById(R.id.dobtextview);
+        final Button select = (Button)findViewById(R.id.selectbtnprofile);
 
-      //  edit.setVisibility(View.VISIBLE);
+        //  edit.setVisibility(View.VISIBLE);
         profile_name_first.setBackgroundResource(android.R.drawable.edit_text);
         profile_name_last.setBackgroundResource(android.R.drawable.edit_text);
         profile_phone.setBackgroundResource(android.R.drawable.edit_text);
@@ -119,7 +110,7 @@ public class ShopperProfileFragment extends Fragment {
         profile_username.setEnabled(false);
         profile_phone.setEnabled(false);
         profile_dob.setTextColor(getResources().getColor(R.color.diabledgray));
-        viewImage=(CircleImageView) view.findViewById(R.id.shopperprofilepicani);
+        viewImage=(CircleImageView) findViewById(R.id.shopperprofilepicani);
 
 
         shopper.addValueEventListener (new ValueEventListener() {
@@ -140,20 +131,20 @@ public class ShopperProfileFragment extends Fragment {
             }
         });
 
-        String location = user.getUid ()+"."+"jpg";
-        photo_storage.child (location).getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
-            @Override
-            public void onSuccess(Uri uri) {
-                String imageURL = uri.toString ();
-                Glide.with(view.getContext().getApplicationContext()).load(imageURL).into(viewImage);
-            }
-        }).addOnFailureListener(new OnFailureListener() {
-            @Override
-            public void onFailure(@NonNull Exception exception) {
-                // Handle any errors
-                Toast.makeText (view.getContext().getApplicationContext(),exception.getMessage (),Toast.LENGTH_LONG).show ();
-            }
-        });
+//        String location = user.getUid ()+"."+"jpg";
+//        photo_storage.child (location).getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+//            @Override
+//            public void onSuccess(Uri uri) {
+//                String imageURL = uri.toString ();
+//                Glide.with(ShopperProfileActivity.this).load(imageURL).into(viewImage);
+//            }
+//        }).addOnFailureListener(new OnFailureListener() {
+//            @Override
+//            public void onFailure(@NonNull Exception exception) {
+//                // Handle any errors
+//                Toast.makeText (ShopperProfileActivity.this,exception.getMessage (),Toast.LENGTH_LONG).show ();
+//            }
+//        });
 
         edit.setOnClickListener (new View.OnClickListener () {
             @Override
@@ -165,7 +156,7 @@ public class ShopperProfileFragment extends Fragment {
                 profile_name_last.setEnabled(true);
 
 //                profile_phone.setEnabled(true);
-              //  profile_dob.setEnabled(true);
+                //  profile_dob.setEnabled(true);
                 profile_dob.setTextColor(getResources().getColor(R.color.black));
 
 
@@ -192,7 +183,7 @@ public class ShopperProfileFragment extends Fragment {
                         int month = cal.get(Calendar.MONTH);
                         int day = cal.get(Calendar.DAY_OF_MONTH);
 
-                        DatePickerDialog dialog = new DatePickerDialog(getActivity(),
+                        DatePickerDialog dialog = new DatePickerDialog(ShopperProfileActivity.this,
                                 android.R.style.Theme_Holo_Light_Dialog_MinWidth,
                                 mDateSetListener,
                                 year,month,day);
@@ -243,7 +234,6 @@ public class ShopperProfileFragment extends Fragment {
 
             }
         });
-
     }
     private void selectImage() {
 
@@ -253,7 +243,7 @@ public class ShopperProfileFragment extends Fragment {
 
 
 
-        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+        AlertDialog.Builder builder = new AlertDialog.Builder(ShopperProfileActivity.this);
 
         builder.setTitle("Add Photo!");
 
@@ -307,7 +297,7 @@ public class ShopperProfileFragment extends Fragment {
 
     @Override
 
-    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         Log.v("ssasad","RESULTCODE:" + Integer.toString(requestCode) );
 
         super.onActivityResult(requestCode, resultCode, data);
@@ -401,7 +391,7 @@ public class ShopperProfileFragment extends Fragment {
 
                 String[] filePath = { MediaStore.Images.Media.DATA };
 
-                Cursor c = getActivity().getContentResolver().query(selectedImage,filePath, null, null, null);
+                Cursor c = getContentResolver().query(selectedImage,filePath, null, null, null);
 
                 c.moveToFirst();
 
@@ -423,6 +413,13 @@ public class ShopperProfileFragment extends Fragment {
 
     }
 
+    @Override
+    public void onBackPressed() {
+        Intent intent = new Intent (ShopperProfileActivity.this,ShopperHomepage.class);
+        intent.putExtra ("bool",bool);
+        startActivity (intent);
+
+    }
 
     private void updatedata(){
         final DatabaseReference database = FirebaseDatabase.getInstance().getReference();
@@ -430,9 +427,9 @@ public class ShopperProfileFragment extends Fragment {
         myref.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-              dataSnapshot.getRef().child("fname").setValue(profile.getFname());
+                dataSnapshot.getRef().child("fname").setValue(profile.getFname());
                 dataSnapshot.getRef().child("lname").setValue(profile.getLname());
-             dataSnapshot.getRef().child("dob").setValue(profile.getDob());
+                dataSnapshot.getRef().child("dob").setValue(profile.getDob());
             }
 
             @Override
@@ -445,9 +442,10 @@ public class ShopperProfileFragment extends Fragment {
 
     }
 
+
     private String getFileextension(Uri uri)
     {
-        ContentResolver contentResolver = getActivity().getContentResolver ();
+        ContentResolver contentResolver = getContentResolver ();
         MimeTypeMap mimeTypeMap = MimeTypeMap.getSingleton ();
 
         return mimeTypeMap.getExtensionFromMimeType (contentResolver.getType (uri)) ;
@@ -471,9 +469,10 @@ public class ShopperProfileFragment extends Fragment {
                     handler.postDelayed (new Runnable () {
                         @Override
                         public void run() {
-                            Toast.makeText (getActivity(),"image uploaded",Toast.LENGTH_SHORT).show ();
+                            Toast.makeText (ShopperProfileActivity.this,"image uploaded",Toast.LENGTH_SHORT).show ();
                         }
                     },5000);
+                    bool = "true";
 
 
 
@@ -481,7 +480,7 @@ public class ShopperProfileFragment extends Fragment {
             }).addOnFailureListener (new OnFailureListener () {
                 @Override
                 public void onFailure(@NonNull Exception e) {
-                    Toast.makeText (getActivity(),e.getMessage (),Toast.LENGTH_SHORT).show ();
+                    Toast.makeText (ShopperProfileActivity.this,e.getMessage (),Toast.LENGTH_SHORT).show ();
 
                 }
             }).addOnProgressListener (new OnProgressListener<UploadTask.TaskSnapshot>() {
@@ -496,9 +495,7 @@ public class ShopperProfileFragment extends Fragment {
         }
         else
         {
-            Toast.makeText (getActivity(),"no photo",Toast.LENGTH_SHORT).show ();
+            Toast.makeText (ShopperProfileActivity.this,"no photo",Toast.LENGTH_SHORT).show ();
         }
     }
 }
-
-

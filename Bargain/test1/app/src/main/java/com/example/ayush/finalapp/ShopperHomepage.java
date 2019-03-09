@@ -51,6 +51,8 @@ import com.google.firebase.storage.StorageReference;
 import java.util.List;
 import java.util.Locale;
 
+import de.hdodenhof.circleimageview.CircleImageView;
+
 public class ShopperHomepage extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
     Toolbar toolbar;
@@ -71,7 +73,7 @@ public class ShopperHomepage extends AppCompatActivity
 
     private LocationListener locationListener;
 
-    ImageView shopper_pic;
+    CircleImageView shopper_pic;
 
     @SuppressLint("WrongViewCast")
     @Override
@@ -219,26 +221,33 @@ public class ShopperHomepage extends AppCompatActivity
                 navUsername.setText (key);
                 TextView user_email = (TextView) headerView.findViewById (R.id.shopper_drawer_mail);
                 user_email.setText (profile.getEmail ());
-                shopper_pic =(ImageView)headerView.findViewById (R.id.image_shopper);
+                shopper_pic = (CircleImageView) headerView.findViewById (R.id.image_shopper);
 
 
                 /// adding function to get photo from firebase storage
-                String location = user.getUid ()+"."+"jpg";
-                photo_storage.child (location).getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri> () {
-                    @Override
-                    public void onSuccess(Uri uri) {
-                        String imageURL = uri.toString ();
-                        Glide.with(getApplicationContext()).load(imageURL).into(shopper_pic);
+//                String location = user.getUid ()+"."+"jpg";
+//                photo_storage.child (location).getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri> () {
+//                    @Override
+//                    public void onSuccess(Uri uri) {
+//                        String imageURL = uri.toString ();
+//                        Glide.with(getApplicationContext()).load(imageURL).into(shopper_pic);
+//                    }
+//                }).addOnFailureListener(new OnFailureListener () {
+//                    @Override
+//                    public void onFailure(@NonNull Exception exception) {
+//                        // Handle any errors
+//                        Toast.makeText (ShopperHomepage.this,exception.getMessage (),Toast.LENGTH_LONG).show ();
+//                    }
+//                });
+                    fetch ();
+                    try {
+                        String check = (String) getIntent ().getSerializableExtra ("bool");
+                        if(check.compareToIgnoreCase ("true") == 0)
+                        fetch ();
+                    }catch (NullPointerException e)
+                    {
+                        Toast.makeText (ShopperHomepage.this,e.getMessage (),Toast.LENGTH_LONG).show ();
                     }
-                }).addOnFailureListener(new OnFailureListener () {
-                    @Override
-                    public void onFailure(@NonNull Exception exception) {
-                        // Handle any errors
-                        Toast.makeText (ShopperHomepage.this,exception.getMessage (),Toast.LENGTH_LONG).show ();
-                    }
-                });
-
-
                 //////////////////////////////////////////////////////
 
 
@@ -324,12 +333,8 @@ public class ShopperHomepage extends AppCompatActivity
             startActivity (new Intent (ShopperHomepage.this, WelcomePage.class));
 
         } else if (id == R.id.nav_gallery) {
-            FragmentTransaction fragmentTransaction = getSupportFragmentManager ().beginTransaction ();
-            fragmentTransaction.replace(R.id.content_frame,new ShopperProfileFragment());
-            fragmentTransaction.addToBackStack("fav");
-            fragmentTransaction.commit ();
-           // pincode ();
-
+            Intent intent = new Intent (ShopperHomepage.this, ShopperProfileActivity.class);
+            startActivity (intent);
 
         } else if (id == R.id.nav_faq) {
 
@@ -375,6 +380,33 @@ public class ShopperHomepage extends AppCompatActivity
                 locationManager.requestLocationUpdates (LocationManager.GPS_PROVIDER, 0, 0,locationListener);
             }
         }
+    }
+
+    public void fetch()
+    {
+        try {
+
+
+            String location = user.getUid () + "." + "jpg";
+            photo_storage.child (location).getDownloadUrl ().addOnSuccessListener (new OnSuccessListener <Uri> () {
+                @Override
+                public void onSuccess(Uri uri) {
+                    String imageURL = uri.toString ();
+                    Glide.with (getApplicationContext ()).load (imageURL).into (shopper_pic);
+                }
+            }).addOnFailureListener (new OnFailureListener () {
+                @Override
+                public void onFailure(@NonNull Exception exception) {
+                    // Handle any errors
+                    Toast.makeText (ShopperHomepage.this, exception.getMessage (), Toast.LENGTH_LONG).show ();
+                }
+            });
+        }catch (NullPointerException e)
+        {
+            Toast.makeText (ShopperHomepage.this,e.getMessage (),Toast.LENGTH_LONG).show ();
+        }
+
+
     }
 
     public void pincode() {

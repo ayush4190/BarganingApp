@@ -39,6 +39,8 @@ import com.google.firebase.storage.StorageReference;
 
 import java.net.URL;
 
+import de.hdodenhof.circleimageview.CircleImageView;
+
 public class Negotiator_dash extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
     Toolbar toolbar;
@@ -52,7 +54,7 @@ public class Negotiator_dash extends AppCompatActivity
     FirebaseStorage firebaseStorage;
     StorageReference photo_storage;
 
-    ImageView i1;
+  CircleImageView i1;
 
     // for user name
     FirebaseDatabase firebaseDatabase;
@@ -131,40 +133,47 @@ public class Negotiator_dash extends AppCompatActivity
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 NegotiatorDetails profile = dataSnapshot.getValue (NegotiatorDetails.class);
                 assert profile != null;
-                String key = profile.getFirstname () + profile.getLastname () ;
+                String key = profile.getFirstname () + profile.getLastname ();
 
 //                if(key == null)
 //                {
 //                    Toast.makeText (Negotiator_dash.this,"name is not present",Toast.LENGTH_SHORT).show ();
 //                }
 
-                NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
-                View headerView = navigationView.getHeaderView(0);
-                TextView navUsername = (TextView) headerView.findViewById(R.id.nego_name);
-                navUsername.setText(key);
-                TextView user_email =(TextView) headerView.findViewById (R.id.nego_email);
+                NavigationView navigationView = (NavigationView) findViewById (R.id.nav_view);
+                View headerView = navigationView.getHeaderView (0);
+                TextView navUsername = (TextView) headerView.findViewById (R.id.nego_name);
+                navUsername.setText (key);
+                TextView user_email = (TextView) headerView.findViewById (R.id.nego_email);
                 user_email.setText (profile.getEmail ());
-                i1= (ImageView) headerView.findViewById (R.id.image_nego);
+                i1 = (CircleImageView) headerView.findViewById (R.id.image_nego);
 
                 /// adding function to get photo from firebase storage
-                String location = user.getUid ()+"."+"jpg";
-               photo_storage.child (location).getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri> () {
-                    @Override
-                    public void onSuccess(Uri uri) {
-                        String imageURL = uri.toString ();
-                        Glide.with(getApplicationContext()).load(imageURL).into(i1);
-                    }
-                }).addOnFailureListener(new OnFailureListener () {
-                    @Override
-                    public void onFailure(@NonNull Exception exception) {
-                        // Handle any errors
-                        Toast.makeText (Negotiator_dash.this,exception.getMessage (),Toast.LENGTH_LONG).show ();
-                    }
-                });
+//                String location = user.getUid () + "." + "jpg";
+                try {
+
+                    String location = user.getUid () + "." + "jpg";
+                    photo_storage.child (location).getDownloadUrl ().addOnSuccessListener (new OnSuccessListener <Uri> () {
+                        @Override
+                        public void onSuccess(Uri uri) {
+                            String imageURL = uri.toString ();
+                            Glide.with (getApplicationContext ()).load (imageURL).into (i1);
+                        }
+                    }).addOnFailureListener (new OnFailureListener () {
+                        @Override
+                        public void onFailure(@NonNull Exception exception) {
+                            // Handle any errors
+                            Toast.makeText (Negotiator_dash.this, exception.getMessage (), Toast.LENGTH_LONG).show ();
+                        }
+                    });
 
 
-                //////////////////////////////////////////////////////
+                    //////////////////////////////////////////////////////
 
+                }catch (NullPointerException e)
+                {
+                    Toast.makeText (Negotiator_dash.this,e.getMessage (),Toast.LENGTH_LONG).show ();
+                }
             }
 
             @Override

@@ -26,12 +26,11 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
 
-                        <ImageView
+                        <de.hdodenhof.circleimageview.CircleImageView
                             android:id="@+id/sportsImage"
                             android:layout_width="90dp"
                             android:layout_height="90dp"
                             android:layout_alignParentLeft="true"
-                            android:adjustViewBounds="true"
                             android:src="@drawable/negoreg"
                             />
                         <TextView
@@ -117,6 +116,7 @@
                             android:layout_marginLeft="4dp"
                             android:layout_marginRight="2dp"
                             android:src="@drawable/ic_star_black_24dp"
+                            android:id="@+id/search_list_star"
                             android:layout_toRightOf="@id/rate_search_list"
                             />
 
