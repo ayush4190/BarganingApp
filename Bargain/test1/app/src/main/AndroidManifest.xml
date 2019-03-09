@@ -33,7 +33,7 @@
         <activity android:name=".ChatMain"></activity>
 
         <activity android:name=".ShopperProfileActivity" />
->>>>>>> 485145a7b11be7ae2334d3fe1aa461e67d885fd2
+
         <activity android:name=".ShopperCardDetails" />
         <activity android:name=".CardDetails" />
         <activity android:name=".ChatBox" />
