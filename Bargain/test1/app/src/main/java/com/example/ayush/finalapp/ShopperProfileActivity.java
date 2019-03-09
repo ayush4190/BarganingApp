@@ -47,12 +47,13 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
+import java.io.Serializable;
 import java.util.Calendar;
 import java.util.Date;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
-public class ShopperProfileActivity extends AppCompatActivity {
+public class ShopperProfileActivity extends AppCompatActivity implements Serializable {
     private DatabaseReference fdb;
     FirebaseAuth fba;
     FirebaseUser user;
@@ -70,6 +71,7 @@ public class ShopperProfileActivity extends AppCompatActivity {
     private FirebaseUser firebaseUser;
     Uri selectedImage;
     private DatePickerDialog.OnDateSetListener mDateSetListener;
+    private String bool= "false";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -129,20 +131,20 @@ public class ShopperProfileActivity extends AppCompatActivity {
             }
         });
 
-        String location = user.getUid ()+"."+"jpg";
-        photo_storage.child (location).getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
-            @Override
-            public void onSuccess(Uri uri) {
-                String imageURL = uri.toString ();
-                Glide.with(ShopperProfileActivity.this).load(imageURL).into(viewImage);
-            }
-        }).addOnFailureListener(new OnFailureListener() {
-            @Override
-            public void onFailure(@NonNull Exception exception) {
-                // Handle any errors
-                Toast.makeText (ShopperProfileActivity.this,exception.getMessage (),Toast.LENGTH_LONG).show ();
-            }
-        });
+//        String location = user.getUid ()+"."+"jpg";
+//        photo_storage.child (location).getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+//            @Override
+//            public void onSuccess(Uri uri) {
+//                String imageURL = uri.toString ();
+//                Glide.with(ShopperProfileActivity.this).load(imageURL).into(viewImage);
+//            }
+//        }).addOnFailureListener(new OnFailureListener() {
+//            @Override
+//            public void onFailure(@NonNull Exception exception) {
+//                // Handle any errors
+//                Toast.makeText (ShopperProfileActivity.this,exception.getMessage (),Toast.LENGTH_LONG).show ();
+//            }
+//        });
 
         edit.setOnClickListener (new View.OnClickListener () {
             @Override
@@ -411,6 +413,13 @@ public class ShopperProfileActivity extends AppCompatActivity {
 
     }
 
+    @Override
+    public void onBackPressed() {
+        Intent intent = new Intent (ShopperProfileActivity.this,ShopperHomepage.class);
+        intent.putExtra ("bool",bool);
+        startActivity (intent);
+
+    }
 
     private void updatedata(){
         final DatabaseReference database = FirebaseDatabase.getInstance().getReference();
@@ -432,6 +441,7 @@ public class ShopperProfileActivity extends AppCompatActivity {
 
 
     }
+
 
     private String getFileextension(Uri uri)
     {
@@ -462,6 +472,7 @@ public class ShopperProfileActivity extends AppCompatActivity {
                             Toast.makeText (ShopperProfileActivity.this,"image uploaded",Toast.LENGTH_SHORT).show ();
                         }
                     },5000);
+                    bool = "true";
 
 
 

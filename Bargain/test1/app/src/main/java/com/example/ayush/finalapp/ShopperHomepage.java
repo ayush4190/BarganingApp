@@ -225,22 +225,29 @@ public class ShopperHomepage extends AppCompatActivity
 
 
                 /// adding function to get photo from firebase storage
-                String location = user.getUid ()+"."+"jpg";
-                photo_storage.child (location).getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri> () {
-                    @Override
-                    public void onSuccess(Uri uri) {
-                        String imageURL = uri.toString ();
-                        Glide.with(getApplicationContext()).load(imageURL).into(shopper_pic);
+//                String location = user.getUid ()+"."+"jpg";
+//                photo_storage.child (location).getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri> () {
+//                    @Override
+//                    public void onSuccess(Uri uri) {
+//                        String imageURL = uri.toString ();
+//                        Glide.with(getApplicationContext()).load(imageURL).into(shopper_pic);
+//                    }
+//                }).addOnFailureListener(new OnFailureListener () {
+//                    @Override
+//                    public void onFailure(@NonNull Exception exception) {
+//                        // Handle any errors
+//                        Toast.makeText (ShopperHomepage.this,exception.getMessage (),Toast.LENGTH_LONG).show ();
+//                    }
+//                });
+                    fetch ();
+                    try {
+                        String check = (String) getIntent ().getSerializableExtra ("bool");
+                        if(check.compareToIgnoreCase ("true") == 0)
+                        fetch ();
+                    }catch (NullPointerException e)
+                    {
+                        Toast.makeText (ShopperHomepage.this,e.getMessage (),Toast.LENGTH_LONG).show ();
                     }
-                }).addOnFailureListener(new OnFailureListener () {
-                    @Override
-                    public void onFailure(@NonNull Exception exception) {
-                        // Handle any errors
-                        Toast.makeText (ShopperHomepage.this,exception.getMessage (),Toast.LENGTH_LONG).show ();
-                    }
-                });
-
-
                 //////////////////////////////////////////////////////
 
 
@@ -368,6 +375,33 @@ public class ShopperHomepage extends AppCompatActivity
                 locationManager.requestLocationUpdates (LocationManager.GPS_PROVIDER, 0, 0,locationListener);
             }
         }
+    }
+
+    public void fetch()
+    {
+        try {
+
+
+            String location = user.getUid () + "." + "jpg";
+            photo_storage.child (location).getDownloadUrl ().addOnSuccessListener (new OnSuccessListener <Uri> () {
+                @Override
+                public void onSuccess(Uri uri) {
+                    String imageURL = uri.toString ();
+                    Glide.with (getApplicationContext ()).load (imageURL).into (shopper_pic);
+                }
+            }).addOnFailureListener (new OnFailureListener () {
+                @Override
+                public void onFailure(@NonNull Exception exception) {
+                    // Handle any errors
+                    Toast.makeText (ShopperHomepage.this, exception.getMessage (), Toast.LENGTH_LONG).show ();
+                }
+            });
+        }catch (NullPointerException e)
+        {
+            Toast.makeText (ShopperHomepage.this,e.getMessage (),Toast.LENGTH_LONG).show ();
+        }
+
+
     }
 
     public void pincode() {
