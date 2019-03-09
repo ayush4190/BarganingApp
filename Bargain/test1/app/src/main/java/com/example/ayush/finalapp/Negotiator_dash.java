@@ -39,6 +39,8 @@ import com.google.firebase.storage.StorageReference;
 
 import java.net.URL;
 
+import de.hdodenhof.circleimageview.CircleImageView;
+
 public class Negotiator_dash extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
     Toolbar toolbar;
@@ -52,7 +54,7 @@ public class Negotiator_dash extends AppCompatActivity
     FirebaseStorage firebaseStorage;
     StorageReference photo_storage;
 
-    ImageView i1;
+  CircleImageView i1;
 
     // for user name
     FirebaseDatabase firebaseDatabase;
@@ -144,7 +146,7 @@ public class Negotiator_dash extends AppCompatActivity
                 navUsername.setText(key);
                 TextView user_email =(TextView) headerView.findViewById (R.id.nego_email);
                 user_email.setText (profile.getEmail ());
-                i1= (ImageView) headerView.findViewById (R.id.image_nego);
+                i1= (CircleImageView) headerView.findViewById (R.id.image_nego);
 
                 /// adding function to get photo from firebase storage
                 String location = user.getUid ()+"."+"jpg";

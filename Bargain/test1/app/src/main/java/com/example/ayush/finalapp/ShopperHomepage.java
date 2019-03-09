@@ -51,6 +51,8 @@ import com.google.firebase.storage.StorageReference;
 import java.util.List;
 import java.util.Locale;
 
+import de.hdodenhof.circleimageview.CircleImageView;
+
 public class ShopperHomepage extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
     Toolbar toolbar;
@@ -71,7 +73,7 @@ public class ShopperHomepage extends AppCompatActivity
 
     private LocationListener locationListener;
 
-    ImageView shopper_pic;
+    CircleImageView shopper_pic;
 
     @SuppressLint("WrongViewCast")
     @Override
@@ -219,7 +221,7 @@ public class ShopperHomepage extends AppCompatActivity
                 navUsername.setText (key);
                 TextView user_email = (TextView) headerView.findViewById (R.id.shopper_drawer_mail);
                 user_email.setText (profile.getEmail ());
-                shopper_pic =(ImageView)headerView.findViewById (R.id.image_shopper);
+                shopper_pic = (CircleImageView) headerView.findViewById (R.id.image_shopper);
 
 
                 /// adding function to get photo from firebase storage
