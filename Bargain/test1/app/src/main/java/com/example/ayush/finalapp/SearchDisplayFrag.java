@@ -351,6 +351,7 @@ public class SearchDisplayFrag extends Fragment{
 //        databaseReference=FirebaseDatabase.getInstance().getReference().child("Negotiator");
 
     }
+
 }
 
 

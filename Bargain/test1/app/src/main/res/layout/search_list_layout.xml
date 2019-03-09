@@ -27,7 +27,7 @@
                     android:layout_height="wrap_content">
 
                         <de.hdodenhof.circleimageview.CircleImageView
-                            android:id="@+id/sportsImage"
+                            android:id="@+id/search_list_sportsImage"
                             android:layout_width="90dp"
                             android:layout_height="90dp"
                             android:layout_alignParentLeft="true"

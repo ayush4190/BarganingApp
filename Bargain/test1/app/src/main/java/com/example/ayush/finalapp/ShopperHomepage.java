@@ -319,7 +319,7 @@ public class ShopperHomepage extends AppCompatActivity
 
         int id = item.getItemId ();
 
-        if (id == R.id.nav_camera) {
+        if (id == R.id.nav_logout) {
 
             // Handle the camera action
 
@@ -327,7 +327,7 @@ public class ShopperHomepage extends AppCompatActivity
             finish ();
             startActivity (new Intent (ShopperHomepage.this, WelcomePage.class));
 
-        } else if (id == R.id.nav_gallery) {
+        } else if (id == R.id.nav_profile) {
             Intent intent = new Intent (ShopperHomepage.this, ShopperProfileActivity.class);
             startActivity (intent);
 
@@ -338,22 +338,21 @@ public class ShopperHomepage extends AppCompatActivity
             fragmentTransaction.addToBackStack ("faq");
             fragmentTransaction.commit ();
 
-        } else if (id == R.id.nav_manage) {
+        } else if (id == R.id.nav_cs) {
+            FragmentTransaction fragmentTransaction = getSupportFragmentManager ().beginTransaction ();
+            fragmentTransaction.replace (R.id.content_frame, new CustomerServiceFrag ());
+            fragmentTransaction.addToBackStack ("faq");
+            fragmentTransaction.commit ();
+
+
+        } else if (id == R.id.nav_rate) {
+
 
         } else if (id == R.id.nav_share) {
 
-        } else if (id == R.id.nav_send) {
+
 
         }
-
-
-      /*  if(fragment != null)
-        {
-            FragmentManager fragmentManager = getSupportFragmentManager ();
-            FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction ();
-            fragmentTransaction.replace (R.id.content_frame,fragment);
-            fragmentTransaction.commit ();
-        }*/
 
 
         DrawerLayout drawer = (DrawerLayout) findViewById (R.id.drawer_layout);

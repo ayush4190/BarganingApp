@@ -3,6 +3,7 @@ package com.example.ayush.finalapp;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.FragmentActivity;
@@ -15,7 +16,11 @@ import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -27,6 +32,8 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import de.hdodenhof.circleimageview.CircleImageView;
 
 public class ShopperProfileAdapter extends RecyclerView.Adapter<ShopperProfileAdapter.ShopperProfileViewHolder> {
 
@@ -83,6 +90,8 @@ public class ShopperProfileAdapter extends RecyclerView.Adapter<ShopperProfileAd
             search_list_star.setVisibility(View.GONE);
             ImageView search_list_dot = (ImageView)view.findViewById(R.id.dot);
             search_list_dot.setVisibility(View.GONE);
+            CircleImageView proimage = (CircleImageView)view.findViewById(R.id.search_list_sportsImage);
+
 
 //            phone=(TextView) view.findViewById(R.id.ph_no);
 //            imgbutton= (ImageButton) view.findViewById(R.id.card_click);
@@ -105,6 +114,7 @@ public class ShopperProfileAdapter extends RecyclerView.Adapter<ShopperProfileAd
 
         holder.first.setText(n.getFname());
         holder.last.setText(n.getLname());
+
 //        holder.phone.setText(n.getPhno());
       //  holder.city.setText(n.getCity());
 
