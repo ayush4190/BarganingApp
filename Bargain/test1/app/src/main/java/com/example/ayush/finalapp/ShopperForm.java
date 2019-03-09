@@ -60,6 +60,8 @@ import java.util.Date;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import de.hdodenhof.circleimageview.CircleImageView;
+
 
 public class ShopperForm extends Activity implements Serializable {
     AlertDialog.Builder builder2;
@@ -78,7 +80,7 @@ public class ShopperForm extends Activity implements Serializable {
     TextView dob ;
 
 
-    ImageView viewImage;
+    CircleImageView viewImage;
 
     Button b;
 
@@ -207,7 +209,7 @@ public class ShopperForm extends Activity implements Serializable {
 
         b=(Button)findViewById(R.id.btnSelectPhoto);
 
-        viewImage=(ImageView)findViewById(R.id.profilepic);
+        viewImage=(CircleImageView) findViewById(R.id.profilepic);
 
         b.setOnClickListener(new View.OnClickListener() {
 

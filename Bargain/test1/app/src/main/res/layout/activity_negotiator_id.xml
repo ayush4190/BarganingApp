@@ -34,7 +34,7 @@
         android:padding="10dp" >
 
 
-        <ImageView
+        <de.hdodenhof.circleimageview.CircleImageView
 
             android:id="@+id/profilepic"
 

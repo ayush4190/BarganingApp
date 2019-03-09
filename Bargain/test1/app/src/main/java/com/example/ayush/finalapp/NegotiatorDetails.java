@@ -22,6 +22,8 @@ public class NegotiatorDetails implements Serializable {
         this.year = year;
         this.email = email;
 
+
+
     }
 
     public  NegotiatorDetails(NegotiatorDetails w){

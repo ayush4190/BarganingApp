@@ -43,13 +43,15 @@ import java.io.OutputStream;
 import java.util.Calendar;
 import java.util.Date;
 
+import de.hdodenhof.circleimageview.CircleImageView;
+
 import static android.app.Activity.RESULT_OK;
 
 public class ShopperProfileFragment extends Fragment {
     private DatabaseReference fdb;
     FirebaseAuth fba;
     FirebaseUser user;
-    ImageView viewImage;
+    CircleImageView viewImage;
     Context applicationContext;
     ShopperProfile profile;
     private TextView mDisplayDate;
@@ -130,7 +132,7 @@ public class ShopperProfileFragment extends Fragment {
               //  profile_dob.setEnabled(true);
                 profile_dob.setTextColor(getResources().getColor(R.color.black));
 
-                viewImage=(ImageView)view.findViewById(R.id.shopperprofilepicani);
+                viewImage=(CircleImageView) view.findViewById(R.id.shopperprofilepicani);
 
                 select.setOnClickListener(new View.OnClickListener() {
 
