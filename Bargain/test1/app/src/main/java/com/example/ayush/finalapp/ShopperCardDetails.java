@@ -18,6 +18,8 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
+import de.hdodenhof.circleimageview.CircleImageView;
+
 public class ShopperCardDetails extends AppCompatActivity {
 
     @Override
@@ -36,7 +38,7 @@ public class ShopperCardDetails extends AppCompatActivity {
         int favbool=(int)i.getIntExtra("favbool",0);
         TextView first_name=(TextView)findViewById(R.id.first_name);
         TextView last_name=(TextView)findViewById(R.id.last_name);
-
+        CircleImageView pro_image = (CircleImageView) findViewById(R.id.sportsImageshopper);
         TextView age=(TextView)findViewById(R.id.card_age);
         TextView username=(TextView)findViewById(R.id.card_username);
 

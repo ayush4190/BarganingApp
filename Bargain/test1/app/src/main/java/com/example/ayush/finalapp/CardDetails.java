@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.CardView;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
@@ -21,7 +22,7 @@ import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
 public class CardDetails extends AppCompatActivity {
-
+    int amount_int;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -46,6 +47,7 @@ public class CardDetails extends AppCompatActivity {
         TextView card_pincode=(TextView)findViewById(R.id.card_pincode);
         TextView card_state=(TextView)findViewById(R.id.card_state);
         RatingBar ratingBar=(RatingBar) findViewById(R.id.ratingBar);
+        CardView pro_image = (CardView)findViewById(R.id.sportsImage);
 
         first_name.setText(n.getFirstname());
         last_name.setText(n.getLastname());
@@ -91,6 +93,7 @@ public class CardDetails extends AppCompatActivity {
 
                 final ImageView fav = (ImageView) findViewById(R.id.fav);
                 final  ImageView favdone=(ImageView)findViewById(R.id.favdone);
+        ImageView chatButton = (ImageView)findViewById(R.id.message_button);
 
                 if(favbool==1){
                     fav.setVisibility(View.GONE);
@@ -141,6 +144,38 @@ public class CardDetails extends AppCompatActivity {
 
                 });
 
+                chatButton.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+//                        FirebaseUser firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
+                        final DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference();
+
+                        Query d=databaseReference.child("Negotiator").child(pos).child("Amount");
+                      d.addListenerForSingleValueEvent(new ValueEventListener() {
+                          @Override
+                          public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                              String amount="";
+                              amount =dataSnapshot.getValue(String.class);
+//                              Log.v("amount",amount);
+                              amount_int =Integer.parseInt(amount);
+                              if (amount_int>=50){
+                                  amount_int-=50;
+                                  amount= String.valueOf(amount_int);
+                              }
+                            databaseReference.child("Negotiator").child(pos).child("Amount").setValue(amount);
+                          }
+
+                          @Override
+                          public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                          }
+                      });
+
+
+
+
+                    }
+                });
 
 
     }

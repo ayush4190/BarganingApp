@@ -10,7 +10,7 @@
         android:layout_gravity="top">
 
 
-                <ImageView
+                <de.hdodenhof.circleimageview.CircleImageView
                     android:id="@+id/shopperprofilepicani"
                     android:layout_width="100dp"
                     android:layout_height="100dp"
