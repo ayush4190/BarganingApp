@@ -9,6 +9,7 @@ import android.location.Geocoder;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
@@ -30,10 +31,13 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
 import com.google.android.gms.location.places.GeoDataClient;
 import com.google.android.gms.location.places.Place;
 import com.google.android.gms.location.places.PlaceDetectionClient;
 import com.google.android.gms.location.places.Places;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -41,6 +45,8 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
 
 import java.util.List;
 import java.util.Locale;
@@ -59,10 +65,13 @@ public class ShopperHomepage extends AppCompatActivity
     int zip;
     // for user name
     FirebaseDatabase firebaseDatabase;
+    StorageReference photo_storage;
 
     private LocationManager locationManager;
 
     private LocationListener locationListener;
+
+    ImageView shopper_pic;
 
     @SuppressLint("WrongViewCast")
     @Override
@@ -91,7 +100,7 @@ public class ShopperHomepage extends AppCompatActivity
         fdb = FirebaseDatabase.getInstance ().getReference ();
 
 
-
+        photo_storage = FirebaseStorage.getInstance ().getReference ().child ("Shopper_profile_image");
 
 
 
@@ -210,6 +219,27 @@ public class ShopperHomepage extends AppCompatActivity
                 navUsername.setText (key);
                 TextView user_email = (TextView) headerView.findViewById (R.id.shopper_drawer_mail);
                 user_email.setText (profile.getEmail ());
+                shopper_pic =(ImageView)headerView.findViewById (R.id.image_shopper);
+
+
+                /// adding function to get photo from firebase storage
+                String location = user.getUid ()+"."+"jpg";
+                photo_storage.child (location).getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri> () {
+                    @Override
+                    public void onSuccess(Uri uri) {
+                        String imageURL = uri.toString ();
+                        Glide.with(getApplicationContext()).load(imageURL).into(shopper_pic);
+                    }
+                }).addOnFailureListener(new OnFailureListener () {
+                    @Override
+                    public void onFailure(@NonNull Exception exception) {
+                        // Handle any errors
+                        Toast.makeText (ShopperHomepage.this,exception.getMessage (),Toast.LENGTH_LONG).show ();
+                    }
+                });
+
+
+                //////////////////////////////////////////////////////
 
 
             }
