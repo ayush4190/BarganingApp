@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorPrimary"
+    >
+
+    <include
+        android:id="@+id/Search_Toolbar"
+        layout="@layout/toolbar"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        />
+
+    <ImageView
+        android:id="@+id/Search_Ige"
+        android:layout_width="match_parent"
+        android:layout_height="0sp"
+        android:alpha="0.3"
+       android:src="@color/white"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/Search_Toolbar" />
+
+    <android.support.v4.view.ViewPager
+        android:id="@+id/Search_Pager"
+        android:layout_width="0sp"
+        android:layout_height="0sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/Search_Tab"/>
+
+    <android.support.design.widget.TabLayout
+        android:id="@+id/Search_Tab"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/Search_Toolbar"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        android:background="@color/colorPrimary"
+        />
+</android.support.constraint.ConstraintLayout>
