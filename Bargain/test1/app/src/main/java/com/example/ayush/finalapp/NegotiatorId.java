@@ -45,8 +45,10 @@ import java.io.OutputStream;
 import java.net.URI;
 import java.net.URL;
 
+import de.hdodenhof.circleimageview.CircleImageView;
+
 public class NegotiatorId extends AppCompatActivity {
-    ImageView viewImage;
+    CircleImageView viewImage;
     Button b;
     ////// java class for adding profile photo
     private Uri selectedImage;
@@ -89,7 +91,7 @@ public class NegotiatorId extends AppCompatActivity {
 
         b = (Button) findViewById (R.id.btnSelectPhoto);
 
-        viewImage = (ImageView) findViewById (R.id.profilepic);
+        viewImage = (CircleImageView) findViewById (R.id.profilepic);
 
 
         b.setOnClickListener (new View.OnClickListener () {
