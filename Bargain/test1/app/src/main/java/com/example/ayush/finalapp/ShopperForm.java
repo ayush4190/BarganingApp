@@ -32,6 +32,7 @@ import android.widget.CheckBox;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -95,6 +96,9 @@ public class ShopperForm extends Activity implements Serializable {
     shopperPhone_dob detail ;
     Uri selectedImage;
     StorageReference storageReference;
+
+    ProgressBar mprogressbar;
+    boolean aBoolean = false;
 
 
 
@@ -267,9 +271,11 @@ public class ShopperForm extends Activity implements Serializable {
                     basic ();
 
                     //// open this activity only when shoper is signed in or has  registered successfully.
-                    Intent myIntent = new Intent(ShopperForm.this,
-                           ShopperHomepage.class);
-                    startActivity(myIntent);
+//                    if (aBoolean) {
+//                        Intent myIntent = new Intent (ShopperForm.this,
+//                                ShopperHomepage.class);
+//                        startActivity (myIntent);
+
                 }
 
 
@@ -479,8 +485,9 @@ public class ShopperForm extends Activity implements Serializable {
             detail.setUsername (ob1.getUsername());
             databaseReference= mroot.child ("Shopper");
             databaseReference.child (firebaseUser.getUid ()).setValue (detail);
-            upload_image ();
+//            upload_image ();
             Toast.makeText (ShopperForm.this,"Shopper profile Initialised",Toast.LENGTH_SHORT).show ();
+            upload_image ();
         }
 
 /// function to upload image into shopper_profile_image
@@ -494,6 +501,8 @@ public class ShopperForm extends Activity implements Serializable {
 
     private void upload_image()
     {
+        mprogressbar = (ProgressBar)findViewById (R.id.progress_shopper_image);
+
         firebaseUser = FirebaseAuth.getInstance ().getCurrentUser ();
         storageReference = FirebaseStorage.getInstance ().getReference ("Shopper_profile_image");
         databaseReference= FirebaseDatabase.getInstance ().getReference ();
@@ -510,9 +519,15 @@ public class ShopperForm extends Activity implements Serializable {
                     handler.postDelayed (new Runnable () {
                         @Override
                         public void run() {
-                            Toast.makeText (ShopperForm.this,"image uploaded",Toast.LENGTH_SHORT).show ();
+                            mprogressbar.setProgress (0);
                         }
                     },5000);
+                    aBoolean = true;
+                    Toast.makeText (ShopperForm.this,"image uploaded",Toast.LENGTH_SHORT).show ();
+                    if(aBoolean)
+                    {
+                        startActivity (new Intent (ShopperForm.this,ShopperHomepage.class));
+                    }
 
 
 
@@ -528,6 +543,7 @@ public class ShopperForm extends Activity implements Serializable {
                 public void onProgress(UploadTask.TaskSnapshot taskSnapshot) {
 
                     double progress=(100.0 * taskSnapshot.getBytesTransferred () / taskSnapshot.getTotalByteCount ());
+                    mprogressbar.setProgress ((int)progress);
 
                 }
             });

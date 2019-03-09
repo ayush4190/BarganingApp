@@ -67,7 +67,7 @@ public class qrdisplay extends Fragment {
         int icon = x < y ? x : y;
         icon = icon * 3 / 4;
         //now using the library
-        com.example.myapplication.QRCodeEncoder qrCodeEncoder = new com.example.myapplication.QRCodeEncoder (temp, null, com.example.myapplication.Contents.Type.TEXT, BarcodeFormat.QR_CODE.toString (), icon);
+      QRCodeEncoder qrCodeEncoder = new QRCodeEncoder (temp, null, com.example.myapplication.Contents.Type.TEXT, BarcodeFormat.QR_CODE.toString (), icon);
         //convert the image into bitmap
 
 
