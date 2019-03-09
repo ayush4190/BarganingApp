@@ -297,6 +297,7 @@
 
         <Spinner
             android:id="@+id/gender"
+
             android:layout_width="220dp"
             android:layout_marginLeft="8dp"
             android:layout_height="wrap_content"

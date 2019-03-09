@@ -1,6 +1,8 @@
 package com.example.ayush.finalapp;
 
+import android.content.Context;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
@@ -20,6 +22,9 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -27,6 +32,12 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.bumptech.glide.annotation.GlideModule;
+import com.bumptech.glide.module.AppGlideModule;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
+
+import java.net.URL;
 
 public class Negotiator_dash extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -38,10 +49,15 @@ public class Negotiator_dash extends AppCompatActivity
     FirebaseUser user;
     ImageView mwallet, nfaq;
     Fragment fragment = null;
+    FirebaseStorage firebaseStorage;
+    StorageReference photo_storage;
 
+    ImageView i1;
 
     // for user name
     FirebaseDatabase firebaseDatabase;
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,6 +66,13 @@ public class Negotiator_dash extends AppCompatActivity
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         fba = FirebaseAuth.getInstance ();
+
+        // ferencing storage refernce
+
+        photo_storage = FirebaseStorage.getInstance ().getReference ().child ("Upload");
+
+
+        //
 
       /*  FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
@@ -79,7 +102,7 @@ public class Negotiator_dash extends AppCompatActivity
             @Override
             public void onClick(View v) {
                 FragmentTransaction fragmentTransaction = getSupportFragmentManager ().beginTransaction ();
-                fragmentTransaction.replace(R.id.content_frame,new PayementActivity ());
+                fragmentTransaction.replace(R.id.content_frame,new NegotiatorWallet ());
                 fragmentTransaction.addToBackStack("wallet");
                 fragmentTransaction.commit ();
 
@@ -110,10 +133,10 @@ public class Negotiator_dash extends AppCompatActivity
                 assert profile != null;
                 String key = profile.getFirstname () + profile.getLastname () ;
 
-                if(key == null)
-                {
-                    Toast.makeText (Negotiator_dash.this,"name is not present",Toast.LENGTH_SHORT).show ();
-                }
+//                if(key == null)
+//                {
+//                    Toast.makeText (Negotiator_dash.this,"name is not present",Toast.LENGTH_SHORT).show ();
+//                }
 
                 NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
                 View headerView = navigationView.getHeaderView(0);
@@ -121,7 +144,26 @@ public class Negotiator_dash extends AppCompatActivity
                 navUsername.setText(key);
                 TextView user_email =(TextView) headerView.findViewById (R.id.nego_email);
                 user_email.setText (profile.getEmail ());
+                i1= (ImageView) headerView.findViewById (R.id.image_nego);
 
+                /// adding function to get photo from firebase storage
+                String location = user.getUid ()+"."+"jpg";
+               photo_storage.child (location).getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri> () {
+                    @Override
+                    public void onSuccess(Uri uri) {
+                        String imageURL = uri.toString ();
+                        Glide.with(getApplicationContext()).load(imageURL).into(i1);
+                    }
+                }).addOnFailureListener(new OnFailureListener () {
+                    @Override
+                    public void onFailure(@NonNull Exception exception) {
+                        // Handle any errors
+                        Toast.makeText (Negotiator_dash.this,exception.getMessage (),Toast.LENGTH_LONG).show ();
+                    }
+                });
+
+
+                //////////////////////////////////////////////////////
 
             }
 
@@ -193,4 +235,5 @@ public class Negotiator_dash extends AppCompatActivity
         drawer.closeDrawer(GravityCompat.START);
         return true;
     }
+
 }

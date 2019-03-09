@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/primaryLightColor"
+            android:id="@+id/re1">
+
+
+
+
+            <TextView
+                android:id="@+id/amount"
+
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="20dp"
+                android:fontFamily="sans-serif-thin"
+                android:text="Amount:"
+                android:textSize="24sp"
+                android:textColor="@color/toolbarwhite"
+                android:textAllCaps="true" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:fontFamily="sans-serif-thin"
+                android:text="0.0"
+                android:textAlignment="center"
+                android:layout_marginTop="20dp"
+                android:layout_marginBottom="20dp"
+                android:layout_marginLeft="20dp"
+                android:textColor="@color/toolbarwhite"
+                android:textSize="32sp"
+                android:layout_below="@id/amount"
+                android:id="@+id/money_text"/>
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_below="@id/re1"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent">
+
+            <Button
+                android:id="@+id/button1"
+                android:layout_marginTop="100dp"
+                android:layout_width="300dp"
+                android:textSize="20sp"
+                android:fontFamily="sans-serif-thin"
+                android:layout_centerHorizontal="true"
+                android:layout_height="wrap_content"
+                android:text="display qr"
+                android:background="@color/colorPrimaryDark"
+                android:textColor="#FFFFFF"
+
+                />
+            <Button
+                android:layout_width="300dp"
+                android:layout_height="wrap_content"
+                android:id="@+id/button2"
+                android:fontFamily="sans-serif-thin"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="50dp"
+                android:text="Add money to wallet"
+                android:textSize="19.5sp"
+                android:layout_below="@id/button1"
+                android:background="@color/colorPrimaryDark"
+                android:textColor="#FFFFFF"
+                />
+
+            <Button
+                android:id="@+id/button3"
+                android:layout_width="300dp"
+                android:layout_height="wrap_content"
+                android:textSize="19sp"
+                android:fontFamily="sans-serif-thin"
+                android:layout_centerHorizontal="true"
+                android:layout_below="@id/button2"
+                android:textAllCaps="true"
+                android:text="Previous transactions"
+                android:layout_marginTop="50dp"
+                android:background="@color/colorPrimaryDark"
+                android:textColor="#FFFFFF"
+
+                />
+        </RelativeLayout>
+    </RelativeLayout>
+</ScrollView>

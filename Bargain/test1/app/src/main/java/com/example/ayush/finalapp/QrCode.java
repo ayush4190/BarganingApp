@@ -3,6 +3,7 @@ package com.example.ayush.finalapp;
 import android.Manifest;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.hardware.Camera;
 import android.os.Vibrator;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.FragmentManager;
@@ -25,7 +26,7 @@ import java.io.IOException;
 public class QrCode extends AppCompatActivity {
     SurfaceView surfaceView;
     TextView textView;
-    CameraSource cameraSource;
+     CameraSource cameraSource;
     BarcodeDetector barcodeDetector;
 
 
@@ -38,7 +39,11 @@ public class QrCode extends AppCompatActivity {
 
         barcodeDetector = new BarcodeDetector.Builder(this).setBarcodeFormats(Barcode.QR_CODE).build();
 
-        cameraSource = new CameraSource.Builder(this, barcodeDetector).setRequestedPreviewSize(640, 480).build();
+//        cameraSource = new CameraSource.Builder(this, barcodeDetector).setRequestedPreviewSize(640, 480).build();
+        int i = 0b1010000000;
+        int j = 0b111100000;
+        cameraSource = new CameraSource.Builder(this, barcodeDetector).setRequestedPreviewSize (i,j)
+                .setAutoFocusEnabled(true).build();
 
 
 
@@ -110,5 +115,6 @@ public class QrCode extends AppCompatActivity {
         });
 
     }
+
 }
 //////////////////////////  check why the fragment is not working

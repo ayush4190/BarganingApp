@@ -28,6 +28,8 @@ import android.widget.Toast;
 import com.google.android.gms.auth.api.signin.internal.Storage;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.storage.FirebaseStorage;
@@ -58,6 +60,8 @@ public class NegotiatorId extends AppCompatActivity {
     private StorageReference storageReference;
 
     private DatabaseReference databaseReference;
+
+    FirebaseUser firebaseUser;
 
     //
     DatabaseReference data;
@@ -315,11 +319,14 @@ public class NegotiatorId extends AppCompatActivity {
 
     private void upload_image()
     {
-        storageReference = FirebaseStorage.getInstance ().getReference ("Upload");
+        firebaseUser = FirebaseAuth.getInstance ().getCurrentUser ();
+        storageReference = FirebaseStorage.getInstance ().getReference ("Negotiator_profile_image");
         databaseReference= FirebaseDatabase.getInstance ().getReference ();
         if(selectedImage != null)
         {
-            StorageReference mstorage = storageReference.child (System.currentTimeMillis ()+"."+getFileextension (selectedImage));
+//            StorageReference mstorage = storageReference.child (System.currentTimeMillis ()+"."+getFileextension (selectedImage));
+            StorageReference mstorage = storageReference.child (firebaseUser.getUid ()+"."+getFileextension (selectedImage));
+
 
             mstorage.putFile (selectedImage).addOnSuccessListener (new OnSuccessListener <UploadTask.TaskSnapshot> () {
                 @Override

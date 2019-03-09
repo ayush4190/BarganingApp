@@ -3,6 +3,7 @@ package com.example.ayush.finalapp;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.DatePickerDialog;
+import android.content.ContentResolver;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
@@ -15,6 +16,7 @@ import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
+import android.os.Handler;
 import android.os.StrictMode;
 import android.provider.MediaStore;
 import android.support.annotation.NonNull;
@@ -24,6 +26,7 @@ import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.webkit.MimeTypeMap;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.DatePicker;
@@ -33,12 +36,18 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.OnProgressListener;
+import com.google.firebase.storage.StorageReference;
+import com.google.firebase.storage.UploadTask;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -82,6 +91,8 @@ public class ShopperForm extends Activity implements Serializable {
     private  CheckBox rb2;
 
     shopperPhone_dob detail ;
+    Uri selectedImage;
+    StorageReference storageReference;
 
 
 
@@ -350,6 +361,7 @@ public class ShopperForm extends Activity implements Serializable {
                     if (temp.getName().equals("temp.jpg")) {
 
                         f = temp;
+                        selectedImage = Uri.fromFile (new File (f.toString ()));
 
                         break;
 
@@ -423,7 +435,7 @@ public class ShopperForm extends Activity implements Serializable {
 
 
 
-                Uri selectedImage = data.getData();
+                 selectedImage = data.getData();
 
                 String[] filePath = { MediaStore.Images.Media.DATA };
 
@@ -465,8 +477,65 @@ public class ShopperForm extends Activity implements Serializable {
             detail.setUsername (ob1.getUsername());
             databaseReference= mroot.child ("Shopper");
             databaseReference.child (firebaseUser.getUid ()).setValue (detail);
+            upload_image ();
             Toast.makeText (ShopperForm.this,"Shopper profile Initialised",Toast.LENGTH_SHORT).show ();
         }
+
+/// function to upload image into shopper_profile_image
+    private String getFileextension(Uri uri)
+    {
+        ContentResolver contentResolver = getContentResolver ();
+        MimeTypeMap mimeTypeMap = MimeTypeMap.getSingleton ();
+
+        return mimeTypeMap.getExtensionFromMimeType (contentResolver.getType (uri)) ;
+    }
+
+    private void upload_image()
+    {
+        firebaseUser = FirebaseAuth.getInstance ().getCurrentUser ();
+        storageReference = FirebaseStorage.getInstance ().getReference ("Shopper_profile_image");
+        databaseReference= FirebaseDatabase.getInstance ().getReference ();
+        if(selectedImage != null)
+        {
+//            StorageReference mstorage = storageReference.child (System.currentTimeMillis ()+"."+getFileextension (selectedImage));
+            StorageReference mstorage = storageReference.child (firebaseUser.getUid ()+"."+getFileextension (selectedImage));
+
+
+            mstorage.putFile (selectedImage).addOnSuccessListener (new OnSuccessListener<UploadTask.TaskSnapshot> () {
+                @Override
+                public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                    Handler handler = new Handler ();
+                    handler.postDelayed (new Runnable () {
+                        @Override
+                        public void run() {
+                            Toast.makeText (ShopperForm.this,"image uploaded",Toast.LENGTH_SHORT).show ();
+                        }
+                    },5000);
+
+
+
+                }
+            }).addOnFailureListener (new OnFailureListener () {
+                @Override
+                public void onFailure(@NonNull Exception e) {
+                    Toast.makeText (ShopperForm.this,e.getMessage (),Toast.LENGTH_SHORT).show ();
+
+                }
+            }).addOnProgressListener (new OnProgressListener<UploadTask.TaskSnapshot> () {
+                @Override
+                public void onProgress(UploadTask.TaskSnapshot taskSnapshot) {
+
+                    double progress=(100.0 * taskSnapshot.getBytesTransferred () / taskSnapshot.getTotalByteCount ());
+
+                }
+            });
+
+        }
+        else
+        {
+            Toast.makeText (ShopperForm.this,"no photo",Toast.LENGTH_SHORT).show ();
+        }
+    }
 }
 
 

@@ -2,10 +2,13 @@ package com.example.ayush.finalapp;
 
 import android.app.AlertDialog;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.CardView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,6 +19,9 @@ import android.widget.Toast;
 import android.content.DialogInterface;
 
 public class PayementActivity extends Fragment {
+    private static final int TEZ_REQUEST_CODE = 123;
+
+    private static final String GOOGLE_TEZ_PACKAGE_NAME = "com.google.android.apps.nbu.paisa.user";
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -23,34 +29,73 @@ public class PayementActivity extends Fragment {
     }
 
     @Override
-    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+    public void onViewCreated(@NonNull final View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated (view, savedInstanceState);
 
 
+final TextView tez = (TextView)view.findViewById (R.id.tez);
+       final TextView token = (TextView)view.findViewById (R.id.token);
+       final TextView paytm = (TextView)view.findViewById (R.id.paytm);
 
-        Button button1 = (Button) view.findViewById(R.id.button1);
-        button1.setOnClickListener(new View.OnClickListener() {
+        CardView cardView=(CardView) view.findViewById (R.id.init_payment_card);
+        cardView.setOnClickListener (new View.OnClickListener () {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(v.getContext(), QrCode.class);
-                v.getContext().startActivity(intent);
+                tez.setVisibility (View.VISIBLE);
+                token.setVisibility (View.VISIBLE);
+                paytm.setVisibility (View.VISIBLE);
+
+
             }
         });
 
-
-       Button button2 = (Button) view.findViewById(R.id.button2);
-        button2.setOnClickListener(new View.OnClickListener() {
+        token.setOnClickListener (new View.OnClickListener () {
             @Override
             public void onClick(View v) {
-               AlertDialog.Builder mBuilder = new AlertDialog.Builder(v.getContext ());
-                View mView = getLayoutInflater().inflate(R.layout.activity_add_money,null);
-                final EditText mAmount  = (EditText) mView.findViewById(R.id.add);
-                mBuilder.setView(mView);
-                AlertDialog dialog = mBuilder.create();
+                startActivity (new Intent (getActivity (),QrCode.class));
 
-                dialog.show();
+            }
+        });
 
+        tez.setOnClickListener (new View.OnClickListener () {
+            @Override
+            public void onClick(View v) {
 
+                Uri uri =
+                        new Uri.Builder()
+                                .scheme("upi")
+                                .authority("pay")
+                                .appendQueryParameter("pa", "a.ayushkumar1997@okaxis")
+                                .appendQueryParameter("pn", "Test Merchant")
+                                .appendQueryParameter("mc", "1234")
+                                .appendQueryParameter("tr", "123456789")
+                                .appendQueryParameter("tn", "test transaction note")
+                                .appendQueryParameter("am", "10.01")
+                                .appendQueryParameter("cu", "INR")
+                                .appendQueryParameter("url", "a.ayushkumar1997@okaxis")
+                                .build();
+                Intent intent = new Intent(Intent.ACTION_VIEW);
+                intent.setData(uri);
+                intent.setPackage(GOOGLE_TEZ_PACKAGE_NAME);
+                startActivityForResult(intent, TEZ_REQUEST_CODE);
+
+            }
+        });
+//
+//
+       TextView moneytransfer = (TextView)view.findViewById (R.id.money_transfer) ;
+       moneytransfer.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                AlertDialog.Builder mBuilder = new AlertDialog.Builder (v.getContext ());
+                View mView = getLayoutInflater ().inflate (R.layout.activity_add_money, null);
+                final EditText mAmount = (EditText) mView.findViewById (R.id.add);
+                mBuilder.setView (mView);
+                AlertDialog dialog = mBuilder.create ();
+
+                dialog.show ();
+
+//
                 Button button = (Button) mView.findViewById(R.id.button4);
                 button.setOnClickListener(new View.OnClickListener() {
                     @Override
@@ -68,8 +113,10 @@ public class PayementActivity extends Fragment {
             }
         });
 
-        Button button3 = (Button) view.findViewById(R.id.button3);
-        button3.setOnClickListener(new View.OnClickListener() {
+
+
+        TextView passbook =(TextView) view.findViewById (R.id.passbook);
+        passbook.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(v.getContext(),PreviousTransactions.class);
@@ -78,7 +125,17 @@ public class PayementActivity extends Fragment {
         });
 
     }
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if (requestCode == TEZ_REQUEST_CODE) {
+            // Process based on the data in response.
+            Log.d("result", data.getStringExtra("Status"));
+        }
+    }
 }
+
 
 
 

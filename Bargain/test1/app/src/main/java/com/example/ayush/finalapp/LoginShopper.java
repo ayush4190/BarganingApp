@@ -104,6 +104,7 @@ public class LoginShopper extends AppCompatActivity {
                 if(temp.getDecide ().compareTo ("true") == 0)
                 {
                     startActivity (new Intent (LoginShopper.this,Negotiator_dash.class));
+
                 }
                 else if(temp.getDecide ().compareTo ("false")==0)
                 {

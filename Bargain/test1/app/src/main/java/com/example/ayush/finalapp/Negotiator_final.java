@@ -408,11 +408,12 @@ public class Negotiator_final extends AppCompatActivity {
     //3
     private void upload_image()
     {
-        storageReference = FirebaseStorage.getInstance ().getReference ("Upload");
+        storageReference = FirebaseStorage.getInstance ().getReference ("Negotiator_id");
         databaseReference= FirebaseDatabase.getInstance ().getReference ();
         if(selectedImage != null)
         {
-            StorageReference mstorage = storageReference.child (System.currentTimeMillis ()+"."+getFileextension (selectedImage));
+//            StorageReference mstorage = storageReference.child (System.currentTimeMillis ()+"."+getFileextension (selectedImage));
+            StorageReference mstorage = storageReference.child (mUser.getUid ()+"."+getFileextension (selectedImage));
 
             mstorage.putFile (selectedImage).addOnSuccessListener (new OnSuccessListener <UploadTask.TaskSnapshot> () {
                 @Override
