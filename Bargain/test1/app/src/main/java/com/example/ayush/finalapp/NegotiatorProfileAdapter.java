@@ -162,13 +162,13 @@ public class NegotiatorProfileAdapter extends RecyclerView.Adapter<NegotiatorPro
 //                cat3.setText(n.getCategory3());
 //                phno.setText(n.getPhone());
 //                builder2.setNegativeButton ("Close", new DialogInterface.OnClickListener () {
-//                    public void onClick(DialogInterface dialog, int id) {
-//                        dialog.cancel ();
-//
-//                    }
-//                });
-//
-//
+////                    public void onClick(DialogInterface dialog, int id) {
+////                        dialog.cancel ();
+////
+////                    }
+////                });
+////
+////
 //
 //                final ImageView fav = (ImageView) v1.findViewById(R.id.fav);
 //                final  ImageView favdone=(ImageView)v1.findViewById(R.id.favdone);
