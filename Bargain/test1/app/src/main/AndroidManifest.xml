@@ -69,7 +69,7 @@
         <activity
             android:name=".MapsActivity"
             android:label="@string/title_activity_maps" />
-        <activity android:name=".NegotiatorWallet" />
+
         <activity
             android:name=".Negotiator_dash"
             android:label="@string/title_activity_negotiator_dash"
@@ -90,7 +90,9 @@
         <activity
             android:name=".WelcomePage"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".QrCode" />
+        <activity android:name=".QrCode"
+            android:theme="@style/AppTheme.NoActionBar"
+            android:label="QR Scanner"/>
         <activity
             android:name=".LoginPage"
             android:label="Login page"
