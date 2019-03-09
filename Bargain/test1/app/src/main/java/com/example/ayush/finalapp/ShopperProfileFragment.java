@@ -2,6 +2,7 @@ package com.example.ayush.finalapp;
 
 import android.app.AlertDialog;
 import android.app.DatePickerDialog;
+import android.content.ContentResolver;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -13,6 +14,7 @@ import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
+import android.os.Handler;
 import android.provider.MediaStore;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -21,12 +23,17 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.webkit.MimeTypeMap;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -34,6 +41,10 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.OnProgressListener;
+import com.google.firebase.storage.StorageReference;
+import com.google.firebase.storage.UploadTask;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -58,6 +69,13 @@ public class ShopperProfileFragment extends Fragment {
     EditText profile_name_first;
     TextView profile_dob;
     EditText profile_name_last;
+    FirebaseDatabase firebaseDatabase;
+    StorageReference photo_storage;
+    DatabaseReference databaseReference;
+    StorageReference storageReference;
+    private FirebaseUser firebaseUser;
+    Uri selectedImage;
+    View viewusage;
     private DatePickerDialog.OnDateSetListener mDateSetListener;
     @Nullable
     @Override
@@ -67,6 +85,7 @@ public class ShopperProfileFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull final View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated (view, savedInstanceState);
+        viewusage=view;
         fdb= FirebaseDatabase.getInstance().getReference();
         fba=FirebaseAuth.getInstance();
         user=fba.getCurrentUser();
@@ -90,6 +109,7 @@ public class ShopperProfileFragment extends Fragment {
         profile_username.setBackgroundResource(android.R.drawable.edit_text);
         profile_dob.setBackgroundResource(android.R.drawable.edit_text);
         select.setVisibility(View.GONE);
+        photo_storage = FirebaseStorage.getInstance ().getReference ().child ("Shopper_profile_image");
 
         profile_name_first.setEnabled(false);
         profile_name_last.setEnabled(false);
@@ -98,7 +118,7 @@ public class ShopperProfileFragment extends Fragment {
         profile_username.setEnabled(false);
         profile_phone.setEnabled(false);
         profile_dob.setTextColor(getResources().getColor(R.color.diabledgray));
-
+        viewImage=(CircleImageView) view.findViewById(R.id.shopperprofilepicani);
 
 
         shopper.addValueEventListener (new ValueEventListener() {
@@ -119,6 +139,21 @@ public class ShopperProfileFragment extends Fragment {
             }
         });
 
+        String location = user.getUid ()+"."+"jpg";
+        photo_storage.child (location).getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+            @Override
+            public void onSuccess(Uri uri) {
+                String imageURL = uri.toString ();
+                Glide.with(view.getContext().getApplicationContext()).load(imageURL).into(viewImage);
+            }
+        }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception exception) {
+                // Handle any errors
+                Toast.makeText (view.getContext().getApplicationContext(),exception.getMessage (),Toast.LENGTH_LONG).show ();
+            }
+        });
+
         edit.setOnClickListener (new View.OnClickListener () {
             @Override
             public void onClick(View v) {
@@ -132,7 +167,7 @@ public class ShopperProfileFragment extends Fragment {
               //  profile_dob.setEnabled(true);
                 profile_dob.setTextColor(getResources().getColor(R.color.black));
 
-                viewImage=(CircleImageView) view.findViewById(R.id.shopperprofilepicani);
+
 
                 select.setOnClickListener(new View.OnClickListener() {
 
@@ -145,7 +180,6 @@ public class ShopperProfileFragment extends Fragment {
                     }
 
                 });
-
 
 
 
@@ -198,9 +232,9 @@ public class ShopperProfileFragment extends Fragment {
                 profile.setLname(profile_name_last.getText().toString().trim());
                 profile.setDob(profile_dob.getText().toString().trim());
                 updatedata();
+                upload_image ();
 
-
-
+//dialog insert
 //                profile_name.setBackground(R.drawable.edit_text_shopper_profile);
 
 
@@ -269,6 +303,7 @@ public class ShopperProfileFragment extends Fragment {
 
 
     @Override
+
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         Log.v("ssasad","RESULTCODE:" + Integer.toString(requestCode) );
 
@@ -285,6 +320,7 @@ public class ShopperProfileFragment extends Fragment {
                     if (temp.getName().equals("temp.jpg")) {
 
                         f = temp;
+                        selectedImage = Uri.fromFile (new File (f.toString ()));
 
                         break;
 
@@ -358,12 +394,11 @@ public class ShopperProfileFragment extends Fragment {
 
 
 
-                Uri selectedImage = data.getData();
+                selectedImage = data.getData();
 
                 String[] filePath = { MediaStore.Images.Media.DATA };
 
-
-                Cursor c = applicationContext.getContentResolver().query(selectedImage,filePath, null, null, null);
+                Cursor c = getActivity().getContentResolver().query(selectedImage,filePath, null, null, null);
 
                 c.moveToFirst();
 
@@ -385,6 +420,7 @@ public class ShopperProfileFragment extends Fragment {
 
     }
 
+
     private void updatedata(){
         final DatabaseReference database = FirebaseDatabase.getInstance().getReference();
         DatabaseReference myref= database.child("Shopper").child(user.getUid());
@@ -405,4 +441,61 @@ public class ShopperProfileFragment extends Fragment {
 
 
     }
+
+    private String getFileextension(Uri uri)
+    {
+        ContentResolver contentResolver = getActivity().getContentResolver ();
+        MimeTypeMap mimeTypeMap = MimeTypeMap.getSingleton ();
+
+        return mimeTypeMap.getExtensionFromMimeType (contentResolver.getType (uri)) ;
+    }
+
+    private void upload_image()
+    {
+        firebaseUser = FirebaseAuth.getInstance ().getCurrentUser ();
+        storageReference = FirebaseStorage.getInstance ().getReference ("Shopper_profile_image");
+        databaseReference= FirebaseDatabase.getInstance ().getReference ();
+        if(selectedImage != null)
+        {
+//            StorageReference mstorage = storageReference.child (System.currentTimeMillis ()+"."+getFileextension (selectedImage));
+            StorageReference mstorage = storageReference.child (firebaseUser.getUid ()+"."+getFileextension (selectedImage));
+
+
+            mstorage.putFile (selectedImage).addOnSuccessListener (new OnSuccessListener<UploadTask.TaskSnapshot> () {
+                @Override
+                public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                    Handler handler = new Handler ();
+                    handler.postDelayed (new Runnable () {
+                        @Override
+                        public void run() {
+                            Toast.makeText (getActivity(),"image uploaded",Toast.LENGTH_SHORT).show ();
+                        }
+                    },5000);
+
+
+
+                }
+            }).addOnFailureListener (new OnFailureListener () {
+                @Override
+                public void onFailure(@NonNull Exception e) {
+                    Toast.makeText (getActivity(),e.getMessage (),Toast.LENGTH_SHORT).show ();
+
+                }
+            }).addOnProgressListener (new OnProgressListener<UploadTask.TaskSnapshot>() {
+                @Override
+                public void onProgress(UploadTask.TaskSnapshot taskSnapshot) {
+
+                    double progress=(100.0 * taskSnapshot.getBytesTransferred () / taskSnapshot.getTotalByteCount ());
+
+                }
+            });
+
+        }
+        else
+        {
+            Toast.makeText (getActivity(),"no photo",Toast.LENGTH_SHORT).show ();
+        }
+    }
 }
+
+

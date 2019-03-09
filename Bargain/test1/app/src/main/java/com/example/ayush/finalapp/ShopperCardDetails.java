@@ -38,7 +38,7 @@ public class ShopperCardDetails extends AppCompatActivity {
         int favbool=(int)i.getIntExtra("favbool",0);
         TextView first_name=(TextView)findViewById(R.id.first_name);
         TextView last_name=(TextView)findViewById(R.id.last_name);
-        CircleImageView pro_image = (CircleImageView) findViewById(R.id.sportsImageshopper);
+        ImageView pro_image = (ImageView) findViewById(R.id.sportsImageshopper);
         TextView age=(TextView)findViewById(R.id.card_age);
         TextView username=(TextView)findViewById(R.id.card_username);
 

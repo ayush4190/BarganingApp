@@ -14,7 +14,7 @@
             android:id="@+id/parent_of_card"
             android:layout_width="match_parent"
             android:layout_height="220dp"
-            android:background="@drawable/electronics">
+            android:background="@drawable/shoppercardback">
             <ImageView
 
                 android:layout_width="35dp"
@@ -29,7 +29,7 @@
 
         </RelativeLayout>
 
-        <de.hdodenhof.circleimageview.CircleImageView
+        <ImageView
             android:layout_width="150dp"
             android:id="@+id/sportsImageshopper"
             android:layout_centerHorizontal="true"
