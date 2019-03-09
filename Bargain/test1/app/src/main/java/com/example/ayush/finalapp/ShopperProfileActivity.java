@@ -130,6 +130,7 @@ public class ShopperProfileActivity extends AppCompatActivity implements Seriali
 
             }
         });
+        fetch();
 
 //        String location = user.getUid ()+"."+"jpg";
 //        photo_storage.child (location).getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
@@ -497,5 +498,31 @@ public class ShopperProfileActivity extends AppCompatActivity implements Seriali
         {
             Toast.makeText (ShopperProfileActivity.this,"no photo",Toast.LENGTH_SHORT).show ();
         }
+    }
+    public void fetch()
+    {
+        try {
+
+
+            String location = user.getUid () + "." + "jpg";
+            photo_storage.child (location).getDownloadUrl ().addOnSuccessListener (new OnSuccessListener <Uri> () {
+                @Override
+                public void onSuccess(Uri uri) {
+                    String imageURL = uri.toString ();
+                    Glide.with (getApplicationContext ()).load (imageURL).into (viewImage);
+                }
+            }).addOnFailureListener (new OnFailureListener () {
+                @Override
+                public void onFailure(@NonNull Exception exception) {
+                    // Handle any errors
+                    Toast.makeText (ShopperProfileActivity.this, exception.getMessage (), Toast.LENGTH_LONG).show ();
+                }
+            });
+        }catch (NullPointerException e)
+        {
+            Toast.makeText (ShopperProfileActivity.this,e.getMessage (),Toast.LENGTH_LONG).show ();
+        }
+
+
     }
 }
