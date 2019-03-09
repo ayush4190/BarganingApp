@@ -29,7 +29,8 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning">
-        <activity android:name=".ShopperCardDetails"></activity>
+        <activity android:name=".ShopperProfileActivity" />
+        <activity android:name=".ShopperCardDetails" />
         <activity android:name=".CardDetails" />
         <activity android:name=".ChatBox" />
         <activity
@@ -69,7 +70,6 @@
         <activity
             android:name=".MapsActivity"
             android:label="@string/title_activity_maps" />
-
         <activity
             android:name=".Negotiator_dash"
             android:label="@string/title_activity_negotiator_dash"
@@ -90,9 +90,10 @@
         <activity
             android:name=".WelcomePage"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".QrCode"
-            android:theme="@style/AppTheme.NoActionBar"
-            android:label="QR Scanner"/>
+        <activity
+            android:name=".QrCode"
+            android:label="QR Scanner"
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".LoginPage"
             android:label="Login page"

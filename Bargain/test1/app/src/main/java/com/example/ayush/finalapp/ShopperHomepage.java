@@ -321,12 +321,8 @@ public class ShopperHomepage extends AppCompatActivity
             startActivity (new Intent (ShopperHomepage.this, WelcomePage.class));
 
         } else if (id == R.id.nav_gallery) {
-            FragmentTransaction fragmentTransaction = getSupportFragmentManager ().beginTransaction ();
-            fragmentTransaction.replace(R.id.content_frame,new ShopperProfileFragment());
-            fragmentTransaction.addToBackStack("fav");
-            fragmentTransaction.commit ();
-           // pincode ();
-
+            Intent intent = new Intent (ShopperHomepage.this, ShopperProfileActivity.class);
+            startActivity (intent);
 
         } else if (id == R.id.nav_faq) {
 

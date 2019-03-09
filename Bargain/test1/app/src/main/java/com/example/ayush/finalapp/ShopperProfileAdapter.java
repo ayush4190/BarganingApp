@@ -77,6 +77,13 @@ public class ShopperProfileAdapter extends RecyclerView.Adapter<ShopperProfileAd
             cardView=(CardView) view.findViewById(R.id.card_view);
             last =(TextView) view.findViewById(R.id.last_name);
             cardView =(CardView) view.findViewById(R.id.card_view);
+            TextView search_list_rate = (TextView)view.findViewById(R.id.rate_search_list);
+            search_list_rate.setVisibility(View.GONE);
+            ImageView search_list_star = (ImageView)view.findViewById(R.id.search_list_star);
+            search_list_star.setVisibility(View.GONE);
+            ImageView search_list_dot = (ImageView)view.findViewById(R.id.dot);
+            search_list_dot.setVisibility(View.GONE);
+
 //            phone=(TextView) view.findViewById(R.id.ph_no);
 //            imgbutton= (ImageButton) view.findViewById(R.id.card_click);
 
