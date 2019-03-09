@@ -168,7 +168,7 @@ public class ShopperHomepage extends AppCompatActivity
             @Override
             public void onClick(View v) {
                 FragmentTransaction fragmentTransaction = getSupportFragmentManager ().beginTransaction ();
-                fragmentTransaction.replace (R.id.content_frame, new HomeShopperfrag ());
+                fragmentTransaction.replace (R.id.content_frame, new Favourite ());
                 fragmentTransaction.addToBackStack ("fav");
                 fragmentTransaction.commit ();
 
@@ -190,7 +190,7 @@ public class ShopperHomepage extends AppCompatActivity
 //
 //
 //            }
-//        });
+//        });not
 
         DrawerLayout drawer = (DrawerLayout) findViewById (R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle (

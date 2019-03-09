@@ -16,12 +16,13 @@
         android:layout_gravity="center"
         android:src="@drawable/applogo"
         android:layout_marginBottom="75dp"/>
-
-
     <EditText
         android:layout_marginTop="10dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:singleLine="true"
+        android:minLines="1"
+        android:maxLines="1"
         android:hint="  Email"
         android:textColorHint="@color/colorGrey"
         android:textColor="@color/colorGrey"

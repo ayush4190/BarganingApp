@@ -11,6 +11,7 @@ import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -75,17 +76,22 @@ public class NegotiatorProfileAdapter extends RecyclerView.Adapter<NegotiatorPro
         public TextView first;
         ImageButton imgbutton;
         public TextView last;
+        TextView city;
+        TextView age;
+        CardView cardView;
         public TextView phone;
 
 
 
         public NegotiatorProfileViewHolder(View view) {
             super(view);
-
+            city=(TextView) view.findViewById(R.id.city_search_list);
             first =(TextView) view.findViewById(R.id.first_name);
             last =(TextView) view.findViewById(R.id.last_name);
-            phone=(TextView) view.findViewById(R.id.ph_no);
-            imgbutton= (ImageButton) view.findViewById(R.id.card_click);
+            age=(TextView)view.findViewById(R.id.search_list_age);
+//            phone=(TextView) view.findViewById(R.id.ph_no);
+            cardView=(CardView) view.findViewById(R.id.card_view);
+//            imgbutton= (ImageButton) view.findViewById(R.id.card_);
 
         }
     }
@@ -105,13 +111,16 @@ public class NegotiatorProfileAdapter extends RecyclerView.Adapter<NegotiatorPro
 
         holder.first.setText(n.getFirstname());
         holder.last.setText(n.getLastname());
-        holder.phone.setText(n.getPhone());
+        holder.city.setText(n.getCity());
+        holder.age.setText(n.getYear()+" Yrs");
+//        holder.phone.setText(n.getPhone());
 
 
         final NegotiatorDetails negotiatorProfile=negotiatorProfileList.get(position);
-        holder.imgbutton.setOnClickListener(new View.OnClickListener() {
+        holder.cardView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
 
                 n = negotiatorProfileList.get(position);
 

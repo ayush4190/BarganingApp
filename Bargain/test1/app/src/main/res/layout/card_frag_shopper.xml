@@ -219,11 +219,11 @@
                             android:textSize="18dp" />
 
                         <TextView
-                            android:id="@+id/card_phone"
+                            android:id="@+id/card_username"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginLeft="5dp"
-                            android:text="914545454"
+                            android:text="anikzatola"
                             android:textColor="@color/colorPrimaryDark"
                             android:textSize="18dp" />
                     </LinearLayout>
@@ -233,11 +233,11 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="10dp"
                         android:orientation="horizontal">
+
                         <ImageView
                             android:layout_width="35dp"
                             android:layout_height="35dp"
-                            android:src="@drawable/ic_mail_outline_black_35dp"
-                            />
+                            android:src="@drawable/ic_date_range_black_24dp" />
                         <View
                             android:layout_width="1dp"
                             android:layout_height="35dp"
@@ -247,19 +247,19 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginLeft="8dp"
-                            android:text="Email:     "
+                            android:text="Age:          "
                             android:textColor="@color/colorPrimaryDark"
                             android:textSize="20dp" />
 
                         <TextView
-                            android:id="@+id/card_email"
+                            android:id="@+id/card_age"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginLeft="5dp"
                             android:gravity="right"
                             android:text="ani@ani.com"
                             android:textColor="@color/colorPrimaryDark"
-                            android:textSize="20dp" />
+                            android:textSize="18dp" />
                     </LinearLayout>
                 </LinearLayout>
             </android.support.design.card.MaterialCardView>
