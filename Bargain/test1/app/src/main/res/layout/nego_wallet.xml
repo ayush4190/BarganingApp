@@ -55,7 +55,7 @@
                 android:fontFamily="sans-serif-thin"
                 android:layout_centerHorizontal="true"
                 android:layout_height="wrap_content"
-                android:text="Initialise Payment"
+                android:text="display qr"
                 android:background="@color/colorPrimaryDark"
                 android:textColor="#FFFFFF"
 
