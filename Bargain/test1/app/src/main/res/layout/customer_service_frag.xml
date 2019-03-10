@@ -9,6 +9,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:paddingBottom="20dp"
+        android:layout_marginBottom="20dp"
         android:orientation="vertical">
 
         <android.support.design.card.MaterialCardView
@@ -55,7 +56,8 @@
                     android:layout_height="wrap_content"
                     android:text="@string/sc_address"
                     android:layout_marginTop="10dp"
-                    android:textSize="15dp"/>
+                    android:textSize="15dp"
+                    android:id="@+id/cs_address_value"/>
 
             </LinearLayout>
         </android.support.design.card.MaterialCardView>
@@ -101,6 +103,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:id="@+id/cs_email_value"
                     android:text="customerservice@BargainerApp.com"
                     android:layout_marginTop="10dp"
                     android:textSize="15dp"/>
@@ -149,6 +152,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="1800-79789798"
+                android:id="@+id/cs_phone_value"
                 android:layout_marginTop="10dp"
                 android:textSize="15dp"/>
 

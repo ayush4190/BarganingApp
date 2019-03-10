@@ -2,7 +2,9 @@ package com.example.ayush.finalapp;
 
 import android.Manifest;
 import android.annotation.SuppressLint;
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.location.Geocoder;
@@ -28,6 +30,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.ImageView;
+import android.widget.RatingBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -58,6 +61,8 @@ public class ShopperHomepage extends AppCompatActivity
     Toolbar toolbar;
     private DatabaseReference fdb;
     FirebaseAuth fba;
+    Float rate_val;
+    AlertDialog.Builder builder2;
     FirebaseUser user;
     ImageView mwallet;
     Fragment fragment = null;
@@ -353,7 +358,43 @@ public class ShopperHomepage extends AppCompatActivity
         } else if (id == R.id.nav_rate) {
 
 
+            builder2 = new AlertDialog.Builder (ShopperHomepage.this);
+            builder2.setTitle("Rate App");
+            builder2.setMessage("Show us some love!!");
+            final RatingBar rating = new RatingBar(this);
+            rating.setMax(5);
+
+//            rating.setNumStars(5);
+            builder2.setIcon(android.R.drawable.star_big_off);
+            builder2.setView(rating);
+
+            builder2.setPositiveButton("Submit", new DialogInterface.OnClickListener() {
+                public void onClick(DialogInterface dialog, int which) {
+                    int rate_val =rating.getProgress();
+                    Log.v("RAAAAA",String.valueOf(rating.getProgress()));
+                    Toast.makeText(ShopperHomepage.this,"Thank you for your Support!",Toast.LENGTH_SHORT).show();
+                    // here you can add functions
+                }
+            });
+            builder2.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                public void onClick(DialogInterface dialog, int which) {
+
+                    dialog.cancel();
+                    // here you can add functions
+                }
+            });
+
+            builder2.create();
+            builder2.show();  //<-- See This!
+
+
         } else if (id == R.id.nav_share) {
+            Intent sharingIntent = new Intent(android.content.Intent.ACTION_SEND);
+            sharingIntent.setType("text/plain");
+            String shareBody = "Here is the share content body";//insert app link here
+            sharingIntent.putExtra(android.content.Intent.EXTRA_SUBJECT, "Bargaining App");
+            sharingIntent.putExtra(android.content.Intent.EXTRA_TEXT, shareBody);
+            startActivity(Intent.createChooser(sharingIntent, "Share via"));
 
 
 

@@ -25,6 +25,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 
 import de.hdodenhof.circleimageview.CircleImageView;
@@ -195,7 +196,8 @@ public class CardDetails extends AppCompatActivity {
 
     }
     public void fetch(String pos) {
-
+        photo_storage = FirebaseStorage.getInstance ().getReference ().child ("Negotiator" +
+                "_profile_image");
         try {
 
 

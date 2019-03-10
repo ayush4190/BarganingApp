@@ -89,12 +89,13 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
                     builder2.setPositiveButton("Accept and Continue", new DialogInterface.OnClickListener() {
                         public void onClick(DialogInterface dialog, int which) {
 
-                            // here you can add functions
+                            // add account delete code
                         }
                     });
                     builder2.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
                         public void onClick(DialogInterface dialog, int which) {
 
+                        dialog.cancel();
                             // here you can add functions
                         }
                     });

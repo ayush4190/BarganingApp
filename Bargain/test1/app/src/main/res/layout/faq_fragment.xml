@@ -1,0 +1,192 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="FAQs"
+            android:paddingLeft="25dp"
+            android:paddingBottom="10dp"
+            android:paddingTop="10dp"
+            android:textSize="30dp"
+            android:textColor="@color/primaryTextColor"
+            android:background="@color/colorPrimary"
+            />
+
+
+
+        <android.support.design.card.MaterialCardView
+            android:layout_width="match_parent"
+            android:layout_marginRight="8dp"
+            android:paddingBottom="10dp"
+            android:paddingTop="10dp"
+            android:layout_marginLeft="8dp"
+            android:layout_marginTop="10dp"
+            android:layout_height="match_parent"
+            android:layout_centerHorizontal="true"
+          >
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingBottom="10dp"
+                android:paddingTop="10dp"
+                android:orientation="vertical">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="5dp"
+
+                    android:text="What is our Customer Support Email?"
+                    android:textColor="@color/colorPrimaryDark"
+                    android:textSize="18dp" />
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="customer_service@bargainningpartners.com"
+                    android:textSize="16dp"
+                    android:layout_marginLeft="5dp"
+                    android:textColor="@color/diabledgray"/>
+            </LinearLayout>
+        </android.support.design.card.MaterialCardView>
+        <android.support.design.card.MaterialCardView
+            android:layout_width="match_parent"
+            android:paddingBottom="10dp"
+            android:paddingTop="10dp"
+            android:layout_marginRight="8dp"
+            android:layout_marginLeft="8dp"
+            android:layout_marginTop="5dp"
+            android:layout_height="match_parent"
+            android:layout_centerHorizontal="true"
+            >
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingBottom="10dp"
+                android:paddingTop="10dp"
+                android:orientation="vertical">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="5dp"
+
+                    android:text="Are transactions safe on this app?"
+                    android:textColor="@color/colorPrimaryDark"
+                    android:textSize="18dp" />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Security is our No.1 priority and hence all your transactions are protected and can be done safely, all our data is encrypted to prevent malicious attacks."
+                    android:textSize="16dp"
+                    android:layout_marginLeft="5dp"
+                    android:textColor="@color/diabledgray"/>
+            </LinearLayout>
+        </android.support.design.card.MaterialCardView>
+        <android.support.design.card.MaterialCardView
+            android:layout_width="match_parent"
+            android:paddingBottom="10dp"
+            android:paddingTop="10dp"
+            android:layout_marginRight="8dp"
+            android:layout_marginLeft="8dp"
+            android:layout_height="match_parent"
+            android:layout_marginTop="5dp"
+            android:layout_centerHorizontal="true"
+            >
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingBottom="10dp"
+                android:paddingTop="10dp"
+                android:orientation="vertical">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="5dp"
+
+                    android:text="Can we trust the Negotiators here?"
+                    android:textColor="@color/colorPrimaryDark"
+                    android:textSize="18dp" />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="All our Bargainers are verified by ID and are bound by terms and conditions of the service. They are approved by the company itself."
+                    android:textSize="16dp"
+                    android:layout_marginLeft="5dp"
+                    android:textColor="@color/diabledgray"/>
+            </LinearLayout>
+        </android.support.design.card.MaterialCardView>
+        <android.support.design.card.MaterialCardView
+            android:layout_width="match_parent"
+            android:layout_marginTop="5dp"
+            android:layout_marginRight="8dp"
+            android:paddingBottom="10dp"
+            android:paddingTop="10dp"
+            android:layout_marginLeft="8dp"
+            android:layout_height="match_parent"
+            android:layout_centerHorizontal="true"
+            >
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingBottom="10dp"
+                android:paddingTop="10dp"
+                android:orientation="vertical">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="5dp"
+                    android:text="Will Negotiators' location be available to Shoppers?"
+                    android:textColor="@color/colorPrimaryDark"
+                    android:textSize="18dp" />
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="The shoppers have access to Google Maps API via the application, hence all locations available on Google Maps will be shown to Shoppers to filter search results to find Bargainers easily."
+                    android:textSize="16dp"
+                    android:layout_marginLeft="5dp"
+                    android:textColor="@color/diabledgray"/>
+            </LinearLayout>
+        </android.support.design.card.MaterialCardView>
+        <android.support.design.card.MaterialCardView
+            android:layout_width="match_parent"
+
+            android:layout_height="match_parent"
+            android:layout_marginTop="5dp"
+            android:layout_marginRight="8dp"
+            android:layout_marginLeft="8dp"
+            android:layout_centerHorizontal="true"
+            >
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingBottom="10dp"
+                android:paddingTop="10dp"
+                android:orientation="vertical">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="5dp"
+
+                    android:text="How can Bargainer improve outreach?"
+                    android:textColor="@color/colorPrimaryDark"
+                    android:textSize="18dp" />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Setting multiple shop types and maintaining good service to ensure good ratings can help them be more likely to gain Shoppers."
+                    android:textSize="16dp"
+
+                    android:layout_marginLeft="5dp"
+                    android:textColor="@color/diabledgray"/>
+            </LinearLayout>
+        </android.support.design.card.MaterialCardView>
+
+
+    </LinearLayout>
+
+</ScrollView>

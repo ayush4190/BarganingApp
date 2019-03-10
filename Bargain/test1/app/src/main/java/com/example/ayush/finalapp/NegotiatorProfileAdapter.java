@@ -37,6 +37,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 
 import java.io.Serializable;
@@ -118,7 +119,7 @@ public class NegotiatorProfileAdapter extends RecyclerView.Adapter<NegotiatorPro
     public void onBindViewHolder(final NegotiatorProfileViewHolder holder, final int position) {
         n = negotiatorProfileList.get(position);
         final NegotiatorDetails nego =negotiatorProfileList.get(position);
-
+        photo_storage = FirebaseStorage.getInstance ().getReference ().child ("Negotiator_profile_image");
         holder.first.setText(n.getFirstname());
         holder.last.setText(n.getLastname());
         holder.city.setText(n.getCity());
@@ -128,22 +129,23 @@ public class NegotiatorProfileAdapter extends RecyclerView.Adapter<NegotiatorPro
 
 
             String location = s.get(position)+ "." + "jpg";
+
             photo_storage.child (location).getDownloadUrl ().addOnSuccessListener (new OnSuccessListener <Uri> () {
                 @Override
                 public void onSuccess(Uri uri) {
                     String imageURL = uri.toString ();
-                    Glide.with (mContext).load (imageURL).into (holder.proimage);
+                    Glide.with (mContext.getApplicationContext()).load (imageURL).into (holder.proimage);
                 }
             }).addOnFailureListener (new OnFailureListener () {
                 @Override
                 public void onFailure(@NonNull Exception exception) {
                     // Handle any errors
-                    Toast.makeText (mContext, exception.getMessage (), Toast.LENGTH_LONG).show ();
+                    Toast.makeText (mContext.getApplicationContext(), exception.getMessage (), Toast.LENGTH_LONG).show ();
                 }
             });
         }catch (NullPointerException e)
         {
-            Toast.makeText (mContext,e.getMessage (),Toast.LENGTH_LONG).show ();
+            Toast.makeText (mContext.getApplicationContext(),e.getMessage (),Toast.LENGTH_LONG).show ();
         }
 
         final NegotiatorDetails negotiatorProfile=negotiatorProfileList.get(position);
