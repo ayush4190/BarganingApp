@@ -2,6 +2,7 @@ package com.example.ayush.finalapp;
 
 import android.app.AlertDialog;
 import android.app.DatePickerDialog;
+import android.app.Dialog;
 import android.content.ContentResolver;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -16,14 +17,17 @@ import android.os.Environment;
 import android.os.Handler;
 import android.provider.MediaStore;
 import android.support.annotation.NonNull;
+import android.support.v4.content.FileProvider;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.view.Window;
 import android.webkit.MimeTypeMap;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -72,6 +76,7 @@ public class ShopperProfileActivity extends AppCompatActivity implements Seriali
     Uri selectedImage;
     private DatePickerDialog.OnDateSetListener mDateSetListener;
     private String bool= "false";
+    private Dialog dialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -226,6 +231,14 @@ public class ShopperProfileActivity extends AppCompatActivity implements Seriali
                 profile.setDob(profile_dob.getText().toString().trim());
                 updatedata();
                 upload_image ();
+//                final Dialog dialog = new Dialog(ShopperProfileActivity.this);
+//                dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+//                dialog.setContentView(R.layout.info_dialog);
+//                dialog.setTitle("Info");
+//                dialog.setCancelable(false);
+//                ProgressBar progressBar = (ProgressBar) dialog.findViewById(R.id.progress_Bar);
+
+
 
 
 //dialog insert
@@ -235,85 +248,257 @@ public class ShopperProfileActivity extends AppCompatActivity implements Seriali
             }
         });
     }
-    private void selectImage() {
+//    private void selectImage() {
+//
+//
+//
+//        final CharSequence[] options = { "Take Photo", "Choose from Gallery","Cancel" };
+//
+//
+//
+//        AlertDialog.Builder builder = new AlertDialog.Builder(ShopperProfileActivity.this);
+//
+//        builder.setTitle("Add Photo!");
+//
+//        builder.setItems(options, new DialogInterface.OnClickListener() {
+//
+//            @Override
+//
+//            public void onClick(DialogInterface dialog, int item) {
+//
+//                if (options[item].equals("Take Photo"))
+//
+//                {
+//
+//                    Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+//
+//                    File f = new File(Environment.getExternalStorageDirectory(), "temp.jpg");
+//
+//                    intent.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(f));
+//
+//                    startActivityForResult(intent,1);
+//
+//                }
+//
+//                else if (options[item].equals("Choose from Gallery"))
+//
+//                {
+//
+//                    Intent intent = new   Intent(Intent.ACTION_PICK,MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+//
+//                    startActivityForResult(intent, 2);
+//
+//
+//
+//                }
+//
+//                else if (options[item].equals("Cancel")) {
+//
+//                    dialog.dismiss();
+//
+//                }
+//
+//            }
+//
+//        });
+//
+//        builder.show();
+//
+//    }
+//
+//
+//
+//    @Override
+//
+//    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+//        Log.v("ssasad","RESULTCODE:" + Integer.toString(requestCode) );
+//
+//        super.onActivityResult(requestCode, resultCode, data);
+//
+//        if (resultCode == RESULT_OK) {
+//
+//            if (requestCode == 1) {
+//
+//                File f = new File(Environment.getExternalStorageDirectory().toString());
+//
+//                for (File temp : f.listFiles()) {
+//
+//                    if (temp.getName().equals("temp.jpg")) {
+//
+//                        f = temp;
+//                        selectedImage = Uri.fromFile (new File (f.toString ()));
+//
+//                        break;
+//
+//                    }
+//
+//                }
+//
+//                try {
+//
+//                    Bitmap bitmap;
+//
+//                    BitmapFactory.Options bitmapOptions = new BitmapFactory.Options();
+//
+//
+//
+//                    bitmap = BitmapFactory.decodeFile(f.getAbsolutePath(),
+//
+//                            bitmapOptions);
+//
+//
+//
+//                    viewImage.setImageBitmap(bitmap);
+//
+//
+//
+//                    String path = Environment
+//
+//                            .getExternalStorageDirectory()
+//
+//                            + File.separator
+//
+//                            + "Phoenix" + File.separator + "default";
+//
+//                    f.delete();
+//
+//                    OutputStream outFile = null;
+//
+//                    File file = new File(path, String.valueOf(System.currentTimeMillis()) + ".jpg");
+//
+//                    try {
+//
+//                        outFile = new FileOutputStream(file);
+//
+//                        bitmap.compress(Bitmap.CompressFormat.JPEG, 85, outFile);
+//
+//                        outFile.flush();
+//
+//                        outFile.close();
+//
+//                    } catch (FileNotFoundException e) {
+//
+//                        e.printStackTrace();
+//
+//                    } catch (IOException e) {
+//
+//                        e.printStackTrace();
+//
+//                    } catch (Exception e) {
+//
+//                        e.printStackTrace();
+//
+//                    }
+//
+//                } catch (Exception e) {
+//
+//                    e.printStackTrace();
+//
+//                }
+//
+//            } else if (requestCode == 2) {
+//
+//
+//
+//                selectedImage = data.getData();
+//
+//                String[] filePath = { MediaStore.Images.Media.DATA };
+//
+//                Cursor c = getContentResolver().query(selectedImage,filePath, null, null, null);
+//
+//                c.moveToFirst();
+//
+//                int columnIndex = c.getColumnIndex(filePath[0]);
+//
+//                String picturePath = c.getString(columnIndex);
+//
+//                c.close();
+//
+//                Bitmap thumbnail = (BitmapFactory.decodeFile(picturePath));
+//
+//                Log.w("pery", picturePath+"");
+//
+//                viewImage.setImageBitmap(thumbnail);
+//
+//            }
+//
+//        }
+//
+//    }
+private void selectImage() {
 
 
-
-        final CharSequence[] options = { "Take Photo", "Choose from Gallery","Cancel" };
-
+    final CharSequence[] options = {"Take Photo", "Choose from Gallery", "Cancel"};
 
 
-        AlertDialog.Builder builder = new AlertDialog.Builder(ShopperProfileActivity.this);
+    AlertDialog.Builder builder = new AlertDialog.Builder (ShopperProfileActivity.this);
 
-        builder.setTitle("Add Photo!");
+    builder.setTitle ("Add Photo!");
 
-        builder.setItems(options, new DialogInterface.OnClickListener() {
+    builder.setItems (options, new DialogInterface.OnClickListener () {
 
-            @Override
+        @Override
 
-            public void onClick(DialogInterface dialog, int item) {
+        public void onClick(DialogInterface dialog, int item) {
 
-                if (options[item].equals("Take Photo"))
+            if (options[item].equals ("Take Photo")) {
 
-                {
+                Intent intent = new Intent (MediaStore.ACTION_IMAGE_CAPTURE);
 
-                    Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+                File f = new File (android.os.Environment.getExternalStorageDirectory (), "temp.jpg");
 
-                    File f = new File(Environment.getExternalStorageDirectory(), "temp.jpg");
+              //  intent.putExtra (MediaStore.EXTRA_OUTPUT, Uri.fromFile (f));
+                // check here for resolving error and you are good to go
+                Uri uri = FileProvider.getUriForFile(ShopperProfileActivity.this, BuildConfig.APPLICATION_ID + ".provider",f);
+              //  Uri photoURI = FileProvider.getUriForFile(context, context.getApplicationContext().getPackageName() + ".my.package.name.provider", createImageFile());
+                intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+                startActivityForResult (intent, 1);
 
-                    intent.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(f));
+            } else if (options[item].equals ("Choose from Gallery")) {
 
-                    startActivityForResult(intent,1);
+                Intent intent = new Intent (Intent.ACTION_PICK, android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
 
-                }
-
-                else if (options[item].equals("Choose from Gallery"))
-
-                {
-
-                    Intent intent = new   Intent(Intent.ACTION_PICK,MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
-
-                    startActivityForResult(intent, 2);
+                startActivityForResult (intent, 2);
 
 
+            } else if (options[item].equals ("Cancel")) {
 
-                }
-
-                else if (options[item].equals("Cancel")) {
-
-                    dialog.dismiss();
-
-                }
+                dialog.dismiss ();
 
             }
 
-        });
+        }
 
-        builder.show();
+    });
 
-    }
+    builder.show ();
 
+}
 
 
     @Override
 
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        Log.v("ssasad","RESULTCODE:" + Integer.toString(requestCode) );
+        Log.v ("ssasad", "RESULTCODE:" + Integer.toString (requestCode));
 
-        super.onActivityResult(requestCode, resultCode, data);
+        super.onActivityResult (requestCode, resultCode, data);
 
         if (resultCode == RESULT_OK) {
 
             if (requestCode == 1) {
 
-                File f = new File(Environment.getExternalStorageDirectory().toString());
+                File f = new File (Environment.getExternalStorageDirectory ().toString ());
 
-                for (File temp : f.listFiles()) {
+                for (File temp : f.listFiles ()) {
 
-                    if (temp.getName().equals("temp.jpg")) {
+                    if (temp.getName ().equals ("temp.jpg")) {
 
                         f = temp;
-                        selectedImage = Uri.fromFile (new File (f.toString ()));
+
+                        // adding new peice of code here
+                        selectedImage =  Uri.fromFile (new File (f.toString ()));
+
+                        ///
 
                         break;
 
@@ -325,87 +510,84 @@ public class ShopperProfileActivity extends AppCompatActivity implements Seriali
 
                     Bitmap bitmap;
 
-                    BitmapFactory.Options bitmapOptions = new BitmapFactory.Options();
+                    BitmapFactory.Options bitmapOptions = new BitmapFactory.Options ();
 
 
-
-                    bitmap = BitmapFactory.decodeFile(f.getAbsolutePath(),
+                    bitmap = BitmapFactory.decodeFile (f.getAbsolutePath (),
 
                             bitmapOptions);
 
 
-
-                    viewImage.setImageBitmap(bitmap);
-
+                    viewImage.setImageBitmap (bitmap);
 
 
-                    String path = Environment
+                    String path = android.os.Environment
 
-                            .getExternalStorageDirectory()
+                            .getExternalStorageDirectory ()
 
                             + File.separator
 
                             + "Phoenix" + File.separator + "default";
 
-                    f.delete();
+                    f.delete ();
 
                     OutputStream outFile = null;
 
-                    File file = new File(path, String.valueOf(System.currentTimeMillis()) + ".jpg");
+                    File file = new File (path, String.valueOf (System.currentTimeMillis ()) + ".jpg");
 
                     try {
 
-                        outFile = new FileOutputStream(file);
+                        outFile = new FileOutputStream (file);
 
-                        bitmap.compress(Bitmap.CompressFormat.JPEG, 85, outFile);
+                        bitmap.compress (Bitmap.CompressFormat.JPEG, 85, outFile);
 
-                        outFile.flush();
+                        outFile.flush ();
 
-                        outFile.close();
+                        outFile.close ();
 
                     } catch (FileNotFoundException e) {
 
-                        e.printStackTrace();
+                        e.printStackTrace ();
 
                     } catch (IOException e) {
 
-                        e.printStackTrace();
+                        e.printStackTrace ();
 
                     } catch (Exception e) {
 
-                        e.printStackTrace();
+                        e.printStackTrace ();
 
                     }
 
                 } catch (Exception e) {
 
-                    e.printStackTrace();
+                    e.printStackTrace ();
 
                 }
 
             } else if (requestCode == 2) {
 
+///// changed uri selectimage  to global variable
 
+                selectedImage = data.getData ();
 
-                selectedImage = data.getData();
+                String[] filePath = {MediaStore.Images.Media.DATA};
 
-                String[] filePath = { MediaStore.Images.Media.DATA };
+                Cursor c = getContentResolver ().query (selectedImage, filePath, null, null, null);
 
-                Cursor c = getContentResolver().query(selectedImage,filePath, null, null, null);
+                c.moveToFirst ();
 
-                c.moveToFirst();
+                int columnIndex = c.getColumnIndex (filePath[0]);
 
-                int columnIndex = c.getColumnIndex(filePath[0]);
+                String picturePath = c.getString (columnIndex);
 
-                String picturePath = c.getString(columnIndex);
+                c.close ();
 
-                c.close();
+                Bitmap thumbnail = (BitmapFactory.decodeFile (picturePath));
 
-                Bitmap thumbnail = (BitmapFactory.decodeFile(picturePath));
+                Log.w ("pery", picturePath + "");
 
-                Log.w("pery", picturePath+"");
-
-                viewImage.setImageBitmap(thumbnail);
+                viewImage.setImageBitmap (thumbnail);
 
             }
 
@@ -470,9 +652,11 @@ public class ShopperProfileActivity extends AppCompatActivity implements Seriali
                         @Override
                         public void run() {
                             Toast.makeText (ShopperProfileActivity.this,"image uploaded",Toast.LENGTH_SHORT).show ();
+
                         }
-                    },5000);
-                    bool = "true";
+                    },0);
+
+
 
 
 
@@ -488,6 +672,22 @@ public class ShopperProfileActivity extends AppCompatActivity implements Seriali
                 public void onProgress(UploadTask.TaskSnapshot taskSnapshot) {
 
                     double progress=(100.0 * taskSnapshot.getBytesTransferred () / taskSnapshot.getTotalByteCount ());
+                    Log.d ("progress" , String.valueOf (progress));
+                    dialog = new Dialog(ShopperProfileActivity.this);
+                    dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+                    dialog.setContentView(R.layout.info_dialog);
+                    dialog.setTitle("Info");
+                    dialog.setCancelable(false);
+                    ProgressBar progressBar = (ProgressBar) dialog.findViewById(R.id.progress_Bar);
+                    dialog.show ();
+                    if(progress == 100)
+                    {
+                        dialog.dismiss ();
+                        Log.d("closing diaolog box" , String.valueOf (progress));
+                        dialog.hide ();
+                        bool = "true";
+                        finish ();
+                    }
 
                 }
             });

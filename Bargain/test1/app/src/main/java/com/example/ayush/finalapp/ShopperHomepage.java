@@ -75,6 +75,8 @@ public class ShopperHomepage extends AppCompatActivity
 
     CircleImageView shopper_pic;
 
+    String check = "false";
+
     @SuppressLint("WrongViewCast")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -241,12 +243,14 @@ public class ShopperHomepage extends AppCompatActivity
 //                });
                     fetch ();
                     try {
-                        String check = (String) getIntent ().getSerializableExtra ("bool");
-                        if(check.compareToIgnoreCase ("true") == 0)
-                        fetch ();
+                        check = (String) getIntent ().getSerializableExtra ("bool");
+                        if(check.compareToIgnoreCase ("true") == 0) {
+                            fetch ();
+                            check = "false";
+                        }
                     }catch (NullPointerException e)
                     {
-                        Toast.makeText (ShopperHomepage.this,e.getMessage (),Toast.LENGTH_LONG).show ();
+                        //Toast.makeText (ShopperHomepage.this,e.getMessage (),Toast.LENGTH_LONG).show ();
                     }
                 //////////////////////////////////////////////////////
 

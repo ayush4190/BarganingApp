@@ -63,7 +63,7 @@ public class LoginShopper extends AppCompatActivity {
         });
 
 
-        user =firebaseAuth.getCurrentUser();
+      //  user =firebaseAuth.getCurrentUser();
 
 
 
@@ -94,34 +94,35 @@ public class LoginShopper extends AppCompatActivity {
     }
     private void ver()
     {
-        DatabaseReference data = FirebaseDatabase.getInstance ().getReference ();
-        DatabaseReference reference= data.child (user.getUid ());
-        reference.addValueEventListener (new ValueEventListener () {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                test temp = new test ();
-                temp.setDecide ((String) dataSnapshot.getValue ());
-                if(temp.getDecide ().compareTo ("true") == 0)
-                {
-                    startActivity (new Intent (LoginShopper.this,Negotiator_dash.class));
+        try {
+            user = firebaseAuth.getCurrentUser ();
+            DatabaseReference data = FirebaseDatabase.getInstance ().getReference ();
+            DatabaseReference reference = data.child (user.getUid ());
+            reference.addValueEventListener (new ValueEventListener () {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                    test temp = new test ();
+                    temp.setDecide ((String) dataSnapshot.getValue ());
+                    if (temp.getDecide ().compareTo ("true") == 0) {
+                        startActivity (new Intent (LoginShopper.this, Negotiator_dash.class));
+
+                    } else if (temp.getDecide ().compareTo ("false") == 0) {
+                        startActivity (new Intent (LoginShopper.this, ShopperHomepage.class));
+                    } else {
+                        Toast.makeText (LoginShopper.this, "not a valid client", Toast.LENGTH_SHORT).show ();
+                    }
 
                 }
-                else if(temp.getDecide ().compareTo ("false")==0)
-                {
-                    startActivity (new Intent (LoginShopper.this,ShopperHomepage.class));
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError databaseError) {
+
                 }
-                else
-                {
-                    Toast.makeText (LoginShopper.this,"not a valid client",Toast.LENGTH_SHORT).show ();
-                }
-
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-
-            }
-        });
+            });
+        }catch (NullPointerException e)
+        {
+            Toast.makeText (LoginShopper.this,e.getMessage (),Toast.LENGTH_LONG).show ();
+        }
         // Toast.makeText (LoginPage.this,""+s,Toast.LENGTH_SHORT).show ();
 
     }

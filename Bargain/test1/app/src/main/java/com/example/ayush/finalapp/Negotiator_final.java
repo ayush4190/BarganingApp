@@ -1,6 +1,7 @@
 package com.example.ayush.finalapp;
 
 import android.app.AlertDialog;
+import android.app.Dialog;
 import android.content.ContentResolver;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -20,6 +21,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
 import android.webkit.MimeTypeMap;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -81,6 +83,7 @@ ProgressBar mprogressbar;
 
     AlertDialog.Builder builder2;
     boolean bool = false;
+    private  Dialog dialog;
 
 
     @Override
@@ -426,7 +429,7 @@ ProgressBar mprogressbar;
                         public void run() {
                             mprogressbar.setProgress (0);
                         }
-                    },5000);
+                    },0);
                      bool = true;
                     Toast.makeText (Negotiator_final.this,"Image uploaded",Toast.LENGTH_LONG).show ();
                     if(bool)
@@ -450,6 +453,21 @@ ProgressBar mprogressbar;
 
                             double progress=(100.0 * taskSnapshot.getBytesTransferred () / taskSnapshot.getTotalByteCount ());
                           mprogressbar.setProgress ((int)progress);
+                    dialog = new Dialog (Negotiator_final.this);
+                    dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+                    dialog.setContentView(R.layout.info_dialog);
+                    dialog.setTitle("Info");
+                    dialog.setCancelable(false);
+                    ProgressBar progressBar = (ProgressBar) dialog.findViewById(R.id.progress_Bar);
+                    dialog.show ();
+                    if(progress == 100)
+                    {
+                        dialog.dismiss ();
+                        Log.d("closing diaolog box" , String.valueOf (progress));
+                        dialog.hide ();
+
+                        finish ();
+                    }
 
 
                 }
