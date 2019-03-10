@@ -3,9 +3,9 @@ package com.example.ayush.finalapp;
 import java.io.Serializable;
 
 public class NegotiatorDetails implements Serializable {
-    String phone, dob, gender , bl,address,city,state,pincode,category1,category2,category3, firstname, lastname,year ,email ;
+    String phone, dob, gender , bl,address,city,state,pincode,category1,category2,category3, firstname, lastname,year ,email ,amount;
 
-    public NegotiatorDetails(String phone, String dob, String gender, String address, String city, String year,String state, String pincode, String category1, String category2, String category3, String firstname, String lastname, String bl,String email ) {
+    public NegotiatorDetails(String phone, String dob, String gender, String address, String city, String year,String state, String pincode, String category1, String category2, String category3, String firstname, String lastname, String bl,String email ,String amount) {
         this.phone = phone;
         this.dob = dob;
         this.gender = gender;
@@ -21,6 +21,7 @@ public class NegotiatorDetails implements Serializable {
         this.lastname=lastname;
         this.year = year;
         this.email = email;
+        this.amount = amount;
 
 
 
@@ -42,7 +43,7 @@ public class NegotiatorDetails implements Serializable {
         this.pincode=w.pincode;
         this.year = w.year;
         this.email = w.email;
-
+        this.amount = w.amount;
     }
     public NegotiatorDetails() {
 
@@ -168,6 +169,14 @@ public class NegotiatorDetails implements Serializable {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    public String getAmount() {
+        return amount;
+    }
+
+    public void setAmount(String amount) {
+        this.amount = amount;
     }
     //    public String getYear() {
 //        return year;

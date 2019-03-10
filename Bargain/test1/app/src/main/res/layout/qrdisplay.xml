@@ -6,6 +6,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:id="@+id/qr_dis"
+    android:background="@color/toolbarwhite"
     >
 
     <TextView
