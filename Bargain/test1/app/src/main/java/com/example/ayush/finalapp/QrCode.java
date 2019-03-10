@@ -132,8 +132,9 @@ public class QrCode extends AppCompatActivity {
                                         name = details.getFirstname () + " " + details.getLastname ();
 
                                             textView.setText (name);
-                                            // here open a new layout to get rid of continuos scanning
-                                            proceed_payment();
+                                            // here open a new fragment here for asking permission about completing the payment
+
+
                                         }
                                         catch (NullPointerException e){
                                             String temp = "PLEASE FOCUS THE QR CODE";
