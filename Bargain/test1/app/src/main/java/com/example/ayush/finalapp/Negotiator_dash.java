@@ -243,7 +243,7 @@ public class Negotiator_dash extends AppCompatActivity
 //            Intent intent = new Intent (ShopperHomepage.this,ChatMain.class);
 //            startActivity (intent);
             FragmentTransaction fragmentTransaction = getSupportFragmentManager ().beginTransaction ();
-            fragmentTransaction.replace (R.id.content_frame, new ChatFragment ());
+            fragmentTransaction.replace (R.id.content_frame, new ChatFragmentNego ());
             fragmentTransaction.addToBackStack ("chatfrag");
             fragmentTransaction.commit ();
         }

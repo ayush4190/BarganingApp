@@ -15,14 +15,14 @@ import java.util.List;
 
 import static com.example.ayush.finalapp.ChatBox.chats;
 
-class ChatBoxAdapter extends RecyclerView.Adapter<ChatBoxAdapter.myViewHolder>{
+class ChatBoxNegoAdapter extends RecyclerView.Adapter<ChatBoxNegoAdapter.myViewHolder>{
     List<Message> chat_list;
     Context mContext;
     String current_user,receiver;
-    ChatBox activity;
+    ChatBoxNego activity;
     AlertDialog.Builder builder;
 
-    ChatBoxAdapter(List<Message> chat_list, Context mContext, String current_user, String receiver, ChatBox activity)
+    ChatBoxNegoAdapter(List<Message> chat_list, Context mContext, String current_user, String receiver, ChatBoxNego activity)
     {
         this.chat_list = chat_list;
         this.mContext = mContext;
@@ -31,13 +31,14 @@ class ChatBoxAdapter extends RecyclerView.Adapter<ChatBoxAdapter.myViewHolder>{
         this.activity = activity;
     }
 
+
     @NonNull
     @Override
     public myViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
         View view = null;
-        if(i == ChatBox.Right)
+        if(i == ChatBoxNego.Right)
             view = LayoutInflater.from(mContext).inflate(R.layout.message_right,viewGroup,false);
-        else if(i == ChatBox.Left)
+        else if(i == ChatBoxNego.Left)
             view = LayoutInflater.from(mContext).inflate(R.layout.message_left,viewGroup,false);
         return new myViewHolder(view);
     }
@@ -57,16 +58,16 @@ class ChatBoxAdapter extends RecyclerView.Adapter<ChatBoxAdapter.myViewHolder>{
                 LayoutInflater inflater = activity.getLayoutInflater();
                 builder.setTitle("Delete This Message");
                 builder.setMessage("Are you sure? This action cannot be reversed.");
-                        builder.setPositiveButton ("Yes", new DialogInterface.OnClickListener () {
-                            public void onClick(DialogInterface dialog, int id) {
-                                activity.DeleteMessage(j);
-                            }
-                        });
-                        builder.setNegativeButton("No", new DialogInterface.OnClickListener () {
-                            public void onClick(DialogInterface dialog, int id) {
-                                dialog.cancel ();
-                            }
-                        });
+                builder.setPositiveButton ("Yes", new DialogInterface.OnClickListener () {
+                    public void onClick(DialogInterface dialog, int id) {
+                        activity.DeleteMessage(j);
+                    }
+                });
+                builder.setNegativeButton("No", new DialogInterface.OnClickListener () {
+                    public void onClick(DialogInterface dialog, int id) {
+                        dialog.cancel ();
+                    }
+                });
                 builder.setCancelable (false);
                 AlertDialog alert = builder.create ();
                 alert.show ();
@@ -84,9 +85,9 @@ class ChatBoxAdapter extends RecyclerView.Adapter<ChatBoxAdapter.myViewHolder>{
     @Override
     public int getItemViewType(int position) {
         if(current_user.equals(chats.get(position).sender))
-            return ChatBox.Right;
+            return ChatBoxNego.Right;
         else
-            return ChatBox.Left;
+            return ChatBoxNego.Left;
 
     }
 

@@ -35,21 +35,21 @@ import java.util.ArrayList;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class ChatFragment extends Fragment {
+public class ChatFragmentNego extends Fragment {
 
     //Account
     static String NameUser,DobUser;
 
-  //  static int Method_Used = 1;
+    //  static int Method_Used = 1;
 
     static ProgressDialog dialog;
 
-    public ChatFragment() {
+    public ChatFragmentNego() {
         // Required empty public constructor
     }
 
     View view;
-   //List
+    //List
     ListView chatlist;
     ChatAdapter adapter1;
 
@@ -67,6 +67,7 @@ public class ChatFragment extends Fragment {
         view =  inflater.inflate(R.layout.fragment_chat, container, false);
 
 
+
         InitializeFields();
 
 
@@ -77,15 +78,15 @@ public class ChatFragment extends Fragment {
 
         //User is not null confirmation
         User = "Alpha";
-            if(FirebaseAuth.getInstance().getCurrentUser()!=null)
-                User = FirebaseAuth.getInstance().getCurrentUser().getUid();
+        if(FirebaseAuth.getInstance().getCurrentUser()!=null)
+            User = FirebaseAuth.getInstance().getCurrentUser().getUid();
 
-          //Retrieving data from database
-            reference = FirebaseDatabase.getInstance().getReference().child("Negotiator");
+        //Retrieving data from database
+        reference = FirebaseDatabase.getInstance().getReference().child("Shopper");
 
-                AtStartUp();
-               UpdateAccount();
-             //   UpdateContacts();
+        AtStartUp();
+        UpdateAccount();
+        //   UpdateContacts();
 
 
         return view;
@@ -111,7 +112,7 @@ public class ChatFragment extends Fragment {
                         String name;
                         String  uid;
 
-                        name= data.child("firstname").getValue(String.class)+" "+data.child("lastname").getValue(String.class);
+                        name= data.child("fname").getValue(String.class)+" "+data.child("lname").getValue(String.class);
                         uid= data.getKey();
 
                         while(name==null );
@@ -120,11 +121,11 @@ public class ChatFragment extends Fragment {
                     catch (Exception e){
                         Log.d("ChatFragmentGet",e.getMessage());
                     }
-                    }
+                }
                 //updating listview
                 adapter1.notifyDataSetChanged();
-               if(i==0)
-                  dialog.dismiss();
+                if(i==0)
+                    dialog.dismiss();
             }
 
             @Override
@@ -140,8 +141,8 @@ public class ChatFragment extends Fragment {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot)
             {
-                if(dataSnapshot.child("firstname").getValue()!=null&&dataSnapshot.child("lastname").getValue()!=null)
-                    NameUser = dataSnapshot.child("firstname").getValue().toString()+" "+dataSnapshot.child("lastname").getValue().toString();
+                if(dataSnapshot.child("fname").getValue()!=null&&dataSnapshot.child("lname").getValue()!=null)
+                    NameUser = dataSnapshot.child("fname").getValue().toString()+" "+dataSnapshot.child("lname").getValue().toString();
 //                DobUser = dataSnapshot.child("year").getValue().toString();
             }
             @Override
