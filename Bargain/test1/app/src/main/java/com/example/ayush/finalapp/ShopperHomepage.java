@@ -76,6 +76,7 @@ public class ShopperHomepage extends AppCompatActivity
     ImageView mfav, msetting;
     public static Context contextOfApplication;
     int zip;
+    public static boolean isAppRunning;
     // for user name
     FirebaseDatabase firebaseDatabase;
     StorageReference photo_storage;
@@ -533,7 +534,11 @@ public class ShopperHomepage extends AppCompatActivity
             notificationManager.createNotificationChannel(channel);
         }
     }
-
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        isAppRunning = false;
+    }
 }
 
 
