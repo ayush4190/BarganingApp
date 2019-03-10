@@ -1,6 +1,8 @@
 package com.example.ayush.finalapp;
 
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
@@ -9,6 +11,7 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
+import android.util.Log;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -19,6 +22,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.ImageView;
+import android.widget.RatingBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -49,12 +53,13 @@ public class Negotiator_dash extends AppCompatActivity
     FirebaseAuth fba;
     FirebaseUser muser;
     FirebaseUser user;
-    ImageView mwallet, nfaq;
+    ImageView mwallet, nfaq, mcommunity, msetting;
     Fragment fragment = null;
     FirebaseStorage firebaseStorage;
     StorageReference photo_storage;
-
-  CircleImageView i1;
+    AlertDialog.Builder builder2;
+    public static Context contextOfApplication;
+    CircleImageView i1;
 
     // for user name
     FirebaseDatabase firebaseDatabase;
@@ -96,7 +101,10 @@ public class Negotiator_dash extends AppCompatActivity
 
 
         mwallet = (ImageView) findViewById (R.id.wallet);//creating the buttons
-        nfaq = (ImageView) findViewById(R.id.faq); //faqfragbutton
+//        nfaq = (ImageView) findViewById(R.id.faq); //faqfragbutton
+        mcommunity = (ImageView) findViewById (R.id.communityimage);
+        msetting=(ImageView)findViewById(R.id.settingimage);
+
 
 
         // calling wallet page using fragments
@@ -111,17 +119,37 @@ public class Negotiator_dash extends AppCompatActivity
             }
         });
 
-        // calling wallet page using fragments
-        nfaq.setOnClickListener (new View.OnClickListener () {
+        // calling community page using fragments
+        mcommunity.setOnClickListener (new View.OnClickListener () {
             @Override
             public void onClick(View v) {
                 FragmentTransaction fragmentTransaction = getSupportFragmentManager ().beginTransaction ();
-                fragmentTransaction.replace(R.id.content_frame,new FAQ ());
-                fragmentTransaction.addToBackStack("faq");
+                fragmentTransaction.replace (R.id.content_frame, new CommunityFragment ());
+                fragmentTransaction.addToBackStack ("community");
                 fragmentTransaction.commit ();
 
             }
         });
+
+        msetting.setOnClickListener (new View.OnClickListener () {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(Negotiator_dash.this, SettingsActivity.class));
+
+            }
+        });
+
+//        // calling wallet page using fragments
+//        nfaq.setOnClickListener (new View.OnClickListener () {
+//            @Override
+//            public void onClick(View v) {
+//                FragmentTransaction fragmentTransaction = getSupportFragmentManager ().beginTransaction ();
+//                fragmentTransaction.replace(R.id.content_frame,new FAQ ());
+//                fragmentTransaction.addToBackStack("faq");
+//                fragmentTransaction.commit ();
+//
+//            }
+//        });
 
         //// added new content here
         final TextView textView = (TextView) findViewById (R.id.shopper_name);
@@ -197,7 +225,7 @@ public class Negotiator_dash extends AppCompatActivity
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.negotiator_dash, menu);
+        getMenuInflater ().inflate (R.menu.shopper_homepage, menu);
         return true;
     }
 
@@ -206,42 +234,118 @@ public class Negotiator_dash extends AppCompatActivity
         // Handle action bar item clicks here. The action bar will
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
+        int id = item.getItemId ();
 
         //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
+        if (id == R.id.action_chatbox) {//R.id.action_setting
+
+            //open chat fragment
+//            Intent intent = new Intent (ShopperHomepage.this,ChatMain.class);
+//            startActivity (intent);
+            FragmentTransaction fragmentTransaction = getSupportFragmentManager ().beginTransaction ();
+            fragmentTransaction.replace (R.id.content_frame, new ChatFragment ());
+            fragmentTransaction.addToBackStack ("chatfrag");
+            fragmentTransaction.commit ();
+        }
+        if (id == R.id.action_notification) {
+//to open notification as a fragment
+            FragmentTransaction fragmentTransaction = getSupportFragmentManager ().beginTransaction ();
+            fragmentTransaction.replace (R.id.content_frame, new NotificationFrag ());
+            fragmentTransaction.addToBackStack ("notification");
+            fragmentTransaction.commit ();
         }
 
-        return super.onOptionsItemSelected(item);
+        return super.onOptionsItemSelected (item);
     }
 
     @SuppressWarnings("StatementWithEmptyBody")
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
         // Handle navigation view item clicks here.
-        int id = item.getItemId();
+        //  TextView fullname=(TextView)findViewById(R.id.nav_drawer_username);
+        //fullname.setText(user.getDisplayName());
+        // user.getEmail();
+        //  user.getDisplayName();
+        // Fragment fragment = null;
 
-        if (id == R.id.nav_camera) {
-            muser=fba.getCurrentUser ();
-            finish ();
-            startActivity (new Intent (Negotiator_dash.this,WelcomePage.class));
+        int id = item.getItemId ();
+
+        if (id == R.id.nav_logout) {
 
             // Handle the camera action
-        } else if (id == R.id.nav_gallery) {
 
-        } else if (id == R.id.nav_slideshow) {
+            fba.signOut ();
+            finish ();
+            startActivity (new Intent (Negotiator_dash.this, WelcomePage.class));
 
-        } else if (id == R.id.nav_manage) {
+        }
+//          else if (id == R.id.nav_profile) {
+//            Intent intent = new Intent (Negotiator_dash.this, ShopperProfileActivity.class);
+//            startActivity (intent);
+//
+//        }
+            else if (id == R.id.nav_faq) {
+
+            FragmentTransaction fragmentTransaction = getSupportFragmentManager ().beginTransaction ();
+            fragmentTransaction.replace (R.id.content_frame, new FAQ ());
+            fragmentTransaction.addToBackStack ("faq");
+            fragmentTransaction.commit ();
+
+        } else if (id == R.id.nav_cs) {
+            FragmentTransaction fragmentTransaction = getSupportFragmentManager ().beginTransaction ();
+            fragmentTransaction.replace (R.id.content_frame, new CustomerServiceFrag ());
+            fragmentTransaction.addToBackStack ("faq");
+            fragmentTransaction.commit ();
+
+
+        } else if (id == R.id.nav_rate) {
+
+
+            builder2 = new AlertDialog.Builder (Negotiator_dash.this);
+            builder2.setTitle("Rate App");
+            builder2.setMessage("Show us some love!!");
+            final RatingBar rating = new RatingBar(this);
+            rating.setMax(5);
+
+//            rating.setNumStars(5);
+            builder2.setIcon(android.R.drawable.star_big_off);
+            builder2.setView(rating);
+
+            builder2.setPositiveButton("Submit", new DialogInterface.OnClickListener() {
+                public void onClick(DialogInterface dialog, int which) {
+                    int rate_val =rating.getProgress();
+                    Log.v("RAAAAA",String.valueOf(rating.getProgress()));
+                    Toast.makeText(Negotiator_dash.this,"Thank you for your Support!",Toast.LENGTH_SHORT).show();
+                    // here you can add functions
+                }
+            });
+            builder2.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                public void onClick(DialogInterface dialog, int which) {
+
+                    dialog.cancel();
+                    // here you can add functions
+                }
+            });
+
+            builder2.create();
+            builder2.show();  //<-- See This!
+
 
         } else if (id == R.id.nav_share) {
+            Intent sharingIntent = new Intent(android.content.Intent.ACTION_SEND);
+            sharingIntent.setType("text/plain");
+            String shareBody = "Here is the share content body";//insert app link here
+            sharingIntent.putExtra(android.content.Intent.EXTRA_SUBJECT, "Bargaining App");
+            sharingIntent.putExtra(android.content.Intent.EXTRA_TEXT, shareBody);
+            startActivity(Intent.createChooser(sharingIntent, "Share via"));
 
-        } else if (id == R.id.nav_send) {
+
 
         }
 
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-        drawer.closeDrawer(GravityCompat.START);
+
+        DrawerLayout drawer = (DrawerLayout) findViewById (R.id.drawer_layout);
+        drawer.closeDrawer (GravityCompat.START);
         return true;
     }
 
