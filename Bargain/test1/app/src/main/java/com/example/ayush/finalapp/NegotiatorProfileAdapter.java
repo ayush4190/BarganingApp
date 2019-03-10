@@ -5,6 +5,7 @@ import android.app.FragmentManager;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.Parcelable;
 import android.support.annotation.NonNull;
@@ -25,6 +26,9 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 
+import com.bumptech.glide.Glide;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -33,10 +37,14 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
 
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
+
+import de.hdodenhof.circleimageview.CircleImageView;
 
 
 public class NegotiatorProfileAdapter extends RecyclerView.Adapter<NegotiatorProfileAdapter.NegotiatorProfileViewHolder> implements Serializable {
@@ -56,6 +64,7 @@ public class NegotiatorProfileAdapter extends RecyclerView.Adapter<NegotiatorPro
     public TextView cat3;
     public TextView phno;
     FragmentActivity mContext;
+    StorageReference photo_storage;
     int favbool;
     //   // FragmentActivity mContext;
     Bundle mBundle;
@@ -77,6 +86,7 @@ public class NegotiatorProfileAdapter extends RecyclerView.Adapter<NegotiatorPro
         ImageButton imgbutton;
         public TextView last;
         TextView city;
+        CircleImageView proimage;
         TextView age;
         CardView cardView;
         public TextView phone;
@@ -91,6 +101,7 @@ public class NegotiatorProfileAdapter extends RecyclerView.Adapter<NegotiatorPro
             age=(TextView)view.findViewById(R.id.search_list_age);
 //            phone=(TextView) view.findViewById(R.id.ph_no);
             cardView=(CardView) view.findViewById(R.id.card_view);
+            proimage = (CircleImageView)view.findViewById(R.id.search_list_sportsImage);
 //            imgbutton= (ImageButton) view.findViewById(R.id.card_);
 
         }
@@ -105,16 +116,37 @@ public class NegotiatorProfileAdapter extends RecyclerView.Adapter<NegotiatorPro
 
     //////////////////////////
     @Override
-    public void onBindViewHolder(NegotiatorProfileViewHolder holder, final int position) {
+    public void onBindViewHolder(final NegotiatorProfileViewHolder holder, final int position) {
         n = negotiatorProfileList.get(position);
         final NegotiatorDetails nego =negotiatorProfileList.get(position);
-
+        photo_storage = FirebaseStorage.getInstance ().getReference ().child ("Negotiator_profile_image");
         holder.first.setText(n.getFirstname());
         holder.last.setText(n.getLastname());
         holder.city.setText(n.getCity());
         holder.age.setText(n.getYear()+" Yrs");
 //        holder.phone.setText(n.getPhone());
+        try {
 
+
+            String location = s.get(position)+ "." + "jpg";
+
+            photo_storage.child (location).getDownloadUrl ().addOnSuccessListener (new OnSuccessListener <Uri> () {
+                @Override
+                public void onSuccess(Uri uri) {
+                    String imageURL = uri.toString ();
+                    Glide.with (mContext.getApplicationContext()).load (imageURL).into (holder.proimage);
+                }
+            }).addOnFailureListener (new OnFailureListener () {
+                @Override
+                public void onFailure(@NonNull Exception exception) {
+                    // Handle any errors
+                    Toast.makeText (mContext.getApplicationContext(), exception.getMessage (), Toast.LENGTH_LONG).show ();
+                }
+            });
+        }catch (NullPointerException e)
+        {
+            Toast.makeText (mContext.getApplicationContext(),e.getMessage (),Toast.LENGTH_LONG).show ();
+        }
 
         final NegotiatorDetails negotiatorProfile=negotiatorProfileList.get(position);
         holder.cardView.setOnClickListener(new View.OnClickListener() {
@@ -162,13 +194,13 @@ public class NegotiatorProfileAdapter extends RecyclerView.Adapter<NegotiatorPro
 //                cat3.setText(n.getCategory3());
 //                phno.setText(n.getPhone());
 //                builder2.setNegativeButton ("Close", new DialogInterface.OnClickListener () {
-//                    public void onClick(DialogInterface dialog, int id) {
-//                        dialog.cancel ();
-//
-//                    }
-//                });
-//
-//
+////                    public void onClick(DialogInterface dialog, int id) {
+////                        dialog.cancel ();
+////
+////                    }
+////                });
+////
+////
 //
 //                final ImageView fav = (ImageView) v1.findViewById(R.id.fav);
 //                final  ImageView favdone=(ImageView)v1.findViewById(R.id.favdone);
@@ -333,6 +365,23 @@ public class NegotiatorProfileAdapter extends RecyclerView.Adapter<NegotiatorPro
         Log.i("Item-Count",Integer.toString(negotiatorProfileList.size()));
         return negotiatorProfileList.size();
     }
+
+
+//    String location = s.get(position)+"."+"jpg";
+//        Log.v("animesh",location);
+//        photo_storage.child (location).getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+//        @Override
+//        public void onSuccess(Uri uri) {
+//            String imageURL = uri.toString ();
+//            Glide.with(mContext).load(imageURL).into(holder.proimage);
+//        }
+//    }).addOnFailureListener(new OnFailureListener() {
+//        @Override
+//        public void onFailure(@NonNull Exception exception) {
+//            // Handle any errors
+//            Toast.makeText (mContext,exception.getMessage (),Toast.LENGTH_LONG).show ();
+//        }
+//    });
 
 
 

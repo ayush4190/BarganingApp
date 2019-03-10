@@ -165,6 +165,7 @@ public class SearchDisplayFrag extends Fragment{
                     {
                         adapter.addItem(data,dataSnapshot.getKey());
                         adapter.notifyDataSetChanged();
+                        Log.v("inside age 0" , "hello ");
                         recyclerView.setAdapter(adapter);
                         //   }
                     }
@@ -351,6 +352,7 @@ public class SearchDisplayFrag extends Fragment{
 //        databaseReference=FirebaseDatabase.getInstance().getReference().child("Negotiator");
 
     }
+
 }
 
 

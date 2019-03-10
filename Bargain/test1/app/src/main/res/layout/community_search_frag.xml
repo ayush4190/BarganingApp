@@ -14,7 +14,7 @@
             android:layout_gravity="end"
             android:id="@+id/searchcommunitynext"
             android:clickable="true"
-            android:queryHint="Search by product or shop "
+            android:queryHint="Search by username "
             android:iconifiedByDefault="false"
             android:focusableInTouchMode="false"
             >

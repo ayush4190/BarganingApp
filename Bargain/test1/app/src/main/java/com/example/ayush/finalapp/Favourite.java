@@ -79,10 +79,10 @@ public class Favourite extends Fragment {
 
             @Override
             public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
-                Log.v("inondata beforeifexists", "hello ");
+//                Log.v("inondata beforeifexists", "hello ");
 
                 if (dataSnapshot.exists()) {
-                    Log.v("inondata after ifexists", "hello ");
+//                    Log.v("inondata after ifexists", "hello ");
 
 
                     // for(DataSnapshot issue: dataSnapshot.getChildren()) {
@@ -92,6 +92,8 @@ public class Favourite extends Fragment {
                     Log.v("before keylist add", ss);
 //                    KeyList.add(count,ss);
 //                    KeyList.add(ss);
+//
+//
 //                    count++;
 
                     newfunction(ss);

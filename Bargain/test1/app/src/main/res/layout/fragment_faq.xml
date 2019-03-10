@@ -3,6 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".FAQ">
 
 
@@ -18,6 +19,7 @@
             android:background="@color/colorPrimary"
             />
 
+
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -25,7 +27,7 @@
         android:layout_marginTop="100dp"
         android:text="What is our Customer Support Email?"
         android:textColor="@color/colorPrimaryDark"
-        android:textSize="24dp" />
+        android:textSize="18dp" />
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -34,6 +36,7 @@
         android:layout_marginTop="140dp"
         android:layout_marginLeft="5dp"
         android:textColor="@color/colorPrimaryDark"/>
+
 
     <TextView
         android:layout_width="398dp"
@@ -103,5 +106,6 @@
         android:text="Setting multiple shop types and maintaining good service to ensure good ratings can help them be more likely to gain Shoppers."
         android:textColor="@color/colorPrimaryDark"
         android:textSize="18dp" />
+
 
 </FrameLayout>

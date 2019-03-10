@@ -1,6 +1,7 @@
 package com.example.ayush.finalapp;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -11,7 +12,11 @@ import android.widget.ImageView;
 import android.widget.RatingBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -20,9 +25,15 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
+
+import de.hdodenhof.circleimageview.CircleImageView;
 
 public class CardDetails extends AppCompatActivity {
     int amount_int;
+    CircleImageView pro_image;
+    StorageReference photo_storage;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -47,7 +58,7 @@ public class CardDetails extends AppCompatActivity {
         TextView card_pincode=(TextView)findViewById(R.id.card_pincode);
         TextView card_state=(TextView)findViewById(R.id.card_state);
         RatingBar ratingBar=(RatingBar) findViewById(R.id.ratingBar);
-        CardView pro_image = (CardView)findViewById(R.id.sportsImage);
+        pro_image = (CircleImageView) findViewById(R.id.sportsImage_negoani);
 
         first_name.setText(n.getFirstname());
         last_name.setText(n.getLastname());
@@ -60,6 +71,8 @@ public class CardDetails extends AppCompatActivity {
         card_state.setText(n.getState());
         card_city.setText(n.getCity());
         ratingBar.setRating(3.5f);
+        fetch(pos);
+
 
         RelativeLayout relativeLayout=(RelativeLayout)findViewById(R.id.parent_of_card);
 
@@ -178,5 +191,32 @@ public class CardDetails extends AppCompatActivity {
                 });
 
 
+
+
+
+    }
+    public void fetch(String pos) {
+        photo_storage = FirebaseStorage.getInstance ().getReference ().child ("Negotiator" +
+                "_profile_image");
+        try {
+
+
+            String location = pos + "." + "jpg";
+            photo_storage.child(location).getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+                @Override
+                public void onSuccess(Uri uri) {
+                    String imageURL = uri.toString();
+                    Glide.with(getApplicationContext()).load(imageURL).into(pro_image);
+                }
+            }).addOnFailureListener(new OnFailureListener() {
+                @Override
+                public void onFailure(@NonNull Exception exception) {
+                    // Handle any errors
+                    Toast.makeText(CardDetails.this, exception.getMessage(), Toast.LENGTH_LONG).show();
+                }
+            });
+        } catch (NullPointerException e) {
+            Toast.makeText(CardDetails.this, e.getMessage(), Toast.LENGTH_LONG).show();
+        }
     }
 }
