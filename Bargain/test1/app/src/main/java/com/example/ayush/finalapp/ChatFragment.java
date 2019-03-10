@@ -81,7 +81,7 @@ public class ChatFragment extends Fragment {
                 User = FirebaseAuth.getInstance().getCurrentUser().getUid();
 
           //Retrieving data from database
-            reference = FirebaseDatabase.getInstance().getReference().child("Shopper");
+            reference = FirebaseDatabase.getInstance().getReference().child("Negotiator");
 
                 AtStartUp();
                UpdateAccount();
@@ -111,7 +111,7 @@ public class ChatFragment extends Fragment {
                         String name;
                         String  uid;
 
-                        name= data.child("fname").getValue(String.class);
+                        name= data.child("firstname").getValue(String.class)+" "+data.child("lastname").getValue(String.class);
                         uid= data.getKey();
 
                         while(name==null );
@@ -138,9 +138,11 @@ public class ChatFragment extends Fragment {
         dialog.show();
         reference.child(User).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                NameUser = dataSnapshot.child("fname").getValue().toString();
-                DobUser = dataSnapshot.child("dob").getValue().toString();
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot)
+            {
+                if(dataSnapshot.child("firstname").getValue()!=null&&dataSnapshot.child("firstname").getValue()!=null)
+                    NameUser = dataSnapshot.child("firstname").getValue().toString()+" "+dataSnapshot.child("lastname").getValue().toString();
+//                DobUser = dataSnapshot.child("year").getValue().toString();
             }
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
