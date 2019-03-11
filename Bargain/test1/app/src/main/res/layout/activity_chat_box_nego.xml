@@ -12,10 +12,24 @@
         android:padding="5sp"
         android:layout_height="0sp"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/Button_display_meet"
+        app:layout_constraintStart_toStartOf="parent"
+        android:layout_marginBottom="20dp"
+        android:scrollbars="vertical"
+        />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:id="@+id/Button_display_meet"
+        android:layout_height="wrap_content"
+        android:text="Show Details of meet"
+        android:background="@color/colorPrimaryDark"
+        android:textColor="@color/white"
+        android:paddingRight="15dp"
+        android:paddingLeft="15dp"
         app:layout_constraintBottom_toTopOf="@id/ChatAct_message"
         app:layout_constraintStart_toStartOf="parent"
-        android:scrollbars="vertical"
-
+        android:layout_marginBottom="20dp"
         />
 
     <EditText

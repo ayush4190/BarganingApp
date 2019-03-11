@@ -200,7 +200,7 @@ public class ShopperHomepage extends AppCompatActivity
         msetting.setOnClickListener (new View.OnClickListener () {
             @Override
             public void onClick(View v) {
-//                startActivity(new Intent(ShopperHomepage.this, SettingsActivity.class));
+              startActivity(new Intent(ShopperHomepage.this, SettingsActivity.class));
                 Log.v("here","i am here");
 
 
