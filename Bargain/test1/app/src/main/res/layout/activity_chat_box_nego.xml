@@ -14,7 +14,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintBottom_toTopOf="@id/ChatAct_message"
         app:layout_constraintStart_toStartOf="parent"
-        android:layout_marginBottom="62dp"
+        android:layout_marginBottom="61dp"
         android:scrollbars="vertical"
         />
 
