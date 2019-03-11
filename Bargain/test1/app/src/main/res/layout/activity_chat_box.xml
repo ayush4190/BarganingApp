@@ -43,6 +43,7 @@
         android:layout_height="48dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+
         android:layout_marginRight="6sp"
         android:layout_marginBottom="6sp"
         android:src="@drawable/ic_send_black_24dp"
