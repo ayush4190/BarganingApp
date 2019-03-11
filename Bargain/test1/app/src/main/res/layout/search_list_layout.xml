@@ -16,7 +16,6 @@
             android:layout_marginLeft="8dp"
             android:layout_marginRight="8dp"
             app:contentPadding="10dp"
-
             app:cardBackgroundColor="@color/toolbarwhite"
             style="@style/Widget.MaterialComponents.CardView"
             >
@@ -36,14 +35,14 @@
                         <TextView
                             android:id="@+id/first_name"
                             android:layout_marginTop="10dp"
+
                             android:layout_marginLeft="12dp"
-                            android:layout_toRightOf="@+id/sportsImage"
+                            android:layout_toRightOf="@+id/search_list_sportsImage"
                             style="@style/TextAppearance.AppCompat.Headline"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:textColor="@color/colorPrimaryDark"
                             android:textSize="18dp"
-
                             />
                         <TextView
                             android:layout_toRightOf="@+id/first_name"
@@ -52,6 +51,7 @@
                             android:textColor="@color/colorPrimaryDark"
                             style="@style/TextAppearance.AppCompat.Headline"
                             android:layout_width="wrap_content"
+
                             android:layout_height="wrap_content"
                             android:layout_marginLeft="8dp"
                             android:textSize="18dp"
@@ -59,10 +59,11 @@
 
                         <TextView
                             android:id="@+id/city_search_list"
-                            android:layout_toRightOf="@+id/sportsImage"
+                            android:layout_toRightOf="@+id/search_list_sportsImage"
                             style="@style/TextAppearance.AppCompat.Subhead"
                             android:layout_width="wrap_content"
                             android:layout_marginLeft="12dp"
+
                             android:layout_height="wrap_content"
                             android:layout_below="@id/first_name"
                             android:textSize="15dp"
@@ -71,7 +72,7 @@
 
                         <TextView
                             android:id="@+id/search_list_age"
-                            android:layout_toRightOf="@+id/sportsImage"
+                            android:layout_toRightOf="@+id/search_list_sportsImage"
                             style="@style/TextAppearance.AppCompat.Subhead"
                             android:layout_width="wrap_content"
                             android:layout_marginLeft="12dp"

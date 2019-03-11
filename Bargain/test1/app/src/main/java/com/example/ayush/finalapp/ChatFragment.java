@@ -6,9 +6,11 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.constraint.ConstraintLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.text.TextUtils;
@@ -20,16 +22,24 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
 
 import java.io.InputStream;
 import java.util.ArrayList;
+
+import de.hdodenhof.circleimageview.CircleImageView;
 
 
 /**
@@ -39,7 +49,7 @@ public class ChatFragment extends Fragment {
 
     //Account
     static String NameUser,DobUser;
-
+//    StorageReference photo_storage;
   //  static int Method_Used = 1;
 
     static ProgressDialog dialog;
@@ -52,10 +62,9 @@ public class ChatFragment extends Fragment {
    //List
     ListView chatlist;
     ChatAdapter adapter1;
-
     String User;
     DatabaseReference reference;
-
+    Context c;
     static ArrayList<String[]> list = new ArrayList<>();
 
     static int Opened=0;
@@ -66,7 +75,7 @@ public class ChatFragment extends Fragment {
         // Inflate the layout for this fragment
         view =  inflater.inflate(R.layout.fragment_chat, container, false);
 
-
+c=getActivity();
         InitializeFields();
 
 
@@ -164,6 +173,7 @@ public class ChatFragment extends Fragment {
 
     class ChatAdapter extends BaseAdapter {
 
+
         @Override
         public int getCount() {
             return list.size();
@@ -183,11 +193,43 @@ public class ChatFragment extends Fragment {
         public View getView(final int position, View convertView, ViewGroup parent) {
 
             //Setting up view on the list
-            Context context = getContext();
+            StorageReference photo_storage = FirebaseStorage.getInstance ().getReference ().child ("Negotiator_profile_image");
+            final CircleImageView pro_pic=(CircleImageView)view.findViewById(R.id.Design_image) ;
+            final Context context = getContext();
             convertView = ((FragmentActivity) context).getLayoutInflater().inflate(R.layout.chatdesign,parent,false);
             TextView text = convertView.findViewById(R.id.Design_text);
+            ConstraintLayout c = (ConstraintLayout)convertView.findViewById(R.id.chatdesign_constraint);
+//
+//            try {
+//
+//
+//                String location = list.get(position)[1] + "." + "jpg";
+//                Log.v("manas",photo_storage.getPath().toString());
+
+//                photo_storage.child (location).getDownloadUrl ().addOnSuccessListener (new OnSuccessListener<Uri>() {
+//                    @Override
+//                    public void onSuccess(Uri uri) {
+//                        String imageURL = uri.toString ();
+//                        Log.v("manas2",imageURL);..
+//                        Glide.with (getActivity()).load (imageURL).into (pro_pic);
+//                    }
+//                }).addOnFailureListener (new OnFailureListener() {
+//                    @Override
+//                    public void onFailure(@NonNull Exception exception) {
+//                        // Handle any errors
+////                        Toast.makeText (getActivity()
+////                                , exception.getMessage (), Toast.LENGTH_LONG).show ();
+//                    }
+//                });
+//            }catch (NullPointerException e)
+//            {
+////                Toast.makeText (getActivity(),e.getMessage (),Toast.LENGTH_LONG).show ();
+//            }
+
             text.setText(list.get(position)[0]);
-            text.setOnClickListener(new View.OnClickListener() {
+            Log.v("negotuhsoi",list.get(position)[1]);
+           // fetch(position,convertView);
+            c.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     if(ChatFragment.Opened != 0)
@@ -203,11 +245,43 @@ public class ChatFragment extends Fragment {
             });
 
 
+
+
+
             return convertView;
         }
 
     }
 
+//    public void fetch(int position, final View view)
+//    {
+//        try {
+//
+//
+//            String location = list.get(position)[1] + "." + "jpg";
+//            Log.v("manas",photo_storage.getPath().toString());
+//
+//            photo_storage.child (location).getDownloadUrl ().addOnSuccessListener (new OnSuccessListener<Uri>() {
+//                @Override
+//                public void onSuccess(Uri uri) {
+//                    String imageURL = uri.toString ();
+//                    Log.v("manas2",imageURL);
+//                    Glide.with (view.getContext().getApplicationContext()).load (imageURL).into (pro_pic);
+//                }
+//            }).addOnFailureListener (new OnFailureListener() {
+//                @Override
+//                public void onFailure(@NonNull Exception exception) {
+//                    // Handle any errors
+//                    Toast.makeText (view.getContext().getApplicationContext(), exception.getMessage (), Toast.LENGTH_LONG).show ();
+//                }
+//            });
+//        }catch (NullPointerException e)
+//        {
+//            Toast.makeText (view.getContext().getApplicationContext(),e.getMessage (),Toast.LENGTH_LONG).show ();
+//        }
+//
+//
+//    }
 
 
 }
