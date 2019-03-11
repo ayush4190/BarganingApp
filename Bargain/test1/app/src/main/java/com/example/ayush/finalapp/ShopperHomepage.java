@@ -9,6 +9,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.graphics.BitmapFactory;
 import android.location.Geocoder;
 import android.location.Location;
 import android.location.LocationListener;
@@ -191,20 +192,19 @@ public class ShopperHomepage extends AppCompatActivity
 
         final NotificationCompat.Builder builder = new NotificationCompat.Builder(ShopperHomepage.this, channelId)
                 .setContentTitle("Bargainer App")
-                .setSmallIcon(R.drawable.ic_action_action_search)
+                .setSmallIcon(R.drawable.appicon1)
                 .setContentText("Hi this is test notification")
-                .setPriority(NotificationCompat.PRIORITY_DEFAULT);
+                .setPriority(NotificationCompat.PRIORITY_DEFAULT).setLargeIcon(BitmapFactory.decodeResource(getResources(),
+                        R.drawable.appicon1));
 
         msetting.setOnClickListener (new View.OnClickListener () {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(ShopperHomepage.this, SettingsActivity.class));
-//                Log.v("here","i am here");
-//                NotificationManagerCompat notificationManager = NotificationManagerCompat.from(ShopperHomepage.this);
-//                // notificationId is a unique int for each notification that you must define
-//                createNotificationChannel();
-//                notificationManager.notify(1, builder.build());
+//                startActivity(new Intent(ShopperHomepage.this, SettingsActivity.class));
+                Log.v("here","i am here");
 
+
+//notification is white as icon color is not trasnparent and white
             }
         });
 
