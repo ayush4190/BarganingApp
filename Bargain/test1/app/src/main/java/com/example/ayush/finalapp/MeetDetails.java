@@ -2,8 +2,20 @@ package com.example.ayush.finalapp;
 
 public class MeetDetails
 {
-    public String date,time,place,shopper,negotiator;
+    public String date,time,place,shopper,negotiator,negoname;
     public boolean isAccepted;
+
+    public String getNegoname() {
+        return negoname;
+    }
+
+    public void setAccepted(boolean accepted) {
+        isAccepted = accepted;
+    }
+
+    public void setNegoname(String negoname) {
+        this.negoname = negoname;
+    }
 
     public void setNegotiator(String negotiator) {
         this.negotiator = negotiator;
@@ -45,11 +57,12 @@ public class MeetDetails
         return time;
     }
     MeetDetails(){}
-    MeetDetails(String shopper,String place,String date,String time,String negotiator,boolean isAccepted)
+    MeetDetails(String shopper,String place,String date,String time,String negotiator,boolean isAccepted,String negoname)
     {
         this.date=date;
         this.place=place;
         this.time=time;
+        this.negoname=negoname;
         this.negotiator=negotiator;
         this.shopper=shopper;
         this.isAccepted=isAccepted;

@@ -168,7 +168,7 @@ public class ChatBox extends AppCompatActivity {
                     public void onClick(DialogInterface dialog, int which) {
                         place=(EditText)v1.findViewById(R.id.meet_place_edit);
                         time=(EditText)v1.findViewById(R.id.meet_time_edit);
-                        meetDetails=new MeetDetails(firebaseUser.getUid(),place.getText().toString(),meet_date,time.getText().toString(),Reciever[1],false);
+                        meetDetails=new MeetDetails(firebaseUser.getUid(),place.getText().toString(),meet_date,time.getText().toString(),Reciever[1],false,Reciever[0]);
                         databaseReference.child("Shopper").child(firebaseUser.getUid()).child("meet").push().setValue(meetDetails);
                         databaseReference.child("Negotiator").child(Reciever[1]).child("meet").push().setValue(meetDetails);
                         messagebox.setText("Meet Proposal\nPlace: "+place.getText().toString()+"\nDate: "+meet_date+"\nTime: "+time.getText().toString());
