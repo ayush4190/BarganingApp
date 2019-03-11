@@ -53,15 +53,19 @@ public class ChatBoxNego extends AppCompatActivity {
     private FirebaseUser firebaseUser;
 
     private DatabaseReference databaseReference;
+    private DatabaseReference mdatabaseReference;
     EditText place;
+    String nego_id;
+    String shop_id;
     EditText time;
     Toolbar toolbar;
     RecyclerView recyclerView;
     EditText messagebox;
     Button displayMeet;
+    String name;
     ImageButton sendButton;
     int i,alpha;
-
+    TransactionsDetails transactionsDetails;
     MeetDetails meetDetails;
     TextView placeText,dateText,timeText,noMeet;
     TextView placeText1,dateText1,timeText1;
@@ -131,9 +135,12 @@ public class ChatBoxNego extends AppCompatActivity {
                 timeText.setText(empty);
                 i=0;
                 alpha=0;
-                Query query=databaseReference.child("Negotiator").child(firebaseUser.getUid()).child("meet").orderByChild("shopper").equalTo(Reciever[1]).limitToLast(1);
 
-                query.addChildEventListener(new ChildEventListener() {
+//                                            Log.v("manas",mdatabaseReference.get);
+
+                Query query2=databaseReference.child("Negotiator").child(firebaseUser.getUid()).child("meet").orderByChild("shopper").equalTo(Reciever[1]).limitToLast(1);
+
+                query2.addChildEventListener(new ChildEventListener() {
                     @Override
                     public void onChildAdded(@NonNull final DataSnapshot dataSnapshot, @Nullable String s) {
                         if(dataSnapshot.exists())
@@ -189,10 +196,31 @@ public class ChatBoxNego extends AppCompatActivity {
                                         public void onClick(DialogInterface dialog, int which) {
                                             meetDetails.isAccepted=true;
                                             dataSnapshot.getRef().setValue(meetDetails);
-                                            /////// function here
+
+                                            nego_id=firebaseAuth.getCurrentUser().getUid();
+                                            shop_id=meetDetails.getShopper();
+
+//                                            mdatabaseReference.addValueEventListener(new ValueEventListener() {
+//                                                @Override
+//                                                public void onDataChange(DataSnapshot dataSnapshot) {
+//                                                    NegotiatorDetails negotiatorDetails = dataSnapshot.getValue(NegotiatorDetails.class);
+//                                                    name=negotiatorDetails.getFirstname()+"  "+negotiatorDetails.getLastname();
+//                                                }
+//
+//                                                @Override
+//                                                public void onCancelled(DatabaseError databaseError) {
+//                                                    System.out.println("The read failed: " + databaseError.getCode());
+//                                                }
+//                                            });
+//                                            Log.v("manas2",name);
+                                            transactionsDetails=new TransactionsDetails(shop_id,nego_id,meetDetails.getNegoname(),meetDetails.getDate(),"pending","0.0",Reciever[0]);
+                                            FirebaseDatabase.getInstance().getReference().child("Transactions").child(shop_id).push().setValue(transactionsDetails);
+                                            FirebaseDatabase.getInstance().getReference().child("Transactions").child(nego_id).push().setValue(transactionsDetails);
+                                            //here transaction is initialized
+
                                         }
                                     });
-                                 
+
                                     builder2.setTitle("Accept or decline the meet");
 
                                     AlertDialog alert = builder2.create ();
@@ -200,7 +228,7 @@ public class ChatBoxNego extends AppCompatActivity {
                                 }
 
 
-                                }else{
+                            }else{
                                 Log.v("me inside i!=3",String.valueOf(i));
                                 dateText.setVisibility(v1.GONE);
                                 timeText.setVisibility(v1.GONE);
@@ -240,11 +268,11 @@ public class ChatBoxNego extends AppCompatActivity {
                 });
 
 
-        }
+            }
         });
     }
 
-//    @Override
+    //    @Override
 //    public boolean onOptionsItemSelected(MenuItem item) {
 //        // Handle action bar item clicks here. The action bar will
 //        // automatically handle clicks on the Home/Up button, so long
@@ -395,11 +423,6 @@ public class ChatBoxNego extends AppCompatActivity {
 
     }
     //
-
-    public  void start_payment()
-    {
-        startActivity (new Intent (ChatBoxNego.this,NegotiatorWallet.class));
-    }
 
 
 }
