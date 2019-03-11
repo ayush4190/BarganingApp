@@ -64,7 +64,7 @@ public class ChatFragmentNego extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        view =  inflater.inflate(R.layout.fragment_chat_nego, container, false);
+        view =  inflater.inflate(R.layout.fragment_chat, container, false);
 
 
 
@@ -156,7 +156,7 @@ public class ChatFragmentNego extends Fragment {
 
 
     private void InitializeFields() {
-        chatlist = view.findViewById(R.id.Chat_List_nego);
+        chatlist = view.findViewById(R.id.Chat_List);
         dialog = new ProgressDialog(getContext());
         dialog.setTitle("Please Wait");
         dialog.setCanceledOnTouchOutside(false);

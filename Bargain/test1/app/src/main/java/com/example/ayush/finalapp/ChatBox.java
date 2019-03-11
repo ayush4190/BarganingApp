@@ -224,7 +224,6 @@ public class ChatBox extends AppCompatActivity {
         recyclerView = findViewById(R.id.ChatAct_Recycler);
 //        toolbar = findViewById(R.id.ChatAct_Toolbar);
         messagebox = findViewById(R.id.ChatAct_message);
-
         sendButton = findViewById(R.id.ChatAct_Send);
         ChatRoom =null;
     }

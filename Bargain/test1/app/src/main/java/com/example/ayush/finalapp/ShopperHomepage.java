@@ -327,13 +327,13 @@ public class ShopperHomepage extends AppCompatActivity
             fragmentTransaction.addToBackStack ("chatfrag");
             fragmentTransaction.commit ();
         }
-//        if (id == R.id.action_notification) {
-////to open notification as a fragment
-//            FragmentTransaction fragmentTransaction = getSupportFragmentManager ().beginTransaction ();
-//            fragmentTransaction.replace (R.id.content_frame, new NotificationFrag ());
-//            fragmentTransaction.addToBackStack ("notification");
-//            fragmentTransaction.commit ();
-//        }
+        if (id == R.id.action_notification) {
+//to open notification as a fragment
+            FragmentTransaction fragmentTransaction = getSupportFragmentManager ().beginTransaction ();
+            fragmentTransaction.replace (R.id.content_frame, new NotificationFrag ());
+            fragmentTransaction.addToBackStack ("notification");
+            fragmentTransaction.commit ();
+        }
 
         return super.onOptionsItemSelected (item);
     }

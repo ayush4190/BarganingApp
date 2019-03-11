@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:app="http://schemas.android.com/apk/res-auto"
+<LinearLayout
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-
+    android:padding="5dp"
     xmlns:android="http://schemas.android.com/apk/res/android" >
 
     <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
@@ -10,56 +10,48 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-        android:id="@+id/chatdesign_constraint"
     android:background="@drawable/list_style"
     android:layout_marginLeft="2sp"
     android:layout_marginRight="2sp"
     android:padding="5dp">
 
-        <de.hdodenhof.circleimageview.CircleImageView
-            android:id="@+id/Design_image"
-            android:layout_width="75dp"
-            android:layout_height="75dp"
-            android:layout_marginStart="4dp"
-            android:layout_marginLeft="4dp"
-            android:src="@drawable/user"
-            android:layout_marginTop="10dp"
-            android:layout_marginBottom="10dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.0" />
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/Design_image"
+        android:layout_width="90sp"
+        android:layout_height="90sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:src="@drawable/user"/>
 
-        <TextView
-            android:id="@+id/Design_text"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="20dp"
-            android:layout_marginLeft="20dp"
-            android:layout_marginTop="4dp"
-            android:gravity="center"
-            android:text="Manas Gupta"
-            android:textColor="@color/black"
-            android:textSize="18sp"
-            android:textStyle="bold"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="parent"
-            app:layout_constraintHorizontal_bias="0.038"
-            app:layout_constraintStart_toEndOf="@id/Design_image"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.193" />
+    <TextView
+        android:id="@+id/Design_text"
+        android:layout_width="0sp"
+        android:layout_height="0sp"
+        android:layout_marginStart="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginTop="4dp"
+        android:textColor="#858080"
+        android:text="kjadldas"
+        android:gravity="center"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toEndOf="@id/Design_image"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/Design_unread"/>
 
-    <!--<TextView-->
-        <!--android:layout_width="30sp"-->
-        <!--android:layout_height="30sp"-->
-        <!--android:id="@+id/Design_unread"-->
-        <!--android:textColor="#000"-->
-        <!--android:text="55"-->
-        <!--android:layout_marginRight="10sp"-->
-        <!--android:gravity="center"-->
-        <!--app:layout_constraintBottom_toBottomOf="parent"-->
-        <!--app:layout_constraintEnd_toEndOf="parent"-->
-        <!--app:layout_constraintTop_toTopOf="parent"/>-->
+    <TextView
+        android:layout_width="30sp"
+        android:layout_height="30sp"
+        android:id="@+id/Design_unread"
+        android:textColor="#000"
+        android:text="55"
+        android:layout_marginRight="10sp"
+        android:gravity="center"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"/>
 
 </android.support.constraint.ConstraintLayout>
 </LinearLayout>
