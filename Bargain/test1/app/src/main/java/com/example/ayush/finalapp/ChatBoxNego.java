@@ -60,8 +60,11 @@ public class ChatBoxNego extends AppCompatActivity {
     EditText messagebox;
     Button displayMeet;
     ImageButton sendButton;
+    int i;
+
     MeetDetails meetDetails;
-    TextView placeText,dateText,timeText;
+    TextView placeText,dateText,timeText,noMeet;
+    TextView placeText1,dateText1,timeText1;
     AlertDialog.Builder builder2;
 
     final static int Left = 1;
@@ -115,18 +118,20 @@ public class ChatBoxNego extends AppCompatActivity {
                 LayoutInflater inflater = ChatBoxNego.this.getLayoutInflater ();
                 final View v1= inflater.inflate(R.layout.meet_nego_frag,null);
                 builder2.setView (v1);
-                builder2.setNegativeButton ("Close", new DialogInterface.OnClickListener () {
-                    public void onClick(DialogInterface dialog, int id) {
-                        dialog.cancel ();
-                    }
-                });
+
                 dateText=v1.findViewById(R.id.meet_date_edit);
                 placeText=v1.findViewById(R.id.meet_place_edit);
                 timeText=v1.findViewById(R.id.meet_time_edit);
+                dateText1=v1.findViewById(R.id.meet_date);
+                placeText1=v1.findViewById(R.id.meet_place);
+                noMeet=v1.findViewById(R.id.no_meet);
+                timeText1=v1.findViewById(R.id.meet_time);
                 dateText.setText(empty);
                 placeText.setText(empty);
                 timeText.setText(empty);
+                i=0;
                 Query query=databaseReference.child("Negotiator").child(firebaseUser.getUid()).child("meet").orderByChild("shopper").equalTo(Reciever[1]).limitToLast(1);
+
                 query.addChildEventListener(new ChildEventListener() {
                     @Override
                     public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
@@ -134,14 +139,24 @@ public class ChatBoxNego extends AppCompatActivity {
                         {
                             if(dataSnapshot.child("place").getValue().toString()!=null)
                             {
-                                placeText.setText(dataSnapshot.child("place").getValue().toString());
+
+                                i++;
+
                             }
                             if(dataSnapshot.child("time").getValue().toString()!=null)
                             {
-                                timeText.setText(dataSnapshot.child("time").getValue().toString());
+                                i++;
+
                             }
                             if(dataSnapshot.child("date").getValue().toString()!=null)
                             {
+                                i++;
+
+                            }
+                            if(i==3) {
+                                meetDetails=dataSnapshot.getValue(MeetDetails);
+                                placeText.setText(dataSnapshot.child("place").getValue().toString());
+                                timeText.setText(dataSnapshot.child("time").getValue().toString());
                                 dateText.setText(dataSnapshot.child("date").getValue().toString());
                             }
                         }
@@ -167,7 +182,32 @@ public class ChatBoxNego extends AppCompatActivity {
 
                     }
                 });
-            builder2.setTitle("Details for meet");
+                if(i==3){
+                builder2.setNegativeButton ("Reject", new DialogInterface.OnClickListener () {
+                    public void onClick(DialogInterface dialog, int id) {
+
+                    }
+                });
+                builder2.setPositiveButton("Aceept", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+
+                    }
+                });
+
+                }else{
+                    dateText.setVisibility(v1.GONE);
+                    timeText.setVisibility(v1.GONE);
+                    placeText.setVisibility(v1.GONE);
+                    dateText1.setVisibility(v1.GONE);
+                    timeText1.setVisibility(v1.GONE);
+                    placeText1.setVisibility(v1.GONE);
+                    noMeet.setVisibility(v1.VISIBLE);
+
+
+                }
+
+                builder2.setTitle("Accept or decline the meet");
             builder2.setCancelable (false);
             AlertDialog alert = builder2.create ();
                 alert.show ();

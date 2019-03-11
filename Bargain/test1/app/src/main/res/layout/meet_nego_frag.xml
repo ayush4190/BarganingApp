@@ -78,4 +78,12 @@
         android:inputType="none"
         android:background="@null"
         />
+    <TextView
+        android:layout_width="match_parent"
+        android:textColor="@color/colorPrimaryDark"
+        android:textSize="20dp"
+      android:id="@+id/no_meet"
+        android:visibility="gone"
+        android:layout_height="wrap_content"
+        android:text="Oops, there is no valid meet proposed yet by this shopper"/>
 </RelativeLayout>
