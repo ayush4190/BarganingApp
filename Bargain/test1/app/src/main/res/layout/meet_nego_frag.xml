@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    >
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Place of meet:  "
+        android:id="@+id/meet_place"
+        android:layout_margin="20dp"
+        android:textSize="18sp"
+        android:layout_marginLeft="8dp"
+        />
+
+
+    <TextView
+        android:id="@+id/meet_place_edit"
+        android:layout_margin="20dp"
+        android:layout_toRightOf="@id/meet_place"
+        android:layout_toEndOf="@id/meet_place"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text=""
+        android:textSize="18sp"
+        android:inputType="none"
+        android:background="@null"
+        />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/meet_place"
+        android:text="Date of meet:  "
+        android:id="@+id/meet_date"
+        android:layout_margin="20dp"
+        android:textSize="18sp"
+        android:layout_marginLeft="8dp"
+        />
+
+
+    <TextView
+        android:id="@+id/meet_date_edit"
+        android:layout_margin="20dp"
+        android:layout_toRightOf="@id/meet_date"
+        android:layout_toEndOf="@id/meet_date"
+        android:layout_below="@id/meet_place_edit"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text=""
+        android:textSize="18sp"
+        android:inputType="none"
+        android:background="@null"
+        />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/meet_date"
+        android:text="Time of meet:  "
+        android:id="@+id/meet_time"
+        android:layout_margin="20dp"
+        android:textSize="18sp"
+        android:layout_marginLeft="8dp"
+        />
+
+
+    <TextView
+        android:id="@+id/meet_time_edit"
+        android:layout_margin="20dp"
+        android:layout_toRightOf="@id/meet_place"
+        android:layout_toEndOf="@id/meet_place"
+        android:layout_below="@id/meet_date_edit"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text=""
+        android:textSize="18sp"
+        android:inputType="none"
+        android:background="@null"
+        />
+</RelativeLayout>

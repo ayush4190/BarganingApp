@@ -225,7 +225,7 @@ public class Negotiator_dash extends AppCompatActivity
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater ().inflate (R.menu.shopper_homepage, menu);
+        getMenuInflater ().inflate (R.menu.negotiator_dash, menu);
         return true;
     }
 
