@@ -60,7 +60,7 @@ public class ChatBoxNego extends AppCompatActivity {
     EditText messagebox;
     Button displayMeet;
     ImageButton sendButton;
-    int i;
+    int i,alpha;
 
     MeetDetails meetDetails;
     TextView placeText,dateText,timeText,noMeet;
@@ -130,11 +130,12 @@ public class ChatBoxNego extends AppCompatActivity {
                 placeText.setText(empty);
                 timeText.setText(empty);
                 i=0;
+                alpha=0;
                 Query query=databaseReference.child("Negotiator").child(firebaseUser.getUid()).child("meet").orderByChild("shopper").equalTo(Reciever[1]).limitToLast(1);
 
                 query.addChildEventListener(new ChildEventListener() {
                     @Override
-                    public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
+                    public void onChildAdded(@NonNull final DataSnapshot dataSnapshot, @Nullable String s) {
                         if(dataSnapshot.exists())
                         {
                             if(dataSnapshot.child("place").getValue().toString()!=null)
@@ -154,10 +155,64 @@ public class ChatBoxNego extends AppCompatActivity {
 
                             }
                             if(i==3) {
-                                meetDetails=dataSnapshot.getValue(MeetDetails);
-                                placeText.setText(dataSnapshot.child("place").getValue().toString());
-                                timeText.setText(dataSnapshot.child("time").getValue().toString());
-                                dateText.setText(dataSnapshot.child("date").getValue().toString());
+
+                                meetDetails=dataSnapshot.getValue(MeetDetails.class);
+                                if(meetDetails.isAccepted){
+                                    Log.v("me inside i==3",String.valueOf(i));
+                                    dateText.setVisibility(v1.GONE);
+                                    timeText.setVisibility(v1.GONE);
+                                    placeText.setVisibility(v1.GONE);
+                                    dateText1.setVisibility(v1.GONE);
+                                    timeText1.setVisibility(v1.GONE);
+                                    placeText1.setVisibility(v1.GONE);
+                                    noMeet.setVisibility(v1.VISIBLE);
+                                    noMeet.setText("The latest pending meet is already accepted");
+                                    builder2.setTitle("Accept or decline the meet");
+
+                                    AlertDialog alert = builder2.create ();
+                                    alert.show ();
+
+                                }else {
+                                    Log.v("me inside i==3 and else",String.valueOf(i));
+                                    placeText.setText(dataSnapshot.child("place").getValue().toString());
+                                    timeText.setText(dataSnapshot.child("time").getValue().toString());
+                                    dateText.setText(dataSnapshot.child("date").getValue().toString());
+                                    alpha=1;
+                                    builder2.setNegativeButton("Reject", new DialogInterface.OnClickListener() {
+                                        public void onClick(DialogInterface dialog, int id) {
+                                            meetDetails.isAccepted=false;
+                                            dataSnapshot.getRef().setValue(meetDetails);
+                                        }
+                                    });
+                                    builder2.setPositiveButton("Accept", new DialogInterface.OnClickListener() {
+                                        @Override
+                                        public void onClick(DialogInterface dialog, int which) {
+                                            meetDetails.isAccepted=true;
+                                            dataSnapshot.getRef().setValue(meetDetails);
+                                        }
+                                    });
+                                 
+                                    builder2.setTitle("Accept or decline the meet");
+
+                                    AlertDialog alert = builder2.create ();
+                                    alert.show ();
+                                }
+
+
+                                }else{
+                                Log.v("me inside i!=3",String.valueOf(i));
+                                dateText.setVisibility(v1.GONE);
+                                timeText.setVisibility(v1.GONE);
+                                placeText.setVisibility(v1.GONE);
+                                dateText1.setVisibility(v1.GONE);
+                                timeText1.setVisibility(v1.GONE);
+                                placeText1.setVisibility(v1.GONE);
+                                noMeet.setVisibility(v1.VISIBLE);
+                                builder2.setTitle("Accept or decline the meet");
+
+                                AlertDialog alert = builder2.create ();
+                                alert.show ();
+
                             }
                         }
                     }
@@ -182,35 +237,8 @@ public class ChatBoxNego extends AppCompatActivity {
 
                     }
                 });
-                if(i==3){
-                builder2.setNegativeButton ("Reject", new DialogInterface.OnClickListener () {
-                    public void onClick(DialogInterface dialog, int id) {
-
-                    }
-                });
-                builder2.setPositiveButton("Aceept", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-
-                    }
-                });
-
-                }else{
-                    dateText.setVisibility(v1.GONE);
-                    timeText.setVisibility(v1.GONE);
-                    placeText.setVisibility(v1.GONE);
-                    dateText1.setVisibility(v1.GONE);
-                    timeText1.setVisibility(v1.GONE);
-                    placeText1.setVisibility(v1.GONE);
-                    noMeet.setVisibility(v1.VISIBLE);
 
 
-                }
-
-                builder2.setTitle("Accept or decline the meet");
-            builder2.setCancelable (false);
-            AlertDialog alert = builder2.create ();
-                alert.show ();
         }
         });
     }
