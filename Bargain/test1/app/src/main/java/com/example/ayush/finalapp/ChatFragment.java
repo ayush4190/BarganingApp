@@ -9,6 +9,7 @@ import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.constraint.ConstraintLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.text.TextUtils;
@@ -186,8 +187,9 @@ public class ChatFragment extends Fragment {
             Context context = getContext();
             convertView = ((FragmentActivity) context).getLayoutInflater().inflate(R.layout.chatdesign,parent,false);
             TextView text = convertView.findViewById(R.id.Design_text);
+            ConstraintLayout constraintLayout=convertView.findViewById(R.id.chatdesign_constraint);
             text.setText(list.get(position)[0]);
-            text.setOnClickListener(new View.OnClickListener() {
+            constraintLayout.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     if(ChatFragment.Opened != 0)

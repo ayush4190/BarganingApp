@@ -49,6 +49,7 @@ class ChatBoxAdapter extends RecyclerView.Adapter<ChatBoxAdapter.myViewHolder>{
             return;
         final int j = i;
         TextView textView = viewHolder.view.findViewById(R.id.Message);
+
         textView.setText(chats.get(i).message);
         textView.setOnLongClickListener(new View.OnLongClickListener() {
             @Override

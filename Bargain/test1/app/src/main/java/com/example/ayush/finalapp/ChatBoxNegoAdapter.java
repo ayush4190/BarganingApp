@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,7 +14,7 @@ import android.widget.TextView;
 
 import java.util.List;
 
-import static com.example.ayush.finalapp.ChatBox.chats;
+import static com.example.ayush.finalapp.ChatBoxNego.chats;
 
 class ChatBoxNegoAdapter extends RecyclerView.Adapter<ChatBoxNegoAdapter.myViewHolder>{
     List<Message> chat_list;
@@ -24,11 +25,13 @@ class ChatBoxNegoAdapter extends RecyclerView.Adapter<ChatBoxNegoAdapter.myViewH
 
     ChatBoxNegoAdapter(List<Message> chat_list, Context mContext, String current_user, String receiver, ChatBoxNego activity)
     {
+
         this.chat_list = chat_list;
         this.mContext = mContext;
         this.current_user = current_user;
         this.receiver = receiver;
         this.activity = activity;
+        Log.v("datap2",chat_list.get(0).message.toString());
     }
 
 
@@ -50,6 +53,7 @@ class ChatBoxNegoAdapter extends RecyclerView.Adapter<ChatBoxNegoAdapter.myViewH
             return;
         final int j = i;
         TextView textView = viewHolder.view.findViewById(R.id.Message);
+        Log.v("datap",chats.get(i).message);
         textView.setText(chats.get(i).message);
         textView.setOnLongClickListener(new View.OnLongClickListener() {
             @Override
