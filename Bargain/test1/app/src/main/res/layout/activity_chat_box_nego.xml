@@ -7,35 +7,36 @@
     tools:context=".ChatBoxNego">
 
     <android.support.v7.widget.RecyclerView
-        android:id="@+id/ChatAct_Recycler"
+        android:id="@+id/ChatAct_Recycler_nego"
         android:layout_width="match_parent"
         android:padding="5sp"
         android:layout_height="0sp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintBottom_toTopOf="@id/Button_display_meet"
+        app:layout_constraintBottom_toTopOf="@id/ChatAct_message"
         app:layout_constraintStart_toStartOf="parent"
         android:layout_marginBottom="20dp"
         android:scrollbars="vertical"
         />
 
-    <Button
-        android:layout_width="wrap_content"
-        android:id="@+id/Button_display_meet"
-        android:layout_height="wrap_content"
-        android:text="Show Details of meet"
-        android:background="@color/colorPrimaryDark"
-        android:textColor="@color/white"
-        android:paddingRight="15dp"
-        android:paddingLeft="15dp"
-        app:layout_constraintBottom_toTopOf="@id/ChatAct_message"
-        app:layout_constraintStart_toStartOf="parent"
-        android:layout_marginBottom="20dp"
-        />
+    <!--<Button-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:id="@+id/Button_display_meet"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:text="Show Details of meet"-->
+        <!--android:background="@color/colorPrimaryDark"-->
+        <!--android:textColor="@color/white"-->
+        <!--android:paddingRight="15dp"-->
+        <!--android:paddingLeft="15dp"-->
+        <!--app:layout_constraintBottom_toTopOf="@id/ChatAct_message"-->
+        <!--app:layout_constraintStart_toStartOf="parent"-->
+        <!--android:layout_marginBottom="20dp"-->
+        <!--/>-->
 
     <EditText
         android:id="@+id/ChatAct_message"
         android:layout_width="0sp"
         android:layout_height="48dp"
+
         android:maxHeight="60dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -64,5 +65,20 @@
         android:elevation="24dp"
         android:onClick="SendMessage"
         />
+
+    <!--<ImageButton-->
+        <!--android:id="@+id/ChatAct_acceptmeet"-->
+        <!--android:layout_width="48dp"-->
+        <!--android:layout_height="48dp"-->
+        <!--android:layout_marginRight="6sp"-->
+        <!--android:layout_marginBottom="6sp"-->
+        <!--android:background="@drawable/ripple_oval"-->
+        <!--android:elevation="24dp"-->
+        <!--android:foregroundGravity="center"-->
+        <!--android:src="@drawable/ic_group_white_24dp"-->
+        <!--app:layout_constraintBottom_toBottomOf="parent"-->
+        <!--app:layout_constraintEnd_toEndOf="parent"-->
+        <!--android:onClick="sendMeet"-->
+        <!--/>-->
 
 </android.support.constraint.ConstraintLayout>
