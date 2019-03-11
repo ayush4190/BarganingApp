@@ -381,7 +381,7 @@ public class ChatBoxNego extends AppCompatActivity {
     }
 
     private void InitializeFields() {
-        recyclerView = findViewById(R.id.ChatAct_Recycler);
+        recyclerView = findViewById(R.id.ChatAct_Recyclernego);
 //        toolbar = findViewById(R.id.ChatAct_Toolbar);
         messagebox = findViewById(R.id.ChatAct_message);
         sendButton = findViewById(R.id.ChatAct_Send);
