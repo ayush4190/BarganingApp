@@ -279,11 +279,11 @@ public class Negotiator_dash extends AppCompatActivity
             startActivity (new Intent (Negotiator_dash.this, WelcomePage.class));
 
         }
-//          else if (id == R.id.nav_profile) {
-//            Intent intent = new Intent (Negotiator_dash.this, ShopperProfileActivity.class);
-//            startActivity (intent);
-//
-//        }
+          else if (id == R.id.nav_profile) {
+            Intent intent = new Intent (Negotiator_dash.this, NegotiatorProfileActivity.class);
+            startActivity (intent);
+
+        }
             else if (id == R.id.nav_faq) {
 
             FragmentTransaction fragmentTransaction = getSupportFragmentManager ().beginTransaction ();
@@ -348,5 +348,10 @@ public class Negotiator_dash extends AppCompatActivity
         drawer.closeDrawer (GravityCompat.START);
         return true;
     }
+    public static Context getContextOfApplication()
+    {
+        return contextOfApplication;
+    }
+
 
 }
