@@ -39,7 +39,7 @@ import java.util.List;
 
 import static com.example.ayush.finalapp.NegotiatorProfileAdapter.n;
 
-public class ChatBox extends AppCompatActivity {
+public class ChatBoxNego extends AppCompatActivity {
     private DatePickerDialog.OnDateSetListener mDateSetListener;
     private TextView mDisplayDate;
     private FirebaseAuth firebaseAuth;
@@ -63,14 +63,14 @@ public class ChatBox extends AppCompatActivity {
     String[] Reciever;
     String meet_date;
     static String ChatRoom = "manas";
-    ChatBoxAdapter adapter;
+    ChatBoxNegoAdapter adapter;
     static List<Message> chats = new ArrayList<>();
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_chat_box);
+        setContentView(R.layout.activity_chat_box_nego);
         InitializeFields();
         firebaseAuth=FirebaseAuth.getInstance();
         firebaseUser = firebaseAuth.getCurrentUser ();
@@ -114,16 +114,16 @@ public class ChatBox extends AppCompatActivity {
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_meet)
         {
-            builder2 = new AlertDialog.Builder (ChatBox.this);
-                LayoutInflater inflater = ChatBox.this.getLayoutInflater ();
-                final View v1= inflater.inflate(R.layout.meet_frag,null);
-                builder2.setView (v1);
+            builder2 = new AlertDialog.Builder (ChatBoxNego.this);
+            LayoutInflater inflater = ChatBoxNego.this.getLayoutInflater ();
+            final View v1= inflater.inflate(R.layout.meet_frag,null);
+            builder2.setView (v1);
 
-                builder2.setNegativeButton ("Close", new DialogInterface.OnClickListener () {
-                    public void onClick(DialogInterface dialog, int id) {
-                        dialog.cancel ();
-                    }
-                });
+            builder2.setNegativeButton ("Close", new DialogInterface.OnClickListener () {
+                public void onClick(DialogInterface dialog, int id) {
+                    dialog.cancel ();
+                }
+            });
             mDisplayDate = (TextView) v1.findViewById(R.id.meet_date_edit);
 
             mDisplayDate.setOnClickListener(new View.OnClickListener() {
@@ -135,14 +135,12 @@ public class ChatBox extends AppCompatActivity {
                     int day = cal.get(Calendar.DAY_OF_MONTH);
 
                     DatePickerDialog dialog = new DatePickerDialog(
-                            ChatBox.this,
+                            ChatBoxNego.this,
                             android.R.style.Theme_Holo_Light_Dialog_MinWidth,
                             mDateSetListener,
                             year,month,day);
 
-                    dialog.getDatePicker().setMinDate(System.currentTimeMillis()-1000);
-                    dialog.getDatePicker().setMaxDate(System.currentTimeMillis()+31536000000L);
-
+                    dialog.getDatePicker().setMaxDate(new Date().getTime());
                     dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
                     dialog.show();
                 }
@@ -160,18 +158,16 @@ public class ChatBox extends AppCompatActivity {
                 }
             };
             builder2.setPositiveButton("Submit", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        place=(EditText)v1.findViewById(R.id.meet_place_edit);
-                        time=(EditText)v1.findViewById(R.id.meet_time_edit);
-                        meetDetails=new MeetDetails(firebaseUser.getUid(),place.getText().toString(),meet_date,time.getText().toString(),Reciever[1],false);
-                        databaseReference.child("Shopper").child(firebaseUser.getUid()).child("meet").push().setValue(meetDetails);
-                        databaseReference.child("Negotiator").child(Reciever[1]).child("meet").push().setValue(meetDetails);
-                        messagebox.setText("Meet Proposal\nPlace: "+place.getText().toString()+"\nDate: "+meet_date+"\nTime: "+time.getText().toString());
-                        sendButton.performClick();
-                    }
-                });
-                builder2.setTitle("Enter Details for meet");
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    place=(EditText)v1.findViewById(R.id.meet_place_edit);
+                    time=(EditText)v1.findViewById(R.id.meet_time_edit);
+                    meetDetails=new MeetDetails(firebaseUser.getUid(),place.getText().toString(),meet_date,time.getText().toString(),Reciever[1],false);
+                    databaseReference.child("Shopper").child(firebaseUser.getUid()).child("meet").push().setValue(meetDetails);
+                    databaseReference.child("Negotiator").child(Reciever[1]).child("meet").push().setValue(meetDetails);
+                }
+            });
+            builder2.setTitle("Enter Details for meet");
             builder2.setCancelable (false);
             AlertDialog alert = builder2.create ();
             alert.show ();
@@ -199,7 +195,7 @@ public class ChatBox extends AppCompatActivity {
                         chats.add(message);
                         //   Toast.makeText(ChatActivity.this, chats.get(0).message, Toast.LENGTH_SHORT).show();
                     }
-                    adapter = new ChatBoxAdapter(chats,getApplicationContext(),User,Reciever[1],ChatBox.this);
+                    adapter = new ChatBoxNegoAdapter(chats,getApplicationContext(),User,Reciever[1],ChatBoxNego.this);
                     recyclerView.setAdapter(adapter);
 
                 }
@@ -227,7 +223,7 @@ public class ChatBox extends AppCompatActivity {
     @Override
     public void onBackPressed() {
         super.onBackPressed();
-        ChatFragment.Opened=0;
+        ChatFragmentNego.Opened=0;
     }
 
     public void SendMessage(View view) {
@@ -254,7 +250,7 @@ public class ChatBox extends AppCompatActivity {
         DatabaseReference reference = FirebaseDatabase.getInstance().getReference().child("Chats/"+ChatRoom);
         reference.child(chats.get(i).id).removeValue();
         chats.remove(i);
-        adapter = new ChatBoxAdapter(chats,getApplicationContext(),User,Reciever[1],ChatBox.this);
+        adapter = new ChatBoxNegoAdapter(chats,getApplicationContext(),User,Reciever[1],ChatBoxNego.this);
         recyclerView.setAdapter(adapter);
 
     }

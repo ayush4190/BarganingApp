@@ -17,27 +17,48 @@ import android.preference.PreferenceFragment;
 import android.preference.PreferenceManager;
 import android.preference.RingtonePreference;
 import android.preference.SwitchPreference;
+import android.support.annotation.NonNull;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.MenuItem;
+import android.widget.Toast;
+
+import com.bumptech.glide.Glide;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
 
 public class SettingsActivity extends AppCompatPreferenceActivity {
     private static final String TAG = SettingsActivity.class.getSimpleName();
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
         super.onCreate(savedInstanceState);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getFragmentManager().beginTransaction().replace(android.R.id.content, new MainPreferenceFragment()).commit();
+
     }
 
     public static class MainPreferenceFragment extends PreferenceFragment {
         AlertDialog.Builder builder2;
-
+        FirebaseUser user;
+        FirebaseAuth fba;
+        StorageReference photo_storage;
+        String imageURL;
         @Override
         public void onCreate(final Bundle savedInstanceState) {
             super.onCreate(savedInstanceState);
             addPreferencesFromResource(R.xml.pref_main);
-
+            fba = FirebaseAuth.getInstance ();
+            photo_storage=FirebaseStorage.getInstance ().getReference ().child ("Shopper_profile_image");
+            user = fba.getCurrentUser ();
             // gallery EditText change listener
             //bindPreferenceSummaryToValue(findPreference(getString(R.string.key_gallery_name)));
 
@@ -88,8 +109,49 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
 
                     builder2.setPositiveButton("Accept and Continue", new DialogInterface.OnClickListener() {
                         public void onClick(DialogInterface dialog, int which) {
+//                            String location = user.getUid () + "." + "jpg";
+//                            photo_storage.child (location).getDownloadUrl ().addOnSuccessListener (new OnSuccessListener <Uri> () {
+//                                @Override
+//                                public void onSuccess(Uri uri) {
+//                                    imageURL = uri.toString ();
+//                                    Log.v("manas2",imageURL);
+////                                    Glide.with (getApplicationContext ()).load (imageURL).into (shopper_pic);
+//                                }
+//                            }).addOnFailureListener (new OnFailureListener () {
+//                                @Override
+//                                public void onFailure(@NonNull Exception exception) {
+//                                    // Handle any errors
+////                                    Toast.makeText (ShopperHomepage.this, exception.getMessage (), Toast.LENGTH_LONG).show ();
+//                                }
+//                            });
 
-                            // add account delete code
+//                            Log.v("manas",photo_storage.getPath().toString());
+                            DatabaseReference driverRef = FirebaseDatabase.getInstance().getReference().child("Shopper").child(user.getUid());
+try{
+                            driverRef.removeValue();
+//                            StorageReference photoRef = FirebaseStorage.getInstance().getReferenceFromUrl(imageURL);
+//                            photoRef.delete().addOnSuccessListener(new OnSuccessListener<Void>() {
+//                                @Override
+//                                public void onSuccess(Void aVoid) {
+//                                    // File deleted successfully
+//                                    Log.d(TAG, "onSuccess: deleted file");
+//                                }
+//                            }).addOnFailureListener(new OnFailureListener() {
+//                                @Override
+//                                public void onFailure(@NonNull Exception exception) {
+//                                    // Uh-oh, an error occurred!
+//                                    Log.d(TAG, "onFailure: did not delete file");
+//                                }
+//                            });
+////                            photo_storage.child(imageURL).delete();
+                            user.delete();
+
+                        }catch (NullPointerException e)
+                        {
+
+                        }
+
+                        // add account delete code
                         }
                     });
                     builder2.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
