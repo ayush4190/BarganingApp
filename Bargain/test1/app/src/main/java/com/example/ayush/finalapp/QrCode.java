@@ -31,8 +31,9 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.io.IOException;
+import java.io.Serializable;
 
-public class QrCode extends AppCompatActivity {
+public class QrCode extends AppCompatActivity implements Serializable {
     SurfaceView surfaceView;
     TextView textView;
      CameraSource cameraSource;
@@ -111,15 +112,12 @@ public class QrCode extends AppCompatActivity {
                         @Override
                         public void run() {
                             Vibrator vibrator = (Vibrator)getApplicationContext().getSystemService(VIBRATOR_SERVICE);
-                            try {
+
 
 
                                 vibrator.vibrate (100);
-                            }
-                            catch (NullPointerException e)
-                            {
 
-                            }
+
                              nego_user = qrcode.valueAt (0).displayValue;
                             try {
                                 databaseReference.child (nego_user).addValueEventListener (new ValueEventListener () {
@@ -133,10 +131,22 @@ public class QrCode extends AppCompatActivity {
 
                                             textView.setText (name);
                                             // here open a new fragment here for asking permission about completing the payment
-                                            FragmentTransaction fragmentTransaction = getSupportFragmentManager ().beginTransaction ();
-                                            fragmentTransaction.replace(R.id.Final_frame,new amount_frag ());
-                                            fragmentTransaction.addToBackStack("amount");
-                                            fragmentTransaction.commit ();
+                                            textView.setOnClickListener (new View.OnClickListener () {
+                                                @Override
+                                                public void onClick(View v) {
+
+
+
+                                                      Intent intent = new Intent (QrCode.this,amount_payable.class);
+                                                      intent.putExtra ("uid",nego_user);
+                                                      startActivity (intent);
+
+                                                }
+                                            });
+//                                            FragmentTransaction fragmentTransaction = getSupportFragmentManager ().beginTransaction ();
+//                                            fragmentTransaction.replace(R.id.Final_frame,new amount_frag (nego_user));
+//                                            fragmentTransaction.addToBackStack("amount");
+//                                            fragmentTransaction.commit ();
 
 
                                         }
@@ -159,15 +169,15 @@ public class QrCode extends AppCompatActivity {
                             }
 
 
-                            textView.setOnClickListener(new View.OnClickListener() {
-                                @Override
-                                public void onClick(View v) {
-                                    FragmentTransaction fragmentTransaction = getSupportFragmentManager ().beginTransaction ();
-                                    fragmentTransaction.replace(R.id.content_frame,new FinalpayementFragment ());
-                                    fragmentTransaction.commit ();
-
-                                }
-                            });
+//                            textView.setOnClickListener(new View.OnClickListener() {
+//                                @Override
+//                                public void onClick(View v) {
+//                                    FragmentTransaction fragmentTransaction = getSupportFragmentManager ().beginTransaction ();
+//                                    fragmentTransaction.replace(R.id.content_frame,new FinalpayementFragment ());
+//                                    fragmentTransaction.commit ();
+//
+//                                }
+//                            });
 
                         }
                     });

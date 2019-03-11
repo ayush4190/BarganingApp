@@ -27,7 +27,7 @@
         <EditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Amount"
+            android:hint="Amount"
             android:textColor="@color/black"
             android:id="@+id/Amount_pay"
             android:textSize="40sp"
@@ -40,7 +40,7 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Payable Amount"
+            android:hint="Payable Amount"
             android:id="@+id/payable_amount"
             android:textColor="@color/black"
             android:textSize="40sp"
@@ -52,7 +52,7 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text=""
+            android:hint=""
             android:textColor="@color/black"
             android:textSize="40sp"
             android:id="@+id/nego_payname"
@@ -64,10 +64,11 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="proceed"
+            android:hint="proceed"
             android:textAlignment="center"
             android:textColor="@color/black"
             android:textSize="40sp"
+            android:id="@+id/buttonProceed"
             />
     </android.support.design.card.MaterialCardView>
 

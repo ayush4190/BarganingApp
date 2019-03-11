@@ -45,6 +45,7 @@
         android:text="please focus the qr code"
         android:textAllCaps="true"
         android:layout_marginTop="20dp"
+        android:clickable="true"
 
         />
    </LinearLayout>

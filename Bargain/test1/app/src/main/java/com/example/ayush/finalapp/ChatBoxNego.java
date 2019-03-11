@@ -189,6 +189,7 @@ public class ChatBoxNego extends AppCompatActivity {
                                         public void onClick(DialogInterface dialog, int which) {
                                             meetDetails.isAccepted=true;
                                             dataSnapshot.getRef().setValue(meetDetails);
+                                            /////// function here
                                         }
                                     });
                                  
