@@ -133,6 +133,10 @@ public class QrCode extends AppCompatActivity {
 
                                             textView.setText (name);
                                             // here open a new fragment here for asking permission about completing the payment
+                                            FragmentTransaction fragmentTransaction = getSupportFragmentManager ().beginTransaction ();
+                                            fragmentTransaction.replace(R.id.Final_frame,new amount_frag ());
+                                            fragmentTransaction.addToBackStack("amount");
+                                            fragmentTransaction.commit ();
 
 
                                         }

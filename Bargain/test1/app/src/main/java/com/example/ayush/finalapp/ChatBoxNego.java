@@ -395,5 +395,10 @@ public class ChatBoxNego extends AppCompatActivity {
     }
     //
 
+    public  void start_payment()
+    {
+        startActivity (new Intent (ChatBoxNego.this,NegotiatorWallet.class));
+    }
+
 
 }
