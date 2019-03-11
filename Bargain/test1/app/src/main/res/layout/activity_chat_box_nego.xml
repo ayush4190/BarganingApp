@@ -7,36 +7,37 @@
     tools:context=".ChatBoxNego">
 
     <android.support.v7.widget.RecyclerView
-        android:id="@+id/ChatAct_Recyclernego"
+        android:id="@+id/ChatAct_Recycler_nego"
         android:layout_width="match_parent"
         android:padding="5sp"
-        android:layout_height="0sp"
+        android:layout_height="match_parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintBottom_toTopOf="@id/Button_display_meet"
+        app:layout_constraintBottom_toTopOf="@id/ChatAct_message"
         app:layout_constraintStart_toStartOf="parent"
-        android:layout_marginBottom="20dp"
+        android:layout_marginBottom="62dp"
         android:scrollbars="vertical"
         />
 
-    <Button
-        android:layout_width="wrap_content"
-        android:id="@+id/Button_display_meet"
-        android:layout_height="wrap_content"
-        android:text="Show Details of meet"
-        android:background="@color/colorPrimaryDark"
-        android:textColor="@color/white"
-        android:paddingRight="15dp"
-        android:paddingLeft="15dp"
-        app:layout_constraintBottom_toTopOf="@id/ChatAct_message"
-        app:layout_constraintStart_toStartOf="parent"
-        android:layout_marginBottom="20dp"
-        />
+    <!--<Button-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:id="@+id/Button_display_meet"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:text="Show Details of meet"-->
+        <!--android:background="@color/colorPrimaryDark"-->
+        <!--android:textColor="@color/white"-->
+        <!--android:paddingRight="15dp"-->
+        <!--android:visibility="gone"-->
+        <!--android:paddingLeft="15dp"-->
+        <!--app:layout_constraintBottom_toTopOf="@id/ChatAct_message"-->
+        <!--app:layout_constraintStart_toStartOf="parent"-->
+        <!--android:layout_marginBottom="20dp"-->
+        <!--/>-->
 
     <EditText
         android:id="@+id/ChatAct_message"
         android:layout_width="0sp"
-        android:layout_height="wrap_content"
-        android:minHeight="60sp"
+        android:layout_height="48dp"
+        android:maxHeight="60dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toStartOf="@id/ChatAct_Send"
@@ -44,20 +45,22 @@
         android:layout_marginBottom="6sp"
         android:layout_marginLeft="5sp"
         android:padding="15sp"
-        android:textSize="24sp"
-        android:hint="Message"
+        android:scrollbars="vertical"
+        android:textSize="16sp"
+        android:hint="Type a message.."
         android:elevation="24dp"
         android:background="@drawable/chat_area"
         />
     <ImageButton
         android:id="@+id/ChatAct_Send"
-        android:layout_width="65sp"
-        android:layout_height="60sp"
+        android:layout_width="48dp"
+        android:foregroundGravity="center"
+        android:layout_height="48dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         android:layout_marginRight="6sp"
         android:layout_marginBottom="6sp"
-        android:background="#fff"
+        android:background="@drawable/ripple_oval"
         android:src="@drawable/ic_send_black_24dp"
         android:elevation="24dp"
         android:onClick="SendMessage"

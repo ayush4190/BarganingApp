@@ -2,9 +2,9 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <item
-        android:id="@+id/action_meet"
+        android:id="@+id/action_accept"
         android:orderInCategory="100"
-        android:icon="@drawable/meet_propose"
+        android:icon="@drawable/ic_group_white_24dp"
         app:showAsAction="ifRoom|collapseActionView"
         android:title="Meet">
 
