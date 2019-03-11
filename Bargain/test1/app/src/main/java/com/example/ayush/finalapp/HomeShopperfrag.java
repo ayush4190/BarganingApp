@@ -16,6 +16,7 @@ import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.SearchView;
@@ -38,6 +39,7 @@ public class HomeShopperfrag extends Fragment {
     SearchView msearchview;
     EditText msearchtext;
     Button location_selector;
+    AutoCompleteTextView atv;
     int PLACE_PICKER_REQUEST = 1;
     String loc_cat;
     Place place;
