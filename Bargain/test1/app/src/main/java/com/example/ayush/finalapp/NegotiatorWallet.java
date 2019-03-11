@@ -63,6 +63,18 @@ public class NegotiatorWallet extends Fragment {
             }
         });
 
+        Button button3 = (Button) view.findViewById(R.id.button3);
+        button3.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                previouspaymentsnego next= new previouspaymentsnego();
+                f.getSupportFragmentManager ().beginTransaction()
+                        .replace(R.id.content_frame, next, "negoprevpayments")
+                        .addToBackStack(null)
+                        .commit();
+            }
+        });
+
 
 //        Button button2 = (Button) view.findViewById(R.id.button2);
 //        button2.setOnClickListener(new View.OnClickListener() {
