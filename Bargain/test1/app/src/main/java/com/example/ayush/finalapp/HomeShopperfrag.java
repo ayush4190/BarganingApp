@@ -10,6 +10,7 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v4.view.ViewPager;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
@@ -42,7 +43,10 @@ public class HomeShopperfrag extends Fragment {
     Place place;
     Geocoder geocoder;
     List <Address> addresses;
+    ViewPager viewPager;
 
+    MyCustomPagerAdapter myCustomPagerAdapter;
+    Context context;
     String pincode;
     @Nullable
     @Override
@@ -54,6 +58,10 @@ public class HomeShopperfrag extends Fragment {
         super.onViewCreated (view, savedInstanceState);
         msearchview=(SearchView) view.findViewById(R.id.search);//intialisig searchView
         location_selector = (Button) view.findViewById(R.id.shopper_home_loc_button);
+        viewPager = (ViewPager)view.findViewById(R.id.viewPager);
+        myCustomPagerAdapter = new MyCustomPagerAdapter(this.getActivity());
+        viewPager.setAdapter(myCustomPagerAdapter);
+
         location_selector.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

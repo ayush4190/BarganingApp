@@ -43,7 +43,7 @@
             </intent-filter>
         </service>
 
-        See README(https://goo.gl/l4GJaQ) for more. -->
+
         <meta-data
             android:name="com.google.firebase.messaging.default_notification_icon"
             android:resource="@drawable/appicon1" />
