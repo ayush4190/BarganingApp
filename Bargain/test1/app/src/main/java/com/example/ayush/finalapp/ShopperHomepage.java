@@ -3,6 +3,8 @@ package com.example.ayush.finalapp;
 import android.Manifest;
 import android.annotation.SuppressLint;
 import android.app.AlertDialog;
+import android.app.NotificationChannel;
+import android.app.NotificationManager;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -12,12 +14,15 @@ import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v4.app.NotificationCompat;
+import android.support.v4.app.NotificationManagerCompat;
 import android.support.v4.content.ContextCompat;
 import android.util.Log;
 import android.view.View;
@@ -65,17 +70,17 @@ public class ShopperHomepage extends AppCompatActivity
     AlertDialog.Builder builder2;
     FirebaseUser user;
     ImageView mwallet;
+    private static final String channelId ="com.example.ayush.finalapp";
     Fragment fragment = null;
     ImageView mcommunity;
     ImageView mfav, msetting;
     public static Context contextOfApplication;
     int zip;
+    public static boolean isAppRunning;
     // for user name
     FirebaseDatabase firebaseDatabase;
     StorageReference photo_storage;
-
     private LocationManager locationManager;
-
     private LocationListener locationListener;
 
     CircleImageView shopper_pic;
@@ -183,10 +188,22 @@ public class ShopperHomepage extends AppCompatActivity
 
             }
         });
+
+        final NotificationCompat.Builder builder = new NotificationCompat.Builder(ShopperHomepage.this, channelId)
+                .setContentTitle("Bargainer App")
+                .setSmallIcon(R.drawable.ic_action_action_search)
+                .setContentText("Hi this is test notification")
+                .setPriority(NotificationCompat.PRIORITY_DEFAULT);
+
         msetting.setOnClickListener (new View.OnClickListener () {
             @Override
             public void onClick(View v) {
                 startActivity(new Intent(ShopperHomepage.this, SettingsActivity.class));
+//                Log.v("here","i am here");
+//                NotificationManagerCompat notificationManager = NotificationManagerCompat.from(ShopperHomepage.this);
+//                // notificationId is a unique int for each notification that you must define
+//                createNotificationChannel();
+//                notificationManager.notify(1, builder.build());
 
             }
         });
@@ -432,10 +449,13 @@ public class ShopperHomepage extends AppCompatActivity
 
 
             String location = user.getUid () + "." + "jpg";
+            Log.v("manas",photo_storage.getPath().toString());
+
             photo_storage.child (location).getDownloadUrl ().addOnSuccessListener (new OnSuccessListener <Uri> () {
                 @Override
                 public void onSuccess(Uri uri) {
                     String imageURL = uri.toString ();
+                    Log.v("manas2",imageURL);
                     Glide.with (getApplicationContext ()).load (imageURL).into (shopper_pic);
                 }
             }).addOnFailureListener (new OnFailureListener () {
@@ -497,6 +517,27 @@ public class ShopperHomepage extends AppCompatActivity
     public static Context getContextOfApplication()
     {
         return contextOfApplication;
+    }
+
+    private void createNotificationChannel() {
+        // Create the NotificationChannel, but only on API 26+ because
+        // the NotificationChannel class is new and not in the support library
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            CharSequence name = "Channel1";
+            String description = "Channel discription";
+            int importance = NotificationManager.IMPORTANCE_HIGH;
+            NotificationChannel channel = new NotificationChannel(channelId, name, importance);
+            channel.setDescription(description);
+            // Register the channel with the system; you can't change the importance
+            // or other notification behaviors after this
+            NotificationManager notificationManager = getSystemService(NotificationManager.class);
+            notificationManager.createNotificationChannel(channel);
+        }
+    }
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        isAppRunning = false;
     }
 }
 
