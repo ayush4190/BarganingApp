@@ -43,6 +43,7 @@
         android:layout_height="48dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        android:visibility="gone"
         android:layout_marginRight="6sp"
         android:layout_marginBottom="6sp"
         android:src="@drawable/ic_send_black_24dp"
@@ -50,5 +51,19 @@
         android:elevation="24dp"
         android:onClick="SendMessage"
         />
-
+    <ImageButton
+        android:id="@+id/ChatAct_Request"
+        android:foregroundGravity="center"
+        android:layout_width="48dp"
+        android:visibility="visible"
+        android:layout_height="48dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginRight="6sp"
+        android:layout_marginBottom="6sp"
+        android:src="@drawable/meet_propose"
+        android:background="@drawable/ripple_oval"
+        android:elevation="24dp"
+        android:onClick="SendMessage"
+        />
 </android.support.constraint.ConstraintLayout>
