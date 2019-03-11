@@ -7,7 +7,7 @@
     tools:context=".ChatBoxNego">
 
     <android.support.v7.widget.RecyclerView
-        android:id="@+id/ChatAct_Recycler"
+        android:id="@+id/ChatAct_Recyclernego"
         android:layout_width="match_parent"
         android:padding="5sp"
         android:layout_height="0sp"
