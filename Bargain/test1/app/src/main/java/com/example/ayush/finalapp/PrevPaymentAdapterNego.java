@@ -102,7 +102,7 @@ public class PrevPaymentAdapterNego extends RecyclerView.Adapter<PrevPaymentAdap
         holder.first_name_prev.setText(n.getDebitedFromName());
         holder.status_prev.setText(n.getStatus());
         holder.date_prev.setText(n.getDate());
-        holder.payment_prev.setText(n.getAmount());
+        holder.payment_prev.setText("+ "+n.getAmount()+" ₹");
 //        holder.phone.setText(n.getPhone());
 //        try {
 //

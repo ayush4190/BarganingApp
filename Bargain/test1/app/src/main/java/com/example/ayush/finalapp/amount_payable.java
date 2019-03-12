@@ -1,8 +1,12 @@
 package com.example.ayush.finalapp;
 
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.provider.ContactsContract;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -12,10 +16,14 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
 import java.io.Serializable;
@@ -24,13 +32,21 @@ import java.text.ParseException;
 
 public class amount_payable extends AppCompatActivity implements Serializable {
 
+//    static String MostRecentIdShopper,MostRecentDate,MostRecentNameShopper,MostRecentNameNegotiator;
+//    static String MostRecentIdNegotiator;
     FirebaseDatabase firebaseDatabase;
     DatabaseReference databaseReference;
     String name;
     NegotiatorDetails details;
+    TransactionsDetails transactionsDetails;
     String nego_user;
+    boolean check,check2;
+    String nego_transaction_id;
+    String shop_transaction_id;
+    String shop_user;
     TextView textView;
     EditText editText;
+    FirebaseUser firebaseUser;
     TextView textView1;
     double temp_amount;
    Button ok;
@@ -44,7 +60,10 @@ public class amount_payable extends AppCompatActivity implements Serializable {
 //        textView1 = (TextView) findViewById (R.id.payable_amount);
         editText = (EditText) findViewById (R.id.Amount_pay);
         nego_user = (String) getIntent ().getSerializableExtra ("uid");
+        firebaseUser=FirebaseAuth.getInstance ().getCurrentUser ();
+        shop_user=firebaseUser.getUid ();
         Log.v ("uid name", nego_user);
+        transactionsDetails=new TransactionsDetails ();
       //  floatingActionButton = (Button) findViewById (R.id.float_pay);
 
 //        try {
@@ -80,13 +99,16 @@ public class amount_payable extends AppCompatActivity implements Serializable {
 
             }
         });
-
+check=false;
+check2=false;
 
         ok.setOnClickListener (new View.OnClickListener () {
             @Override
             public void onClick(View v) {
                  message = editText.getText ().toString ();
                 proceed_payment ();
+                check=true;
+                check2=true;
             }
         });
 
@@ -124,6 +146,119 @@ public class amount_payable extends AppCompatActivity implements Serializable {
             Log.v ("final amount",details.getAmount ());
            databaseReference.child (nego_user).child ("amount").setValue (details.getAmount ());
             Toast.makeText (amount_payable.this,"Payment completed",Toast.LENGTH_LONG).show ();
+
+            //
+
+//            final DatabaseReference databaseReference1=FirebaseDatabase.getInstance ().getReference ();
+                    //
+            Log.v("intel",nego_user);
+            DatabaseReference mdatabaseReference=FirebaseDatabase.getInstance ().getReference ();
+            Query query2=mdatabaseReference.child("Transactions").child(nego_user);
+            Log.v("ASUS",query2.toString ());
+
+            query2.addChildEventListener(new ChildEventListener () {
+                @Override
+
+                public void onChildAdded(@NonNull final DataSnapshot dataSnapshot, @Nullable String s) {
+                    if(dataSnapshot.exists() && check)
+                    {
+                        nego_transaction_id=dataSnapshot.getKey ();
+                        Log.v("manas",nego_transaction_id);
+                       transactionsDetails=dataSnapshot.getValue (TransactionsDetails.class);
+                       if(transactionsDetails.getStatus ().compareToIgnoreCase ("completed")!=0 ) {
+                           Log.v ("manas", transactionsDetails.getCreditedToName ());
+                           transactionsDetails.setStatus ("Completed");
+                           transactionsDetails.setAmount (message);
+                           FirebaseDatabase.getInstance ().getReference ().child ("Transactions").child (nego_user).child (nego_transaction_id).setValue (transactionsDetails);
+                            check=false;
+                       }
+                    }
+                }
+
+                @Override
+                public void onChildChanged(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
+
+                }
+
+                @Override
+                public void onChildRemoved(@NonNull DataSnapshot dataSnapshot) {
+
+                }
+
+                @Override
+                public void onChildMoved(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
+
+                }
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                }
+            });
+//            Log.v("manas",transactionsDetails.getCreditedToName ());
+//            transactionsDetails.setStatus ("Completed");
+//            transactionsDetails.setAmount (message);
+
+            Query query=FirebaseDatabase.getInstance ().getReference ().child("Transactions").child(shop_user);
+            query.addChildEventListener(new ChildEventListener () {
+                @Override
+                public void onChildAdded(@NonNull final DataSnapshot dataSnapshot, @Nullable String s) {
+                    if(dataSnapshot.exists() && check2)
+                    {
+                        shop_transaction_id=dataSnapshot.getKey ();
+                        Log.v("manas",shop_transaction_id);
+//                        transactionsDetails=dataSnapshot.getValue (TransactionsDetails.class);
+
+                        transactionsDetails=dataSnapshot.getValue (TransactionsDetails.class);
+                        if(transactionsDetails.getStatus ().compareToIgnoreCase ("completed")!=0 ) {
+                            Log.v ("manas", transactionsDetails.getDebitedFromName ());
+                            transactionsDetails.setStatus ("Completed");
+                            transactionsDetails.setAmount (message);
+                            FirebaseDatabase.getInstance ().getReference ().child ("Transactions").child (shop_user).child (shop_transaction_id).setValue (transactionsDetails);
+                            check2 = false;
+                        }
+
+                    }
+                }
+
+                @Override
+                public void onChildChanged(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
+
+                }
+
+                @Override
+                public void onChildRemoved(@NonNull DataSnapshot dataSnapshot) {
+
+                }
+
+                @Override
+                public void onChildMoved(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
+
+                }
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                }
+            });
+//
+//            Log.v("manas",transactionsDetails.creditedToName);
+//            FirebaseDatabase.getInstance ().getReference ().child ("Transactions").child (nego_user).child (nego_transaction_id).setValue (transactionsDetails);
+//            FirebaseDatabase.getInstance ().getReference ().child ("Transactions").child (shop_user).child (shop_transaction_id).setValue (transactionsDetails);
+            //
+            //
+//            DatabaseReference databaseReference=FirebaseDatabase.getInstance ().getReference ().child ("Transactions").child (nego_user).
+//            Log.v ("final amount",MostRecentIdNegotiatoregotiator);
+//                    TransactionsDetails transactionsDetails=new TransactionsDetails (shop_user,nego_user,MostRecentNameNegotiator,MostRecentDate,"completed",String.valueOf (temp1),MostRecentNameShopper);
+//            Log.v ("final amount",shop_user);
+//            Log.v ("final amount",nego_user);
+//            Log.v ("final amount",MostRecentNameShopper);
+//            Log.v ("final amount",MostRecentNameNegotiator);
+//            Log.v ("final amount",MostRecentDate);
+
+
+//
+//            FirebaseDatabase.getInstance ().getReference ().child ("Transactions").child (shop_user).child (MostRecentIdShopper).setValue (transactionsDetails);
             startActivity (new Intent (amount_payable.this,ShopperHomepage.class));
         }catch (NumberFormatException e)
         {

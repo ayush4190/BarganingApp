@@ -1,6 +1,7 @@
 package com.example.ayush.finalapp;
 
 import android.app.DatePickerDialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
@@ -8,6 +9,7 @@ import android.graphics.drawable.ColorDrawable;
 import android.os.Debug;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -51,8 +53,12 @@ public class ChatBoxNego extends AppCompatActivity {
     private DatePickerDialog.OnDateSetListener mDateSetListener;
     private TextView mDisplayDate;
     private FirebaseAuth firebaseAuth;
+
      DatabaseReference databaseReference1;
     int amount_int;
+
+    static Context mContext;
+
     private FirebaseUser firebaseUser;
 
     private DatabaseReference databaseReference;
@@ -93,6 +99,7 @@ public class ChatBoxNego extends AppCompatActivity {
         InitializeFields();
 //        displayMeet=findViewById(R.id.Button_display_meet);
         firebaseAuth=FirebaseAuth.getInstance();
+        mContext=getApplicationContext ();
         firebaseUser = firebaseAuth.getCurrentUser ();
         databaseReference=FirebaseDatabase.getInstance ().getReference ();
         Intent intent = getIntent();
@@ -486,9 +493,18 @@ public class ChatBoxNego extends AppCompatActivity {
 //                                            });
 //                                            Log.v("manas2",name);
                                         transactionsDetails=new TransactionsDetails(shop_id,nego_id,meetDetails.getNegoname(),meetDetails.getDate(),"pending","0.0",Reciever[0]);
-                                        FirebaseDatabase.getInstance().getReference().child("Transactions").child(shop_id).push().setValue(transactionsDetails);
-                                        FirebaseDatabase.getInstance().getReference().child("Transactions").child(nego_id).push().setValue(transactionsDetails);
+                                        DatabaseReference m1=FirebaseDatabase.getInstance().getReference().child("Transactions").child(shop_id).push ();
+                                        m1.setValue(transactionsDetails);
+//                                        amount_payable.MostRecentIdShopper=m1.getKey ();
+//                                        Log.v ("manas",amount_payable.MostRecentIdShopper);
+                                        DatabaseReference m2=FirebaseDatabase.getInstance().getReference().child("Transactions").child(nego_id).push();
+                                        m2.setValue (transactionsDetails);
+//                                        amount_payable.MostRecentIdNegotiator=m2.getKey ();
                                         //here transaction is initialized
+//                                        Log.v ("manas",amount_payable.MostRecentIdNegotiator);
+//                                        amount_payable.MostRecentDate=transactionsDetails.getDate ();
+//                                        amount_payable.MostRecentNameNegotiator=transactionsDetails.getCreditedToName ();
+//                                        amount_payable.MostRecentNameShopper=transactionsDetails.getDebitedFromName ();
 
                                     }
                                 });
@@ -630,6 +646,10 @@ public class ChatBoxNego extends AppCompatActivity {
 
     }
     //
+    public static Context getContextOfApplication()
+    {
+        return mContext;
+    }
 
 
 }

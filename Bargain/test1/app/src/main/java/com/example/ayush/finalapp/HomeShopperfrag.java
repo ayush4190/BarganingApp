@@ -77,57 +77,58 @@ public class HomeShopperfrag extends Fragment {
         viewPager.setAdapter(myCustomPagerAdapter);
         recyclerView = (RecyclerView) view.findViewById(R.id.recyclerhomepage);
         adapter = new NegotiatorProfileAdapter(negotiatorList,getActivity (),0);
-
-        DatabaseReference databaseReference;
-        databaseReference= FirebaseDatabase.getInstance().getReference().child("Negotiator");
-
-        Query query2 = databaseReference.orderByChild("pincode").equalTo(pincode);
-        query2.addChildEventListener(new ChildEventListener() {
-            @Override
-            public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
-                Log.v("inondata beforeifexists", "hello ");
-
-                if (dataSnapshot.exists()) {
-                    Log.v("inondata after ifexists", "hello ");
-
-                    // for(DataSnapshot issue: dataSnapshot.getChildren()) {
-                    Log.v("gamma","fghg" );
-//                        dataSnapshot.getValue(NegotiatorDetails.class);
-                    NegotiatorDetails data = dataSnapshot.getValue(NegotiatorDetails.class);
-//                            Log.v("display data" , dataSnapshot.ge);
-
-                    adapter.addItem(data, dataSnapshot.getKey());
-                    adapter.notifyDataSetChanged();
-                }
-
-            }
-
-            @Override
-            public void onChildChanged(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
-
-            }
-
-            @Override
-            public void onChildRemoved(@NonNull DataSnapshot dataSnapshot) {
-
-            }
-
-            @Override
-            public void onChildMoved(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
-
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-
-            }
-        });
-
-
-        recyclerView.setAdapter(adapter);
-        RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getActivity());//
-        recyclerView.setLayoutManager(mLayoutManager);//n
-        adapter.notifyDataSetChanged();
+//////
+//        DatabaseReference databaseReference;
+//        databaseReference= FirebaseDatabase.getInstance().getReference().child("Negotiator");
+//
+//        Query query2 = databaseReference.orderByChild("pincode").equalTo(pincode);
+//        query2.addChildEventListener(new ChildEventListener() {
+//            @Override
+//            public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
+//                Log.v("inondata beforeifexists", "hello ");
+//
+//                if (dataSnapshot.exists()) {
+//                    Log.v("inondata after ifexists", "hello ");
+//
+//                    // for(DataSnapshot issue: dataSnapshot.getChildren()) {
+//                    Log.v("gamma","fghg" );
+////                        dataSnapshot.getValue(NegotiatorDetails.class);
+//                    NegotiatorDetails data = dataSnapshot.getValue(NegotiatorDetails.class);
+////                            Log.v("display data" , dataSnapshot.ge);
+//
+//                    adapter.addItem(data, dataSnapshot.getKey());
+//                    adapter.notifyDataSetChanged();
+//                }
+//
+//            }
+//
+//            @Override
+//            public void onChildChanged(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
+//
+//            }
+//
+//            @Override
+//            public void onChildRemoved(@NonNull DataSnapshot dataSnapshot) {
+//
+//            }
+//
+//            @Override
+//            public void onChildMoved(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
+//
+//            }
+//
+//            @Override
+//            public void onCancelled(@NonNull DatabaseError databaseError) {
+//
+//            }
+//        });
+//
+//
+//        recyclerView.setAdapter(adapter);
+//        RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getActivity());//
+//        recyclerView.setLayoutManager(mLayoutManager);//n
+//        adapter.notifyDataSetChanged();
+        //////
 
         location_selector.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -210,6 +211,7 @@ public class HomeShopperfrag extends Fragment {
                 Log.d ("checking", String.valueOf (place.getLatLng ()));
                 // here i am getting the latitue and longitute
                 pincode =test ();
+                list_negotiators ();
     /// here is the value transfer this to the shopperHomepage activity and display the list of negotiators there.
 
                 location_selector.setText(place.getName());
@@ -261,6 +263,61 @@ public class HomeShopperfrag extends Fragment {
             Log.d ("pincode",postalCode);
 
     return postalCode;
+        }
+
+        public void list_negotiators()
+        {
+            DatabaseReference databaseReference;
+            databaseReference= FirebaseDatabase.getInstance().getReference().child("Negotiator");
+
+            Query query2 = databaseReference.orderByChild("pincode").equalTo(pincode);
+            query2.addChildEventListener(new ChildEventListener() {
+                @Override
+                public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
+                    Log.v("inondata beforeifexists", "hello ");
+
+                    if (dataSnapshot.exists()) {
+                        Log.v("inondata after ifexists", "hello ");
+
+                        // for(DataSnapshot issue: dataSnapshot.getChildren()) {
+                        Log.v("gamma","fghg" );
+//                        dataSnapshot.getValue(NegotiatorDetails.class);
+                        NegotiatorDetails data = dataSnapshot.getValue(NegotiatorDetails.class);
+//                            Log.v("display data" , dataSnapshot.ge);
+
+                        adapter.addItem(data, dataSnapshot.getKey());
+                        adapter.notifyDataSetChanged();
+                    }
+
+                }
+
+                @Override
+                public void onChildChanged(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
+
+                }
+
+                @Override
+                public void onChildRemoved(@NonNull DataSnapshot dataSnapshot) {
+
+                }
+
+                @Override
+                public void onChildMoved(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
+
+                }
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                }
+            });
+
+
+            recyclerView.setAdapter(adapter);
+            RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getActivity());//
+            recyclerView.setLayoutManager(mLayoutManager);//n
+            adapter.notifyDataSetChanged();
+
         }
 
 
