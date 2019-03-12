@@ -3,6 +3,8 @@ package com.example.ayush.finalapp;
 import android.content.Intent;
 import android.os.Build;
 import android.support.annotation.NonNull;
+import android.support.design.widget.TextInputEditText;
+import android.support.design.widget.TextInputLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -25,7 +27,10 @@ import com.google.firebase.database.ValueEventListener;
 
 public class LoginShopper extends AppCompatActivity {
 
-    EditText email, password;
+    TextInputLayout password_w;
+    TextInputLayout email_w;
+    TextInputEditText email_q,password_q ;
+
     FirebaseAuth firebaseAuth;
     Button button;
     FirebaseUser user;
@@ -51,8 +56,10 @@ public class LoginShopper extends AppCompatActivity {
 
 
         }
-        email =(EditText)findViewById(R.id.email);
-        password = (EditText)findViewById(R.id.password);
+        email_q =  findViewById(R.id.email);
+        password_q=findViewById(R.id.password);
+        email_w = findViewById(R.id.email_up);
+        password_w = findViewById(R.id.password_up);
         button = (Button)findViewById(R.id.login);
         button.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -72,8 +79,8 @@ public class LoginShopper extends AppCompatActivity {
     }
     private void userlogin()
     {
-        String memail = email.getText().toString().trim();
-        String mpassword = password.getText().toString().trim();
+        String memail = email_q.getText().toString().trim();
+        String mpassword = password_q.getText().toString().trim();
 
         firebaseAuth.signInWithEmailAndPassword(memail,mpassword).addOnCompleteListener(this, new OnCompleteListener<AuthResult> () {
             @Override
