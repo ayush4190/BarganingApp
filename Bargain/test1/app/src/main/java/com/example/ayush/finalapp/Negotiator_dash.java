@@ -40,6 +40,7 @@ import com.bumptech.glide.annotation.GlideModule;
 import com.bumptech.glide.module.AppGlideModule;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
+import com.onesignal.OneSignal;
 
 import java.net.URL;
 
@@ -51,6 +52,7 @@ public class Negotiator_dash extends AppCompatActivity
 
     private DatabaseReference fdb;
     FirebaseAuth fba;
+    static String nego_name;
     FirebaseUser muser;
     FirebaseUser user;
     ImageView mwallet, nfaq, mcommunity, msetting;
@@ -78,8 +80,12 @@ public class Negotiator_dash extends AppCompatActivity
 
         photo_storage = FirebaseStorage.getInstance ().getReference ().child ("Upload");
 
-
+        OneSignal.startInit(this)
+                .inFocusDisplaying(OneSignal.OSInFocusDisplayOption.Notification)
+                .unsubscribeWhenNotificationsAreDisabled(true)
+                .init();
         //
+        OneSignal.sendTag("USER_ID",FirebaseAuth.getInstance().getCurrentUser().getUid());
 
       /*  FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
@@ -161,7 +167,8 @@ public class Negotiator_dash extends AppCompatActivity
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 NegotiatorDetails profile = dataSnapshot.getValue (NegotiatorDetails.class);
                 assert profile != null;
-                String key = profile.getFirstname () + profile.getLastname ();
+                String key = profile.getFirstname () +" "+ profile.getLastname ();
+                nego_name=key;
 
 //                if(key == null)
 //                {

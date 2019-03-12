@@ -8,7 +8,9 @@ import android.content.Intent;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
+import android.os.AsyncTask;
 import android.os.Build;
+import android.os.StrictMode;
 import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.NotificationCompat;
@@ -30,6 +32,7 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
@@ -40,10 +43,14 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.io.OutputStream;
+import java.net.HttpURLConnection;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
+import java.util.Scanner;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
@@ -71,6 +78,7 @@ public class ChatBox extends AppCompatActivity {
 
     String User;
     String[] Reciever;
+    String message_sent;
     String meet_date;
     static String ChatRoom = "manas";
     ChatBoxAdapter adapter;
@@ -172,6 +180,9 @@ public class ChatBox extends AppCompatActivity {
             builder2.setPositiveButton("Submit", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
+                        message_sent=ShopperHomepage.shop_name+" has requested you for help ";
+                        sendNotification();
+
                         place=(EditText)v1.findViewById(R.id.meet_place_edit);
                         time=(EditText)v1.findViewById(R.id.meet_time_edit);
                         meetDetails=new MeetDetails(firebaseUser.getUid(),place.getText().toString(),meet_date,time.getText().toString(),Reciever[1],false,Reciever[0]);
@@ -257,6 +268,8 @@ public class ChatBox extends AppCompatActivity {
         String message = messagebox.getText().toString();
         if(!TextUtils.isEmpty(message))
         {
+            message_sent=message;
+            sendNotification();
             DatabaseReference reference = FirebaseDatabase.getInstance().getReference().child("Chats/"+ChatRoom);
             String key = reference.push().getKey();
             final Message messages = new Message(message,User,Reciever[1],key);
@@ -281,6 +294,82 @@ public class ChatBox extends AppCompatActivity {
 
     }
 
+    public void sendNotification()
+    {
+
+//        Toast.makeText(this, "Current Recipients is : user1@gmail.com ( Just For Demo )", Toast.LENGTH_SHORT).show();
+
+        AsyncTask.execute(new Runnable() {
+            @Override
+            public void run() {
+                int SDK_INT = android.os.Build.VERSION.SDK_INT;
+                if (SDK_INT > 8) {
+                    StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder()
+                            .permitAll().build();
+                    StrictMode.setThreadPolicy(policy);
+                    String send_email;
+
+                    //This is a Simple Logic to Send Notification different Device Programmatically....
+//                    if (FirebaseAuth.getInstance().getCurrentUser().getUid().equals()) {
+//                        send_email = "user2@gmail.com";
+//                    } else {
+//                        send_email = "user1@gmail.com";
+//                    }
+                    send_email=Reciever[1];
+
+                    try {
+                        String jsonResponse;
+
+                        URL url = new URL("https://onesignal.com/api/v1/notifications");
+                        HttpURLConnection con = (HttpURLConnection) url.openConnection();
+                        con.setUseCaches(false);
+                        con.setDoOutput(true);
+                        con.setDoInput(true);
+
+                        con.setRequestProperty("Content-Type", "application/json; charset=UTF-8");
+                        con.setRequestProperty("Authorization", "Basic OTk2YzU1NDktMzE5Yi00MGEwLTk0NDMtYzZkMzI1YzNjM2Jj");
+                        con.setRequestMethod("POST");
+
+                        String strJsonBody = "{"
+                                + "\"app_id\": \"7b482b83-38de-4653-ba78-c04403c3b4c9\","
+
+                                + "\"filters\": [{\"field\": \"tag\", \"key\": \"USER_ID\", \"relation\": \"=\", \"value\": \"" + send_email + "\"}],"
+//                                + "\"headings\": {\"en\":\""+ShopperHomepage.shop_name+"\"}"
+                                + "\"data\": {\"foo\": \"bar\"},"
+                                + "\"contents\": {\"en\": \""+message_sent+"\"}"
+                                + "}";
+
+
+                        System.out.println("strJsonBody:\n" + strJsonBody);
+
+                        byte[] sendBytes = strJsonBody.getBytes("UTF-8");
+                        con.setFixedLengthStreamingMode(sendBytes.length);
+
+                        OutputStream outputStream = con.getOutputStream();
+                        outputStream.write(sendBytes);
+
+                        int httpResponse = con.getResponseCode();
+                        System.out.println("httpResponse: " + httpResponse);
+
+                        if (httpResponse >= HttpURLConnection.HTTP_OK
+                                && httpResponse < HttpURLConnection.HTTP_BAD_REQUEST) {
+                            Scanner scanner = new Scanner(con.getInputStream(), "UTF-8");
+                            jsonResponse = scanner.useDelimiter("\\A").hasNext() ? scanner.next() : "";
+                            scanner.close();
+                        } else {
+                            Scanner scanner = new Scanner(con.getErrorStream(), "UTF-8");
+                            jsonResponse = scanner.useDelimiter("\\A").hasNext() ? scanner.next() : "";
+                            scanner.close();
+                        }
+                        System.out.println("jsonResponse:\n" + jsonResponse);
+
+                    } catch (Throwable t) {
+                        t.printStackTrace();
+                    }
+                }
+            }
+        });
+    }
 
     private void createNotificationChannel() {
         // Create the NotificationChannel, but only on API 26+ because
