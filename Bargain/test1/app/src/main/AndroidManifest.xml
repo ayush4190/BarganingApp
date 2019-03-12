@@ -30,7 +30,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning">
-        <activity android:name=".amount_payable"></activity>
+        <activity android:name=".NegotiatorProfileActivity"></activity>
 
         <service android:name=".MyFirebaseMessagingService">
             <intent-filter>

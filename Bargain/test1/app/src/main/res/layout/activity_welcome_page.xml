@@ -4,91 +4,94 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainActivity"
-    android:background="@color/colorPrimary">
+    android:background="@color/colorPrimary"
+    tools:context=".MainActivity">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:layout_gravity="top">
+        android:layout_gravity="top"
+        android:orientation="vertical">
+
         <ImageView
             android:layout_width="match_parent"
             android:layout_height="100dp"
-            android:src="@drawable/applogo"
             android:layout_marginBottom="25dp"
-            />
+            android:src="@drawable/applogo" />
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
             android:layout_gravity="center"
-            >
+            android:orientation="vertical">
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical">
+
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Negotiator"
                     android:fontFamily="cursive"
-                    android:textColor="#FFFFFF"
                     android:gravity="center"
-                    android:textSize="50dp"/>
+                    android:text="Negotiator"
+                    android:textColor="#FFFFFF"
+                    android:textSize="50dp" />
+
                 <ImageView
+                    android:id="@+id/negotiatorwelcome"
                     android:layout_width="match_parent"
                     android:layout_height="165dp"
-                    android:id="@+id/negotiatorwelcome"
                     android:src="@drawable/negoreg"
 
                     />
+
                 <TextView
+                    android:id="@+id/negotiatorwelcometext"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Already Signed up?Login Here."
-                    android:id="@+id/negotiatorwelcometext"
                     android:fontFamily="sans-serif-light"
-                    android:textColor="#FFFFFF"
                     android:gravity="center"
-                    android:textSize="18dp"
-                    />
+                    android:text="Already Signed up?Login Here."
+                    android:textColor="#FFFFFF"
+                    android:textSize="18dp" />
             </LinearLayout>
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:layout_marginTop="20dp">
+                android:layout_marginTop="20dp"
+                android:orientation="vertical">
 
 
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Shopper"
                     android:fontFamily="cursive"
-                    android:textColor="#FFFFFF"
                     android:gravity="center"
-                    android:textSize="50dp"/>
+                    android:text="Shopper"
+                    android:textColor="#FFFFFF"
+                    android:textSize="50dp" />
+
                 <ImageView
-                    android:layout_marginTop="10dp"
+                    android:id="@+id/shopperwelcome"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:id="@+id/shopperwelcome"
-                    android:background="@drawable/img"
                     android:layout_gravity="center"
-                    />
+                    android:layout_marginTop="10dp"
+                    android:background="@drawable/img" />
+
                 <TextView
+                    android:id="@+id/shopperwelcometext"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Already Signed up?Login Here."
-                    android:id="@+id/shopperwelcometext"
+                    android:layout_marginTop="3dp"
                     android:fontFamily="sans-serif-light"
-                    android:textColor="#FFFFFF"
                     android:gravity="center"
-                    android:textSize="18dp"
-                    android:layout_marginTop="3dp"/>
+                    android:text="Already Signed up?Login Here."
+                    android:textColor="#FFFFFF"
+                    android:textSize="18dp" />
             </LinearLayout>
         </LinearLayout>
     </LinearLayout>

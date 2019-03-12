@@ -10,12 +10,12 @@
         android:id="@+id/ChatAct_Recycler"
         android:layout_width="match_parent"
         android:padding="5sp"
-        android:layout_height="0sp"
+        android:layout_height="match_parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintBottom_toTopOf="@id/ChatAct_message"
         app:layout_constraintStart_toStartOf="parent"
         android:scrollbars="vertical"
-
+        android:layout_marginBottom="61dp"
         />
 
     <EditText
@@ -43,6 +43,7 @@
         android:layout_height="48dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+
         android:layout_marginRight="6sp"
         android:layout_marginBottom="6sp"
         android:src="@drawable/ic_send_black_24dp"
