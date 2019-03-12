@@ -66,7 +66,11 @@
         <Button
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@color/colorPrimaryDark"/>
+            android:text="Proceed"
+            android:id="@+id/float_pay"
+            android:textSize="18sp"
+            android:textAlignment="center"
+            android:background="#80CBC4"/>
         </LinearLayout>
     </android.support.design.card.MaterialCardView>
 
