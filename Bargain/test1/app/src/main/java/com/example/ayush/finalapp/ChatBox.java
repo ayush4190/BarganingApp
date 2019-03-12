@@ -1,12 +1,18 @@
 package com.example.ayush.finalapp;
 
 import android.app.DatePickerDialog;
+import android.app.NotificationChannel;
+import android.app.NotificationManager;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
+import android.os.Build;
 import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
+import android.support.v4.app.NotificationCompat;
+import android.support.v4.app.NotificationManagerCompat;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -47,9 +53,9 @@ public class ChatBox extends AppCompatActivity {
     private DatePickerDialog.OnDateSetListener mDateSetListener;
     private TextView mDisplayDate;
     private FirebaseAuth firebaseAuth;
-
+    private static final String channelId ="com.example.ayush.finalapp";
     private FirebaseUser firebaseUser;
-
+    NotificationCompat.Builder builder;
     private DatabaseReference databaseReference;
     EditText place;
     EditText time;
@@ -173,6 +179,18 @@ public class ChatBox extends AppCompatActivity {
                         databaseReference.child("Negotiator").child(Reciever[1]).child("meet").push().setValue(meetDetails);
                         messagebox.setText("Meet Proposal\nPlace: "+place.getText().toString()+"\nDate: "+meet_date+"\nTime: "+time.getText().toString());
                         sendButton.performClick();
+
+                        builder = new NotificationCompat.Builder(ChatBox.this, channelId)
+                                .setContentTitle("Request sent successfully")
+                                .setSmallIcon(R.drawable.appicon1)
+                                .setContentText("Please wait for "+Reciever[0]+" to accept")
+                                .setPriority(NotificationCompat.PRIORITY_DEFAULT).setLargeIcon(BitmapFactory.decodeResource(getResources(),
+                                        R.drawable.appicon1));
+                        NotificationManagerCompat notificationManager = NotificationManagerCompat.from(ChatBox.this);
+
+// notificationId is a unique int for each notification that you must define
+                        notificationManager.notify(12, builder.build());
+
                     }
                 });
                 builder2.setTitle("Enter Details for meet");
@@ -261,6 +279,23 @@ public class ChatBox extends AppCompatActivity {
         adapter = new ChatBoxAdapter(chats,getApplicationContext(),User,Reciever[1],ChatBox.this);
         recyclerView.setAdapter(adapter);
 
+    }
+
+
+    private void createNotificationChannel() {
+        // Create the NotificationChannel, but only on API 26+ because
+        // the NotificationChannel class is new and not in the support library
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            CharSequence name = "Channel1";
+            String description = "Channel discription";
+            int importance = NotificationManager.IMPORTANCE_HIGH;
+            NotificationChannel channel = new NotificationChannel(channelId, name, importance);
+            channel.setDescription(description);
+            // Register the channel with the system; you can't change the importance
+            // or other notification behaviors after this
+            NotificationManager notificationManager = getSystemService(NotificationManager.class);
+            notificationManager.createNotificationChannel(channel);
+        }
     }
     //
 

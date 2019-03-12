@@ -203,7 +203,6 @@ public class ShopperHomepage extends AppCompatActivity
               startActivity(new Intent(ShopperHomepage.this, SettingsActivity.class));
                 Log.v("here","i am here");
 
-
 //notification is white as icon color is not trasnparent and white
             }
         });
