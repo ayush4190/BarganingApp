@@ -1,13 +1,21 @@
 package com.example.ayush.finalapp;
 
 import android.app.DatePickerDialog;
+import android.app.NotificationChannel;
+import android.app.NotificationManager;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
+import android.os.Build;
 import android.os.Debug;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.v4.app.FragmentTransaction;
+import android.support.v4.app.NotificationCompat;
+import android.support.v4.app.NotificationManagerCompat;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -42,6 +50,8 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
+import java.util.Random;
+import java.util.concurrent.ThreadLocalRandom;
 
 import static com.example.ayush.finalapp.ChatBox.chats;
 import static com.example.ayush.finalapp.NegotiatorProfileAdapter.n;
@@ -50,7 +60,13 @@ public class ChatBoxNego extends AppCompatActivity {
     private DatePickerDialog.OnDateSetListener mDateSetListener;
     private TextView mDisplayDate;
     private FirebaseAuth firebaseAuth;
+    private static final String channelId ="com.example.ayush.finalapp";
 
+     DatabaseReference databaseReference1;
+    int amount_int;
+String name;
+    static Context mContext;
+    NotificationCompat.Builder builder;
     private FirebaseUser firebaseUser;
 
     private DatabaseReference databaseReference;
@@ -63,7 +79,7 @@ public class ChatBoxNego extends AppCompatActivity {
     RecyclerView recyclerView;
     EditText messagebox;
     Button displayMeet;
-    String name;
+    String nameshop;
     ImageButton sendButton;
     int i,alpha;
     TransactionsDetails transactionsDetails;
@@ -91,6 +107,7 @@ public class ChatBoxNego extends AppCompatActivity {
         InitializeFields();
 //        displayMeet=findViewById(R.id.Button_display_meet);
         firebaseAuth=FirebaseAuth.getInstance();
+        mContext=getApplicationContext ();
         firebaseUser = firebaseAuth.getCurrentUser ();
         databaseReference=FirebaseDatabase.getInstance ().getReference ();
         Intent intent = getIntent();
@@ -100,7 +117,7 @@ public class ChatBoxNego extends AppCompatActivity {
 //
 //        setSupportActionBar(toolbar);
 //        getSupportActionBar().setTitle(Reciever[0]);
-
+        createNotificationChannel();
         setTitle(Reciever[0]);
         LinearLayoutManager layoutManager = new LinearLayoutManager(this);
         layoutManager.setStackFromEnd(true);
@@ -434,6 +451,44 @@ public class ChatBoxNego extends AppCompatActivity {
                                     public void onClick(DialogInterface dialog, int id) {
                                         meetDetails.isAccepted=false;
                                         dataSnapshot.getRef().setValue(meetDetails);
+
+                                        databaseReference1 = FirebaseDatabase.getInstance().getReference();
+                                        nego_id=firebaseAuth.getCurrentUser().getUid();
+
+                                        Query d=databaseReference1.child("Negotiator").child(nego_id).child("Amount");
+                                        d.addListenerForSingleValueEvent(new ValueEventListener() {
+                                            @Override
+                                            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                                                String amount="";
+                                                amount =dataSnapshot.getValue(String.class);
+//                              Log.v("amount",amount);
+                                                amount_int =Integer.parseInt(amount);
+                                               int deductable_amount = new Random().nextInt((50 - 20) + 1) + 20;
+                                                if (amount_int>=50){
+                                                    amount_int-=deductable_amount;
+                                                    amount= String.valueOf(amount_int);
+                                                }
+                                                databaseReference.child("Negotiator").child(nego_id).child("Amount").setValue(amount);
+                                                nameshop=Reciever[0];
+                                                builder = new NotificationCompat.Builder(ChatBoxNego.this, channelId)
+                                                        .setContentTitle("Amount Deducted")
+                                                        .setSmallIcon(R.drawable.appicon1)
+                                                        .setContentText("Rs." + deductable_amount +" deducted for rejecting service of "+Reciever[0])
+                                                        .setPriority(NotificationCompat.PRIORITY_DEFAULT).setLargeIcon(BitmapFactory.decodeResource(getResources(),
+                                                                R.drawable.appicon1));
+                                                NotificationManagerCompat notificationManager = NotificationManagerCompat.from(ChatBoxNego.this);
+
+// notificationId is a unique int for each notification that you must define
+                                                notificationManager.notify(11, builder.build());
+
+                                            }
+
+                                            @Override
+                                            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                                            }
+                                        });
+
                                     }
                                 });
                                 builder2.setPositiveButton("Accept", new DialogInterface.OnClickListener() {
@@ -459,9 +514,29 @@ public class ChatBoxNego extends AppCompatActivity {
 //                                            });
 //                                            Log.v("manas2",name);
                                         transactionsDetails=new TransactionsDetails(shop_id,nego_id,meetDetails.getNegoname(),meetDetails.getDate(),"pending","0.0",Reciever[0]);
-                                        FirebaseDatabase.getInstance().getReference().child("Transactions").child(shop_id).push().setValue(transactionsDetails);
-                                        FirebaseDatabase.getInstance().getReference().child("Transactions").child(nego_id).push().setValue(transactionsDetails);
+                                        DatabaseReference m1=FirebaseDatabase.getInstance().getReference().child("Transactions").child(shop_id).push ();
+                                        m1.setValue(transactionsDetails);
+//                                        amount_payable.MostRecentIdShopper=m1.getKey ();
+//                                        Log.v ("manas",amount_payable.MostRecentIdShopper);
+                                        DatabaseReference m2=FirebaseDatabase.getInstance().getReference().child("Transactions").child(nego_id).push();
+                                        m2.setValue (transactionsDetails);
+                                        builder = new NotificationCompat.Builder(ChatBoxNego.this, channelId)
+                                                .setContentTitle("Request Accepted")
+                                                .setSmallIcon(R.drawable.appicon1)
+                                                .setContentText("Open wallet to initialize payment")
+                                                .setPriority(NotificationCompat.PRIORITY_DEFAULT).setLargeIcon(BitmapFactory.decodeResource(getResources(),
+                                                        R.drawable.appicon1));
+                                        NotificationManagerCompat notificationManager = NotificationManagerCompat.from(ChatBoxNego.this);
+
+// notificationId is a unique int for each notification that you must define
+                                        notificationManager.notify(12, builder.build());
+
+//                                        amount_payable.MostRecentIdNegotiator=m2.getKey ();
                                         //here transaction is initialized
+//                                        Log.v ("manas",amount_payable.MostRecentIdNegotiator);
+//                                        amount_payable.MostRecentDate=transactionsDetails.getDate ();
+//                                        amount_payable.MostRecentNameNegotiator=transactionsDetails.getCreditedToName ();
+//                                        amount_payable.MostRecentNameShopper=transactionsDetails.getDebitedFromName ();
 
                                     }
                                 });
@@ -602,7 +677,27 @@ public class ChatBoxNego extends AppCompatActivity {
         recyclerView.setAdapter(adapter);
 
     }
+
+    private void createNotificationChannel() {
+        // Create the NotificationChannel, but only on API 26+ because
+        // the NotificationChannel class is new and not in the support library
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            CharSequence name = "Channel1";
+            String description = "Channel discription";
+            int importance = NotificationManager.IMPORTANCE_HIGH;
+            NotificationChannel channel = new NotificationChannel(channelId, name, importance);
+            channel.setDescription(description);
+            // Register the channel with the system; you can't change the importance
+            // or other notification behaviors after this
+            NotificationManager notificationManager = getSystemService(NotificationManager.class);
+            notificationManager.createNotificationChannel(channel);
+        }
+    }
     //
+    public static Context getContextOfApplication()
+    {
+        return mContext;
+    }
 
 
 }
