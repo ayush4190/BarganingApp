@@ -15,9 +15,15 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.google.zxing.BarcodeFormat;
 import com.google.zxing.WriterException;
 
@@ -26,7 +32,9 @@ public class qrdisplay extends Fragment {
     FirebaseAuth mAuth;
     FirebaseUser mUser;
     ImageView imageView;
+    TextView name;
     String temp;
+    NegotiatorDetails nd;
 
     FragmentActivity fragmentActivity;
     @Nullable
@@ -52,6 +60,12 @@ public class qrdisplay extends Fragment {
 
 
         imageView = (ImageView)view.findViewById (R.id.im_qr);
+        ////
+
+        name = (TextView)view.findViewById(R.id.qr_name);
+
+
+        ////
         mAuth = FirebaseAuth.getInstance ();
         mUser = mAuth.getCurrentUser ();
         assert mUser != null;
@@ -63,9 +77,25 @@ public class qrdisplay extends Fragment {
         display.getSize (point);
         int x = point.x;
         int y = point.y;
+        nd = new NegotiatorDetails();
 
         int icon = x < y ? x : y;
         icon = icon * 3 / 4;
+
+        DatabaseReference dr;
+        dr = FirebaseDatabase.getInstance().getReference().child("Negotiator").child(mUser.getUid());
+        dr.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                nd = dataSnapshot.getValue(NegotiatorDetails.class);
+                name.setText(nd.getFirstname() + " " + nd.getLastname());
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
         //now using the library
       QRCodeEncoder qrCodeEncoder = new QRCodeEncoder (mUser.getUid (), null, com.example.myapplication.Contents.Type.TEXT, BarcodeFormat.QR_CODE.toString (), icon);
         //convert the image into bitmap
