@@ -15,8 +15,10 @@ import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
 import android.net.Uri;
+import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.StrictMode;
 import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
@@ -56,9 +58,14 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
+import com.onesignal.OneSignal;
 
+import java.io.OutputStream;
+import java.net.HttpURLConnection;
+import java.net.URL;
 import java.util.List;
 import java.util.Locale;
+import java.util.Scanner;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
@@ -68,6 +75,7 @@ public class ShopperHomepage extends AppCompatActivity
     private DatabaseReference fdb;
     FirebaseAuth fba;
     Float rate_val;
+    static String shop_name;
     AlertDialog.Builder builder2;
     FirebaseUser user;
     ImageView mwallet;
@@ -83,7 +91,8 @@ public class ShopperHomepage extends AppCompatActivity
     StorageReference photo_storage;
     private LocationManager locationManager;
     private LocationListener locationListener;
-
+//    FirebaseUser user;
+//    FirebaseAuth fba;
     CircleImageView shopper_pic;
 
     String check = "false";
@@ -97,7 +106,11 @@ public class ShopperHomepage extends AppCompatActivity
 
         pincode ();
         //
-
+        OneSignal.startInit(this)
+                .inFocusDisplaying(OneSignal.OSInFocusDisplayOption.Notification)
+                .unsubscribeWhenNotificationsAreDisabled(true)
+                .init();
+        OneSignal.sendTag("USER_ID",FirebaseAuth.getInstance().getCurrentUser().getUid());
 
         toolbar = (Toolbar) findViewById (R.id.toolbarbottom);
 
@@ -190,18 +203,19 @@ public class ShopperHomepage extends AppCompatActivity
             }
         });
 
-        final NotificationCompat.Builder builder = new NotificationCompat.Builder(ShopperHomepage.this, channelId)
-                .setContentTitle("Bargainer App")
-                .setSmallIcon(R.drawable.appicon1)
-                .setContentText("Hi this is test notification")
-                .setPriority(NotificationCompat.PRIORITY_DEFAULT).setLargeIcon(BitmapFactory.decodeResource(getResources(),
-                        R.drawable.appicon1));
+//        final NotificationCompat.Builder builder = new NotificationCompat.Builder(ShopperHomepage.this, channelId)
+//                .setContentTitle("Bargainer App")
+//                .setSmallIcon(R.drawable.appicon1)
+//                .setContentText("Hi this is test notification")
+//                .setPriority(NotificationCompat.PRIORITY_DEFAULT).setLargeIcon(BitmapFactory.decodeResource(getResources(),
+//                        R.drawable.appicon1));
 
         msetting.setOnClickListener (new View.OnClickListener () {
             @Override
             public void onClick(View v) {
+//                sendNotification();
               startActivity(new Intent(ShopperHomepage.this, SettingsActivity.class));
-                Log.v("here","i am here");
+//                Log.v("here","i am here");
 
 //notification is white as icon color is not trasnparent and white
             }
@@ -236,7 +250,7 @@ public class ShopperHomepage extends AppCompatActivity
                 ShopperProfile profile = dataSnapshot.getValue (ShopperProfile.class);
                 assert profile != null;
                 String key = profile.getFname () + profile.getLname ();
-
+                shop_name=key;
 
                 NavigationView navigationView = (NavigationView) findViewById (R.id.nav_view);
                 View headerView = navigationView.getHeaderView (0);
@@ -533,11 +547,16 @@ public class ShopperHomepage extends AppCompatActivity
             notificationManager.createNotificationChannel(channel);
         }
     }
+
+
+
+
     @Override
     protected void onDestroy() {
         super.onDestroy();
         isAppRunning = false;
     }
+
 }
 
 
