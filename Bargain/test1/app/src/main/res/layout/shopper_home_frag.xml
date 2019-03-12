@@ -36,24 +36,27 @@
 
             </LinearLayout>
 
-            <ListView
-                android:id="@+id/list_view"
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:layout_alignParentLeft="true"
-                android:layout_alignParentStart="true"
-                />
-
             <android.support.v4.view.ViewPager
                 android:layout_width="match_parent"
                 android:layout_height="250dp"
                 android:id="@+id/viewPager"/>
 
+
+            <android.support.v7.widget.RecyclerView
+
+                xmlns:android="http://schemas.android.com/apk/res/android"
+                android:id="@+id/recyclerhomepage"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:autofillHints="search here"
+                android:background="@color/cardview_light_background"
+                android:scrollbarSize="5dip"
+                android:scrollbars="vertical"
+                android:textAlignment="center">
+
+            </android.support.v7.widget.RecyclerView>
         </LinearLayout>
-
-
-
-
 
 
 </ScrollView>
