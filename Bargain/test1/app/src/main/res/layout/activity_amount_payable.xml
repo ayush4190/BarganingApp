@@ -1,11 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
-    android:background="@color/toolbarwhite"
-    >
+    android:background="@color/toolbarwhite">
     <android.support.design.card.MaterialCardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
@@ -21,19 +20,32 @@
     </android.support.design.card.MaterialCardView>
 
     <android.support.design.card.MaterialCardView
-        android:padding="40dp"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:padding="40dp">
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
         <EditText
+            android:id="@+id/Amount_pay"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="Amount"
             android:textColor="@color/black"
-            android:id="@+id/Amount_pay"
             android:textSize="40sp"
 
             />
+
+        <android.support.design.widget.FloatingActionButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/float_pay"
+            android:layout_alignRight="@id/Amount_pay"/>
+        </RelativeLayout>
     </android.support.design.card.MaterialCardView>
+
+
     <android.support.design.card.MaterialCardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content">

@@ -2,6 +2,7 @@ package com.example.ayush.finalapp;
 
 import android.content.Intent;
 import android.support.annotation.NonNull;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -32,6 +33,7 @@ public class amount_payable extends AppCompatActivity implements Serializable {
     EditText editText;
     TextView textView1;
     double temp_amount;
+    FloatingActionButton floatingActionButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,15 +43,27 @@ public class amount_payable extends AppCompatActivity implements Serializable {
         textView1 = (TextView) findViewById (R.id.payable_amount);
         editText = (EditText) findViewById (R.id.Amount_pay);
         nego_user = (String) getIntent ().getSerializableExtra ("uid");
-        Log.d ("uid name",nego_user);
+        Log.v ("uid name", nego_user);
+        textView1.setText ("0");
+        editText.setText ("0");
+        floatingActionButton = (FloatingActionButton) findViewById (R.id.float_pay);
 
         try {
+            floatingActionButton.setOnClickListener (new View.OnClickListener () {
+                @Override
+                public void onClick(View v) {
+                    temp_amount = Double.parseDouble ((editText.getText ().toString ().trim ()));
+                    temp_amount = temp_amount * (0.02);
+                    textView1.setText (String.valueOf (temp_amount));
+                }
+            });
+            // temp_amount= Double.parseDouble ((editText.getText ().toString ().trim ()));
             NumberFormat nf = NumberFormat.getCurrencyInstance ();
 //            temp_amount = (double) nf. parse (String.valueOf (Double.parseDouble (( (editText.getText ().toString ().trim ())))));
 //            temp_amount =  (temp_amount*(0.02));
-            temp_amount = (double) nf.parse (editText.getText ().toString ().trim ());
-            temp_amount = temp_amount * (0.02);
-            textView1.setText (String.valueOf (temp_amount));
+//            temp_amount = (double) nf.parse (editText.getText ().toString ().trim ());
+//            temp_amount = temp_amount * (0.02);
+//            textView1.setText (String.valueOf (temp_amount));
             databaseReference = FirebaseDatabase.getInstance ().getReference ().child ("Negotiator");
 
             databaseReference.child (nego_user).addValueEventListener (new ValueEventListener () {
@@ -58,16 +72,16 @@ public class amount_payable extends AppCompatActivity implements Serializable {
                     details = new NegotiatorDetails ();
                     details = dataSnapshot.getValue (NegotiatorDetails.class);
                     textView = (TextView) findViewById (R.id.nego_payname);
-                    try {
-                        name = details.getFirstname () + " " + details.getLastname ();
+//                    try {
+                    name = details.getFirstname () + " " + details.getLastname ();
 
-                        textView.setText (name);
-                        Log.d ("amount id",details.getAmount ());
-                        // here open a new fragment here for asking permission about completing the payment
+                    textView.setText (name);
+                    Log.d ("amount id", details.getAmount ());
+                    // here open a new fragment here for asking permission about completing the payment
 
 
-                    } catch (NullPointerException e) {
-                    }
+//                    } catch (NullPointerException e) {
+//                    }
 
                 }
 
@@ -76,11 +90,11 @@ public class amount_payable extends AppCompatActivity implements Serializable {
 
                 }
             });
-        } catch (NullPointerException e) {
-        } catch (ParseException e) {
-            e.printStackTrace ();
-        }
-//        try {
+//        } catch (NullPointerException e) {
+//        } catch (ParseException e) {
+//            e.printStackTrace ();
+//        }
+////        try {
 //            TextView button = (TextView) findViewById (R.id.buttonProceed);
 //            button.setOnClickListener (new View.OnClickListener () {
 //                @Override
@@ -95,25 +109,27 @@ public class amount_payable extends AppCompatActivity implements Serializable {
 //            });
 //        } catch (NullPointerException e) {
 //        }
-    }
-    private int proceed_payment() {
-        try {
-            NumberFormat nf = NumberFormat.getCurrencyInstance ();
-
-            double temp = (double) nf.parse (details.getAmount ());
-            String tt = String.valueOf (temp + temp_amount);
-            details.setAmount (String.valueOf (tt));
-            databaseReference.child (nego_user).child ("amount").setValue (details.getAmount ());
-            return 1;
-        }catch (NumberFormatException e)
-        {
-                return 0;
-        } catch (ParseException e) {
-            e.printStackTrace ();
+        } catch (NumberFormatException e) {
         }
+//    private int proceed_payment() {
+//        try {
+//            NumberFormat nf = NumberFormat.getCurrencyInstance ();
+//
+//            double temp = (double) nf.parse (details.getAmount ());
+//            String tt = String.valueOf (temp + temp_amount);
+//            details.setAmount (String.valueOf (tt));
+//            databaseReference.child (nego_user).child ("amount").setValue (details.getAmount ());
+//            return 1;
+//        }catch (NumberFormatException e)
+//        {
+//                return 0;
+//        } catch (ParseException e) {
+//            e.printStackTrace ();
+//        }
+//
+//        return 0;
+//    }
 
-        return 0;
     }
-
 }
 
