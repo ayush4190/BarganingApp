@@ -1,10 +1,12 @@
 package com.example.ayush.finalapp;
 
+import android.annotation.SuppressLint;
 import android.app.FragmentManager;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.support.v7.widget.SearchView;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -18,10 +20,10 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
+import android.widget.CursorAdapter;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
-import android.widget.SearchView;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -38,6 +40,7 @@ public class Searchfrag extends Fragment {
     //int filterpos=-1;
     SearchView searchbut;
     EditText searchfragedit;
+    SearchView.SearchAutoComplete searchAutoComplete;
     String searchtext;
     ImageView filter;
     String age;
@@ -52,6 +55,7 @@ public class Searchfrag extends Fragment {
 
     }
 
+    @SuppressLint("RestrictedApi")
     @Override
     public void onViewCreated(@NonNull final View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
@@ -66,12 +70,22 @@ public class Searchfrag extends Fragment {
 
 ///// check for int =0;
 
-
         searchbut = (SearchView) view.findViewById(R.id.search);
-
-
-
-
+        searchfragedit=(EditText)searchbut.findViewById(android.support.v7.appcompat.R.id.search_src_text);
+        searchAutoComplete=(android.support.v7.widget.SearchView.SearchAutoComplete)searchbut.findViewById(android.support.v7.appcompat.R.id.search_src_text);
+        searchAutoComplete.setDropDownAnchor(R.id.search);
+        final String[] categories={"Electronics","Furniture","Groceries","Jewellery","Clothes"};
+        ArrayAdapter<String> adapter=new ArrayAdapter<String>(getActivity(),android.R.layout.simple_list_item_1,categories);
+        searchAutoComplete.setThreshold(0);
+        searchAutoComplete.setAdapter(adapter);
+        searchAutoComplete.setOnItemClickListener(
+                new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id)
+            {
+                searchfragedit.setText(categories[position]);
+            }
+        });
         /*location_selector = (Button) view.findViewById(R.id.shopper_home_loc_button);
         if (location_selector == null)
             Toast.makeText(getActivity(), "not all can be empty", Toast.LENGTH_SHORT).show();
@@ -91,8 +105,6 @@ public class Searchfrag extends Fragment {
             }
         });*/
 
-        int idtxt = searchbut.getContext().getResources().getIdentifier("android:id/search_src_text", null, null);
-        searchfragedit = (EditText) view.findViewById(idtxt);//initialising the searched text in an edit text
         //to make the keyboard pop up when fragment opens
         searchfragedit.requestFocus();
         InputMethodManager imgr = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
