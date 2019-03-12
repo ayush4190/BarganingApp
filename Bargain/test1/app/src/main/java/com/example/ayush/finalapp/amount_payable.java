@@ -1,5 +1,6 @@
 package com.example.ayush.finalapp;
 
+import android.app.Dialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.provider.ContactsContract;
@@ -10,6 +11,7 @@ import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -50,7 +52,9 @@ public class amount_payable extends AppCompatActivity implements Serializable {
     TextView textView1;
     double temp_amount;
    Button ok;
+   Button procced ;
     String message;
+    AlertDialog.Builder builder2;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -63,6 +67,25 @@ public class amount_payable extends AppCompatActivity implements Serializable {
         firebaseUser=FirebaseAuth.getInstance ().getCurrentUser ();
         shop_user=firebaseUser.getUid ();
         Log.v ("uid name", nego_user);
+//        ok.setOnClickListener (new View.OnClickListener () {
+//            @Override
+//            public void onClick(View v) {
+//                builder2 = new AlertDialog.Builder (amount_payable.this);
+//                LayoutInflater inflater = amount_payable.this.getLayoutInflater ();
+//                builder2.setPositiveButton ("Yes", new DialogInterface.OnClickListener () {
+//                    @Override
+//                    public void onClick(DialogInterface dialog, int which) {
+//                        message = editText.getText ().toString ();
+//                        proceed_payment ();
+//                        check=true;
+//                        check2=true;
+//
+//                    }
+//                });
+////                final View v1= inflater.inflate(R.layout.meet_nego_frag,null);
+////                builder2.setView (v1);
+//            }
+//        });
         transactionsDetails=new TransactionsDetails ();
       //  floatingActionButton = (Button) findViewById (R.id.float_pay);
 
@@ -78,7 +101,7 @@ public class amount_payable extends AppCompatActivity implements Serializable {
 //                    }
 //                }
 //            });
-//        ok = (Button)findViewById (R.id.float_pay);
+        ok = (Button)findViewById (R.id.float_pay);
         databaseReference = FirebaseDatabase.getInstance ().getReference ().child ("Negotiator");
 
         databaseReference.child (nego_user).addValueEventListener (new ValueEventListener () {
@@ -101,16 +124,49 @@ public class amount_payable extends AppCompatActivity implements Serializable {
         });
 check=false;
 check2=false;
-
         ok.setOnClickListener (new View.OnClickListener () {
             @Override
             public void onClick(View v) {
-                 message = editText.getText ().toString ();
-                proceed_payment ();
-                check=true;
-                check2=true;
+                builder2 = new AlertDialog.Builder (amount_payable.this);
+                LayoutInflater inflater = amount_payable.this.getLayoutInflater ();
+                builder2.setPositiveButton ("Yes", new DialogInterface.OnClickListener () {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        message = editText.getText ().toString ();
+                        proceed_payment ();
+                        check=true;
+                        check2=true;
+
+                    }
+                });
+                String total_amount = editText.getText ().toString ();
+                int temp3 = Integer.parseInt (total_amount);
+                double finaly = temp3 * 0.02 ;
+
+                builder2.setTitle ("Total payable amount to negotiator =" +String.valueOf (finaly) );
+                builder2.setNegativeButton ("No", new DialogInterface.OnClickListener () {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+
+                    }
+                });
+                builder2.setCancelable (false);
+                AlertDialog alert = builder2.create ();
+                alert.show ();
+//                final View v1= inflater.inflate(R.layout.meet_nego_frag,null);
+//                builder2.setView (v1);
             }
         });
+
+//        ok.setOnClickListener (new View.OnClickListener () {
+//            @Override
+//            public void onClick(View v) {
+////                 message = editText.getText ().toString ();
+////                proceed_payment ();
+////                check=true;
+////                check2=true;
+//            }
+//        });
 
 
 //            databaseReference = FirebaseDatabase.getInstance ().getReference ().child ("Negotiator");
