@@ -427,9 +427,9 @@ public class ShopperProfileActivity extends AppCompatActivity implements Seriali
 //
 //    }
 private void selectImage() {
+//removed Take Photo
 
-
-    final CharSequence[] options = {"Take Photo", "Choose from Gallery", "Cancel"};
+    final CharSequence[] options = { "Choose from Gallery", "Cancel"};
 
 
     AlertDialog.Builder builder = new AlertDialog.Builder (ShopperProfileActivity.this);

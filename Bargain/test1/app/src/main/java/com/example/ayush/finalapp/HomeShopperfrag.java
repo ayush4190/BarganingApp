@@ -181,6 +181,9 @@ public class HomeShopperfrag extends Fragment {
 
 
 
+
+
+
      /*   location_selector = (Button) view.findViewById(R.id.shopper_home_loc_button);
         if (location_selector == null)
             Toast.makeText(getActivity(), "not all can be empty", Toast.LENGTH_SHORT).show();
@@ -210,7 +213,6 @@ public class HomeShopperfrag extends Fragment {
                 pincode =test ();
                 list_negotiators ();
     /// here is the value transfer this to the shopperHomepage activity and display the list of negotiators there.
-
 
                 location_selector.setText(place.getName());
                 List<Integer> a = place.getPlaceTypes();
