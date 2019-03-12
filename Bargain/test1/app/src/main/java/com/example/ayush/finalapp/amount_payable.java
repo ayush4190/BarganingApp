@@ -59,7 +59,7 @@ public class amount_payable extends AppCompatActivity implements Serializable {
 //                    }
 //                }
 //            });
-        ok = (Button)findViewById (R.id.float_pay);
+//        ok = (Button)findViewById (R.id.float_pay);
         databaseReference = FirebaseDatabase.getInstance ().getReference ().child ("Negotiator");
 
         databaseReference.child (nego_user).addValueEventListener (new ValueEventListener () {

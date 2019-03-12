@@ -42,6 +42,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
+import java.util.Random;
 
 import static com.example.ayush.finalapp.ChatBox.chats;
 import static com.example.ayush.finalapp.NegotiatorProfileAdapter.n;
@@ -50,7 +51,8 @@ public class ChatBoxNego extends AppCompatActivity {
     private DatePickerDialog.OnDateSetListener mDateSetListener;
     private TextView mDisplayDate;
     private FirebaseAuth firebaseAuth;
-
+     DatabaseReference databaseReference1;
+    int amount_int;
     private FirebaseUser firebaseUser;
 
     private DatabaseReference databaseReference;
@@ -434,6 +436,31 @@ public class ChatBoxNego extends AppCompatActivity {
                                     public void onClick(DialogInterface dialog, int id) {
                                         meetDetails.isAccepted=false;
                                         dataSnapshot.getRef().setValue(meetDetails);
+
+                                        databaseReference1 = FirebaseDatabase.getInstance().getReference();
+                                        nego_id=firebaseAuth.getCurrentUser().getUid();
+
+                                        Query d=databaseReference1.child("Negotiator").child(nego_id).child("Amount");
+                                        d.addListenerForSingleValueEvent(new ValueEventListener() {
+                                            @Override
+                                            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                                                String amount="";
+                                                amount =dataSnapshot.getValue(String.class);
+//                              Log.v("amount",amount);
+                                                amount_int =Integer.parseInt(amount);
+//                                                int deductable_amount =new Random().
+                                                if (amount_int>=50){
+                                                    amount_int-=50;
+                                                    amount= String.valueOf(amount_int);
+                                                }
+                                                databaseReference.child("Negotiator").child(nego_id).child("Amount").setValue(amount);
+                                            }
+
+                                            @Override
+                                            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                                            }
+                                        });
                                     }
                                 });
                                 builder2.setPositiveButton("Accept", new DialogInterface.OnClickListener() {
