@@ -37,27 +37,17 @@
 
             />
 
-        <android.support.design.widget.FloatingActionButton
+        <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/float_pay"
+            android:text="ok"
             android:layout_alignRight="@id/Amount_pay"/>
         </RelativeLayout>
     </android.support.design.card.MaterialCardView>
 
 
-    <android.support.design.card.MaterialCardView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="Payable Amount"
-            android:id="@+id/payable_amount"
-            android:textColor="@color/black"
-            android:textSize="40sp"
-            />
-    </android.support.design.card.MaterialCardView>
+
     <android.support.design.card.MaterialCardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
@@ -70,18 +60,18 @@
             android:id="@+id/nego_payname"
             />
     </android.support.design.card.MaterialCardView>
-    <android.support.design.card.MaterialCardView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="proceed"
-            android:textAlignment="center"
-            android:textColor="@color/black"
-            android:textSize="40sp"
-            android:id="@+id/buttonProceed"
-            />
-    </android.support.design.card.MaterialCardView>
+    <!--<android.support.design.card.MaterialCardView-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content">-->
+        <!--<TextView-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:hint="proceed"-->
+            <!--android:textAlignment="center"-->
+            <!--android:textColor="@color/black"-->
+            <!--android:textSize="40sp"-->
+            <!--android:id="@+id/buttonProceed"-->
+            <!--/>-->
+    <!--</android.support.design.card.MaterialCardView>-->
 
 </LinearLayout>

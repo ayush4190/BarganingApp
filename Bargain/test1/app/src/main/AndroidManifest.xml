@@ -133,6 +133,7 @@
         <activity
             android:name=".VerifyPhoneActivity"
             android:label="Otp_Verification" />
+        <activity android:name=".amount_payable"/>
         <activity
             android:name=".ShopperHomepage"
             android:label="ShopperHomepage"
