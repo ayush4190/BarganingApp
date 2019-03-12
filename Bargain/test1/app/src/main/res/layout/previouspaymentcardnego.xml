@@ -39,21 +39,7 @@
                 />
 
             <!--"₹"-->
-            <TextView
-
-
-                android:layout_alignParentRight="true"
-                style="@style/TextAppearance.AppCompat.Subhead"
-                android:layout_width="wrap_content"
-                android:id="@+id/rupee"
-                android:layout_marginTop="12dp"
-                android:text="+ ₹"
-                android:layout_height="wrap_content"
-                android:paddingRight="40dp"
-                android:textSize="20dp"
-                android:textColor="#008000"
-                />
-            <TextView
+                        <TextView
 
 
                 android:layout_alignParentRight="true"
