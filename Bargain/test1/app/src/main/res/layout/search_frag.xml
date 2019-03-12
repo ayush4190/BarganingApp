@@ -14,19 +14,19 @@
             android:layout_height="50dp"
             android:src="@drawable/ic_sort_black_24dp" />
 
-    <SearchView
+    <android.support.v7.widget.SearchView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_gravity="end"
         android:id="@+id/search"
-
+        android:autofillHints=""
         android:clickable="true"
         android:queryHint="Search by product or shop "
         android:iconifiedByDefault="false"
         android:focusableInTouchMode="false"
         >
 
-    </SearchView>
+    </android.support.v7.widget.SearchView>
 
 
 </LinearLayout>
