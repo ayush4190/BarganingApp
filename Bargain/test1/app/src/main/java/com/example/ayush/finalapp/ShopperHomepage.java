@@ -120,7 +120,7 @@ public class ShopperHomepage extends AppCompatActivity
 
         contextOfApplication=getApplicationContext();
         Toolbar toolbar = (Toolbar) findViewById (R.id.toolbar);
-        toolbar.setLogo(R.drawable.applogo);
+        toolbar.setLogo(R.drawable.applogo1);
         setSupportActionBar (toolbar);
 
         fba = FirebaseAuth.getInstance ();
@@ -170,6 +170,7 @@ public class ShopperHomepage extends AppCompatActivity
         FragmentTransaction fragmentTransaction = getSupportFragmentManager ().beginTransaction ();
         fragmentTransaction.replace (R.id.content_frame, new HomeShopperfrag (), "Homefrag");
         fragmentTransaction.commit ();
+        
 
         // calling wallet page using fragments
         mwallet.setOnClickListener (new View.OnClickListener () {

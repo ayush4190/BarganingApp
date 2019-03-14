@@ -20,7 +20,7 @@ public class ForgotPassword extends AppCompatActivity {
         email_w = findViewById(R.id.forgotemail_up);
         forgotButton=findViewById(R.id.forgotbutton);
         email_q =  findViewById(R.id.email);
-        String memail = email_q.getText().toString().trim();
+//        String memail = email_q.getText().toString().trim();
 
         forgotButton.setOnClickListener(new View.OnClickListener() {
             @Override
