@@ -9,8 +9,10 @@ import android.content.Intent;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
+import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Debug;
+import android.os.StrictMode;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.FragmentTransaction;
@@ -33,6 +35,7 @@ import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.vision.L;
@@ -45,12 +48,17 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
+import com.onesignal.OneSignal;
 
+import java.io.OutputStream;
+import java.net.HttpURLConnection;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import java.util.Random;
+import java.util.Scanner;
 import java.util.concurrent.ThreadLocalRandom;
 
 import static com.example.ayush.finalapp.ChatBox.chats;
@@ -61,7 +69,7 @@ public class ChatBoxNego extends AppCompatActivity {
     private TextView mDisplayDate;
     private FirebaseAuth firebaseAuth;
     private static final String channelId ="com.example.ayush.finalapp";
-
+String message_sent;
      DatabaseReference databaseReference1;
     int amount_int;
 String name;
@@ -114,10 +122,16 @@ String name;
         User = intent.getStringExtra("User");
         Reciever = intent.getStringArrayExtra("Reciever");
         int Num = intent.getIntExtra("Number",0);
+
+
+//        OneSignal.startInit(this)
+//                .inFocusDisplaying(OneSignal.OSInFocusDisplayOption.None)
+//                .unsubscribeWhenNotificationsAreDisabled(true)
+//                .init();
 //
 //        setSupportActionBar(toolbar);
 //        getSupportActionBar().setTitle(Reciever[0]);
-        createNotificationChannel();
+//        createNotificationChannel();
         setTitle(Reciever[0]);
         LinearLayoutManager layoutManager = new LinearLayoutManager(this);
         layoutManager.setStackFromEnd(true);
@@ -450,6 +464,9 @@ String name;
                                 builder2.setNegativeButton("Reject", new DialogInterface.OnClickListener() {
                                     public void onClick(DialogInterface dialog, int id) {
                                         meetDetails.isAccepted=false;
+                                        message_sent="Sorry, "+Negotiator_dash.nego_name+" has rejected your request";
+                                        sendNotification();
+
                                         dataSnapshot.getRef().setValue(meetDetails);
 
                                         databaseReference1 = FirebaseDatabase.getInstance().getReference();
@@ -495,6 +512,9 @@ String name;
                                     @Override
                                     public void onClick(DialogInterface dialog, int which) {
                                         meetDetails.isAccepted=true;
+                                        message_sent=Negotiator_dash.nego_name+" has accepted your request, Happy Bargaining:)";
+                                        sendNotification();
+
                                         dataSnapshot.getRef().setValue(meetDetails);
 
                                         nego_id=firebaseAuth.getCurrentUser().getUid();
@@ -654,6 +674,8 @@ String name;
         String message = messagebox.getText().toString();
         if(!TextUtils.isEmpty(message))
         {
+            message_sent=message;
+            sendNotification();
             DatabaseReference reference = FirebaseDatabase.getInstance().getReference().child("Chats/"+ChatRoom);
             String key = reference.push().getKey();
             final Message messages = new Message(message,User,Reciever[1],key);
@@ -661,6 +683,7 @@ String name;
                 @Override
                 public void onSuccess(Void aVoid) {
                     messagebox.setText(null);
+                    Log.v("nego_name",Negotiator_dash.nego_name);
                 }
             });
 
@@ -677,7 +700,84 @@ String name;
         recyclerView.setAdapter(adapter);
 
     }
+    public void sendNotification()
+    {
 
+//        Toast.makeText(this, "Current Recipients is : user1@gmail.com ( Just For Demo )", Toast.LENGTH_SHORT).show();
+
+        AsyncTask.execute(new Runnable() {
+            @Override
+            public void run() {
+                int SDK_INT = android.os.Build.VERSION.SDK_INT;
+                if (SDK_INT > 8) {
+                    StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder()
+                            .permitAll().build();
+                    StrictMode.setThreadPolicy(policy);
+                    String send_email;
+
+                    //This is a Simple Logic to Send Notification different Device Programmatically....
+//                    if (FirebaseAuth.getInstance().getCurrentUser().getUid().equals()) {
+//                        send_email = "user2@gmail.com";
+//                    } else {
+//                        send_email = "user1@gmail.com";
+//                    }
+                    send_email=Reciever[1];
+
+                    try {
+                        String jsonResponse;
+
+                        URL url = new URL("https://onesignal.com/api/v1/notifications");
+                        HttpURLConnection con = (HttpURLConnection) url.openConnection();
+                        con.setUseCaches(false);
+                        con.setDoOutput(true);
+                        con.setDoInput(true);
+
+                        con.setRequestProperty("Content-Type", "application/json; charset=UTF-8");
+                        con.setRequestProperty("Authorization", "Basic OTk2YzU1NDktMzE5Yi00MGEwLTk0NDMtYzZkMzI1YzNjM2Jj");
+                        con.setRequestMethod("POST");
+
+                        String strJsonBody = "{"
+                                + "\"app_id\": \"7b482b83-38de-4653-ba78-c04403c3b4c9\","
+
+                                + "\"filters\": [{\"field\": \"tag\", \"key\": \"USER_ID\", \"relation\": \"=\", \"value\": \"" + send_email + "\"}],"
+
+                                + "\"data\": {\"foo\": \"bar\"},"
+
+                                + "\"contents\": {\"en\": \""+message_sent+"\"}"
+//                                + "\"headings\": {\"en\":\""+Negotiator_dash.nego_name+"\"}"
+                                + "}";
+
+
+                        System.out.println("strJsonBody:\n" + strJsonBody);
+
+                        byte[] sendBytes = strJsonBody.getBytes("UTF-8");
+                        con.setFixedLengthStreamingMode(sendBytes.length);
+
+                        OutputStream outputStream = con.getOutputStream();
+                        outputStream.write(sendBytes);
+
+                        int httpResponse = con.getResponseCode();
+                        System.out.println("httpResponse: " + httpResponse);
+
+                        if (httpResponse >= HttpURLConnection.HTTP_OK
+                                && httpResponse < HttpURLConnection.HTTP_BAD_REQUEST) {
+                            Scanner scanner = new Scanner(con.getInputStream(), "UTF-8");
+                            jsonResponse = scanner.useDelimiter("\\A").hasNext() ? scanner.next() : "";
+                            scanner.close();
+                        } else {
+                            Scanner scanner = new Scanner(con.getErrorStream(), "UTF-8");
+                            jsonResponse = scanner.useDelimiter("\\A").hasNext() ? scanner.next() : "";
+                            scanner.close();
+                        }
+                        System.out.println("jsonResponse:\n" + jsonResponse);
+
+                    } catch (Throwable t) {
+                        t.printStackTrace();
+                    }
+                }
+            }
+        });
+    }
     private void createNotificationChannel() {
         // Create the NotificationChannel, but only on API 26+ because
         // the NotificationChannel class is new and not in the support library
