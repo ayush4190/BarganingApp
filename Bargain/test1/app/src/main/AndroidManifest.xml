@@ -30,19 +30,17 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning">
-        <activity android:name=".NegotiatorProfileActivity"></activity>
-
-        <!--<meta-data-->
-            <!--android:name="com.google.firebase.messaging.default_notification_icon"-->
-            <!--android:resource="@drawable/appicon1" />-->
-        <!--&lt;!&ndash;-->
- <!--Set color used with incoming notification messages. This is used when no color is set for the incoming-->
-             <!--notification message. See README(https://goo.gl/6BKBk7) for more.-->
-        <!--&ndash;&gt;-->
-        <!--<meta-data-->
-            <!--android:name="com.google.firebase.messaging.default_notification_color"-->
-            <!--android:resource="@color/colorAccent" />-->
-
+        <activity android:name=".ForgotPassword"></activity>
+        <activity android:name=".NegotiatorProfileActivity" /> <!-- <meta-data -->
+        <!-- android:name="com.google.firebase.messaging.default_notification_icon" -->
+        <!-- android:resource="@drawable/appicon1" /> -->
+        <!-- &lt;!&ndash; -->
+        <!-- Set color used with incoming notification messages. This is used when no color is set for the incoming -->
+        <!-- notification message. See README(https://goo.gl/6BKBk7) for more. -->
+        <!-- &ndash;&gt; -->
+        <!-- <meta-data -->
+        <!-- android:name="com.google.firebase.messaging.default_notification_color" -->
+        <!-- android:resource="@color/colorAccent" /> -->
         <activity android:name=".ChatBoxNego" />
         <activity android:name=".ChatMain" />
         <activity android:name=".ShopperProfileActivity" />
@@ -122,7 +120,7 @@
         <activity
             android:name=".VerifyPhoneActivity"
             android:label="Otp_Verification" />
-        <activity android:name=".amount_payable"/>
+        <activity android:name=".amount_payable" />
         <activity
             android:name=".ShopperHomepage"
             android:label="ShopperHomepage"
