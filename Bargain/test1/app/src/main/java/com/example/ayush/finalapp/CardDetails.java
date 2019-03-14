@@ -30,9 +30,12 @@ import com.google.firebase.storage.StorageReference;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
+import static com.example.ayush.finalapp.ChatFragmentNego.list;
+
 public class CardDetails extends AppCompatActivity {
     int amount_int;
     CircleImageView pro_image;
+    NegotiatorDetails n;
     StorageReference photo_storage;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,7 +47,7 @@ public class CardDetails extends AppCompatActivity {
         catch (NullPointerException e){}
         setContentView(R.layout.card_frag);
         Intent i=getIntent();
-        NegotiatorDetails n=(NegotiatorDetails)i.getSerializableExtra("nego_data");
+     n=(NegotiatorDetails)i.getSerializableExtra("nego_data");
         final String pos=(String)i.getStringExtra("pos");
         int favbool=(int)i.getIntExtra("favbool",0);
         TextView first_name=(TextView)findViewById(R.id.first_name);
@@ -160,32 +163,20 @@ public class CardDetails extends AppCompatActivity {
                 chatButton.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-//                        FirebaseUser firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
-                        final DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference();
+//                      //open chatbox for this nego
 
-                        Query d=databaseReference.child("Negotiator").child(pos).child("Amount");
-                      d.addListenerForSingleValueEvent(new ValueEventListener() {
-                          @Override
-                          public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                              String amount="";
-                              amount =dataSnapshot.getValue(String.class);
-//                              Log.v("amount",amount);
-                              amount_int =Integer.parseInt(amount);
-                              if (amount_int>=50){
-                                  amount_int-=50;
-                                  amount= String.valueOf(amount_int);
-                              }
-                            databaseReference.child("Negotiator").child(pos).child("Amount").setValue(amount);
-                          }
-
-                          @Override
-                          public void onCancelled(@NonNull DatabaseError databaseError) {
-
-                          }
-                      });
-
-
-
+                        if(ChatFragmentNego.Opened != 0)
+                            return;
+                        ChatFragmentNego.Opened = 1;
+                        //important
+                        Log.v("lancer",pos);
+                        String[] x={n.getFirstname()+" "+n.getLastname(),pos};
+                        String User = FirebaseAuth.getInstance().getCurrentUser().getUid();
+                        Intent intent = new Intent(getApplicationContext(),ChatBox.class);
+                        intent.putExtra("User",User);
+                        intent.putExtra("Reciever",x);
+                        intent.putExtra("Number",0);
+                        startActivity(intent);
 
                     }
                 });
