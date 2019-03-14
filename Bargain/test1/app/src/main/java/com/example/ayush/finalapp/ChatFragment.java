@@ -193,7 +193,7 @@ public class ChatFragment extends Fragment {
 
             //show the most recent message
             //if message sent from here display tick
-            
+
             //else display message only
 
 
