@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.location.Address;
 import android.location.Geocoder;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -43,6 +44,8 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
+import java.util.Timer;
+import java.util.TimerTask;
 
 import static android.app.Activity.RESULT_OK;
 
@@ -63,6 +66,8 @@ public class HomeShopperfrag extends Fragment {
 
     MyCustomPagerAdapter myCustomPagerAdapter;
     Context context;
+    int currentPage=0;
+    int NUM_PAGES=3;
     String pincode;
     @Nullable
     @Override
@@ -77,9 +82,43 @@ public class HomeShopperfrag extends Fragment {
         location_selector = (Button) view.findViewById(R.id.shopper_home_loc_button);
         viewPager = (ViewPager)view.findViewById(R.id.viewPager);
         myCustomPagerAdapter = new MyCustomPagerAdapter(this.getActivity());
-        viewPager.setAdapter(myCustomPagerAdapter);
+
+    viewPager.setAdapter(myCustomPagerAdapter);
+
         recyclerView = (RecyclerView) view.findViewById(R.id.recyclerhomepage);
         adapter = new NegotiatorProfileAdapter(negotiatorList,getActivity (),0);
+
+        final Handler handler = new Handler();
+        final Runnable Update = new Runnable() {
+            public void run() {
+                if (currentPage == NUM_PAGES) {
+                    currentPage = 0;
+                }
+                viewPager.setCurrentItem(currentPage++, true);
+            }
+        };
+
+        Timer swipeTimer = new Timer();
+        swipeTimer.schedule(new TimerTask() {
+
+            @Override
+            public void run() {
+                handler.post(Update);
+            }
+        }, 500, 3000);
+
+
+
+
+
+
+
+
+
+
+
+
+
 //////
 //        DatabaseReference databaseReference;
 //        databaseReference= FirebaseDatabase.getInstance().getReference().child("Negotiator");
