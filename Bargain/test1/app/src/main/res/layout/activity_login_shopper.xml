@@ -111,7 +111,7 @@
         android:textColor="@color/colorGrey"
         android:layout_marginTop="10dp"
         android:layout_height="wrap_content"
-        android:text="Forgot password? Clisk Here "
+        android:text="Forgot password? Click Here "
         android:layout_gravity="center"
         android:textAlignment="center"/>
     <TextView
@@ -120,6 +120,7 @@
         android:textColor="@color/colorGrey"
         android:layout_height="wrap_content"
         android:layout_marginBottom="40dp"
+        android:layout_marginTop="7dp"
         android:text="Not a user? Sign up here"
         android:layout_gravity="center"
         android:textAlignment="center"/>

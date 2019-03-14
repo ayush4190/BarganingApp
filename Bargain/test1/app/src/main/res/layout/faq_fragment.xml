@@ -5,16 +5,18 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <LinearLayout
         android:layout_width="match_parent"
+        android:paddingBottom="38dp"
+        android:layout_marginBottom="38dp"
         android:layout_height="wrap_content"
         android:orientation="vertical">
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="FAQs"
+            android:text="Frequently Asked Questions"
             android:paddingLeft="25dp"
             android:paddingBottom="10dp"
             android:paddingTop="10dp"
-            android:textSize="30dp"
+            android:textSize="20dp"
             android:textColor="@color/primaryTextColor"
             android:background="@color/colorPrimary"
             />
@@ -41,12 +43,11 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="5dp"
-
                     android:text="What is our Customer Support Email?"
                     android:textColor="@color/colorPrimaryDark"
                     android:textSize="18dp" />
                 <TextView
-                    android:layout_width="match_parent"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="customer_service@bargainningpartners.com"
                     android:textSize="16dp"
