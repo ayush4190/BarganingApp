@@ -74,6 +74,7 @@ public class Negotiator_dash extends AppCompatActivity
         setContentView(R.layout.activity_negotiator_dash);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         toolbar.setLogo(R.drawable.applogo);
+
         setSupportActionBar(toolbar);
         fba = FirebaseAuth.getInstance ();
 
