@@ -60,6 +60,7 @@ import java.util.List;
 import java.util.Random;
 import java.util.Scanner;
 import java.util.concurrent.ThreadLocalRandom;
+import java.util.regex.Pattern;
 
 import static com.example.ayush.finalapp.ChatBox.chats;
 import static com.example.ayush.finalapp.NegotiatorProfileAdapter.n;
@@ -672,6 +673,7 @@ String name;
     public void SendMessage(View view) {
 
         String message = messagebox.getText().toString();
+        message= Pattern.compile("^\n*",Pattern.DOTALL).matcher(message).replaceFirst("");
         if(!TextUtils.isEmpty(message))
         {
             message_sent=message;
