@@ -28,6 +28,7 @@ import android.support.v4.app.NotificationCompat;
 import android.support.v4.app.NotificationManagerCompat;
 import android.support.v4.content.ContextCompat;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -38,6 +39,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.RatingBar;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -395,18 +397,33 @@ public class ShopperHomepage extends AppCompatActivity
             builder2 = new AlertDialog.Builder (ShopperHomepage.this);
             builder2.setTitle("Rate App");
             builder2.setMessage("Show us some love!!");
+
+            LinearLayout linearLayout = new LinearLayout(this);
             final RatingBar rating = new RatingBar(this);
-            rating.setMax(5);
+
+            LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(
+                    LinearLayout.LayoutParams.WRAP_CONTENT,
+                    LinearLayout.LayoutParams.WRAP_CONTENT
+            );
+
+            rating.setLayoutParams(lp);
+            rating.setNumStars(5);
+            rating.setStepSize(1);
+            linearLayout.addView(rating);
+            linearLayout.setGravity(Gravity.CENTER);
 
 //            rating.setNumStars(5);
-            builder2.setIcon(android.R.drawable.star_big_off);
-            builder2.setView(rating);
+            builder2.setIcon(android.R.drawable.star_on);
+            builder2.setView(linearLayout);
 
             builder2.setPositiveButton("Submit", new DialogInterface.OnClickListener() {
                 public void onClick(DialogInterface dialog, int which) {
                     int rate_val =rating.getProgress();
                     Log.v("RAAAAA",String.valueOf(rating.getProgress()));
+                    if (rate_val>=4)
                     Toast.makeText(ShopperHomepage.this,"Thank you for your Support!",Toast.LENGTH_SHORT).show();
+                    else
+                        Toast.makeText(ShopperHomepage.this,"Thank you! Please provide feedback to help us improve the service",Toast.LENGTH_SHORT).show();
                     // here you can add functions
                 }
             });
