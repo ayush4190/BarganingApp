@@ -105,7 +105,7 @@ public class HomeShopperfrag extends Fragment {
             public void run() {
                 handler.post(Update);
             }
-        }, 500, 3000);
+        }, 800, 4500);
 
 
 
