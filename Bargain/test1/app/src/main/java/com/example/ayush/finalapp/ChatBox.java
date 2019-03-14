@@ -51,6 +51,7 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import java.util.Scanner;
+import java.util.regex.Pattern;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
@@ -266,10 +267,18 @@ public class ChatBox extends AppCompatActivity {
     public void SendMessage(View view) {
 
         String message = messagebox.getText().toString();
+        Log.v("message replace",message);
+
+        message=Pattern.compile("^\n*",Pattern.DOTALL).matcher(message).replaceFirst("");
         if(!TextUtils.isEmpty(message))
         {
+
+//            message=message.replaceAll("\n*.",".");
+//            TextUtils.replace(message,new String[]{"\n\n"},new CharSequence[]{"\n"});
+//            message_sent=message.replaceAll("\n\n","\n");
             message_sent=message;
             sendNotification();
+
             DatabaseReference reference = FirebaseDatabase.getInstance().getReference().child("Chats/"+ChatRoom);
             String key = reference.push().getKey();
             final Message messages = new Message(message,User,Reciever[1],key);

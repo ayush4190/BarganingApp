@@ -102,7 +102,7 @@ public class NegotiatorRegistration extends AppCompatActivity {
                 //1c2
 
 
-
+                String messagePattern = "\n*.";
                 String emailv = email_q.getText().toString().trim();
                 String emailPattern = "[a-zA-Z0-9._-]+@[a-z]+\\.+[a-z]+";
 
