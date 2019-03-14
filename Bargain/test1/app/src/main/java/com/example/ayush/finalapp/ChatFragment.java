@@ -189,6 +189,16 @@ public class ChatFragment extends Fragment {
             TextView text = convertView.findViewById(R.id.Design_text);
             ConstraintLayout constraintLayout=convertView.findViewById(R.id.chatdesign_constraint);
             text.setText(list.get(position)[0]);
+
+
+            //show the most recent message
+            //if message sent from here display tick
+            
+            //else display message only
+
+
+
+
             constraintLayout.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
