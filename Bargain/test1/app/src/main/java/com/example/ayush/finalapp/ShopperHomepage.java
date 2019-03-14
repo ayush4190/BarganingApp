@@ -120,7 +120,7 @@ public class ShopperHomepage extends AppCompatActivity
 
         contextOfApplication=getApplicationContext();
         Toolbar toolbar = (Toolbar) findViewById (R.id.toolbar);
-
+        toolbar.setLogo(R.drawable.applogo);
         setSupportActionBar (toolbar);
 
         fba = FirebaseAuth.getInstance ();

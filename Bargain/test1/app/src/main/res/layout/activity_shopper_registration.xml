@@ -8,13 +8,14 @@
     tools:context=".ShopperRegistration">
 
     <LinearLayout
+        android:layout_marginTop="8dp"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical">
 
         <ImageView
-            android:layout_width="220dp"
-            android:layout_height="220dp"
+            android:layout_width="150dp"
+            android:layout_height="150dp"
             android:src="@drawable/img"
             android:layout_gravity="center"
             />

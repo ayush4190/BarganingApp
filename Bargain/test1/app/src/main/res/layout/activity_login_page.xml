@@ -5,7 +5,6 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:gravity="center"
-    android:layout_gravity="center"
     tools:context=".MainActivity"
     android:background="#0f3b52"
     android:paddingLeft="16dp"
@@ -37,10 +36,9 @@
             app:boxCornerRadiusBottomEnd="0dp"
             app:boxCornerRadiusBottomStart="0dp"
             app:boxCornerRadiusTopEnd="0dp"
-            app:hintAnimationEnabled="false"
+            app:hintEnabled="false"
             android:id="@+id/email_up"
             app:boxCornerRadiusTopStart="0dp"
-            app:hintEnabled="false"
             android:layout_height="50dp">
             <android.support.design.widget.TextInputEditText
                 android:layout_width="match_parent"
@@ -58,8 +56,6 @@
                 android:id="@+id/email"/>
         </android.support.design.widget.TextInputLayout>
     </LinearLayout>
-
-
 
     <LinearLayout
         android:orientation="horizontal"
@@ -96,6 +92,7 @@
                 android:id="@+id/password"/>
         </android.support.design.widget.TextInputLayout>
     </LinearLayout>
+
     <android.support.v7.widget.AppCompatButton
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -109,10 +106,21 @@
         android:id="@+id/login"
         />
     <TextView
+        android:id="@+id/forgotpassword"
+        android:layout_width="wrap_content"
+        android:textColor="@color/colorGrey"
+        android:layout_marginTop="10dp"
+        android:layout_height="wrap_content"
+        android:text="Forgot password? Click Here "
+        android:layout_gravity="center"
+        android:textAlignment="center"/>
+    <TextView
+        android:id="@+id/signuplogin"
         android:layout_width="match_parent"
         android:textColor="@color/colorGrey"
-        android:layout_marginBottom="40dp"
         android:layout_height="wrap_content"
+        android:layout_marginTop="7dp"
+        android:layout_marginBottom="40dp"
         android:text="Not a user? Sign up here"
         android:layout_gravity="center"
         android:textAlignment="center"/>
