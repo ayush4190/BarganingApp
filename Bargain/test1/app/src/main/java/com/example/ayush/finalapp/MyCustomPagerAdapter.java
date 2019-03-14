@@ -13,7 +13,7 @@ import android.widget.Toast;
 public class MyCustomPagerAdapter extends PagerAdapter{
     Context context;
     //int images[];
-    int images[] = {R.drawable.s1, R.drawable.s2, R.drawable.s3};
+    int images[] = {R.drawable.advertisemet1, R.drawable.advertisement2, R.drawable.advertisement3};
     LayoutInflater layoutInflater;
 
 
@@ -39,7 +39,6 @@ public class MyCustomPagerAdapter extends PagerAdapter{
 
         ImageView imageView = (ImageView) itemView.findViewById(R.id.imageView);
         imageView.setImageResource(images[position]);
-
         container.addView(itemView);
 
         //listening to image click
