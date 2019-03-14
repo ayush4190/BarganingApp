@@ -88,7 +88,8 @@ public class LoginShopper extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-                //add forgot user
+                Intent intent = new Intent (v.getContext (), ForgotPassword.class);
+                v.getContext ().startActivity (intent);
 
             }
         });

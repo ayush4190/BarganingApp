@@ -1,4 +1,5 @@
 //noinspection GradleCompatible
+apply plugin: 'com.onesignal.androidsdk.onesignal-gradle-plugin'
 apply plugin: 'com.android.application'
 apply plugin: 'com.google.gms.google-services'
 
@@ -6,13 +7,13 @@ apply plugin: 'com.google.gms.google-services'
 
 buildscript {
     repositories {
-        maven { url 'https://plugins.gradle.org/m2/'}
+        maven { url 'https://plugins.gradle.org/m2/' }
     }
     dependencies {
         classpath 'gradle.plugin.com.onesignal:onesignal-gradle-plugin:[0.11.0, 0.99.99]'
     }
 }
-apply plugin: 'com.onesignal.androidsdk.onesignal-gradle-plugin'
+
 
 repositories {
     maven { url 'https://maven.google.com' }
@@ -21,7 +22,7 @@ android {
     compileSdkVersion 28
     defaultConfig {
         manifestPlaceholders = [
-                onesignal_app_id: '7b482b83-38de-4653-ba78-c04403c3b4c9',
+                onesignal_app_id               : '7b482b83-38de-4653-ba78-c04403c3b4c9',
                 // Project number pulled from dashboard, local value is ignored.
                 onesignal_google_project_number: 'REMOTE'
         ]
