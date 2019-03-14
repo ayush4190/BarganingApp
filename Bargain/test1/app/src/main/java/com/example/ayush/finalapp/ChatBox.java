@@ -91,6 +91,7 @@ public class ChatBox extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_chat_box);
         InitializeFields();
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         firebaseAuth=FirebaseAuth.getInstance();
         firebaseUser = firebaseAuth.getCurrentUser ();
         databaseReference=FirebaseDatabase.getInstance ().getReference ();
@@ -129,6 +130,12 @@ public class ChatBox extends AppCompatActivity {
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId ();
+
+        if (item.getItemId() == android.R.id.home)
+            onBackPressed();
+
+
+
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_meet)
