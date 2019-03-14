@@ -114,6 +114,7 @@ String name;
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_chat_box_nego);
         InitializeFields();
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 //        displayMeet=findViewById(R.id.Button_display_meet);
         firebaseAuth=FirebaseAuth.getInstance();
         mContext=getApplicationContext ();
@@ -390,7 +391,9 @@ String name;
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
-
+        if (id==android.R.id.home) {
+            finish();
+        }
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_accept) {
             /////////

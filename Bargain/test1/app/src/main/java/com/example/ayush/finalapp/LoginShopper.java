@@ -12,6 +12,7 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -30,8 +31,9 @@ public class LoginShopper extends AppCompatActivity {
     TextInputLayout password_w;
     TextInputLayout email_w;
     TextInputEditText email_q,password_q ;
-
+    TextView signup;
     FirebaseAuth firebaseAuth;
+    TextView forgotpassword;
     Button button;
     FirebaseUser user;
     String s;
@@ -61,11 +63,32 @@ public class LoginShopper extends AppCompatActivity {
         email_w = findViewById(R.id.email_up);
         password_w = findViewById(R.id.password_up);
         button = (Button)findViewById(R.id.login);
+        signup=(TextView)findViewById(R.id.signuplogin);
+        forgotpassword=(TextView)findViewById(R.id.forgotpassword);
+
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 userlogin();
 
+
+            }
+        });
+
+        signup.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent (v.getContext (), WelcomePage.class);
+                v.getContext ().startActivity (intent);
+                finish();
+            }
+        });
+
+        forgotpassword.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                //add forgot user
 
             }
         });
