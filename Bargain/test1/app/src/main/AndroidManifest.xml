@@ -91,13 +91,6 @@
             android:name=".Negotiator_dash"
             android:label="Bargainer"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".MainActivity">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
         <activity
             android:name=".AddMoney"
             android:label="Add Money " />
@@ -106,7 +99,12 @@
             android:label="Previous Transations" />
         <activity
             android:name=".WelcomePage"
-            android:theme="@style/AppTheme.NoActionBar" />
+            android:theme="@style/AppTheme.NoActionBar" >
+        <intent-filter>
+            <action android:name="android.intent.action.MAIN" />
+            <category android:name="android.intent.category.LAUNCHER" />
+        </intent-filter>
+        </activity>
         <activity
             android:name=".QrCode"
             android:label="QR Scanner"

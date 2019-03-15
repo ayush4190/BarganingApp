@@ -11,6 +11,7 @@ import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
@@ -35,6 +36,9 @@ import com.google.firebase.storage.StorageReference;
 
 import android.Manifest;
 
+import java.util.Collection;
+import java.util.HashMap;
+
 public class WelcomePage extends AppCompatActivity {
 
     private int STORAGE_PERMISSION_CODE = 1;
@@ -43,6 +47,7 @@ public class WelcomePage extends AppCompatActivity {
     String s;
     FirebaseDatabase data;
     StorageReference mroot, mref;
+    SessionManagment session;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -65,7 +70,35 @@ public class WelcomePage extends AppCompatActivity {
         user = firebaseAuth.getCurrentUser ();
         if (user != null) {
 
-                //ver ();
+            try {
+                session = new SessionManagment (getApplicationContext ());
+                session.checkLogin ();
+
+                Toast.makeText (getApplicationContext (), "User Login Status: " + session.isLoggedIn (), Toast.LENGTH_LONG).show ();
+                HashMap<String , String> list = session.getUserDetails ();
+                Collection<String> values = list.values ();
+                Object[] temp = values.toArray ();
+                Log.v ("if suceess", String.valueOf (session.getUserDetails ()));
+                Log.v ("final test", String.valueOf (temp[0]));
+                String s = String.valueOf (temp[0]);
+                if(session.isLoggedIn () && (s.compareToIgnoreCase ("shopper")==0))
+                {
+                    finish ();
+                    startActivity (new Intent (WelcomePage.this,ShopperHomepage.class));
+
+                }
+                else if(session.isLoggedIn () && (s.compareToIgnoreCase ("nego")==0))
+                {
+                    finish ();
+                    startActivity (new Intent (WelcomePage.this,Negotiator_dash.class));
+                }
+                else
+                {
+                    Toast.makeText (WelcomePage.this,"still to decide",Toast.LENGTH_LONG).show ();
+                }
+            }
+            catch (NullPointerException e)
+            {}
 
             Toast.makeText (WelcomePage.this,"in testing mode",Toast.LENGTH_SHORT).show ();
 
