@@ -30,9 +30,11 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning">
-        <activity android:name=".ForgotPassword"></activity>
-        <activity android:name=".NegotiatorProfileActivity"
-            android:label="User Profile"/> <!-- <meta-data -->
+        <activity android:name=".RateandReview"></activity>
+        <activity android:name=".ForgotPassword" />
+        <activity
+            android:name=".NegotiatorProfileActivity"
+            android:label="User Profile" /> <!-- <meta-data -->
         <!-- android:name="com.google.firebase.messaging.default_notification_icon" -->
         <!-- android:resource="@drawable/appicon1" /> -->
         <!-- &lt;!&ndash; -->
@@ -44,8 +46,9 @@
         <!-- android:resource="@color/colorAccent" /> -->
         <activity android:name=".ChatBoxNego" />
         <activity android:name=".ChatMain" />
-        <activity android:name=".ShopperProfileActivity"
-            android:label="User Profile"/>
+        <activity
+            android:name=".ShopperProfileActivity"
+            android:label="User Profile" />
         <activity android:name=".ShopperCardDetails" />
         <activity android:name=".CardDetails" />
         <activity android:name=".ChatBox" />
@@ -55,8 +58,9 @@
         <activity
             android:name=".NegotiatorForm"
             android:label="Personal details" />
-        <activity android:name=".SettingsActivity"
-            android:label="Settings"/>
+        <activity
+            android:name=".SettingsActivity"
+            android:label="Settings" />
         <activity
             android:name=".NegotiatorId"
             android:label="Upload Profile Photo" />

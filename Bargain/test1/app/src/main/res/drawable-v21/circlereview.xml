@@ -1,0 +1,17 @@
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <item>
+        <shape android:shape="oval">
+
+    <solid android:color="@color/primaryLightColor" />
+
+    <size
+        android:height="60dp"
+        android:width="60dp" />
+     <stroke android:color="@color/toolbarwhite"
+         android:width="3dp"></stroke>
+
+        </shape>
+    </item>
+
+
+</layer-list>
