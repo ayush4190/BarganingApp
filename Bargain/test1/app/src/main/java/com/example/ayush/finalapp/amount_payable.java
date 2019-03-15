@@ -315,7 +315,7 @@ check2=false;
 
 //
 //            FirebaseDatabase.getInstance ().getReference ().child ("Transactions").child (shop_user).child (MostRecentIdShopper).setValue (transactionsDetails);
-            startActivity (new Intent (amount_payable.this,ShopperHomepage.class));
+            startActivity (new Intent (amount_payable.this,RateandReview.class));
         }catch (NumberFormatException e)
         {
 

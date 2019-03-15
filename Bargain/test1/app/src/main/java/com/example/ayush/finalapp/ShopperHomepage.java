@@ -251,21 +251,22 @@ public class ShopperHomepage extends AppCompatActivity
         shopper.addValueEventListener (new ValueEventListener () {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                ShopperProfile profile = dataSnapshot.getValue (ShopperProfile.class);
-                assert profile != null;
-                String key = profile.getFname () + profile.getLname ();
-                shop_name=key;
+                try {
+                    ShopperProfile profile = dataSnapshot.getValue (ShopperProfile.class);
+                    assert profile != null;
+                    String key = profile.getFname () + profile.getLname ();
+                    shop_name = key;
 
-                NavigationView navigationView = (NavigationView) findViewById (R.id.nav_view);
-                View headerView = navigationView.getHeaderView (0);
-                TextView navUsername = (TextView) headerView.findViewById (R.id.shopper_name);
-                navUsername.setText (key);
-                TextView user_email = (TextView) headerView.findViewById (R.id.shopper_drawer_mail);
-                user_email.setText (profile.getEmail ());
-                shopper_pic = (CircleImageView) headerView.findViewById (R.id.image_shopper);
+                    NavigationView navigationView = (NavigationView) findViewById (R.id.nav_view);
+                    View headerView = navigationView.getHeaderView (0);
+                    TextView navUsername = (TextView) headerView.findViewById (R.id.shopper_name);
+                    navUsername.setText (key);
+                    TextView user_email = (TextView) headerView.findViewById (R.id.shopper_drawer_mail);
+                    user_email.setText (profile.getEmail ());
+                    shopper_pic = (CircleImageView) headerView.findViewById (R.id.image_shopper);
 
 
-                /// adding function to get photo from firebase storage
+                    /// adding function to get photo from firebase storage
 //                String location = user.getUid ()+"."+"jpg";
 //                photo_storage.child (location).getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri> () {
 //                    @Override
@@ -281,6 +282,8 @@ public class ShopperHomepage extends AppCompatActivity
 //                    }
 //                });
                     fetch ();
+                }catch (NullPointerException e)
+                {}
                     try {
                         check = (String) getIntent ().getSerializableExtra ("bool");
                         if(check.compareToIgnoreCase ("true") == 0) {

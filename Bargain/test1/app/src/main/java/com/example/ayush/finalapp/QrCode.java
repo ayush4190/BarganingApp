@@ -143,11 +143,7 @@ public class QrCode extends AppCompatActivity implements Serializable {
 
                                                 }
                                             });
-//                                            FragmentTransaction fragmentTransaction = getSupportFragmentManager ().beginTransaction ();
-//                                            fragmentTransaction.replace(R.id.Final_frame,new amount_frag (nego_user));
-//                                            fragmentTransaction.addToBackStack("amount");
-//                                            fragmentTransaction.commit ();
-
+//
 
                                         }
                                         catch (NullPointerException e){
