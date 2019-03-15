@@ -62,7 +62,7 @@ public class Negotiator_dash extends AppCompatActivity
     AlertDialog.Builder builder2;
     public static Context contextOfApplication;
     CircleImageView i1;
-
+SessionManagment sessionManagment;
     // for user name
     FirebaseDatabase firebaseDatabase;
 
@@ -209,7 +209,7 @@ public class Negotiator_dash extends AppCompatActivity
 
                 }catch (NullPointerException e)
                 {
-                    Toast.makeText (Negotiator_dash.this,e.getMessage (),Toast.LENGTH_LONG).show ();
+                    //Toast.makeText (Negotiator_dash.this,e.getMessage (),Toast.LENGTH_LONG).show ();
                 }
             }
 
@@ -282,6 +282,10 @@ public class Negotiator_dash extends AppCompatActivity
         if (id == R.id.nav_logout) {
 
             // Handle the camera action
+            sessionManagment = new SessionManagment (getApplicationContext ());
+
+            fba.signOut ();
+            sessionManagment.logoutUser ();
 
             fba.signOut ();
             finish ();

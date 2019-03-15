@@ -93,6 +93,7 @@ public class ShopperHomepage extends AppCompatActivity
     StorageReference photo_storage;
     private LocationManager locationManager;
     private LocationListener locationListener;
+    SessionManagment sessionManagment;
 //    FirebaseUser user;
 //    FirebaseAuth fba;
     CircleImageView shopper_pic;
@@ -369,8 +370,11 @@ public class ShopperHomepage extends AppCompatActivity
         if (id == R.id.nav_logout) {
 
             // Handle the camera action
+            sessionManagment = new SessionManagment (getApplicationContext ());
 
             fba.signOut ();
+            sessionManagment.logoutUser ();
+
             finish ();
             startActivity (new Intent (ShopperHomepage.this, WelcomePage.class));
 

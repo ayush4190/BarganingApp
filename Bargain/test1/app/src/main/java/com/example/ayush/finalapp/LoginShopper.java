@@ -7,11 +7,11 @@ import android.support.design.widget.TextInputEditText;
 import android.support.design.widget.TextInputLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -26,6 +26,9 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.util.Collection;
+import java.util.HashMap;
+
 public class LoginShopper extends AppCompatActivity {
 
     TextInputLayout password_w;
@@ -37,6 +40,7 @@ public class LoginShopper extends AppCompatActivity {
     Button button;
     FirebaseUser user;
     String s;
+    SessionManagment session;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,13 +52,40 @@ public class LoginShopper extends AppCompatActivity {
             window.setStatusBarColor (getResources ().getColor (R.color.colorPrimary));
         }
 
-
+        session = new SessionManagment (getApplicationContext ());
 
         firebaseAuth = FirebaseAuth.getInstance();
 
         if (firebaseAuth.getCurrentUser() != null) {
             Toast.makeText (LoginShopper.this,"testing mode",Toast.LENGTH_SHORT).show ();
-       //     ver ();
+            try {
+                session.checkLogin ();
+
+                Toast.makeText (getApplicationContext (), "User Login Status: " + session.isLoggedIn (), Toast.LENGTH_LONG).show ();
+                HashMap<String , String> list = session.getUserDetails ();
+                Collection <String> values = list.values ();
+                Object[] temp = values.toArray ();
+                Log.v ("if suceess", String.valueOf (session.getUserDetails ()));
+                Log.v ("final test", String.valueOf (temp[0]));
+                String s = String.valueOf (temp[0]);
+                if(session.isLoggedIn () && (s.compareToIgnoreCase ("shopper")==0))
+                {
+                    finish ();
+                    startActivity (new Intent (LoginShopper.this,ShopperHomepage.class));
+
+                }
+                else if(session.isLoggedIn () && (s.compareToIgnoreCase ("nego")==0))
+                {
+                    finish ();
+                    startActivity (new Intent (LoginShopper.this,Negotiator_dash.class));
+                }
+                else
+                {
+                    Toast.makeText (LoginShopper.this,"still to decide",Toast.LENGTH_LONG).show ();
+                }
+            }
+            catch (NullPointerException e)
+            {}
 
 
         }
@@ -127,6 +158,7 @@ public class LoginShopper extends AppCompatActivity {
     private void ver()
     {
         try {
+
             user = firebaseAuth.getCurrentUser ();
             DatabaseReference data = FirebaseDatabase.getInstance ().getReference ();
             DatabaseReference reference = data.child (user.getUid ());
@@ -136,9 +168,15 @@ public class LoginShopper extends AppCompatActivity {
                     test temp = new test ();
                     temp.setDecide ((String) dataSnapshot.getValue ());
                     if (temp.getDecide ().compareTo ("true") == 0) {
+                        session.createLoginSession ("nego",user.getEmail ());
+                        finish ();
                         startActivity (new Intent (LoginShopper.this, Negotiator_dash.class));
 
                     } else if (temp.getDecide ().compareTo ("false") == 0) {
+                        finish ();
+                        session.createLoginSession ("shopper",user.getEmail ());
+
+
                         startActivity (new Intent (LoginShopper.this, ShopperHomepage.class));
                     } else {
                         Toast.makeText (LoginShopper.this, "not a valid client", Toast.LENGTH_SHORT).show ();

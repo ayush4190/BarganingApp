@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="fill_parent"
+
+    >
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+  >
+
+        <android.support.design.card.MaterialCardView
+            android:layout_width="match_parent"
+            android:layout_height="220dp"
+            android:layout_centerHorizontal="true"
+
+            android:elevation="10dp"
+            app:cardBackgroundColor="@color/primaryLightColor"
+            android:paddingTop="10dp"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
+            android:paddingBottom="40dp"
+            >
+        <TextView
+            android:id="@+id/ratetextview"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_gravity="center"
+            android:layout_marginBottom="20dp"
+            android:paddingLeft="28dp"
+            android:paddingTop="28dp"
+            android:background="@drawable/rounded_text_view"
+            android:text="0.0"
+            android:textSize="30dp"
+            android:textColor="@color/toolbarwhite" />
+        </android.support.design.card.MaterialCardView>
+
+        <android.support.design.card.MaterialCardView
+            android:id="@+id/cs_phone"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_gravity="center"
+            android:layout_marginTop="-60dp"
+            android:elevation="10dp"
+
+            android:paddingTop="10dp"
+            android:paddingBottom="40dp"
+
+            app:cardBackgroundColor="@color/colorPrimary"
+            app:cardCornerRadius="10dp">
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
+                android:layout_marginBottom="10dp"
+                android:layout_marginTop="10dp"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="10dp"
+                    android:fontFamily="sans-serif-thin"
+                    android:text="Show some love!"
+                    android:textColor="@color/toolbarwhite"
+                    android:textSize="28dp" />
+
+                <RatingBar
+                    android:id="@+id/ratenego"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+
+                    android:theme="@style/RatingBar" />
+            </LinearLayout>
+        </android.support.design.card.MaterialCardView>
+        <EditText
+            android:id="@+id/reviewnego"
+            android:layout_width="350dp"
+            android:layout_height="200dp"
+            android:layout_gravity="center"
+            android:layout_marginTop="50dp"
+            android:background="@drawable/rate_edit_border"
+            android:gravity="top"
+            android:hint=" Write Your Comments Here"
+            android:overScrollMode="always"
+            android:scrollbarStyle="insideInset"
+            android:scrollbars="vertical"/>
+        <android.support.design.button.MaterialButton
+            android:id="@+id/submitreview"
+            android:layout_marginTop="20dp"
+            android:textSize="24dp"
+            android:fontFamily="sans-serif-light"
+            android:textColor="@color/toolbarwhite"
+            android:background="@color/colorPrimary"
+            android:textAllCaps="false"
+            app:cornerRadius="10dp"
+            android:layout_width="120dp"
+            android:layout_height="match_parent"
+            android:layout_gravity="center"
+            android:text="Submit"/>
+
+    </LinearLayout>
+
+
+</ScrollView>
