@@ -55,6 +55,10 @@ public class amount_payable extends AppCompatActivity implements Serializable {
    Button procced ;
     String message;
     AlertDialog.Builder builder2;
+    DatabaseReference mroot;
+    int existing_amount;
+    String amount_pay;
+    double finaly;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -141,9 +145,48 @@ check2=false;
                 });
                 String total_amount = editText.getText ().toString ();
                 int temp3 = Integer.parseInt (total_amount);
-                double finaly = temp3 * 0.02 ;
+                 finaly = temp3 * 0.02 ;
+                /////
+                amount_pay = String.valueOf (finaly);
+                //////
+                mroot=  FirebaseDatabase.getInstance ().getReference ().child ("Shopper").child (firebaseUser.getUid ());
+                mroot.addValueEventListener (new ValueEventListener () {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                        ShopperDetails details = dataSnapshot.getValue (ShopperDetails.class);
+                        Log.v ("amount",details.getAmount ());
+                        existing_amount = Integer.parseInt (details.getAmount ());
 
-                builder2.setTitle ("Total payable amount to negotiator =" +String.valueOf (finaly) );
+
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                    }
+                });
+                Log.v ("checking for it", String.valueOf (Double.compare (finaly,1000)));
+//                if(Double.compare (finaly,existing_amount)==0)
+//                {
+//
+//                    Toast.makeText (amount_payable.this,"Insufficient Balance"+amount_pay,Toast.LENGTH_LONG).show ();
+//                    //startActivity (new Intent (amount_payable.this,ShopperHomepage.class));
+//                }
+//                else
+//                {
+//                    amount_pay = String.valueOf (finaly);
+//                }
+                /// this amount need to be updated
+
+                ////////
+
+                //check for comparision
+
+
+
+                /////////
+               // builder2.setTitle ("Total payable amount to negotiator =" +String.valueOf (finaly) );
+                builder2.setTitle ("Total payable amount to negotiator =" +amount_pay );
                 builder2.setNegativeButton ("No", new DialogInterface.OnClickListener () {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
@@ -315,7 +358,9 @@ check2=false;
 
 //
 //            FirebaseDatabase.getInstance ().getReference ().child ("Transactions").child (shop_user).child (MostRecentIdShopper).setValue (transactionsDetails);
-            startActivity (new Intent (amount_payable.this,RateandReview.class));
+          Intent intent=  new Intent (amount_payable.this,RateandReview.class);
+          intent.putExtra ("nego_user",nego_user);
+          startActivity (intent);
         }catch (NumberFormatException e)
         {
 

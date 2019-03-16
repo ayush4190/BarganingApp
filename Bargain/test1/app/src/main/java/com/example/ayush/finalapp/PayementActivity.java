@@ -20,10 +20,20 @@ import android.widget.TextView;
 import android.widget.Toast;
 import android.content.DialogInterface;
 
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+
 public class PayementActivity extends Fragment {
     private static final int TEZ_REQUEST_CODE = 123;
     FragmentActivity f;
-
+    TextView textView;
+FirebaseUser firebaseUser;
+DatabaseReference databaseReference;
     private static final String GOOGLE_TEZ_PACKAGE_NAME = "com.google.android.apps.nbu.paisa.user";
     @Nullable
     @Override
@@ -35,8 +45,25 @@ public class PayementActivity extends Fragment {
     public void onViewCreated(@NonNull final View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated (view, savedInstanceState);
 
+        textView = (TextView) view.findViewById (R.id.amount);
+        firebaseUser= FirebaseAuth.getInstance ().getCurrentUser ();
+        databaseReference=  FirebaseDatabase.getInstance ().getReference ().child ("Shopper").child (firebaseUser.getUid ());
+        databaseReference.addValueEventListener (new ValueEventListener () {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                ShopperDetails details = dataSnapshot.getValue (ShopperDetails.class);
+                Log.v ("amount",details.getAmount ());
 
-final TextView tez = (TextView)view.findViewById (R.id.tez);
+                textView.setText (String.format ("₹%s", details.getAmount ()));
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+
+        final TextView tez = (TextView)view.findViewById (R.id.tez);
        final TextView token = (TextView)view.findViewById (R.id.token);
        final TextView paytm = (TextView)view.findViewById (R.id.paytm);
 

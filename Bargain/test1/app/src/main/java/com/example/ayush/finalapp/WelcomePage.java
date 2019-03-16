@@ -89,12 +89,14 @@ public class WelcomePage extends AppCompatActivity {
                 {
                     finish ();
                     startActivity (new Intent (WelcomePage.this,ShopperHomepage.class));
+                    finish ();
 
                 }
                 else if(session.isLoggedIn () && (s.compareToIgnoreCase ("nego")==0) )
                 {
                     finish ();
                     startActivity (new Intent (WelcomePage.this,Negotiator_dash.class));
+                    finish ();
                 }
                 else
                 {
@@ -180,6 +182,7 @@ public class WelcomePage extends AppCompatActivity {
                     } else if (temp.getDecide ().compareTo ("false") == 0) {
                         finish ();
                         startActivity (new Intent (WelcomePage.this, ShopperHomepage.class));
+                        finish ();
 
                     }
                 }
