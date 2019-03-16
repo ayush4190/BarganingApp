@@ -72,12 +72,14 @@ public class LoginShopper extends AppCompatActivity {
                 {
                     finish ();
                     startActivity (new Intent (LoginShopper.this,ShopperHomepage.class));
+                    finish ();
 
                 }
                 else if(session.isLoggedIn () && (s.compareToIgnoreCase ("nego")==0))
                 {
                     finish ();
                     startActivity (new Intent (LoginShopper.this,Negotiator_dash.class));
+                    finish ();
                 }
                 else
                 {
@@ -171,6 +173,7 @@ public class LoginShopper extends AppCompatActivity {
                         session.createLoginSession ("nego",user.getEmail ());
                         finish ();
                         startActivity (new Intent (LoginShopper.this, Negotiator_dash.class));
+                        finish ();
 
                     } else if (temp.getDecide ().compareTo ("false") == 0) {
                         finish ();
@@ -178,6 +181,7 @@ public class LoginShopper extends AppCompatActivity {
 
 
                         startActivity (new Intent (LoginShopper.this, ShopperHomepage.class));
+                        finish ();
                     } else {
                         Toast.makeText (LoginShopper.this, "not a valid client", Toast.LENGTH_SHORT).show ();
                     }

@@ -48,6 +48,7 @@ public class WelcomePage extends AppCompatActivity {
     FirebaseDatabase data;
     StorageReference mroot, mref;
     SessionManagment session;
+    String delete;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -73,6 +74,7 @@ public class WelcomePage extends AppCompatActivity {
             try {
                 session = new SessionManagment (getApplicationContext ());
                 session.checkLogin ();
+                delete = "hello";
 
                 Toast.makeText (getApplicationContext (), "User Login Status: " + session.isLoggedIn (), Toast.LENGTH_LONG).show ();
                 HashMap<String , String> list = session.getUserDetails ();
@@ -81,16 +83,20 @@ public class WelcomePage extends AppCompatActivity {
                 Log.v ("if suceess", String.valueOf (session.getUserDetails ()));
                 Log.v ("final test", String.valueOf (temp[0]));
                 String s = String.valueOf (temp[0]);
-                if(session.isLoggedIn () && (s.compareToIgnoreCase ("shopper")==0))
+                delete =(String) getIntent ().getSerializableExtra ("key");
+
+                if(session.isLoggedIn () && (s.compareToIgnoreCase ("shopper")==0) )
                 {
                     finish ();
                     startActivity (new Intent (WelcomePage.this,ShopperHomepage.class));
+                    finish ();
 
                 }
-                else if(session.isLoggedIn () && (s.compareToIgnoreCase ("nego")==0))
+                else if(session.isLoggedIn () && (s.compareToIgnoreCase ("nego")==0) )
                 {
                     finish ();
                     startActivity (new Intent (WelcomePage.this,Negotiator_dash.class));
+                    finish ();
                 }
                 else
                 {
@@ -170,11 +176,14 @@ public class WelcomePage extends AppCompatActivity {
                 temp.setDecide ((String) dataSnapshot.getValue ());
                 if(temp.getDecide () != null) {
                     if (temp.getDecide ().compareTo ("true") == 0) {
-                        startActivity (new Intent (WelcomePage.this, Negotiator_dash.class));
                         finish ();
+                        startActivity (new Intent (WelcomePage.this, Negotiator_dash.class));
+
                     } else if (temp.getDecide ().compareTo ("false") == 0) {
+                        finish ();
                         startActivity (new Intent (WelcomePage.this, ShopperHomepage.class));
                         finish ();
+
                     }
                 }
                 else

@@ -24,7 +24,7 @@
         <item name="drawerArrowStyle">@style/DrawerArrowStyle</item>
     </style>
 
-    <style name="RatingBar" parent="Theme.AppCompat">
+    <style name="RatingBar" parent="@style/Theme.MaterialComponents.Light.DarkActionBar">
         <item name="colorControlNormal">#FFFFFF</item>
         <item name="colorControlActivated">#ffd700</item>
     </style>

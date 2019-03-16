@@ -24,8 +24,11 @@ import android.view.MenuItem;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
+import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
+import com.google.android.gms.vision.L;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
@@ -33,7 +36,9 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 
-public class SettingsActivity extends AppCompatPreferenceActivity {
+import java.io.Serializable;
+
+public class SettingsActivity extends AppCompatPreferenceActivity implements Serializable {
     private static final String TAG = SettingsActivity.class.getSimpleName();
 
 
@@ -127,7 +132,21 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
 
 //                            Log.v("manas",photo_storage.getPath().toString());
                             DatabaseReference driverRef = FirebaseDatabase.getInstance().getReference().child("Shopper").child(user.getUid());
-try{
+                           String path = user.getUid ()+".jpg";
+                           StorageReference storageReference = photo_storage.child (path);
+                            try{
+                                storageReference.delete ().addOnSuccessListener (new OnSuccessListener <Void> () {
+                                    @Override
+                                    public void onSuccess(Void aVoid) {
+                                        Log.v ("Sucessful deletion ",aVoid.toString ());
+                                    }
+                                }).addOnFailureListener (new OnFailureListener () {
+                                    @Override
+                                    public void onFailure(@NonNull Exception e) {
+                                        Log.v ("error while deletion",e.getMessage ());
+
+                                    }
+                                });
                             driverRef.removeValue();
 //                            StorageReference photoRef = FirebaseStorage.getInstance().getReferenceFromUrl(imageURL);
 //                            photoRef.delete().addOnSuccessListener(new OnSuccessListener<Void>() {
@@ -145,6 +164,9 @@ try{
 //                            });
 ////                            photo_storage.child(imageURL).delete();
                             user.delete();
+//                            Intent intent = new Intent (getActivity (),WelcomePage.class);
+//                            intent.putExtra ("key","deleted");
+//                            startActivity (intent);
 
                         }catch (NullPointerException e)
                         {
