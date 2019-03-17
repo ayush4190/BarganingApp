@@ -181,7 +181,7 @@ SessionManagment sessionManagment;
                 View headerView = navigationView.getHeaderView (0);
                 TextView navUsername = (TextView) headerView.findViewById (R.id.nego_name);
                 navUsername.setText (key);
-                TextView user_email = (TextView) headerView.findViewById (R.id.nego_email);
+                final TextView user_email = (TextView) headerView.findViewById (R.id.nego_email);
                 user_email.setText (profile.getEmail ());
                 i1 = (CircleImageView) headerView.findViewById (R.id.image_nego);
 
@@ -189,7 +189,7 @@ SessionManagment sessionManagment;
 //                String location = user.getUid () + "." + "jpg";
                 try {
 
-                    String location = user.getUid () + "." + "jpg";
+                    final String location = user.getUid () + "." + "jpg";
                     photo_storage.child (location).getDownloadUrl ().addOnSuccessListener (new OnSuccessListener <Uri> () {
                         @Override
                         public void onSuccess(Uri uri) {
@@ -199,8 +199,22 @@ SessionManagment sessionManagment;
                     }).addOnFailureListener (new OnFailureListener () {
                         @Override
                         public void onFailure(@NonNull Exception exception) {
+                            String location2 = user.getUid () +"."+"null";
+                            photo_storage.child (location2).getDownloadUrl ().addOnSuccessListener (new OnSuccessListener <Uri> () {
+                                @Override
+                                public void onSuccess(Uri uri) {
+                                    String imageurl2 = uri.toString ();
+                                    Glide.with (getApplicationContext ()).load (imageurl2).into (i1);
+                                }
+                            }).addOnFailureListener (new OnFailureListener () {
+                                @Override
+                                public void onFailure(@NonNull Exception e) {
+                                    Toast.makeText (Negotiator_dash.this,e.getMessage (),Toast.LENGTH_LONG).show ();
+                                }
+                            });
+
                             // Handle any errors
-                            Toast.makeText (Negotiator_dash.this, exception.getMessage (), Toast.LENGTH_LONG).show ();
+                           // Toast.makeText (Negotiator_dash.this, exception.getMessage (), Toast.LENGTH_LONG).show ();
                         }
                     });
 

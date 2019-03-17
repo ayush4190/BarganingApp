@@ -42,6 +42,7 @@ public class NegotiatorRegistration extends AppCompatActivity {
     TextInputLayout username_w;
     TextInputLayout confirmpassword_w;
     TextInputLayout password_w;
+    SessionManagment session;
 
 
     private static final String TAG = "NegotiatorRegistration";
@@ -203,6 +204,7 @@ public class NegotiatorRegistration extends AppCompatActivity {
         profile.setMemail (email_q.getText ().toString ().trim ());
         profile.setUsername (username_q.getText ().toString ().trim ());
         profile.setMpassword (password_q.getText ().toString ().trim ());
+        session = new SessionManagment (getApplicationContext ());
 
         firebaseAuth.createUserWithEmailAndPassword (profile.getMemail (), profile.getMpassword ()).addOnCompleteListener (new OnCompleteListener <AuthResult> () {
             @Override
@@ -213,6 +215,7 @@ public class NegotiatorRegistration extends AppCompatActivity {
                   //  startActivity (new Intent (NegotiatorRegistration.this,NegotiatorForm.class));
                     Intent intent = new Intent (NegotiatorRegistration.this,NegotiatorForm.class);
                     intent.putExtra ("basic",profile);
+                    session.createLoginSession ("nego",profile.getMemail ());
 
                     startActivity (intent);
                     finish ();// adding here

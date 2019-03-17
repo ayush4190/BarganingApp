@@ -715,7 +715,21 @@ private void selectImage() {
                 @Override
                 public void onFailure(@NonNull Exception exception) {
                     // Handle any errors
-                    Toast.makeText (ShopperProfileActivity.this, exception.getMessage (), Toast.LENGTH_LONG).show ();
+                    String location2 = user.getUid ()+"."+"null";
+                    photo_storage.child (location2).getDownloadUrl ().addOnSuccessListener (new OnSuccessListener <Uri> () {
+                        @Override
+                        public void onSuccess(Uri uri) {
+                            String imageurl2 =uri.toString ();
+                            Log.v ("url link",imageurl2);
+                            Glide.with (getApplicationContext ()).load (imageurl2).into (viewImage);
+                        }
+                    }).addOnFailureListener (new OnFailureListener () {
+                        @Override
+                        public void onFailure(@NonNull Exception e) {
+                            Toast.makeText (ShopperProfileActivity.this,e.getMessage (),Toast.LENGTH_LONG).show ();
+                        }
+                    });
+                    //Toast.makeText (ShopperProfileActivity.this, exception.getMessage (), Toast.LENGTH_LONG).show ();
                 }
             });
         }catch (NullPointerException e)
