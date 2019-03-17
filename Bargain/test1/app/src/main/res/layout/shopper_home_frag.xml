@@ -4,9 +4,7 @@
     android:layout_height="match_parent"
     >
 
-
-
-        <LinearLayout
+    <LinearLayout
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical">
@@ -40,17 +38,22 @@
 
             <android.support.v4.view.ViewPager
                 android:layout_width="match_parent"
-                android:layout_height="250dp"
+                android:layout_height="200dp"
                 android:id="@+id/viewPager"/>
 
-
+<TextView
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:text="Nearby Negotiators"
+    android:layout_gravity="left"
+    android:textSize="15dp"
+    />
             <android.support.v7.widget.RecyclerView
-
                 xmlns:android="http://schemas.android.com/apk/res/android"
                 android:id="@+id/recyclerhomepage"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
+                android:layout_marginTop="30dp"
                 android:autofillHints="search here"
                 android:background="@color/cardview_light_background"
                 android:scrollbarSize="5dip"

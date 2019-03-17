@@ -3,6 +3,7 @@ package com.example.ayush.finalapp;
 import android.content.Intent;
 import android.net.Uri;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.CardView;
@@ -19,6 +20,7 @@ import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -45,9 +47,12 @@ public class CardDetails extends AppCompatActivity {
             this.getSupportActionBar().hide();
         }
         catch (NullPointerException e){}
+
+
+
         setContentView(R.layout.card_frag);
         Intent i=getIntent();
-     n=(NegotiatorDetails)i.getSerializableExtra("nego_data");
+        n=(NegotiatorDetails)i.getSerializableExtra("nego_data");
         final String pos=(String)i.getStringExtra("pos");
         int favbool=(int)i.getIntExtra("favbool",0);
         TextView first_name=(TextView)findViewById(R.id.first_name);
@@ -164,19 +169,62 @@ public class CardDetails extends AppCompatActivity {
                     @Override
                     public void onClick(View v) {
 //                      //open chatbox for this nego
+                        final DatabaseReference mdatabaseReference =FirebaseDatabase.getInstance().getReference().child("Shopper").child(ShopperHomepage.shopper_uid).child("nego_chat");
 
-                        if(ChatFragmentNego.Opened != 0)
-                            return;
-                        ChatFragmentNego.Opened = 1;
-                        //important
-                        Log.v("lancer",pos);
-                        String[] x={n.getFirstname()+" "+n.getLastname(),pos};
-                        String User = FirebaseAuth.getInstance().getCurrentUser().getUid();
-                        Intent intent = new Intent(getApplicationContext(),ChatBox.class);
-                        intent.putExtra("User",User);
-                        intent.putExtra("Reciever",x);
-                        intent.putExtra("Number",0);
-                        startActivity(intent);
+                        ValueEventListener eventListener = new ValueEventListener() {
+                            @Override
+                            public void onDataChange(DataSnapshot dataSnapshot) {
+                                if(!dataSnapshot.exists()) {
+                                    //create new entry
+
+                                   DatabaseReference m=FirebaseDatabase.getInstance().getReference().child("Negotiator").child(pos).child("nego_chat");
+                                   m.child(ShopperHomepage.shopper_uid).setValue(ShopperHomepage.shopper_uid);
+                                   m.child(ShopperHomepage.shopper_uid).child("name").setValue(ShopperHomepage.shopper_name);
+                                    mdatabaseReference.child(pos).setValue(pos);
+                                    mdatabaseReference.child(pos).child("name").setValue(n.getFirstname()+" "+n.getLastname());
+
+                                    if (ChatFragmentNego.Opened != 0)
+                                        return;
+                                    ChatFragmentNego.Opened = 1;
+                                    //important
+                                    Log.v("lancer", pos);
+                                    //x contains x[0] contains name and x[1] contains uid of that negotiator
+                                    String[] x = {n.getFirstname() + " " + n.getLastname(), pos};
+                                    String User = FirebaseAuth.getInstance().getCurrentUser().getUid();
+                                    Intent intent = new Intent(getApplicationContext(), ChatBox.class);
+                                    intent.putExtra("User", User);
+                                    intent.putExtra("Reciever", x);
+                                    intent.putExtra("Number", 0);
+                                    startActivity(intent);
+                                }else {
+
+                                    if (ChatFragmentNego.Opened != 0)
+                                        return;
+                                    ChatFragmentNego.Opened = 1;
+                                    //important
+                                    Log.v("lancer", pos);
+                                    //x contains x[0] contains name and x[1] contains uid of that negotiator
+                                    String[] x = {n.getFirstname() + " " + n.getLastname(), pos};
+                                    String User = FirebaseAuth.getInstance().getCurrentUser().getUid();
+                                    Intent intent = new Intent(getApplicationContext(), ChatBox.class);
+                                    intent.putExtra("User", User);
+                                    intent.putExtra("Reciever", x);
+                                    intent.putExtra("Number", 0);
+                                    startActivity(intent);
+                                }
+
+                            }
+
+                            @Override
+                            public void onCancelled(DatabaseError databaseError) {
+
+                            }
+                        };
+                        mdatabaseReference.child(pos).addListenerForSingleValueEvent(eventListener);
+
+                        //if already there is some chat with this nego, start chat box actvity
+                           //else add it in the chats fields of this shopper
+
 
                     }
                 });

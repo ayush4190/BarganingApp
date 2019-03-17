@@ -56,7 +56,7 @@ public class ChatFragmentNego extends Fragment {
 
     String User;
     DatabaseReference reference;
-
+    DatabaseReference mreference;
     static ArrayList<String[]> list = new ArrayList<>();
 
     static int Opened=0;
@@ -83,7 +83,9 @@ public class ChatFragmentNego extends Fragment {
             User = FirebaseAuth.getInstance().getCurrentUser().getUid();
 
         //Retrieving data from database
+        mreference = FirebaseDatabase.getInstance().getReference().child("Negotiator").child(User).child("nego_chat");
         reference = FirebaseDatabase.getInstance().getReference().child("Shopper");
+
 
         AtStartUp();
         UpdateAccount();
@@ -96,7 +98,7 @@ public class ChatFragmentNego extends Fragment {
     void AtStartUp()
     {
         dialog.show();
-        reference.addValueEventListener(new ValueEventListener() {
+        mreference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 int i=0;
@@ -113,7 +115,7 @@ public class ChatFragmentNego extends Fragment {
                         String name;
                         String  uid;
 
-                        name= data.child("fname").getValue(String.class)+" "+data.child("lname").getValue(String.class);
+                        name= data.child("name").getValue(String.class);
                         uid= data.getKey();
 
                         while(name==null );

@@ -71,6 +71,9 @@ public class Searchfrag extends Fragment {
 ///// check for int =0;
 
         searchbut = (SearchView) view.findViewById(R.id.search);
+        searchbut.setIconifiedByDefault(false);
+        searchbut.setFocusable(true);
+//        searchbut.requestFocus();
         searchfragedit=(EditText)searchbut.findViewById(android.support.v7.appcompat.R.id.search_src_text);
         searchAutoComplete=(android.support.v7.widget.SearchView.SearchAutoComplete)searchbut.findViewById(android.support.v7.appcompat.R.id.search_src_text);
         searchAutoComplete.setDropDownAnchor(R.id.search);
