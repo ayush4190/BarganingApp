@@ -42,6 +42,7 @@ public class SettingsActivity extends AppCompatPreferenceActivity implements Ser
     private static final String TAG = SettingsActivity.class.getSimpleName();
 
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
@@ -164,6 +165,12 @@ public class SettingsActivity extends AppCompatPreferenceActivity implements Ser
 //                            });
 ////                            photo_storage.child(imageURL).delete();
                             user.delete();
+                                fba.signOut ();
+                               SessionManagment sessionManagment = new SessionManagment (getActivity ().getApplicationContext ());
+
+
+                                sessionManagment.logoutUser ();
+
 //                            Intent intent = new Intent (getActivity (),WelcomePage.class);
 //                            intent.putExtra ("key","deleted");
 //                            startActivity (intent);
