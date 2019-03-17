@@ -15,7 +15,6 @@
         android:layout_marginLeft="8dp"
         />
 
-
     <EditText
         android:id="@+id/meet_place_edit"
         android:layout_margin="20dp"
@@ -77,5 +76,15 @@
         android:textSize="18dp"
         android:inputType="none"
         android:background="@null"
+        />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+       android:gravity="center"
+        android:textSize="14dp"
+    android:layout_below="@+id/meet_time_edit"
+        android:text="*If a meet is already proposed, it will be overwitten"
+        android:layout_marginBottom="10dp"
+        android:layout_marginTop="10dp"
         />
 </RelativeLayout>

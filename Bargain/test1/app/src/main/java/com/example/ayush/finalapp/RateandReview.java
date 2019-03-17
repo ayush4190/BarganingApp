@@ -73,10 +73,9 @@ public class RateandReview extends AppCompatActivity implements Serializable {
                            // mroot.child ("count").setValue (details.getCount ()+1);
                             Log.v ("addition",details.getCount ()+1);
                             // infinite loop check here
-                           // details.setCount (details.getCount () +1);
+                            details.setCount (details.getCount () +1);
                             mroot.child ("count").setValue (details.getCount ());
                            startActivity (new Intent (RateandReview.this,ShopperHomepage.class));
-
                         }
 
                         @Override

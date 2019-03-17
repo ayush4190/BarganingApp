@@ -23,7 +23,7 @@
         android:clickable="true"
         android:queryHint="Search by product or shop "
         android:iconifiedByDefault="false"
-        android:focusableInTouchMode="false"
+        android:focusableInTouchMode="true"
         >
 
     </android.support.v7.widget.SearchView>

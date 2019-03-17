@@ -9,16 +9,12 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
-import android.graphics.BitmapFactory;
-import android.location.Geocoder;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
 import android.net.Uri;
-import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
-import android.os.StrictMode;
 import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
@@ -43,12 +39,7 @@ import android.widget.LinearLayout;
 import android.widget.RatingBar;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import com.bumptech.glide.Glide;
-import com.google.android.gms.location.places.GeoDataClient;
-import com.google.android.gms.location.places.Place;
-import com.google.android.gms.location.places.PlaceDetectionClient;
-import com.google.android.gms.location.places.Places;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
@@ -62,80 +53,84 @@ import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.onesignal.OneSignal;
 
-import java.io.OutputStream;
-import java.net.HttpURLConnection;
-import java.net.URL;
-import java.util.List;
-import java.util.Locale;
-import java.util.Scanner;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
-public class ShopperHomepage extends AppCompatActivity
-        implements NavigationView.OnNavigationItemSelectedListener {
-    Toolbar toolbar;
-    private DatabaseReference fdb;
+public class ShopperHomepage extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
+
+   //important static variables to store the logged in shopper's uid, name
+    public static String shopper_uid, shopper_name;
+    public static ShopperProfile shopperProfile;
+    private static final String channelId ="com.example.ayush.finalapp";
+    public static Context contextOfApplication;
+    public static boolean isAppRunning;
+
+    DatabaseReference fdb;
     FirebaseAuth fba;
+    FirebaseUser user;
+    StorageReference photo_storage;
+
+    Toolbar toolbar;
+
     Float rate_val;
     static String shop_name;
     AlertDialog.Builder builder2;
-    FirebaseUser user;
+
     ImageView mwallet;
-    private static final String channelId ="com.example.ayush.finalapp";
+
     Fragment fragment = null;
     ImageView mcommunity;
     ImageView mfav, msetting;
-    public static Context contextOfApplication;
-    int zip;
-    public static boolean isAppRunning;
+
     // for user name
     FirebaseDatabase firebaseDatabase;
-    StorageReference photo_storage;
+
     private LocationManager locationManager;
     private LocationListener locationListener;
     SessionManagment sessionManagment;
-//    FirebaseUser user;
-//    FirebaseAuth fba;
     CircleImageView shopper_pic;
 
     String check = "false";
+
+
 
     @SuppressLint("WrongViewCast")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate (savedInstanceState);
-
-        //function for getting pincode of the current location
-
-        pincode ();
-        //
-        OneSignal.startInit(this)
-                .inFocusDisplaying(OneSignal.OSInFocusDisplayOption.Notification)
-                .unsubscribeWhenNotificationsAreDisabled(true)
-                .init();
-        OneSignal.sendTag("USER_ID",FirebaseAuth.getInstance().getCurrentUser().getUid());
-
-        toolbar = (Toolbar) findViewById (R.id.toolbarbottom);
-
         setContentView (R.layout.activity_shopper_homepage);
 
-        contextOfApplication=getApplicationContext();
-        Toolbar toolbar = (Toolbar) findViewById (R.id.toolbar);
-        toolbar.setLogo(R.drawable.applogo1);
-        setSupportActionBar (toolbar);
+
+        //initialise the static variables
+        ShopperHomepage.shopper_uid=FirebaseAuth.getInstance().getCurrentUser().getUid();
+
 
         fba = FirebaseAuth.getInstance ();
-
         user = fba.getCurrentUser ();
-
         fdb = FirebaseDatabase.getInstance ().getReference ();
-
-
         photo_storage = FirebaseStorage.getInstance ().getReference ().child ("Shopper_profile_image");
 
 
 
+        //initialise the context of the shopper homepage to be used in fragments
+        contextOfApplication=getApplicationContext();
 
+
+        //function for getting pincode of the current location
+        pincode ();
+
+        //initiate the one signal notifications for chat box related activities
+        OneSignal.startInit(this)
+                .inFocusDisplaying(OneSignal.OSInFocusDisplayOption.Notification)
+                .unsubscribeWhenNotificationsAreDisabled(true)
+                .init();
+        OneSignal.sendTag("USER_ID",ShopperHomepage.shopper_uid);
+
+
+        toolbar = (Toolbar) findViewById (R.id.toolbarbottom);
+        Toolbar toolbar = (Toolbar) findViewById (R.id.toolbar);
+        toolbar.setLogo(R.drawable.applogo1);
+        setSupportActionBar (toolbar);
 
 /*        DatabaseReference mref = fdb.child ("Shopper").child (user.getUid ());
         mref.addValueEventListener (new ValueEventListener () {
@@ -158,20 +153,20 @@ public class ShopperHomepage extends AppCompatActivity
             }
         });*/
 
+        mwallet = findViewById (R.id.wallet);
+        mcommunity= findViewById (R.id.communityimage);
+        mfav = findViewById (R.id.favimage);
+        msetting=findViewById(R.id.settingimage);
 
-        mwallet = (ImageView) findViewById (R.id.wallet);//creating the buttons
-        mcommunity = (ImageView) findViewById (R.id.communityimage);
-        mfav = (ImageView) findViewById (R.id.favimage);
-        msetting=(ImageView)findViewById(R.id.settingimage);
+//dead code
         //mfaq = (ImageView) findViewById (R.id.faq);
         // notification =(MenuItem) findViewById(R.id.action_notification);
-
+//
 
         //setting the first fragment
         FragmentTransaction fragmentTransaction = getSupportFragmentManager ().beginTransaction ();
         fragmentTransaction.replace (R.id.content_frame, new HomeShopperfrag (), "Homefrag");
         fragmentTransaction.commit ();
-        
 
         // calling wallet page using fragments
         mwallet.setOnClickListener (new View.OnClickListener () {
@@ -184,6 +179,7 @@ public class ShopperHomepage extends AppCompatActivity
 
             }
         });
+
         // calling community page using fragments
         mcommunity.setOnClickListener (new View.OnClickListener () {
             @Override
@@ -195,6 +191,7 @@ public class ShopperHomepage extends AppCompatActivity
 
             }
         });
+
         //calling favourite page
         mfav.setOnClickListener (new View.OnClickListener () {
             @Override
@@ -203,9 +200,11 @@ public class ShopperHomepage extends AppCompatActivity
                 fragmentTransaction.replace (R.id.content_frame, new Favourite ());
                 fragmentTransaction.addToBackStack ("fav");
                 fragmentTransaction.commit ();
-
             }
         });
+
+
+
 
 //        final NotificationCompat.Builder builder = new NotificationCompat.Builder(ShopperHomepage.this, channelId)
 //                .setContentTitle("Bargainer App")
@@ -219,13 +218,11 @@ public class ShopperHomepage extends AppCompatActivity
             public void onClick(View v) {
 //                sendNotification();
               startActivity(new Intent(ShopperHomepage.this, SettingsActivity.class));
-//                Log.v("here","i am here");
-
-//notification is white as icon color is not trasnparent and white
             }
         });
 
 
+        //dead code
 //        //calling faq page
 //        mfaq.setOnClickListener (new View.OnClickListener () {
 //            @Override
@@ -235,7 +232,8 @@ public class ShopperHomepage extends AppCompatActivity
 //            }
 //        });not
 
-        DrawerLayout drawer = (DrawerLayout) findViewById (R.id.drawer_layout);
+
+        DrawerLayout drawer = findViewById (R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle (
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawer.addDrawerListener (toggle);
@@ -244,28 +242,27 @@ public class ShopperHomepage extends AppCompatActivity
         NavigationView navigationView = (NavigationView) findViewById (R.id.nav_view);
         navigationView.setNavigationItemSelectedListener (this);
 
-        //// added new content here
-        final TextView textView = (TextView) findViewById (R.id.shopper_name);
-        DatabaseReference shopper = fdb.child ("Shopper").child (user.getUid ());
 
+
+        //// added new content here
+
+        DatabaseReference shopper = fdb.child ("Shopper").child (ShopperHomepage.shopper_uid );
         shopper.addValueEventListener (new ValueEventListener () {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 try {
-                    ShopperProfile profile = dataSnapshot.getValue (ShopperProfile.class);
-                    assert profile != null;
-                    String key = profile.getFname () + profile.getLname ();
-                    shop_name = key;
-
+                    shopperProfile = dataSnapshot.getValue (ShopperProfile.class);
+                    assert shopperProfile != null;
+                   shopper_name= shopperProfile.getFname () + " "+shopperProfile.getLname ();
                     NavigationView navigationView = (NavigationView) findViewById (R.id.nav_view);
                     View headerView = navigationView.getHeaderView (0);
                     TextView navUsername = (TextView) headerView.findViewById (R.id.shopper_name);
-                    navUsername.setText (key);
+                    navUsername.setText (shopper_name);
                     TextView user_email = (TextView) headerView.findViewById (R.id.shopper_drawer_mail);
-                    user_email.setText (profile.getEmail ());
+                    user_email.setText (shopperProfile.getEmail ());
                     shopper_pic = (CircleImageView) headerView.findViewById (R.id.image_shopper);
-
-
+                    //fetch profile photo
+                    fetch ();
                     /// adding function to get photo from firebase storage
 //                String location = user.getUid ()+"."+"jpg";
 //                photo_storage.child (location).getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri> () {
@@ -281,9 +278,9 @@ public class ShopperHomepage extends AppCompatActivity
 //                        Toast.makeText (ShopperHomepage.this,exception.getMessage (),Toast.LENGTH_LONG).show ();
 //                    }
 //                });
-                    fetch ();
                 }catch (NullPointerException e)
                 {}
+
                     try {
                         check = (String) getIntent ().getSerializableExtra ("bool");
                         if(check.compareToIgnoreCase ("true") == 0) {
@@ -291,10 +288,10 @@ public class ShopperHomepage extends AppCompatActivity
                             check = "false";
                         }
                     }catch (NullPointerException e)
+
                     {
                         //Toast.makeText (ShopperHomepage.this,e.getMessage (),Toast.LENGTH_LONG).show ();
                     }
-                //////////////////////////////////////////////////////
 
 
             }
@@ -309,6 +306,8 @@ public class ShopperHomepage extends AppCompatActivity
     }
 
 
+
+    //back button
     @Override
     public void onBackPressed() {
 
@@ -321,6 +320,7 @@ public class ShopperHomepage extends AppCompatActivity
         }
 
     }
+
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -338,22 +338,13 @@ public class ShopperHomepage extends AppCompatActivity
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_chatbox) {//R.id.action_setting
-
             //open chat fragment
-//            Intent intent = new Intent (ShopperHomepage.this,ChatMain.class);
-//            startActivity (intent);
             FragmentTransaction fragmentTransaction = getSupportFragmentManager ().beginTransaction ();
             fragmentTransaction.replace (R.id.content_frame, new ChatFragment ());
             fragmentTransaction.addToBackStack ("chatfrag");
             fragmentTransaction.commit ();
         }
-        if (id == R.id.action_notification) {
-//to open notification as a fragment
-            FragmentTransaction fragmentTransaction = getSupportFragmentManager ().beginTransaction ();
-            fragmentTransaction.replace (R.id.content_frame, new NotificationFrag ());
-            fragmentTransaction.addToBackStack ("notification");
-            fragmentTransaction.commit ();
-        }
+
 
         return super.onOptionsItemSelected (item);
     }
@@ -369,12 +360,9 @@ public class ShopperHomepage extends AppCompatActivity
         // Fragment fragment = null;
 
         int id = item.getItemId ();
-
         if (id == R.id.nav_logout) {
-
-            // Handle the camera action
+            //logout using session management
             sessionManagment = new SessionManagment (getApplicationContext ());
-
             fba.signOut ();
             sessionManagment.logoutUser ();
 
@@ -454,9 +442,6 @@ public class ShopperHomepage extends AppCompatActivity
             sharingIntent.putExtra(android.content.Intent.EXTRA_SUBJECT, "Bargaining App");
             sharingIntent.putExtra(android.content.Intent.EXTRA_TEXT, shareBody);
             startActivity(Intent.createChooser(sharingIntent, "Share via"));
-
-
-
         }
 
 
@@ -481,19 +466,16 @@ public class ShopperHomepage extends AppCompatActivity
         }
     }
 
+
     public void fetch()
     {
         try {
-
-
-            String location = user.getUid () + "." + "jpg";
+            String location = ShopperHomepage.shopper_uid + "." + "jpg";
             Log.v("manas",photo_storage.getPath().toString());
-
             photo_storage.child (location).getDownloadUrl ().addOnSuccessListener (new OnSuccessListener <Uri> () {
                 @Override
                 public void onSuccess(Uri uri) {
                     String imageURL = uri.toString ();
-                    Log.v("manas2",imageURL);
                     Glide.with (getApplicationContext ()).load (imageURL).into (shopper_pic);
                 }
             }).addOnFailureListener (new OnFailureListener () {
@@ -507,9 +489,9 @@ public class ShopperHomepage extends AppCompatActivity
         {
             Toast.makeText (ShopperHomepage.this,e.getMessage (),Toast.LENGTH_LONG).show ();
         }
-
-
     }
+
+
 
     public void pincode() {
         locationManager = (LocationManager) this.getSystemService (LOCATION_SERVICE);
