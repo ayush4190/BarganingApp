@@ -36,6 +36,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class ShopperRegistration extends AppCompatActivity implements Serializable {
+    SessionManagment session;
 
     private FirebaseAuth mAuth;
 
@@ -177,6 +178,7 @@ public class ShopperRegistration extends AppCompatActivity implements Serializab
         profile.setFname (firstname_q.getText ().toString ().trim ());
         profile.setLname (lastname_q.getText ().toString ().trim ());
         profile.setUsername (username_q.getText ().toString ().trim ());
+        session = new SessionManagment (getApplicationContext ());
 
 
         mAuth.createUserWithEmailAndPassword (emailv,passwordv).addOnCompleteListener (new OnCompleteListener <AuthResult> () {
@@ -185,6 +187,7 @@ public class ShopperRegistration extends AppCompatActivity implements Serializab
                 if(task.isSuccessful ())
                 {
                     Toast.makeText (ShopperRegistration.this,"Registration completed",Toast.LENGTH_SHORT).show ();
+                    session.createLoginSession ("shopper",emailv);
                    Intent myIntent = new Intent (ShopperRegistration.this,
                             ShopperForm.class);
                     myIntent.putExtra ("profile", profile);
