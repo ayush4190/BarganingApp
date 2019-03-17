@@ -35,7 +35,7 @@ public class SearchDisplayFrag extends Fragment{
     DatabaseReference databaseReference;
     //String searchvalue = (Searchfrag)getIntent().getExtras("Searchtext");
     String searchvalue;
-    Binder binder;
+//    Binder binder;
     int age =0;
     @Nullable
     @Override

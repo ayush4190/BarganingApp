@@ -77,7 +77,6 @@ String name;
     static Context mContext;
     NotificationCompat.Builder builder;
     private FirebaseUser firebaseUser;
-
     private DatabaseReference databaseReference;
     private DatabaseReference mdatabaseReference;
     EditText place;
@@ -397,7 +396,7 @@ String name;
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_accept) {
             /////////
-
+            //check here
             builder2 = new AlertDialog.Builder (ChatBoxNego.this);
             LayoutInflater inflater = ChatBoxNego.this.getLayoutInflater ();
             final View v1= inflater.inflate(R.layout.meet_nego_frag,null);

@@ -22,7 +22,6 @@ import java.util.List;
 
 public class SearchDisplay extends AppCompatActivity {
 
-
     private List<NegotiatorDetails> negotiatorList = new ArrayList<>();
     private RecyclerView recyclerView;
     private NegotiatorProfileAdapter adapter;
