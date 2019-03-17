@@ -484,6 +484,7 @@ public class ShopperHomepage extends AppCompatActivity implements NavigationView
     public void fetch()
     {
         try {
+            final String location2=user.getUid()+"."+"null";
             String location = ShopperHomepage.shopper_uid + "." + "jpg";
             Log.v("manas",photo_storage.getPath().toString());
             photo_storage.child (location).getDownloadUrl ().addOnSuccessListener (new OnSuccessListener <Uri> () {
@@ -496,7 +497,20 @@ public class ShopperHomepage extends AppCompatActivity implements NavigationView
                 @Override
                 public void onFailure(@NonNull Exception exception) {
                     // Handle any errors
-                    Toast.makeText (ShopperHomepage.this, exception.getMessage (), Toast.LENGTH_LONG).show ();
+                    photo_storage.child("location2").getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+                        @Override
+                        public void onSuccess(Uri uri) {
+                            String imageurl2=uri.toString();
+                            Log.v("url link",imageurl2);
+                            Glide.with(getApplicationContext()).load(imageurl2).into(shopper_pic);
+                        }
+                    }).addOnFailureListener(new OnFailureListener() {
+                        @Override
+                        public void onFailure(@NonNull Exception e) {
+                            Toast.makeText(ShopperHomepage.this,e.getMessage(),Toast.LENGTH_LONG).show();
+                        }
+                    });
+//                    Toast.makeText (ShopperHomepage.this, exception.getMessage (), Toast.LENGTH_LONG).show ();
                 }
             });
         }catch (NullPointerException e)
