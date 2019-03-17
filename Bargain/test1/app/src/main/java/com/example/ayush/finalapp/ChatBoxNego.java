@@ -397,6 +397,7 @@ String name;
         if (id == R.id.action_accept) {
             /////////
             //check here
+            //if a meet proposal exists then open dialog box with details else show a dialog saying that no meet exists
             builder2 = new AlertDialog.Builder (ChatBoxNego.this);
             LayoutInflater inflater = ChatBoxNego.this.getLayoutInflater ();
             final View v1= inflater.inflate(R.layout.meet_nego_frag,null);
