@@ -69,6 +69,7 @@ public class WelcomePage extends AppCompatActivity {
 
         firebaseAuth = FirebaseAuth.getInstance ();
         user = firebaseAuth.getCurrentUser ();
+        Log.v ("status activyt",String.valueOf (user));
         if (user != null) {
 
             try {
