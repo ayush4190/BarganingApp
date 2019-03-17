@@ -121,6 +121,13 @@ String name;
         databaseReference=FirebaseDatabase.getInstance ().getReference ();
         Intent intent = getIntent();
         User = intent.getStringExtra("User");
+
+        OneSignal.startInit(this)
+                .inFocusDisplaying(OneSignal.OSInFocusDisplayOption.None)
+                .unsubscribeWhenNotificationsAreDisabled(true)
+                .init();
+
+
         Reciever = intent.getStringArrayExtra("Reciever");
         int Num = intent.getIntExtra("Number",0);
 
@@ -390,9 +397,18 @@ String name;
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
-        if (id==android.R.id.home) {
-            finish();
+        if (item.getItemId() == android.R.id.home) {
+            onBackPressed();
+
+            OneSignal.startInit(this)
+                    .inFocusDisplaying(OneSignal.OSInFocusDisplayOption.Notification)
+                    .unsubscribeWhenNotificationsAreDisabled(true)
+                    .init();
+
+
         }
+
+
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_accept) {
             /////////
