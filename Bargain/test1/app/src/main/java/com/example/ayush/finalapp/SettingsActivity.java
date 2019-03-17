@@ -171,9 +171,9 @@ public class SettingsActivity extends AppCompatPreferenceActivity implements Ser
 
                                 sessionManagment.logoutUser ();
 
-//                            Intent intent = new Intent (getActivity (),WelcomePage.class);
-//                            intent.putExtra ("key","deleted");
-//                            startActivity (intent);
+                            Intent intent = new Intent (getActivity (),WelcomePage.class);
+                            intent.putExtra ("key","deleted");
+                            startActivity (intent);
 
                         }catch (NullPointerException e)
                         {
