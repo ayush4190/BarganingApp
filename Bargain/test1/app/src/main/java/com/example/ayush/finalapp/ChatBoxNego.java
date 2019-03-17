@@ -77,6 +77,7 @@ String name;
     static Context mContext;
     NotificationCompat.Builder builder;
     private FirebaseUser firebaseUser;
+    DatabaseReference m1;
     private DatabaseReference databaseReference;
     private DatabaseReference mdatabaseReference;
     EditText place;
@@ -92,7 +93,7 @@ String name;
     int i,alpha;
     TransactionsDetails transactionsDetails;
     MeetDetails meetDetails;
-    TextView placeText,dateText,timeText,noMeet;
+    TextView placeText,dateText,timeText,noMeet,already_accepted;
     TextView placeText1,dateText1,timeText1;
     AlertDialog.Builder builder2;
 
@@ -414,6 +415,10 @@ String name;
             /////////
             //check here
             //if a meet proposal exists then open dialog box with details else show a dialog saying that no meet exists
+
+
+
+            //end here
             builder2 = new AlertDialog.Builder (ChatBoxNego.this);
             LayoutInflater inflater = ChatBoxNego.this.getLayoutInflater ();
             final View v1= inflater.inflate(R.layout.meet_nego_frag,null);
@@ -425,210 +430,198 @@ String name;
             dateText1=v1.findViewById(R.id.meet_date);
             placeText1=v1.findViewById(R.id.meet_place);
             noMeet=v1.findViewById(R.id.no_meet);
+            already_accepted=v1.findViewById(R.id.already_accepted);
             timeText1=v1.findViewById(R.id.meet_time);
-            dateText.setText(empty);
-            placeText.setText(empty);
-            timeText.setText(empty);
+            dateText.setText("empty");
+            placeText.setText("empty");
+            timeText.setText("empty");
             i=0;
             alpha=0;
 
 //                                            Log.v("manas",mdatabaseReference.get);
 
-            Query query2=databaseReference.child("Negotiator").child(firebaseUser.getUid()).child("meet").orderByChild("shopper").equalTo(Reciever[1]).limitToLast(1);
-
-            query2.addChildEventListener(new ChildEventListener() {
+ m1=FirebaseDatabase.getInstance().getReference().child("Negotiator").child(firebaseUser.getUid()).child("meet");
+            ////
+            ValueEventListener eventListener = new ValueEventListener() {
                 @Override
-                public void onChildAdded(@NonNull final DataSnapshot dataSnapshot, @Nullable String s) {
-                    if(dataSnapshot.exists())
-                    {
-                        if(dataSnapshot.child("place").getValue().toString()!=null)
-                        {
+                public void onDataChange(DataSnapshot dataSnapshot) {
+                    if(!dataSnapshot.exists()) {
+                                //does not exists
+                                //so show dialog that it does not exist
+                        Log.v("asus inside notexist","yo");
+                        dateText.setVisibility(v1.GONE);
+                        timeText.setVisibility(v1.GONE);
+                        placeText.setVisibility(v1.GONE);
+                        dateText1.setVisibility(v1.GONE);
+                        timeText1.setVisibility(v1.GONE);
+                        placeText1.setVisibility(v1.GONE);
+                        noMeet.setVisibility(v1.VISIBLE);
+                        builder2.setTitle("Accept or decline the meet");
+                        AlertDialog alert = builder2.create ();
+                        alert.show ();
 
-                            i++;
+                    }else {
 
-                        }
-                        if(dataSnapshot.child("time").getValue().toString()!=null)
-                        {
-                            i++;
+                     //exists
+                                //here check if accepted or not
+                        meetDetails=dataSnapshot.getValue(MeetDetails.class);
+                                    ////////////
 
-                        }
-                        if(dataSnapshot.child("date").getValue().toString()!=null)
-                        {
-                            i++;
-
-                        }
-                        if(i==3) {
-
-                            meetDetails=dataSnapshot.getValue(MeetDetails.class);
-                            if(meetDetails.isAccepted){
-                                Log.v("me inside i==3",String.valueOf(i));
-                                dateText.setVisibility(v1.GONE);
-                                timeText.setVisibility(v1.GONE);
-                                placeText.setVisibility(v1.GONE);
-                                dateText1.setVisibility(v1.GONE);
-                                timeText1.setVisibility(v1.GONE);
-                                placeText1.setVisibility(v1.GONE);
-                                noMeet.setVisibility(v1.VISIBLE);
-                                noMeet.setText("The latest pending meet is already accepted");
-                                builder2.setTitle("Accept or decline the meet");
-
-                                AlertDialog alert = builder2.create ();
-                                alert.show ();
-
-                            }else {
-                                Log.v("me inside i==3 and else",String.valueOf(i));
-                                placeText.setText(dataSnapshot.child("place").getValue().toString());
-                                timeText.setText(dataSnapshot.child("time").getValue().toString());
-                                dateText.setText(dataSnapshot.child("date").getValue().toString());
-                                alpha=1;
-                                builder2.setNegativeButton("Reject", new DialogInterface.OnClickListener() {
-                                    public void onClick(DialogInterface dialog, int id) {
-                                        meetDetails.isAccepted=false;
-                                        message_sent="Sorry, "+Negotiator_dash.nego_name+" has rejected your request";
-                                        sendNotification();
-
-                                        dataSnapshot.getRef().setValue(meetDetails);
-
-                                        databaseReference1 = FirebaseDatabase.getInstance().getReference();
-                                        nego_id=firebaseAuth.getCurrentUser().getUid();
-
-                                        Query d=databaseReference1.child("Negotiator").child(nego_id).child("Amount");
-                                        d.addListenerForSingleValueEvent(new ValueEventListener() {
-                                            @Override
-                                            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                                                String amount="";
-                                                amount =dataSnapshot.getValue(String.class);
-//                              Log.v("amount",amount);
-                                                amount_int =Integer.parseInt(amount);
-                                               int deductable_amount = new Random().nextInt((50 - 20) + 1) + 20;
-                                                if (amount_int>=50){
-                                                    amount_int-=deductable_amount;
-                                                    amount= String.valueOf(amount_int);
-                                                }
-                                                databaseReference.child("Negotiator").child(nego_id).child("Amount").setValue(amount);
-                                                nameshop=Reciever[0];
-                                                builder = new NotificationCompat.Builder(ChatBoxNego.this, channelId)
-                                                        .setContentTitle("Amount Deducted")
-                                                        .setSmallIcon(R.drawable.appicon1)
-                                                        .setContentText("Rs." + deductable_amount +" deducted for rejecting service of "+Reciever[0])
-                                                        .setPriority(NotificationCompat.PRIORITY_DEFAULT).setLargeIcon(BitmapFactory.decodeResource(getResources(),
-                                                                R.drawable.appicon1));
-                                                NotificationManagerCompat notificationManager = NotificationManagerCompat.from(ChatBoxNego.this);
-
-// notificationId is a unique int for each notification that you must define
-                                                notificationManager.notify(11, builder.build());
-
-                                            }
-
-                                            @Override
-                                            public void onCancelled(@NonNull DatabaseError databaseError) {
-
-                                            }
-                                        });
-
-                                    }
-                                });
-                                builder2.setPositiveButton("Accept", new DialogInterface.OnClickListener() {
-                                    @Override
-                                    public void onClick(DialogInterface dialog, int which) {
-                                        meetDetails.isAccepted=true;
-                                        message_sent=Negotiator_dash.nego_name+" has accepted your request, Happy Bargaining:)";
-                                        sendNotification();
-
-                                        dataSnapshot.getRef().setValue(meetDetails);
-
-                                        nego_id=firebaseAuth.getCurrentUser().getUid();
-                                        shop_id=meetDetails.getShopper();
-
-//                                            mdatabaseReference.addValueEventListener(new ValueEventListener() {
-//                                                @Override
-//                                                public void onDataChange(DataSnapshot dataSnapshot) {
-//                                                    NegotiatorDetails negotiatorDetails = dataSnapshot.getValue(NegotiatorDetails.class);
-//                                                    name=negotiatorDetails.getFirstname()+"  "+negotiatorDetails.getLastname();
-//                                                }
-//
-//                                                @Override
-//                                                public void onCancelled(DatabaseError databaseError) {
-//                                                    System.out.println("The read failed: " + databaseError.getCode());
-//                                                }
-//                                            });
-//                                            Log.v("manas2",name);
-                                        transactionsDetails=new TransactionsDetails(shop_id,nego_id,meetDetails.getNegoname(),meetDetails.getDate(),"pending","0.0",Reciever[0]);
-                                        DatabaseReference m1=FirebaseDatabase.getInstance().getReference().child("Transactions").child(shop_id).push ();
-                                        m1.setValue(transactionsDetails);
-//                                        amount_payable.MostRecentIdShopper=m1.getKey ();
-//                                        Log.v ("manas",amount_payable.MostRecentIdShopper);
-                                        DatabaseReference m2=FirebaseDatabase.getInstance().getReference().child("Transactions").child(nego_id).push();
-                                        m2.setValue (transactionsDetails);
-                                        builder = new NotificationCompat.Builder(ChatBoxNego.this, channelId)
-                                                .setContentTitle("Request Accepted")
-                                                .setSmallIcon(R.drawable.appicon1)
-                                                .setContentText("Open wallet to initialize payment")
-                                                .setPriority(NotificationCompat.PRIORITY_DEFAULT).setLargeIcon(BitmapFactory.decodeResource(getResources(),
-                                                        R.drawable.appicon1));
-                                        NotificationManagerCompat notificationManager = NotificationManagerCompat.from(ChatBoxNego.this);
-
-// notificationId is a unique int for each notification that you must define
-                                        notificationManager.notify(12, builder.build());
-
-//                                        amount_payable.MostRecentIdNegotiator=m2.getKey ();
-                                        //here transaction is initialized
-//                                        Log.v ("manas",amount_payable.MostRecentIdNegotiator);
-//                                        amount_payable.MostRecentDate=transactionsDetails.getDate ();
-//                                        amount_payable.MostRecentNameNegotiator=transactionsDetails.getCreditedToName ();
-//                                        amount_payable.MostRecentNameShopper=transactionsDetails.getDebitedFromName ();
-
-                                    }
-                                });
-
-                                builder2.setTitle("Accept or decline the meet");
-
-                                AlertDialog alert = builder2.create ();
-                                alert.show ();
-                            }
+                        Log.v("asus inside exist","yo");
 
 
-                        }else{
-                            Log.v("me inside i!=3",String.valueOf(i));
+                        //if already accepted show dialog already accepted
+                        if(meetDetails.isAccepted){
+
+                            Log.v("asus inside isaccepted","yo");
                             dateText.setVisibility(v1.GONE);
                             timeText.setVisibility(v1.GONE);
                             placeText.setVisibility(v1.GONE);
                             dateText1.setVisibility(v1.GONE);
                             timeText1.setVisibility(v1.GONE);
                             placeText1.setVisibility(v1.GONE);
-                            noMeet.setVisibility(v1.VISIBLE);
+                            already_accepted.setVisibility(v1.VISIBLE);
+                            builder2.setTitle("Accept or decline the meet");
+                            AlertDialog alert = builder2.create ();
+                            alert.show ();
+                        }
+
+
+                        else{
+                        //else display all details and give two options accept or reject in dialog and show it
+                            Log.v("asus inside !isaccepted","yo");
+
+                            placeText.setText(meetDetails.getPlace());
+                            timeText.setText(meetDetails.getTime());
+                            dateText.setText(meetDetails.getDate());
+
+
+                            //now two options to accept or reject
+
+                            //reject
+                            builder2.setNegativeButton("Reject", new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
+                                    message_sent="Sorry, "+Negotiator_dash.nego_name+" has rejected your request";
+                                    sendNotification();
+
+                                    databaseReference1 = FirebaseDatabase.getInstance().getReference();
+                                    nego_id=firebaseAuth.getCurrentUser().getUid();
+
+                                    Query d=databaseReference1.child("Negotiator").child(nego_id).child("Amount");
+                                    Log.v("ani",d.getPath().toString());
+                                    d.addListenerForSingleValueEvent(new ValueEventListener() {
+                                        @Override
+                                        public void onDataChange(@NonNull DataSnapshot dataSnapshot1) {
+                                            String amount="";
+                                            amount =dataSnapshot1.getValue(String.class);
+//                              Log.v("amount",amount);
+                                            amount_int =Integer.parseInt(amount);
+                                            int deductable_amount = new Random().nextInt((50 - 20) + 1) + 20;
+                                            if (amount_int>=50){
+                                                amount_int-=deductable_amount;
+                                                amount= String.valueOf(amount_int);
+                                            }
+                                            FirebaseDatabase.getInstance().getReference().child("Negotiator").child(nego_id).child("Amount").setValue(amount);
+                                            nameshop=Reciever[0];
+                                            builder = new NotificationCompat.Builder(ChatBoxNego.this, channelId)
+                                                    .setContentTitle("Amount Deducted")
+                                                    .setSmallIcon(R.drawable.appicon1)
+                                                    .setContentText("Rs." + deductable_amount +" deducted for rejecting service of "+Reciever[0])
+                                                    .setPriority(NotificationCompat.PRIORITY_DEFAULT).setLargeIcon(BitmapFactory.decodeResource(getResources(),
+                                                            R.drawable.appicon1));
+                                            NotificationManagerCompat notificationManager = NotificationManagerCompat.from(ChatBoxNego.this);
+
+// notificationId is a unique int for each notification that you must define
+                                            notificationManager.notify(11, builder.build());
+
+                                        }
+
+                                        @Override
+                                        public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                                        }
+                                    });
+                                    ////////////////
+
+
+                                    //now after all this remove meet from both nego and shopper meet field as it is deleted
+                                    ////
+
+                                    m1.child(Reciever[1]).removeValue();
+//                                    m1=FirebaseDatabase.getInstance().getReference().child("Negotiator").child(firebaseUser.getUid()).child("meet");
+
+                                    FirebaseDatabase.getInstance().getReference().child("Shopper").child(Reciever[1]).child("meet").child(firebaseUser.getUid()).removeValue();
+                                    ////
+                                }
+                            });
+
+                            //end of reject button
+
+                            //accept
+                            builder2.setPositiveButton("Accept", new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
+                                    meetDetails.isAccepted=true;
+                                    m1.child(Reciever[1]).setValue(meetDetails);
+                                    FirebaseDatabase.getInstance().getReference().child("Shopper").child(Reciever[1]).child("meet").child(firebaseUser.getUid()).setValue(meetDetails);
+                                    message_sent=Negotiator_dash.nego_name+" has accepted your request, Happy Bargaining:)";
+                                    sendNotification();
+
+                                    nego_id=firebaseAuth.getCurrentUser().getUid();
+                                    shop_id=meetDetails.getShopper();
+
+
+                                    transactionsDetails=new TransactionsDetails(shop_id,nego_id,meetDetails.getNegoname(),meetDetails.getDate(),"pending","0.0",Reciever[0]);
+
+                                    DatabaseReference m2=FirebaseDatabase.getInstance().getReference().child("Transactions").child(shop_id).push();
+                                    m2.setValue(transactionsDetails);
+//                                        amount_payable.MostRecentIdShopper=m1.getKey ();
+//                                        Log.v ("manas",amount_payable.MostRecentIdShopper);
+                                    m2=FirebaseDatabase.getInstance().getReference().child("Transactions").child(nego_id).push();
+                                    m2.setValue (transactionsDetails);
+
+                                    builder = new NotificationCompat.Builder(ChatBoxNego.this, channelId)
+                                            .setContentTitle("Request Accepted")
+                                            .setSmallIcon(R.drawable.appicon1)
+                                            .setContentText("Open wallet to initialize payment")
+                                            .setPriority(NotificationCompat.PRIORITY_DEFAULT).setLargeIcon(BitmapFactory.decodeResource(getResources(),
+                                                    R.drawable.appicon1));
+                                    NotificationManagerCompat notificationManager = NotificationManagerCompat.from(ChatBoxNego.this);
+
+// notificationId is a unique int for each notification that you must define
+                                    notificationManager.notify(12, builder.build());
+
+
+                                }
+                            });
+
+                            //end of accept button
+
+                            //show dialog
                             builder2.setTitle("Accept or decline the meet");
 
                             AlertDialog alert = builder2.create ();
                             alert.show ();
+                        }//finish of if condition of isaccepted!
 
-                        }
+////////////////
+
+
+
+                        ///////////////
                     }
-                }
-
-                @Override
-                public void onChildChanged(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
 
                 }
 
                 @Override
-                public void onChildRemoved(@NonNull DataSnapshot dataSnapshot) {
+                public void onCancelled(DatabaseError databaseError) {
 
                 }
+            };
+            m1.child(Reciever[1]).addListenerForSingleValueEvent(eventListener);
 
-                @Override
-                public void onChildMoved(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
-
-                }
-
-                @Override
-                public void onCancelled(@NonNull DatabaseError databaseError) {
-
-                }
-            });
-
-
-
+            ///
             ////////
 
         }
