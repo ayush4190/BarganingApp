@@ -42,6 +42,7 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.onesignal.OneSignal;
 
 import java.io.OutputStream;
 import java.net.HttpURLConnection;
@@ -104,6 +105,15 @@ public class ChatBox extends AppCompatActivity {
 //        setSupportActionBar(toolbar);
 //        getSupportActionBar().setTitle(Reciever[0]);
 
+
+
+        OneSignal.startInit(this)
+                .inFocusDisplaying(OneSignal.OSInFocusDisplayOption.None)
+                .unsubscribeWhenNotificationsAreDisabled(true)
+                .init();
+
+
+
         setTitle(Reciever[0]);
         LinearLayoutManager layoutManager = new LinearLayoutManager(this);
         layoutManager.setStackFromEnd(true);
@@ -132,10 +142,16 @@ public class ChatBox extends AppCompatActivity {
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId ();
 
-        if (item.getItemId() == android.R.id.home)
+        if (item.getItemId() == android.R.id.home) {
             onBackPressed();
 
+            OneSignal.startInit(this)
+                    .inFocusDisplaying(OneSignal.OSInFocusDisplayOption.Notification)
+                    .unsubscribeWhenNotificationsAreDisabled(true)
+                    .init();
 
+
+        }
 
 
         //noinspection SimplifiableIfStatement

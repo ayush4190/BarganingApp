@@ -5,7 +5,9 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.os.Bundle;
@@ -15,6 +17,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
+import android.widget.EditText;
+import android.widget.SearchView;
 import android.widget.Toast;
 
 import com.google.firebase.database.ChildEventListener;
@@ -28,6 +32,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class SearchDisplayFrag extends Fragment{
+    SearchView msearchview;
+    EditText msearchtext;
     private List<NegotiatorDetails> negotiatorList = new ArrayList<>();
     private RecyclerView recyclerView;
     private NegotiatorProfileAdapter adapter;
@@ -47,7 +53,7 @@ public class SearchDisplayFrag extends Fragment{
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated (view, savedInstanceState);
-
+        msearchview=(SearchView) view.findViewById(R.id.search_in_list);//intialisig searchView
         Bundle bundle = this.getArguments ();
         if(bundle != null)
         {
@@ -62,6 +68,32 @@ public class SearchDisplayFrag extends Fragment{
         //String pos=bundle.getString("filter_result_pos");
         //anime
         // Log.v("filter position" , pos);
+
+        int idtxt = msearchview.getContext().getResources().getIdentifier("android:id/search_src_text", null, null);
+        msearchtext = (EditText)view.findViewById(idtxt);//initialising the searched text in an edit text
+
+        msearchtext.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                FragmentTransaction fragmentTransaction = getFragmentManager().beginTransaction ();
+                fragmentTransaction.replace(R.id.content_frame,new Searchfrag ());
+                fragmentTransaction.addToBackStack ("SearchTagEdit");
+                fragmentTransaction.commit ();
+                return false;
+            }
+        });
+
+        msearchview.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                FragmentTransaction fragmentTransaction = getFragmentManager().beginTransaction ();
+                fragmentTransaction.replace(R.id.content_frame,new Searchfrag ());
+                fragmentTransaction.addToBackStack ("SearchTag");
+                fragmentTransaction.commit ();
+
+            }
+        });
+
 
 
         Log.v("Serachdis age:",String.valueOf (age));

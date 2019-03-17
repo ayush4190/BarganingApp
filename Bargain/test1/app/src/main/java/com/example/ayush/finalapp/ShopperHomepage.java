@@ -72,7 +72,7 @@ import de.hdodenhof.circleimageview.CircleImageView;
 
 public class ShopperHomepage extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
-   //important static variables to store the logged in shopper's uid, name
+    //important static variables to store the logged in shopper's uid, name
     public static String shopper_uid, shopper_name;
     public static ShopperProfile shopperProfile;
     private static final String channelId ="com.example.ayush.finalapp";
@@ -231,7 +231,7 @@ public class ShopperHomepage extends AppCompatActivity implements NavigationView
             @Override
             public void onClick(View v) {
 //                sendNotification();
-              startActivity(new Intent(ShopperHomepage.this, SettingsActivity.class));
+                startActivity(new Intent(ShopperHomepage.this, SettingsActivity.class));
             }
         });
 
@@ -267,7 +267,7 @@ public class ShopperHomepage extends AppCompatActivity implements NavigationView
                 try {
                     shopperProfile = dataSnapshot.getValue (ShopperProfile.class);
                     assert shopperProfile != null;
-                   shopper_name= shopperProfile.getFname () + " "+shopperProfile.getLname ();
+                    shopper_name= shopperProfile.getFname () + " "+shopperProfile.getLname ();
                     NavigationView navigationView = (NavigationView) findViewById (R.id.nav_view);
                     View headerView = navigationView.getHeaderView (0);
                     TextView navUsername = (TextView) headerView.findViewById (R.id.shopper_name);
@@ -295,17 +295,17 @@ public class ShopperHomepage extends AppCompatActivity implements NavigationView
                 }catch (NullPointerException e)
                 {}
 
-                    try {
-                        check = (String) getIntent ().getSerializableExtra ("bool");
-                        if(check.compareToIgnoreCase ("true") == 0) {
-                            fetch ();
-                            check = "false";
-                        }
-                    }catch (NullPointerException e)
-
-                    {
-                        //Toast.makeText (ShopperHomepage.this,e.getMessage (),Toast.LENGTH_LONG).show ();
+                try {
+                    check = (String) getIntent ().getSerializableExtra ("bool");
+                    if(check.compareToIgnoreCase ("true") == 0) {
+                        fetch ();
+                        check = "false";
                     }
+                }catch (NullPointerException e)
+
+                {
+                    //Toast.makeText (ShopperHomepage.this,e.getMessage (),Toast.LENGTH_LONG).show ();
+                }
 
 
             }
@@ -431,7 +431,7 @@ public class ShopperHomepage extends AppCompatActivity implements NavigationView
                     int rate_val =rating.getProgress();
                     Log.v("RAAAAA",String.valueOf(rating.getProgress()));
                     if (rate_val>=4)
-                    Toast.makeText(ShopperHomepage.this,"Thank you for your Support!",Toast.LENGTH_SHORT).show();
+                        Toast.makeText(ShopperHomepage.this,"Thank you for your Support!",Toast.LENGTH_SHORT).show();
                     else
                         Toast.makeText(ShopperHomepage.this,"Thank you! Please provide feedback to help us improve the service",Toast.LENGTH_SHORT).show();
                     // here you can add functions
@@ -490,7 +490,6 @@ public class ShopperHomepage extends AppCompatActivity implements NavigationView
             String location = user.getUid () + "." + "jpg";
             final String location2 = user.getUid () + "."+"null";
 
-            String location = ShopperHomepage.shopper_uid + "." + "jpg";
 
             Log.v("manas",photo_storage.getPath().toString());
             photo_storage.child (location).getDownloadUrl ().addOnSuccessListener (new OnSuccessListener <Uri> () {
@@ -513,7 +512,7 @@ public class ShopperHomepage extends AppCompatActivity implements NavigationView
                     }).addOnFailureListener (new OnFailureListener () {
                         @Override
                         public void onFailure(@NonNull Exception e) {
-                           Toast.makeText (ShopperHomepage.this,e.getMessage (),Toast.LENGTH_LONG).show ();
+                            Toast.makeText (ShopperHomepage.this,e.getMessage (),Toast.LENGTH_LONG).show ();
                         }
                     });
                     //Toast.makeText (ShopperHomepage.this, exception.getMessage (), Toast.LENGTH_LONG).show ();
@@ -599,7 +598,6 @@ public class ShopperHomepage extends AppCompatActivity implements NavigationView
     }
 
 }
-
 
 
 
