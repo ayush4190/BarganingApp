@@ -216,7 +216,7 @@ public class ChatFragment extends Fragment {
                 public void onClick(View v) {
 //                    if(ChatFragment.Opened != 0)
 //                        return;
-                    ChatFragment.Opened = 1;
+//                    ChatFragment.Opened = 1;
                     //important
                     Intent intent = new Intent(getActivity(),ChatBox.class);
                     intent.putExtra("User",User);

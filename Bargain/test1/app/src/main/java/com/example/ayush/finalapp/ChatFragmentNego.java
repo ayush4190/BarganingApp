@@ -211,7 +211,7 @@ public class ChatFragmentNego extends Fragment {
                 public void onClick(View v) {
 //                    if(ChatFragmentNego.Opened != 0)
 //                        return;
-                    ChatFragmentNego.Opened = 1;
+//                    ChatFragmentNego.Opened = 1;
                     //important
                     Intent intent = new Intent(getActivity(),ChatBoxNego.class);
                     intent.putExtra("User",User);

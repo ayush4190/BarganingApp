@@ -169,7 +169,10 @@ public class PrevPaymentAdapterNego extends RecyclerView.Adapter<PrevPaymentAdap
         return transactionDetailsList.size();
     }
 
-
+    public void clear(){
+        transactionDetailsList.clear();
+        notifyDataSetChanged();
+    }
 ////
 }
 

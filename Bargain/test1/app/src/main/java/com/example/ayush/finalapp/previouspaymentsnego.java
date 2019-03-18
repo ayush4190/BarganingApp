@@ -47,7 +47,6 @@ public class previouspaymentsnego extends Fragment {
         recyclerView = (RecyclerView) view.findViewById(R.id.recyclerView_passbooknego);//
         adapter = new PrevPaymentAdapterNego(negotiatorList,getActivity ());
 
-
         firebaseDatabase = FirebaseDatabase.getInstance();
         firebaseAuth=FirebaseAuth.getInstance();
         firebaseUser = firebaseAuth.getCurrentUser ();
