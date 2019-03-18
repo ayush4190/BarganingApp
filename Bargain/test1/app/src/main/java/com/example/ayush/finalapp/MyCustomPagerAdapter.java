@@ -42,12 +42,12 @@ public class MyCustomPagerAdapter extends PagerAdapter{
         container.addView(itemView);
 
         //listening to image click
-        imageView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Toast.makeText(context, "you clicked image " + (position + 1), Toast.LENGTH_LONG).show();
-            }
-        });
+//        imageView.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                Toast.makeText(context, "you clicked image " + (position + 1), Toast.LENGTH_LONG).show();
+//            }
+//        });
 
         return itemView;
     }
