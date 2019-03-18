@@ -23,7 +23,7 @@
             android:layout_height="wrap_content"
             android:layout_below="@+id/uu"
             android:layout_marginTop="10dp"
-            android:text="@string/privacy"
+            android:text="privacy"
             android:textColor="@color/colorPrimary"
             android:textSize="15dp"
             />
