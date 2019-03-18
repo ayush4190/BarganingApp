@@ -1,8 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_height="wrap_content"
+    android:layout_width="match_parent">
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:orientation="vertical"
+        android:layout_height="wrap_content">
+<SearchView
+android:layout_width="match_parent"
+android:layout_height="match_parent"
+android:layout_gravity="end"
+android:id="@+id/search_in_list"
+android:clickable="true"
+android:queryHint="Search by product or shop "
+android:iconifiedByDefault="false"/>
 <android.support.v7.widget.RecyclerView
 
-    xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/recyclerView"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
@@ -14,3 +29,14 @@
     android:scrollbarSize="5dip">
 
 </android.support.v7.widget.RecyclerView>
+        <TextView
+            android:text="No More Search Results"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="8dp"
+            android:layout_gravity="center"
+            android:fontFamily="sans-serif-thin"
+            android:layout_marginBottom="60dp"
+            />
+    </LinearLayout>
+</ScrollView>

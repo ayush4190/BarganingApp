@@ -42,6 +42,7 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.onesignal.OneSignal;
 
 import java.io.OutputStream;
 import java.net.HttpURLConnection;
@@ -104,6 +105,15 @@ public class ChatBox extends AppCompatActivity {
 //        setSupportActionBar(toolbar);
 //        getSupportActionBar().setTitle(Reciever[0]);
 
+
+
+        OneSignal.startInit(this)
+                .inFocusDisplaying(OneSignal.OSInFocusDisplayOption.None)
+                .unsubscribeWhenNotificationsAreDisabled(true)
+                .init();
+
+
+
         setTitle(Reciever[0]);
         LinearLayoutManager layoutManager = new LinearLayoutManager(this);
         layoutManager.setStackFromEnd(true);
@@ -132,15 +142,24 @@ public class ChatBox extends AppCompatActivity {
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId ();
 
-        if (item.getItemId() == android.R.id.home)
+        if (item.getItemId() == android.R.id.home) {
             onBackPressed();
 
+            OneSignal.startInit(this)
+                    .inFocusDisplaying(OneSignal.OSInFocusDisplayOption.Notification)
+                    .unsubscribeWhenNotificationsAreDisabled(true)
+                    .init();
 
+
+        }
 
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_meet)
         {
+
+
+
             builder2 = new AlertDialog.Builder (ChatBox.this);
                 LayoutInflater inflater = ChatBox.this.getLayoutInflater ();
                 final View v1= inflater.inflate(R.layout.meet_frag,null);
@@ -189,15 +208,17 @@ public class ChatBox extends AppCompatActivity {
             builder2.setPositiveButton("Submit", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        message_sent=ShopperHomepage.shop_name+" has requested you for help ";
-                        sendNotification();
+//                        message_sent=ShopperHomepage.shopper_name+" has requested you for help ";
+//                        messagebox.setText(message_sent);
+//                        sendButton.performClick();
+//                        sendNotification();
 
                         place=(EditText)v1.findViewById(R.id.meet_place_edit);
                         time=(EditText)v1.findViewById(R.id.meet_time_edit);
                         meetDetails=new MeetDetails(firebaseUser.getUid(),place.getText().toString(),meet_date,time.getText().toString(),Reciever[1],false,Reciever[0]);
                         databaseReference.child("Shopper").child(firebaseUser.getUid()).child("meet").child(Reciever[1]).setValue(meetDetails);
                         databaseReference.child("Negotiator").child(Reciever[1]).child("meet").child(ShopperHomepage.shopper_uid).setValue(meetDetails);
-                        messagebox.setText("Meet Proposal\nPlace: "+place.getText().toString()+"\nDate: "+meet_date+"\nTime: "+time.getText().toString());
+                        messagebox.setText("Meet Proposal from "+ShopperHomepage.shopper_name+"\nPlace: "+place.getText().toString()+"\nDate: "+meet_date+"\nTime: "+time.getText().toString());
                         sendButton.performClick();
 
                         builder = new NotificationCompat.Builder(ChatBox.this, channelId)
