@@ -35,10 +35,13 @@ import android.widget.Toast;
 
 import com.google.android.gms.common.GooglePlayServicesNotAvailableException;
 import com.google.android.gms.common.GooglePlayServicesRepairableException;
+import com.google.android.gms.location.FusedLocationProviderClient;
+import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.location.places.Place;
 import com.google.android.gms.location.places.Places;
 import com.google.android.gms.location.places.ui.PlacePicker;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -60,6 +63,7 @@ public class HomeShopperfrag extends Fragment implements Serializable {
     SearchView msearchview;
     EditText msearchtext;
     Button location_selector;
+    FusedLocationProviderClient fusedLocationProviderClient;
     AutoCompleteTextView atv;
     int PLACE_PICKER_REQUEST = 1;
     String loc_cat;
@@ -93,6 +97,34 @@ public class HomeShopperfrag extends Fragment implements Serializable {
 //        } catch (NullPointerException e) {
 //            Log.v ("error specified ", e.getMessage ());
 //        }
+        fusedLocationProviderClient= LocationServices.getFusedLocationProviderClient(getActivity());
+        try {
+            fusedLocationProviderClient.getLastLocation().addOnSuccessListener(getActivity(), new OnSuccessListener<Location>() {
+                @Override
+                public void onSuccess(Location location)
+                {
+                    if(location!=null)
+                    {
+                        geocoder = new Geocoder (getContext (), Locale.getDefault ());
+                        double latitude = location.getLatitude();
+                        double longitiute = location.getLongitude();
+                        try {
+                            addresses = geocoder.getFromLocation (latitude, longitiute, 1); // Here 1 represent max location result to returned, by documents it recommended 1 to 5
+                        } catch (IOException e) {
+                            e.printStackTrace ();
+                        }
+
+
+                        String postalCode = addresses.get (0).getPostalCode ();
+                        pincode=postalCode;
+                        list_negotiators();
+                    }
+                }
+            });
+        }catch (SecurityException e)
+        {
+            Log.e("askd",e.toString());
+        }
         msearchview = (SearchView) view.findViewById (R.id.search);//intialisig searchView
         location_selector = (Button) view.findViewById (R.id.shopper_home_loc_button);
         viewPager = (ViewPager) view.findViewById (R.id.viewPager);

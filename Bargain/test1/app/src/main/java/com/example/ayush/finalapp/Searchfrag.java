@@ -85,13 +85,13 @@ public class Searchfrag extends Fragment {
         searchAutoComplete.setAdapter(adapter);
         searchAutoComplete.setOnItemClickListener(
                 new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id)
-            {
-                searchfragedit.setText((parent.getItemAtPosition(position)).toString());
-                searchfragedit.setSelection(searchfragedit.getText().length());
-            }
-        });
+                    @Override
+                    public void onItemClick(AdapterView<?> parent, View view, int position, long id)
+                    {
+                        searchfragedit.setText((parent.getItemAtPosition(position)).toString());
+                        searchfragedit.setSelection(searchfragedit.getText().length());
+                    }
+                });
         /*location_selector = (Button) view.findViewById(R.id.shopper_home_loc_button);
         if (location_selector == null)
             Toast.makeText(getActivity(), "not all can be empty", Toast.LENGTH_SHORT).show();

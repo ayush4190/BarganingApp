@@ -73,8 +73,7 @@ SessionManagment sessionManagment;
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_negotiator_dash);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        toolbar.setLogo(R.drawable.applogo);
-
+        toolbar.setLogo(R.drawable.applogo1);
         setSupportActionBar(toolbar);
         fba = FirebaseAuth.getInstance ();
 
