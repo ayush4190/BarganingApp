@@ -93,7 +93,7 @@ public class ShopperForm extends Activity implements Serializable {
 
     private  CheckBox rb2;
 
-    shopperPhone_dob detail ;
+    ShopperDetails detail ;
     Uri selectedImage;
     StorageReference storageReference;
 
@@ -114,7 +114,7 @@ public class ShopperForm extends Activity implements Serializable {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_shopper_form);
 
-        detail = new shopperPhone_dob ();
+        detail = new ShopperDetails ();
 
         rb2= (CheckBox) findViewById(R.id.rb);
 
@@ -480,9 +480,10 @@ public class ShopperForm extends Activity implements Serializable {
             detail.setLname (ob1.getLname ());
             detail.setEmail (ob1.getEmail ());
             mroot.child (firebaseUser.getUid ()).setValue ("false");
-            detail.setPhone (phno.getText ().toString ().trim ());
+            detail.setPhno (phno.getText ().toString ().trim ());
             detail.setDob (mDisplayDate.getText ().toString ().trim ());
             detail.setUsername (ob1.getUsername());
+            detail.setAmount ("0");
             databaseReference= mroot.child ("Shopper");
             databaseReference.child (firebaseUser.getUid ()).setValue (detail);
 //            upload_image ();
@@ -543,7 +544,7 @@ public class ShopperForm extends Activity implements Serializable {
                 public void onProgress(UploadTask.TaskSnapshot taskSnapshot) {
 
                     double progress=(100.0 * taskSnapshot.getBytesTransferred () / taskSnapshot.getTotalByteCount ());
-
+                    setContentView (R.layout.dialog);
 
                 }
             });

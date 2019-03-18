@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.net.Uri;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.CardView;
@@ -79,7 +80,7 @@ public class CardDetails extends AppCompatActivity {
         card_pincode.setText(n.getPincode());
         card_state.setText(n.getState());
         card_city.setText(n.getCity());
-        ratingBar.setRating(3.5f);
+        ratingBar.setRating(Float.parseFloat(n.getRatings()));
         fetch(pos);
 
 
