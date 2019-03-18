@@ -148,19 +148,21 @@ final DatabaseReference mroot = FirebaseDatabase.getInstance ().getReference ().
 //
 //                }
 //            });
-
             Log.v ("hello", String.valueOf (existing_amount));
             Toast.makeText (finalpage.this, "Payment completed", Toast.LENGTH_LONG).show ();
+            //go to transactions in both and using meetdetails nego transaction id and shopper transaction id update transactions for both
+            //also need the amount of transaction here
             Log.v ("intel", nego_user);
 
 
+/////////////////////////////////////////////////////////////////////
 
 
             DatabaseReference mdatabaseReference = FirebaseDatabase.getInstance ().getReference ();
             mdatabaseReference.child ("Transactions").child (nego_user);
 
 
-            //go to transactions in both
+
             Query query2 = mdatabaseReference.child ("Transactions").child (nego_user);
             Log.v ("ASUS", query2.toString ());
             query2.addChildEventListener (new ChildEventListener () {
