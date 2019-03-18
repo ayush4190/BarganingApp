@@ -95,11 +95,14 @@ public class NegotiatorProfileAdapter extends RecyclerView.Adapter<NegotiatorPro
 
         public NegotiatorProfileViewHolder(View view) {
             super(view);
-            rating=(TextView)view.findViewById(R.id.rate_search_list);
+            rating=(TextView)view.findViewById(R.id.ratenegov);
             city=(TextView) view.findViewById(R.id.city_search_list);
             first =(TextView) view.findViewById(R.id.first_name);
             last =(TextView) view.findViewById(R.id.last_name);
             age=(TextView)view.findViewById(R.id.search_list_age);
+            cat1=(TextView)view.findViewById(R.id.cat1v);
+            cat2=(TextView)view.findViewById(R.id.cat2v);
+            cat3=(TextView)view.findViewById(R.id.cat3v);
 //            phone=(TextView) view.findViewById(R.id.ph_no);
             cardView=(CardView) view.findViewById(R.id.card_view);
             proimage = (CircleImageView)view.findViewById(R.id.search_list_sportsImage);

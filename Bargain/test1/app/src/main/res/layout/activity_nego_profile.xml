@@ -227,6 +227,112 @@
                     />
 
             </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginTop="270dp"
+                android:layout_marginLeft="8dp"
+                >
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Rating:          "
+                    android:id="@+id/ratenego"
+                    android:textSize="18dp"
+                    />
+                <TextView
+                    android:id="@+id/ratenegov"
+                    android:layout_marginLeft="5dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="0.0"
+                    android:textSize="18dp"
+                    android:inputType="none"
+                    android:background="@null"
+                    android:layout_marginBottom="10dp"
+                    />
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginTop="320dp"
+                android:layout_marginLeft="8dp"
+                >
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Category 1:          "
+                    android:id="@+id/cat1"
+                    android:textSize="18dp"
+                    />
+                <TextView
+                    android:id="@+id/cat1v"
+                    android:layout_marginLeft="5dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="0.0"
+                    android:textSize="18dp"
+                    android:inputType="none"
+                    android:background="@null"
+                    android:layout_marginBottom="10dp"
+                    />
+
+            </LinearLayout><LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginTop="375dp"
+            android:layout_marginLeft="8dp"
+            >
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Category 2:          "
+                android:id="@+id/cat2"
+                android:textSize="18dp"
+                />
+            <TextView
+                android:id="@+id/cat2v"
+                android:layout_marginLeft="5dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="0.0"
+                android:textSize="18dp"
+                android:inputType="none"
+                android:background="@null"
+                android:layout_marginBottom="10dp"
+                />
+
+        </LinearLayout><LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginTop="425dp"
+            android:layout_marginLeft="8dp"
+            >
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Category 3:          "
+                android:id="@+id/cat3"
+                android:textSize="18dp"
+                />
+            <TextView
+                android:id="@+id/cat3v"
+                android:layout_marginLeft="5dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="0.0"
+                android:textSize="18dp"
+                android:inputType="none"
+                android:background="@null"
+                android:layout_marginBottom="10dp"
+                />
+
+        </LinearLayout>
         </android.support.design.card.MaterialCardView>
         <LinearLayout
             android:layout_width="wrap_content"
