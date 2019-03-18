@@ -290,7 +290,7 @@ public class ChatBox extends AppCompatActivity {
     @Override
     public void onBackPressed() {
         super.onBackPressed();
-        ChatFragment.Opened=0;
+//        ChatFragment.Opened=0;
     }
 
     public void SendMessage(View view) {

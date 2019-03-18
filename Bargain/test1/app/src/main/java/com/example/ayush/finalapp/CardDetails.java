@@ -189,7 +189,7 @@ public class CardDetails extends AppCompatActivity {
                                     Log.v("lancer3", "0");
 //                                    if (ChatFragmentNego.Opened != 0)
 //                                        return;
-                                    ChatFragmentNego.Opened = 1;
+//                                    ChatFragmentNego.Opened = 1;
                                     //important
                                     Log.v("lancer", pos);
                                     //x contains x[0] contains name and x[1] contains uid of that negotiator
@@ -204,7 +204,7 @@ public class CardDetails extends AppCompatActivity {
 
 //                                    if (ChatFragmentNego.Opened != 0)
 //                                        return;
-                                    ChatFragmentNego.Opened = 1;
+//                                    ChatFragmentNego.Opened = 1;
                                     //important
                                     Log.v("lancer", pos);
                                     //x contains x[0] contains name and x[1] contains uid of that negotiator

@@ -67,7 +67,7 @@
                 android:fontFamily="sans-serif-thin"
                 android:layout_centerHorizontal="true"
                 android:layout_marginTop="50dp"
-                android:text="Add money to wallet"
+                android:text="Send Money To Bank"
                 android:textSize="19.5sp"
                 android:layout_below="@id/button1"
                 android:background="@color/colorPrimaryDark"

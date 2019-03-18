@@ -103,34 +103,34 @@
                 android:background="@color/colorPrimary"
                 android:gravity="center"
                 >
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    android:gravity="center"
-                    android:id="@+id/linearchat"
-                    >
+                <!--<LinearLayout-->
+                    <!--android:layout_width="wrap_content"-->
+                    <!--android:layout_height="wrap_content"-->
+                    <!--android:orientation="vertical"-->
+                    <!--android:gravity="center"-->
+                    <!--android:id="@+id/linearchat"-->
+                    <!--&gt;-->
 
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Chat"
-                        android:textSize="18dp"
-                        android:textColor="@color/white"/>
-                    <ImageView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:src="@drawable/ic_message_white_24dp"
-                        android:id="@+id/message_button"
-                        />
-                </LinearLayout>
-                <View
-                    android:layout_width="1dp"
-                    android:layout_marginLeft="35dp"
-                    android:layout_marginRight="20dp"
-                    android:layout_height="35dp"
-                    android:background="#FFFFFF"
-                    />
+                    <!--<TextView-->
+                        <!--android:layout_width="wrap_content"-->
+                        <!--android:layout_height="wrap_content"-->
+                        <!--android:text="Chat"-->
+                        <!--android:textSize="18dp"-->
+                        <!--android:textColor="@color/white"/>-->
+                    <!--<ImageView-->
+                        <!--android:layout_width="wrap_content"-->
+                        <!--android:layout_height="wrap_content"-->
+                        <!--android:src="@drawable/ic_message_white_24dp"-->
+                        <!--android:id="@+id/message_button"-->
+                        <!--/>-->
+                <!--</LinearLayout>-->
+                <!--<View-->
+                    <!--android:layout_width="1dp"-->
+                    <!--android:layout_marginLeft="35dp"-->
+                    <!--android:layout_marginRight="20dp"-->
+                    <!--android:layout_height="35dp"-->
+                    <!--android:background="#FFFFFF"-->
+                    <!--/>-->
                 <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"

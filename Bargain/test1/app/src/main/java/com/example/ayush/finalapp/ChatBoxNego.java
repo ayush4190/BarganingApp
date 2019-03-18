@@ -458,7 +458,7 @@ String name;
     @Override
     public void onBackPressed() {
         super.onBackPressed();
-        ChatFragmentNego.Opened=0;
+//        ChatFragmentNego.Opened=0;
     }
 
     public void SendMessage(View view) {
@@ -476,7 +476,7 @@ String name;
                 @Override
                 public void onSuccess(Void aVoid) {
                     messagebox.setText(null);
-                    Log.v("nego_name",Negotiator_dash.nego_name);
+//                    Log.v("nego_name",Negotiator_dash.nego_name);
                 }
             });
 
