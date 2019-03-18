@@ -273,11 +273,11 @@ String name;
                             builder2.setNegativeButton("Reject", new DialogInterface.OnClickListener() {
                                 @Override
                                 public void onClick(DialogInterface dialog, int which) {
-                                    message_sent="Sorry, "+Negotiator_dash.nego_name+" has rejected your request";
+                                    message_sent="Sorry, your service request has been denied by "+Negotiator_dash.nego_name+". For further grievances and refund related queries, please contact us at refund@bargainers.com";
                                     messagebox.setText(message_sent);
                                 sendButton.performClick();
 //                                    sendNotification();
-
+                                    //refund issues
                                     databaseReference1 = FirebaseDatabase.getInstance().getReference();
                                     nego_id=firebaseAuth.getCurrentUser().getUid();
 

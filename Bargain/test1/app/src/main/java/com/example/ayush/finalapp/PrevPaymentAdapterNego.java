@@ -62,6 +62,7 @@ public class PrevPaymentAdapterNego extends RecyclerView.Adapter<PrevPaymentAdap
 
     public PrevPaymentAdapterNego(List<TransactionsDetails> transactionDetailsList, FragmentActivity f) {
         this.mContext= f;
+
         this.transactionDetailsList = transactionDetailsList;
     }
 

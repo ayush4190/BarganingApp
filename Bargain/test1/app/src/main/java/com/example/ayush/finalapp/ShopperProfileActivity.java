@@ -21,6 +21,7 @@ import android.support.v4.content.FileProvider;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
 import android.webkit.MimeTypeMap;
@@ -83,6 +84,8 @@ public class ShopperProfileActivity extends AppCompatActivity implements Seriali
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.shopper_profile_fragment);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
         fdb= FirebaseDatabase.getInstance().getReference();
         fba=FirebaseAuth.getInstance();
         user=fba.getCurrentUser();
@@ -251,6 +254,20 @@ public class ShopperProfileActivity extends AppCompatActivity implements Seriali
 
             }
         });
+    }
+
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // Handle action bar item clicks here. The action bar will
+        // automatically handle clicks on the Home/Up button, so long
+        // as you specify a parent activity in AndroidManifest.xml.
+        int id = item.getItemId();
+
+        if (item.getItemId() == android.R.id.home) {
+            onBackPressed();
+        }
+return true;
     }
 //    private void selectImage() {
 //

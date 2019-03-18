@@ -53,8 +53,8 @@
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
                         android:layout_weight="25"
-                        android:src="@drawable/ic_account_balance_wallet_black_24dp"
-                        android:id="@+id/wallet"/>
+                        android:src="@drawable/ic_home_black_24dp"
+                        android:id="@+id/home"/>
                     <ImageView
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
@@ -74,8 +74,8 @@
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
                         android:layout_weight="25"
-                        android:src="@drawable/ic_settings_black_24dp"
-                        android:id="@+id/settingimage"/>
+                        android:src="@drawable/ic_account_balance_wallet_black_24dp"
+                        android:id="@+id/wallet"/>
 
 
 

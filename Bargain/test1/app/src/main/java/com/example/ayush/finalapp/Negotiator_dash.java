@@ -12,6 +12,7 @@ import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -22,6 +23,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.RatingBar;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -55,7 +57,7 @@ public class Negotiator_dash extends AppCompatActivity
     static String nego_name;
     FirebaseUser muser;
     FirebaseUser user;
-    ImageView mwallet, nfaq, mcommunity, msetting;
+    ImageView mwallet, nfaq, mcommunity, mhome;
     Fragment fragment = null;
     FirebaseStorage firebaseStorage;
     StorageReference photo_storage;
@@ -87,6 +89,9 @@ SessionManagment sessionManagment;
                 .init();
         //
         OneSignal.sendTag("USER_ID",FirebaseAuth.getInstance().getCurrentUser().getUid());
+        FragmentTransaction fragmentTransaction = getSupportFragmentManager ().beginTransaction ();
+        fragmentTransaction.replace (R.id.content_frame, new HomeNegoFrag(), "Homefrag");
+        fragmentTransaction.commit ();
 
       /*  FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
@@ -110,7 +115,7 @@ SessionManagment sessionManagment;
         mwallet = (ImageView) findViewById (R.id.wallet);//creating the buttons
 //        nfaq = (ImageView) findViewById(R.id.faq); //faqfragbutton
         mcommunity = (ImageView) findViewById (R.id.communityimage);
-        msetting=(ImageView)findViewById(R.id.settingimage);
+        mhome=(ImageView)findViewById(R.id.nego_home);
 
 
 
@@ -127,21 +132,23 @@ SessionManagment sessionManagment;
         });
 
         // calling community page using fragments
-        mcommunity.setOnClickListener (new View.OnClickListener () {
+//        mcommunity.setOnClickListener (new View.OnClickListener () {
+//            @Override
+//            public void onClick(View v) {
+//                FragmentTransaction fragmentTransaction = getSupportFragmentManager ().beginTransaction ();
+//                fragmentTransaction.replace (R.id.content_frame, new CommunityFragment ());
+//                fragmentTransaction.addToBackStack ("community");
+//                fragmentTransaction.commit ();
+//
+//            }
+//        });
+
+        mhome.setOnClickListener ( new View.OnClickListener () {
             @Override
             public void onClick(View v) {
                 FragmentTransaction fragmentTransaction = getSupportFragmentManager ().beginTransaction ();
-                fragmentTransaction.replace (R.id.content_frame, new CommunityFragment ());
-                fragmentTransaction.addToBackStack ("community");
+                fragmentTransaction.replace (R.id.content_frame, new HomeNegoFrag(), "Homefrag");
                 fragmentTransaction.commit ();
-
-            }
-        });
-
-        msetting.setOnClickListener (new View.OnClickListener () {
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(Negotiator_dash.this, SettingsActivity.class));
 
             }
         });
@@ -305,6 +312,12 @@ SessionManagment sessionManagment;
             startActivity (intent);
 
         }
+
+        else if (id == R.id.nav_settings) {
+            Intent intent = new Intent (Negotiator_dash.this, SettingsActivity.class);
+            startActivity (intent);
+
+        }
             else if (id == R.id.nav_faq) {
 
             FragmentTransaction fragmentTransaction = getSupportFragmentManager ().beginTransaction ();
@@ -319,24 +332,41 @@ SessionManagment sessionManagment;
             fragmentTransaction.commit ();
 
 
-        } else if (id == R.id.nav_rate) {
+        }
+        /////////
+        else if (id == R.id.nav_rate) {
 
 
             builder2 = new AlertDialog.Builder (Negotiator_dash.this);
             builder2.setTitle("Rate App");
             builder2.setMessage("Show us some love!!");
+
+            LinearLayout linearLayout = new LinearLayout(this);
             final RatingBar rating = new RatingBar(this);
-            rating.setMax(5);
+
+            LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(
+                    LinearLayout.LayoutParams.WRAP_CONTENT,
+                    LinearLayout.LayoutParams.WRAP_CONTENT
+            );
+
+            rating.setLayoutParams(lp);
+            rating.setNumStars(5);
+            rating.setStepSize(1);
+            linearLayout.addView(rating);
+            linearLayout.setGravity(Gravity.CENTER);
 
 //            rating.setNumStars(5);
-            builder2.setIcon(android.R.drawable.star_big_off);
-            builder2.setView(rating);
+            builder2.setIcon(android.R.drawable.star_on);
+            builder2.setView(linearLayout);
 
             builder2.setPositiveButton("Submit", new DialogInterface.OnClickListener() {
                 public void onClick(DialogInterface dialog, int which) {
                     int rate_val =rating.getProgress();
                     Log.v("RAAAAA",String.valueOf(rating.getProgress()));
-                    Toast.makeText(Negotiator_dash.this,"Thank you for your Support!",Toast.LENGTH_SHORT).show();
+                    if (rate_val>=4)
+                        Toast.makeText(Negotiator_dash.this,"Thank you for your Support!",Toast.LENGTH_SHORT).show();
+                    else
+                        Toast.makeText(Negotiator_dash.this,"Thank you! Please provide feedback to help us improve the service",Toast.LENGTH_SHORT).show();
                     // here you can add functions
                 }
             });
@@ -352,7 +382,9 @@ SessionManagment sessionManagment;
             builder2.show();  //<-- See This!
 
 
-        } else if (id == R.id.nav_share) {
+        }
+        /////////
+     else if (id == R.id.nav_share) {
             Intent sharingIntent = new Intent(android.content.Intent.ACTION_SEND);
             sharingIntent.setType("text/plain");
             String shareBody = "Here is the share content body";//insert app link here
