@@ -128,11 +128,8 @@ public class NegotiatorId extends AppCompatActivity {
 
                 } else {
                     upload_image ();
-//                    Toast.makeText (NegotiatorId.this, "what the ",Toast.LENGTH_SHORT).show ();
-//                    Intent myIntent = new Intent (NegotiatorId.this,
-//                            Negotiator_final.class);
-//                    startActivity (myIntent);
-                    finish ();
+//
+
 
                 }
             }
@@ -341,7 +338,7 @@ public class NegotiatorId extends AppCompatActivity {
                         public void run() {
                             Toast.makeText (NegotiatorId.this,"image uploaded",Toast.LENGTH_SHORT).show ();
                         }
-                    },5000);
+                    },0);
                     aBoolean = true;
                     if(aBoolean)
                     {
@@ -363,6 +360,7 @@ public class NegotiatorId extends AppCompatActivity {
                 public void onProgress(UploadTask.TaskSnapshot taskSnapshot) {
 
                     double progress=(100.0 * taskSnapshot.getBytesTransferred () / taskSnapshot.getTotalByteCount ());
+                    setContentView (R.layout.dialog);
 
                 }
             });
