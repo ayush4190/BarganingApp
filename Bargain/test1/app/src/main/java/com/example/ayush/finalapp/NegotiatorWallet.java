@@ -23,6 +23,8 @@ import android.widget.TextView;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 import com.google.zxing.BarcodeFormat;
 import com.google.zxing.WriterException;
 
@@ -32,6 +34,7 @@ public class NegotiatorWallet extends Fragment {
     ImageView imageView;
     FragmentActivity f;
     String temp;
+    TextView textViewamount;
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -116,33 +119,12 @@ public class NegotiatorWallet extends Fragment {
 //        });
 
     }
-//    public void generate()
-//    {
-//
-//        WindowManager windowManager = (WindowManager)getActivity ().getSystemService (Context.WINDOW_SERVICE);
-//        assert windowManager != null;
-//        Display display =windowManager.getDefaultDisplay ();
-//        Point point = new Point ();
-//        display.getSize (point);
-//        int x = point.x;
-//        int y = point.y;
-//
-//        int icon = x<y? x:y;
-//        icon = icon * 3/4;
-//        //now using the library
-//        com.example.myapplication.QRCodeEncoder qrCodeEncoder = new com.example.myapplication.QRCodeEncoder (temp,null, com.example.myapplication.Contents.Type.TEXT, BarcodeFormat.QR_CODE.toString (),icon);
-//        //convert the image into bitmap
-//
-//
-//
-//        try {
-//            Bitmap bitmap = qrCodeEncoder.encodeAsBitmap ();
-//            imageView.setImageBitmap (bitmap);
-//        } catch (WriterException e) {
-//            e.printStackTrace ();
-//        }
-//
-//    }
+    public  void fetch()
+    {
+        DatabaseReference databaseReference = FirebaseDatabase.getInstance ().getReference ().child ("Negotiator").child (mUser.getUid ());
+
+    }
+
 }
 
 

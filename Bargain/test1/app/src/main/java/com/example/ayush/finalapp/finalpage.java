@@ -105,47 +105,66 @@ public class finalpage extends AppCompatActivity implements Serializable {
             final double[] temp = {Double.parseDouble (shopperDetails.getAmount ()) - amount_pay};
             String am = String.valueOf (temp[0]);
 
-            mroot = FirebaseDatabase.getInstance ().getReference ().child ("Shopper").child (firebaseUser.getUid ()).child ("Amount");
+            mroot = FirebaseDatabase.getInstance ().getReference ().child ("Shopper").child (firebaseUser.getUid ()).child ("amount");
             mroot.setValue (am);
             Log.v ("final_amount",am);
 
 
 
-
+final DatabaseReference mroot = FirebaseDatabase.getInstance ().getReference ().child ("Negotiator").child (nego_user).child ("amount");
             databaseReference = FirebaseDatabase.getInstance ().getReference ().child ("Negotiator").child (nego_user);
-            databaseReference.addValueEventListener (new ValueEventListener () {
-                @Override
-                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                   // details = new NegotiatorDetails ();
-                    details = dataSnapshot.getValue (NegotiatorDetails.class);
-                    existing_amount = Double.parseDouble (details.getAmount ());
-                    existing_amount = existing_amount + amount_pay;
-                    Log.v("amounttest", String.valueOf (existing_amount));
+          databaseReference.addListenerForSingleValueEvent (new ValueEventListener () {
+              @Override
+              public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                  // details = new NegotiatorDetails ();
+                  details = dataSnapshot.getValue (NegotiatorDetails.class);
+                  existing_amount = Double.parseDouble (details.getAmount ());
+                  existing_amount = existing_amount + amount_pay;
+                  Log.v("amounttest", String.valueOf (existing_amount));
+                  mroot.setValue (String.valueOf (existing_amount));
+              }
 
-        // update in negotiators wallet
+              @Override
+              public void onCancelled(@NonNull DatabaseError databaseError) {
+
+              }
+          });
+
+//            databaseReference.addValueEventListener (new ValueEventListener () {
+//                @Override
+//                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+//
+//
+//        // update in negotiators wallet
+//
 
 
+//
+//
+//                }
+//
+//                @Override
+//                public void onCancelled(@NonNull DatabaseError databaseError) {
+//
+//                }
+//            });
 
-                }
-
-                @Override
-                public void onCancelled(@NonNull DatabaseError databaseError) {
-
-                }
-            });
             Log.v ("hello", String.valueOf (existing_amount));
-
             Toast.makeText (finalpage.this, "Payment completed", Toast.LENGTH_LONG).show ();
-
-
             Log.v ("intel", nego_user);
+
+
+
+
             DatabaseReference mdatabaseReference = FirebaseDatabase.getInstance ().getReference ();
+            mdatabaseReference.child ("Transactions").child (nego_user);
+
+
+            //go to transactions in both
             Query query2 = mdatabaseReference.child ("Transactions").child (nego_user);
             Log.v ("ASUS", query2.toString ());
-
             query2.addChildEventListener (new ChildEventListener () {
                 @Override
-
                 public void onChildAdded(@NonNull final DataSnapshot dataSnapshot, @Nullable String s) {
                     if (dataSnapshot.exists () && check) {
                         nego_transaction_id = dataSnapshot.getKey ();

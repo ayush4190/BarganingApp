@@ -72,7 +72,7 @@ public class ChatBoxNego extends AppCompatActivity {
     private static final String channelId ="com.example.ayush.finalapp";
 String message_sent;
      DatabaseReference databaseReference1;
-    int amount_int;
+    double amount_int;
 String name;
     static Context mContext;
     NotificationCompat.Builder builder;
@@ -281,7 +281,7 @@ String name;
                                     databaseReference1 = FirebaseDatabase.getInstance().getReference();
                                     nego_id=firebaseAuth.getCurrentUser().getUid();
 
-                                    Query d=databaseReference1.child("Negotiator").child(nego_id).child("Amount");
+                                    Query d=databaseReference1.child("Negotiator").child(nego_id).child("amount");
                                     Log.v("ani",d.getPath().toString());
                                     d.addListenerForSingleValueEvent(new ValueEventListener() {
                                         @Override
@@ -289,13 +289,13 @@ String name;
                                             String amount="";
                                             amount =dataSnapshot1.getValue(String.class);
 //                              Log.v("amount",amount);
-                                            amount_int =Integer.parseInt(amount);
+                                            amount_int =Double.parseDouble (amount);
                                             int deductable_amount = new Random().nextInt((50 - 20) + 1) + 20;
-                                            if (amount_int>=50){
+                                            if (amount_int>=50.0){
                                                 amount_int-=deductable_amount;
                                                 amount= String.valueOf(amount_int);
                                             }
-                                            FirebaseDatabase.getInstance().getReference().child("Negotiator").child(nego_id).child("Amount").setValue(amount);
+                                            FirebaseDatabase.getInstance().getReference().child("Negotiator").child(nego_id).child("amount").setValue(amount);
                                             nameshop=Reciever[0];
                                             builder = new NotificationCompat.Builder(ChatBoxNego.this, channelId)
                                                     .setContentTitle("Amount Deducted")
