@@ -61,7 +61,6 @@ public class SearchDisplayFrag extends Fragment{
         Bundle bundle = this.getArguments ();
         if(bundle != null)
         {
-
             searchvalue = getArguments().getString("Searchtext");
             age=Integer.parseInt(getArguments().getString ("Agevalue"));
             //Toast.makeText (getActivity (),"here",Toast.LENGTH_SHORT).show ();
@@ -72,11 +71,10 @@ public class SearchDisplayFrag extends Fragment{
         textbelow=(TextView)view.findViewById(R.id.search_text_nomore);
         cartoon=(ImageView)view.findViewById(R.id.search_cartoon);
 
-//        recyclerView.setVisibility(View.GONE);
-//        cartoon.setVisibility(View.GONE);
-//        quote.setVisibility(View.GONE);
-//        textbelow.setVisibility(View.GONE);
-
+        recyclerView.setVisibility(View.GONE);
+        cartoon.setVisibility(View.VISIBLE);
+        quote.setVisibility(View.VISIBLE);
+        textbelow.setVisibility(View.GONE);
 
         //String pos=bundle.getString("filter_result_pos");
         //anime
@@ -115,8 +113,6 @@ public class SearchDisplayFrag extends Fragment{
 
 
         adapter = new NegotiatorProfileAdapter(negotiatorList,getActivity (),0);
-
-
         firebaseDatabase = FirebaseDatabase.getInstance();
         Log.v("before getdata" , "hello ");
 
@@ -202,8 +198,10 @@ public class SearchDisplayFrag extends Fragment{
 
                 if(dataSnapshot.exists()){
                     Log.v("inondata after ifexists" , "hello ");
-
-
+                    recyclerView.setVisibility(View.VISIBLE);
+                    textbelow.setVisibility(View.VISIBLE);
+                    cartoon.setVisibility(View.GONE);
+                    quote.setVisibility(View.GONE);
                     // for(DataSnapshot issue: dataSnapshot.getChildren()) {
                     Log.v("inside loop" , "hello ");
                     NegotiatorDetails data =dataSnapshot.getValue(NegotiatorDetails.class);
@@ -255,6 +253,10 @@ public class SearchDisplayFrag extends Fragment{
                 Log.v("inondata beforeifexists" , "hello ");
 
                 if(dataSnapshot.exists()){
+                    recyclerView.setVisibility(View.VISIBLE);
+                    textbelow.setVisibility(View.VISIBLE);
+                    cartoon.setVisibility(View.GONE);
+                    quote.setVisibility(View.GONE);
                     Log.v("inondata after ifexists" , "hello ");
 
                     // for(DataSnapshot issue: dataSnapshot.getChildren()) {
@@ -313,6 +315,11 @@ public class SearchDisplayFrag extends Fragment{
                 Log.v("inondata beforeifexists" , "hello ");
 
                 if(dataSnapshot.exists()){
+                    recyclerView.setVisibility(View.VISIBLE);
+
+                    textbelow.setVisibility(View.VISIBLE);
+                    cartoon.setVisibility(View.GONE);
+                    quote.setVisibility(View.GONE);
                     Log.v("inondata after ifexists" , "hello ");
 
                     // for(DataSnapshot issue: dataSnapshot.getChildren()) {

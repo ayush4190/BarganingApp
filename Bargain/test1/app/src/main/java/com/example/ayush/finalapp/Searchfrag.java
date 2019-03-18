@@ -87,6 +87,7 @@ public class Searchfrag extends Fragment {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id)
             {
                 searchfragedit.setText(categories[position]);
+
             }
         });
         /*location_selector = (Button) view.findViewById(R.id.shopper_home_loc_button);
