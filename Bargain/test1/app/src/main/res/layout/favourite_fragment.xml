@@ -1,13 +1,32 @@
 <?xml version="1.0" encoding="utf-8"?>
+<ScrollView android:layout_height="wrap_content"
+    android:layout_width="match_parent"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+<TextView
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_alignParentTop="true"
+    android:gravity="center"
+    android:text="Favourites"
+    android:textSize="20dp"
+    android:fontFamily="sans-serif-smallcaps"
 
+    android:background="@color/colorPrimary"
+    android:textColor="@color/white"
+    />
 
-<android.support.v7.widget.RecyclerView
+        <android.support.v7.widget.RecyclerView
 
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/recyclerView2"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_marginTop="20dp"
+    android:visibility="gone"
     android:autofillHints="search here"
     android:background="@color/cardview_light_background"
     android:scrollbars="vertical"
@@ -16,3 +35,25 @@
 
 </android.support.v7.widget.RecyclerView>
 
+        <ImageView
+            android:layout_marginTop="150dp"
+            android:layout_width="200dp"
+            android:layout_height="200dp"
+            android:layout_gravity="center"
+            android:visibility="gone"
+            android:id="@+id/favcarton"
+            android:src="@drawable/favouritecartoon"/>
+
+        <TextView
+            android:id="@+id/quotefav"
+            android:layout_width="350dp"
+            android:layout_marginTop="30dp"
+            android:layout_height="match_parent"
+            android:visibility="gone"
+            android:layout_gravity="center"
+            android:fontFamily="sans-serif-thin"
+            android:text="“No one is useless in this world who lightens the burdens of another.”
+― Charles Dickens " />
+
+    </LinearLayout>
+</ScrollView>

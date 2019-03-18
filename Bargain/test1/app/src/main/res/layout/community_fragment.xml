@@ -9,7 +9,18 @@
         android:layout_height="wrap_content"
         android:orientation="vertical">
 
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:gravity="center"
+            android:text="Community"
+            android:textSize="20dp"
+            android:fontFamily="sans-serif-smallcaps"
 
+            android:background="@color/colorPrimary"
+            android:textColor="@color/white"
+            />
     <SearchView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -28,12 +39,34 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
+        android:visibility="gone"
         android:autofillHints="search here"
         android:background="@color/cardview_light_background"
         android:scrollbars="vertical"
         android:textAlignment="center"
         android:scrollbarSize="5dip">
 
+
     </android.support.v7.widget.RecyclerView>
+        <ImageView
+            android:layout_marginTop="150dp"
+            android:layout_width="200dp"
+            android:layout_height="200dp"
+            android:visibility="gone"
+            android:layout_gravity="center"
+
+            android:id="@+id/communitycarton"
+            android:src="@drawable/communitycartoon"/>
+
+        <TextView
+            android:id="@+id/quotecommunity"
+            android:layout_width="350dp"
+            android:layout_marginTop="30dp"
+            android:layout_height="match_parent"
+android:visibility="gone"
+            android:layout_gravity="center"
+            android:fontFamily="sans-serif-thin"
+            android:text="“The language of friendship is not words but meanings.”
+― Henry David Thoreau " />
     </LinearLayout>
 </android.support.v4.widget.NestedScrollView>
