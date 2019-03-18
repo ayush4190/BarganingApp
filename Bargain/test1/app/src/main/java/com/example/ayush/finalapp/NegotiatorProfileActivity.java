@@ -66,7 +66,7 @@ public class NegotiatorProfileActivity extends AppCompatActivity implements Seri
     NegotiatorDetails profile;
     private TextView mDisplayDate;
     EditText profile_name_first;
-    TextView profile_dob;
+    TextView profile_dob,cat1,cat2,cat3;
     EditText profile_name_last;
     FirebaseDatabase firebaseDatabase;
     StorageReference photo_storage;
@@ -94,8 +94,12 @@ public class NegotiatorProfileActivity extends AppCompatActivity implements Seri
         final Button save = (Button) findViewById(R.id.savebuttonnego);
         final EditText profile_phone=(EditText) findViewById(R.id.shopperphonenumberaninego);
         profile_dob=(TextView) findViewById(R.id.shopperprofiledobaninego);
+        cat1=(TextView) findViewById(R.id.cat1v);
+        cat2=(TextView) findViewById(R.id.cat2v);
+        cat3=(TextView) findViewById(R.id.cat3v);
         final EditText profile_username=(EditText) findViewById(R.id.shopperprofileusernameaninego);
         final  TextView textView=(TextView)findViewById(R.id.dobtextviewnego);
+        final  TextView rate=(TextView)findViewById(R.id.ratenegov);
         final Button select = (Button)findViewById(R.id.selectbtnprofilenego);
 
         //  edit.setVisibility(View.VISIBLE);
@@ -114,6 +118,10 @@ public class NegotiatorProfileActivity extends AppCompatActivity implements Seri
         //profile_dob.setEnabled(false);
         profile_username.setEnabled(false);
         profile_phone.setEnabled(false);
+        rate.setEnabled(false);
+        cat1.setEnabled(false);
+        cat2.setEnabled(false);
+        cat3.setEnabled(false);
         profile_dob.setTextColor(getResources().getColor(R.color.diabledgray));
         viewImage=(CircleImageView) findViewById(R.id.shopperprofilepicaninego);
 
@@ -127,6 +135,11 @@ public class NegotiatorProfileActivity extends AppCompatActivity implements Seri
                 profile_name_last.setText(profile.getLastname ());
                 profile_email.setText (profile.getEmail());
                 profile_dob.setText(profile.getDob());
+                rate.setText(profile.getRatings());
+                profile_phone.setText(profile.getPhone());
+                cat1.setText(profile.getCategory1());
+                cat2.setText(profile.getCategory2());
+                cat3.setText(profile.getCategory3());
 
             }
 
@@ -160,7 +173,10 @@ public class NegotiatorProfileActivity extends AppCompatActivity implements Seri
                 select.setVisibility(View.VISIBLE);
                 profile_name_first.setEnabled(true);
                 profile_name_last.setEnabled(true);
-
+                profile_phone.setEnabled(true);
+                cat1.setEnabled(true);
+                cat2.setEnabled(true);
+                cat3.setEnabled(true);
 //                profile_phone.setEnabled(true);
                 //  profile_dob.setEnabled(true);
                 profile_dob.setTextColor(getResources().getColor(R.color.black));
@@ -223,6 +239,9 @@ public class NegotiatorProfileActivity extends AppCompatActivity implements Seri
                 profile_name_first.setEnabled(false);
                 profile_name_last.setEnabled(false);
                 profile_phone.setEnabled(false);
+                cat1.setEnabled(false);
+                cat2.setEnabled(false);
+                cat3.setEnabled(false);
                 profile_dob.setEnabled(false);
                 profile_name_first.setBackgroundResource(android.R.drawable.edit_text);
                 profile_name_last.setBackgroundResource(android.R.drawable.edit_text);
@@ -230,6 +249,10 @@ public class NegotiatorProfileActivity extends AppCompatActivity implements Seri
                 profile.setFirstname(profile_name_first.getText().toString().trim());
                 profile.setLastname(profile_name_last.getText().toString().trim());
                 profile.setDob(profile_dob.getText().toString().trim());
+                profile.setPhone(profile_phone.getText().toString().trim());
+                profile.setCategory1(cat1.getText().toString().trim());
+                profile.setCategory1(cat2.getText().toString().trim());
+                profile.setCategory1(cat3.getText().toString().trim());
                 updatedata();
                 upload_image ();
 //                final Dialog dialog = new Dialog(ShopperProfileActivity.this);
@@ -613,6 +636,10 @@ public class NegotiatorProfileActivity extends AppCompatActivity implements Seri
                 dataSnapshot.getRef().child("firstname").setValue(profile.getFirstname());
                 dataSnapshot.getRef().child("lastname").setValue(profile.getLastname());
                 dataSnapshot.getRef().child("dob").setValue(profile.getDob());
+                dataSnapshot.getRef().child("phone").setValue(profile.getPhone());
+                dataSnapshot.getRef().child("category1").setValue(profile.getCategory1());
+                dataSnapshot.getRef().child("category2").setValue(profile.getCategory2());
+                dataSnapshot.getRef().child("category3").setValue(profile.getCategory3());
             }
 
             @Override

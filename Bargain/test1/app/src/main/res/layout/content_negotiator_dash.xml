@@ -41,7 +41,10 @@
                     <!--/>-->
 
             </LinearLayout>
-
+            <android.support.v4.view.ViewPager
+                android:layout_width="match_parent"
+                android:layout_height="180dp"
+                android:id="@+id/viewPager"/>
             <ListView
                 android:id="@+id/list_view"
                 android:layout_width="fill_parent"
