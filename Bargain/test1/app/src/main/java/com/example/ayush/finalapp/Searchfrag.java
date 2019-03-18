@@ -32,6 +32,7 @@ import com.google.android.gms.common.GooglePlayServicesNotAvailableException;
 import com.google.android.gms.common.GooglePlayServicesRepairableException;
 import com.google.android.gms.location.places.Place;
 import com.google.android.gms.location.places.ui.PlacePicker;
+import com.google.firebase.storage.StorageReference;
 
 import static android.app.Activity.RESULT_OK;
 
@@ -78,36 +79,25 @@ public class Searchfrag extends Fragment {
         searchAutoComplete=(android.support.v7.widget.SearchView.SearchAutoComplete)searchbut.findViewById(android.support.v7.appcompat.R.id.search_src_text);
         searchAutoComplete.setDropDownAnchor(R.id.search);
         final String[] categories={"Electronics","Furniture","Groceries","Jewellery","Clothes"};
+        final long ids[]=new long[5];
         ArrayAdapter<String> adapter=new ArrayAdapter<String>(getActivity(),android.R.layout.simple_list_item_1,categories);
         searchAutoComplete.setThreshold(0);
-
         searchAutoComplete.setAdapter(adapter);
-        final long[] ids=new long[5];
-        for (int i = 0; i <categories.length ; i++)
-        {
-                ids[i]=adapter.getItemId(i);
-//                Log.v("id"+i,""+ids[i]);
-        }
         searchAutoComplete.setOnItemClickListener(
                 new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id)
-            {
-
-                for (int i = 0; i <categories.length ; i++)
-                {
-                    if (ids[i]==id)
-                        searchfragedit.setText(categories[i]);
-                }
-                searchfragedit.setText(categories[position]);
-
-            }
-        });
+                    @Override
+                    public void onItemClick(AdapterView<?> parent, View view, int position, long id)
+                    {
+                        searchfragedit.setText((parent.getItemAtPosition(position)).toString());
+                        searchfragedit.setSelection(searchfragedit.getText().length());
+                    }
+                });
         /*location_selector = (Button) view.findViewById(R.id.shopper_home_loc_button);
         if (location_selector == null)
             Toast.makeText(getActivity(), "not all can be empty", Toast.LENGTH_SHORT).show();
         else
-            Toast.makeText(getActivity(), "maafg", Toast.LENGTH_SHORT).show()        location_selector.setOnClickListener(new View.OnClickListener() {
+            Toast.makeText(getActivity(), "maa chuda", Toast.LENGTH_SHORT).show();
+        location_selector.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 PlacePicker.IntentBuilder intentBuilder = new PlacePicker.IntentBuilder();
