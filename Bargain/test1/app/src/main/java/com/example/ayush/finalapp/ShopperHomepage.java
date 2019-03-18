@@ -4,18 +4,25 @@ import android.Manifest;
 import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.graphics.BitmapFactory;
+import android.location.Address;
 import android.location.Geocoder;
+import android.location.LocationProvider;
 import android.os.AsyncTask;
+
 import com.google.android.gms.location.places.GeoDataClient;
 import com.google.android.gms.location.places.Place;
 import com.google.android.gms.location.places.PlaceDetectionClient;
 import com.google.android.gms.location.places.Places;
+
+import java.io.IOException;
 import java.io.OutputStream;
+import java.io.Serializable;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.List;
 import java.util.Locale;
 import java.util.Scanner;
+
 import android.app.NotificationChannel;
 import android.os.StrictMode;
 import android.app.NotificationManager;
@@ -53,7 +60,9 @@ import android.widget.LinearLayout;
 import android.widget.RatingBar;
 import android.widget.TextView;
 import android.widget.Toast;
+
 import com.bumptech.glide.Glide;
+import com.google.android.gms.location.places.ui.PlacePicker;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
@@ -70,12 +79,12 @@ import com.onesignal.OneSignal;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
-public class ShopperHomepage extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
+public class ShopperHomepage extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener, Serializable {
 
-   //important static variables to store the logged in shopper's uid, name
+    //important static variables to store the logged in shopper's uid, name
     public static String shopper_uid, shopper_name;
     public static ShopperProfile shopperProfile;
-    private static final String channelId ="com.example.ayush.finalapp";
+    private static final String channelId = "com.example.ayush.finalapp";
     public static Context contextOfApplication;
     public static boolean isAppRunning;
 
@@ -104,8 +113,10 @@ public class ShopperHomepage extends AppCompatActivity implements NavigationView
     SessionManagment sessionManagment;
     CircleImageView shopper_pic;
 
+    List <Address> addresses;
     String check = "false";
 
+    Place place;
 
 
     @SuppressLint("WrongViewCast")
@@ -115,8 +126,10 @@ public class ShopperHomepage extends AppCompatActivity implements NavigationView
         setContentView (R.layout.activity_shopper_homepage);
 
 
+
+
         //initialise the static variables
-        ShopperHomepage.shopper_uid=FirebaseAuth.getInstance().getCurrentUser().getUid();
+        ShopperHomepage.shopper_uid = FirebaseAuth.getInstance ().getCurrentUser ().getUid ();
 
 
         fba = FirebaseAuth.getInstance ();
@@ -125,25 +138,24 @@ public class ShopperHomepage extends AppCompatActivity implements NavigationView
         photo_storage = FirebaseStorage.getInstance ().getReference ().child ("Shopper_profile_image");
 
 
-
         //initialise the context of the shopper homepage to be used in fragments
-        contextOfApplication=getApplicationContext();
+        contextOfApplication = getApplicationContext ();
 
 
         //function for getting pincode of the current location
         pincode ();
 
         //initiate the one signal notifications for chat box related activities
-        OneSignal.startInit(this)
-                .inFocusDisplaying(OneSignal.OSInFocusDisplayOption.Notification)
-                .unsubscribeWhenNotificationsAreDisabled(true)
-                .init();
-        OneSignal.sendTag("USER_ID",ShopperHomepage.shopper_uid);
+        OneSignal.startInit (this)
+                .inFocusDisplaying (OneSignal.OSInFocusDisplayOption.Notification)
+                .unsubscribeWhenNotificationsAreDisabled (true)
+                .init ();
+        OneSignal.sendTag ("USER_ID", ShopperHomepage.shopper_uid);
 
 
         toolbar = (Toolbar) findViewById (R.id.toolbarbottom);
         Toolbar toolbar = (Toolbar) findViewById (R.id.toolbar);
-        toolbar.setLogo(R.drawable.applogo1);
+        toolbar.setLogo (R.drawable.applogo1);
         setSupportActionBar (toolbar);
 
 /*        DatabaseReference mref = fdb.child ("Shopper").child (user.getUid ());
@@ -168,9 +180,9 @@ public class ShopperHomepage extends AppCompatActivity implements NavigationView
         });*/
 
         mwallet = findViewById (R.id.wallet);
-        mcommunity= findViewById (R.id.communityimage);
+        mcommunity = findViewById (R.id.communityimage);
         mfav = findViewById (R.id.favimage);
-        msetting=findViewById(R.id.settingimage);
+        msetting = findViewById (R.id.settingimage);
 
 //dead code
         //mfaq = (ImageView) findViewById (R.id.faq);
@@ -218,8 +230,6 @@ public class ShopperHomepage extends AppCompatActivity implements NavigationView
         });
 
 
-
-
 //        final NotificationCompat.Builder builder = new NotificationCompat.Builder(ShopperHomepage.this, channelId)
 //                .setContentTitle("Bargainer App")
 //                .setSmallIcon(R.drawable.appicon1)
@@ -231,7 +241,7 @@ public class ShopperHomepage extends AppCompatActivity implements NavigationView
             @Override
             public void onClick(View v) {
 //                sendNotification();
-              startActivity(new Intent(ShopperHomepage.this, SettingsActivity.class));
+                startActivity (new Intent (ShopperHomepage.this, SettingsActivity.class));
             }
         });
 
@@ -247,6 +257,10 @@ public class ShopperHomepage extends AppCompatActivity implements NavigationView
 //        });not
 
 
+
+
+
+
         DrawerLayout drawer = findViewById (R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle (
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
@@ -257,17 +271,16 @@ public class ShopperHomepage extends AppCompatActivity implements NavigationView
         navigationView.setNavigationItemSelectedListener (this);
 
 
-
         //// added new content here
 
-        DatabaseReference shopper = fdb.child ("Shopper").child (ShopperHomepage.shopper_uid );
+        DatabaseReference shopper = fdb.child ("Shopper").child (ShopperHomepage.shopper_uid);
         shopper.addValueEventListener (new ValueEventListener () {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 try {
                     shopperProfile = dataSnapshot.getValue (ShopperProfile.class);
                     assert shopperProfile != null;
-                   shopper_name= shopperProfile.getFname () + " "+shopperProfile.getLname ();
+                    shopper_name = shopperProfile.getFname () + " " + shopperProfile.getLname ();
                     NavigationView navigationView = (NavigationView) findViewById (R.id.nav_view);
                     View headerView = navigationView.getHeaderView (0);
                     TextView navUsername = (TextView) headerView.findViewById (R.id.shopper_name);
@@ -292,20 +305,18 @@ public class ShopperHomepage extends AppCompatActivity implements NavigationView
 //                        Toast.makeText (ShopperHomepage.this,exception.getMessage (),Toast.LENGTH_LONG).show ();
 //                    }
 //                });
-                }catch (NullPointerException e)
-                {}
+                } catch (NullPointerException e) {
+                }
 
-                    try {
-                        check = (String) getIntent ().getSerializableExtra ("bool");
-                        if(check.compareToIgnoreCase ("true") == 0) {
-                            fetch ();
-                            check = "false";
-                        }
-                    }catch (NullPointerException e)
-
-                    {
-                        //Toast.makeText (ShopperHomepage.this,e.getMessage (),Toast.LENGTH_LONG).show ();
+                try {
+                    check = (String) getIntent ().getSerializableExtra ("bool");
+                    if (check.compareToIgnoreCase ("true") == 0) {
+                        fetch ();
+                        check = "false";
                     }
+                } catch (NullPointerException e) {
+                    //Toast.makeText (ShopperHomepage.this,e.getMessage (),Toast.LENGTH_LONG).show ();
+                }
 
 
             }
@@ -318,7 +329,6 @@ public class ShopperHomepage extends AppCompatActivity implements NavigationView
 /////////////////////
 
     }
-
 
 
     //back button
@@ -405,57 +415,57 @@ public class ShopperHomepage extends AppCompatActivity implements NavigationView
 
 
             builder2 = new AlertDialog.Builder (ShopperHomepage.this);
-            builder2.setTitle("Rate App");
-            builder2.setMessage("Show us some love!!");
+            builder2.setTitle ("Rate App");
+            builder2.setMessage ("Show us some love!!");
 
-            LinearLayout linearLayout = new LinearLayout(this);
-            final RatingBar rating = new RatingBar(this);
+            LinearLayout linearLayout = new LinearLayout (this);
+            final RatingBar rating = new RatingBar (this);
 
-            LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(
+            LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams (
                     LinearLayout.LayoutParams.WRAP_CONTENT,
                     LinearLayout.LayoutParams.WRAP_CONTENT
             );
 
-            rating.setLayoutParams(lp);
-            rating.setNumStars(5);
-            rating.setStepSize(1);
-            linearLayout.addView(rating);
-            linearLayout.setGravity(Gravity.CENTER);
+            rating.setLayoutParams (lp);
+            rating.setNumStars (5);
+            rating.setStepSize (1);
+            linearLayout.addView (rating);
+            linearLayout.setGravity (Gravity.CENTER);
 
 //            rating.setNumStars(5);
-            builder2.setIcon(android.R.drawable.star_on);
-            builder2.setView(linearLayout);
+            builder2.setIcon (android.R.drawable.star_on);
+            builder2.setView (linearLayout);
 
-            builder2.setPositiveButton("Submit", new DialogInterface.OnClickListener() {
+            builder2.setPositiveButton ("Submit", new DialogInterface.OnClickListener () {
                 public void onClick(DialogInterface dialog, int which) {
-                    int rate_val =rating.getProgress();
-                    Log.v("RAAAAA",String.valueOf(rating.getProgress()));
-                    if (rate_val>=4)
-                    Toast.makeText(ShopperHomepage.this,"Thank you for your Support!",Toast.LENGTH_SHORT).show();
+                    int rate_val = rating.getProgress ();
+                    Log.v ("RAAAAA", String.valueOf (rating.getProgress ()));
+                    if (rate_val >= 4)
+                        Toast.makeText (ShopperHomepage.this, "Thank you for your Support!", Toast.LENGTH_SHORT).show ();
                     else
-                        Toast.makeText(ShopperHomepage.this,"Thank you! Please provide feedback to help us improve the service",Toast.LENGTH_SHORT).show();
+                        Toast.makeText (ShopperHomepage.this, "Thank you! Please provide feedback to help us improve the service", Toast.LENGTH_SHORT).show ();
                     // here you can add functions
                 }
             });
-            builder2.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+            builder2.setNegativeButton ("Cancel", new DialogInterface.OnClickListener () {
                 public void onClick(DialogInterface dialog, int which) {
 
-                    dialog.cancel();
+                    dialog.cancel ();
                     // here you can add functions
                 }
             });
 
-            builder2.create();
-            builder2.show();  //<-- See This!
+            builder2.create ();
+            builder2.show ();  //<-- See This!
 
 
         } else if (id == R.id.nav_share) {
-            Intent sharingIntent = new Intent(android.content.Intent.ACTION_SEND);
-            sharingIntent.setType("text/plain");
+            Intent sharingIntent = new Intent (android.content.Intent.ACTION_SEND);
+            sharingIntent.setType ("text/plain");
             String shareBody = "Here is the share content body";//insert app link here
-            sharingIntent.putExtra(android.content.Intent.EXTRA_SUBJECT, "Bargaining App");
-            sharingIntent.putExtra(android.content.Intent.EXTRA_TEXT, shareBody);
-            startActivity(Intent.createChooser(sharingIntent, "Share via"));
+            sharingIntent.putExtra (android.content.Intent.EXTRA_SUBJECT, "Bargaining App");
+            sharingIntent.putExtra (android.content.Intent.EXTRA_TEXT, shareBody);
+            startActivity (Intent.createChooser (sharingIntent, "Share via"));
         }
 
 
@@ -467,32 +477,26 @@ public class ShopperHomepage extends AppCompatActivity implements NavigationView
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         super.onRequestPermissionsResult (requestCode, permissions, grantResults);
-        if((grantResults.length > 0) && grantResults[0]==PackageManager.PERMISSION_GRANTED){
-            if(ContextCompat.checkSelfPermission (this,Manifest.permission.ACCESS_FINE_LOCATION)==PackageManager.PERMISSION_GRANTED)
-            {
-                locationManager.requestLocationUpdates (LocationManager.GPS_PROVIDER, 0, 0,locationListener);
+        if ((grantResults.length > 0) && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+            if (ContextCompat.checkSelfPermission (this, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
+                locationManager.requestLocationUpdates (LocationManager.GPS_PROVIDER, 0, 0, locationListener);
 
-            }
-            else
-            {
-                locationManager.requestLocationUpdates (LocationManager.GPS_PROVIDER, 0, 0,locationListener);
+            } else {
+                locationManager.requestLocationUpdates (LocationManager.GPS_PROVIDER, 0, 0, locationListener);
             }
         }
     }
 
 
-    public void fetch()
-    {
+    public void fetch() {
         try {
 
 
-
             String location = user.getUid () + "." + "jpg";
-            final String location2 = user.getUid () + "."+"null";
+            final String location2 = user.getUid () + "." + "null";
 
-            String location = ShopperHomepage.shopper_uid + "." + "jpg";
 
-            Log.v("manas",photo_storage.getPath().toString());
+            Log.v ("manas", photo_storage.getPath ().toString ());
             photo_storage.child (location).getDownloadUrl ().addOnSuccessListener (new OnSuccessListener <Uri> () {
                 @Override
                 public void onSuccess(Uri uri) {
@@ -506,25 +510,23 @@ public class ShopperHomepage extends AppCompatActivity implements NavigationView
                     photo_storage.child (location2).getDownloadUrl ().addOnSuccessListener (new OnSuccessListener <Uri> () {
                         @Override
                         public void onSuccess(Uri uri) {
-                            String imageurl2 =uri.toString ();
-                            Log.v ("url link",imageurl2);
+                            String imageurl2 = uri.toString ();
+                            Log.v ("url link", imageurl2);
                             Glide.with (getApplicationContext ()).load (imageurl2).into (shopper_pic);
                         }
                     }).addOnFailureListener (new OnFailureListener () {
                         @Override
                         public void onFailure(@NonNull Exception e) {
-                           Toast.makeText (ShopperHomepage.this,e.getMessage (),Toast.LENGTH_LONG).show ();
+                            Toast.makeText (ShopperHomepage.this, e.getMessage (), Toast.LENGTH_LONG).show ();
                         }
                     });
                     //Toast.makeText (ShopperHomepage.this, exception.getMessage (), Toast.LENGTH_LONG).show ();
                 }
             });
-        }catch (NullPointerException e)
-        {
+        } catch (NullPointerException e) {
 
         }
     }
-
 
 
     public void pincode() {
@@ -564,12 +566,11 @@ public class ShopperHomepage extends AppCompatActivity implements NavigationView
             ActivityCompat.requestPermissions (this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, 11);
 
         }
-        locationManager.requestLocationUpdates (LocationManager.GPS_PROVIDER, 0, 0,locationListener);
+        locationManager.requestLocationUpdates (LocationManager.GPS_PROVIDER, 0, 0, locationListener);
 
     }
 
-    public static Context getContextOfApplication()
-    {
+    public static Context getContextOfApplication() {
         return contextOfApplication;
     }
 
@@ -580,23 +581,23 @@ public class ShopperHomepage extends AppCompatActivity implements NavigationView
             CharSequence name = "Channel1";
             String description = "Channel discription";
             int importance = NotificationManager.IMPORTANCE_HIGH;
-            NotificationChannel channel = new NotificationChannel(channelId, name, importance);
-            channel.setDescription(description);
+            NotificationChannel channel = new NotificationChannel (channelId, name, importance);
+            channel.setDescription (description);
             // Register the channel with the system; you can't change the importance
             // or other notification behaviors after this
-            NotificationManager notificationManager = getSystemService(NotificationManager.class);
-            notificationManager.createNotificationChannel(channel);
+            NotificationManager notificationManager = getSystemService (NotificationManager.class);
+            notificationManager.createNotificationChannel (channel);
         }
     }
 
 
-
-
     @Override
     protected void onDestroy() {
-        super.onDestroy();
+        super.onDestroy ();
         isAppRunning = false;
     }
+
+
 
 }
 

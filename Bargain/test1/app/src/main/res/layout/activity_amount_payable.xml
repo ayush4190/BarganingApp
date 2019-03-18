@@ -26,18 +26,7 @@
 
 
     </android.support.design.card.MaterialCardView>
-    <android.support.design.card.MaterialCardView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:paddingTop="50dp">
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:paddingTop="50dp"
-            android:text=""
-            android:clickable="false"/>
 
-    </android.support.design.card.MaterialCardView>
 
 
     <android.support.design.card.MaterialCardView
@@ -47,22 +36,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical">
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Paying To"
-            android:textAlignment="center"
-            android:textSize="40sp"
-            android:textColor="@color/black"/>
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint=""
-            android:textColor="@color/black"
-            android:textSize="40sp"
-            android:id="@+id/nego_payname"
 
-            />
         <Button
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

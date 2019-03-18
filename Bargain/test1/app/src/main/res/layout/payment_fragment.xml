@@ -15,7 +15,7 @@
             android:id="@+id/parent_of_card"
             android:layout_width="match_parent"
             android:layout_height="220dp"
-            android:background="@drawable/wallet_image">
+            android:background="@drawable/moneytransfer">
             <LinearLayout
                 android:layout_width="wrap_content"
 

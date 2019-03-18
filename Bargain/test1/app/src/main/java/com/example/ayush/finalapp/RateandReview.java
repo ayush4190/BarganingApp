@@ -67,14 +67,14 @@ public class RateandReview extends AppCompatActivity implements Serializable {
                         public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                             NegotiatorDetails details = new NegotiatorDetails ();
                             details = dataSnapshot.getValue (NegotiatorDetails.class);
-                            Log.v ("ratings", details.getRatings ());
-                            details.setRatings (String.valueOf (rateval));
-                            mroot.child ("ratings").setValue (details.getRatings ());
-                           // mroot.child ("count").setValue (details.getCount ()+1);
-                            Log.v ("addition",details.getCount ()+1);
+//                            Log.v ("ratings", details.getRatings ());
+//                            details.setRatings (String.valueOf (rateval));
+//                            mroot.child ("ratings").setValue (details.getRatings ());
+//                           // mroot.child ("count").setValue (details.getCount ()+1);
+//                            Log.v ("addition",details.getCount ()+1);
                             // infinite loop check here
-                            details.setCount (details.getCount () +1);
-                            mroot.child ("count").setValue (details.getCount ());
+//                            details.setCount (details.getCount () +1);
+//                            mroot.child ("count").setValue (details.getCount ());
                            startActivity (new Intent (RateandReview.this,ShopperHomepage.class));
                         }
 
