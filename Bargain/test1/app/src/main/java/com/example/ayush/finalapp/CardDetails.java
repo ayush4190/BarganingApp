@@ -170,22 +170,24 @@ public class CardDetails extends AppCompatActivity {
                     @Override
                     public void onClick(View v) {
 //                      //open chatbox for this nego
+                        Log.v("lancer1", "0");
                         final DatabaseReference mdatabaseReference =FirebaseDatabase.getInstance().getReference().child("Shopper").child(ShopperHomepage.shopper_uid).child("nego_chat");
 
                         ValueEventListener eventListener = new ValueEventListener() {
                             @Override
                             public void onDataChange(DataSnapshot dataSnapshot) {
+                                Log.v("lancer2", "0");
                                 if(!dataSnapshot.exists()) {
                                     //create new entry
-
+                                    Log.v("lancer3", "0");
                                    DatabaseReference m=FirebaseDatabase.getInstance().getReference().child("Negotiator").child(pos).child("nego_chat");
                                    m.child(ShopperHomepage.shopper_uid).setValue(ShopperHomepage.shopper_uid);
                                    m.child(ShopperHomepage.shopper_uid).child("name").setValue(ShopperHomepage.shopper_name);
                                     mdatabaseReference.child(pos).setValue(pos);
                                     mdatabaseReference.child(pos).child("name").setValue(n.getFirstname()+" "+n.getLastname());
-
-                                    if (ChatFragmentNego.Opened != 0)
-                                        return;
+                                    Log.v("lancer3", "0");
+//                                    if (ChatFragmentNego.Opened != 0)
+//                                        return;
                                     ChatFragmentNego.Opened = 1;
                                     //important
                                     Log.v("lancer", pos);
@@ -199,8 +201,8 @@ public class CardDetails extends AppCompatActivity {
                                     startActivity(intent);
                                 }else {
 
-                                    if (ChatFragmentNego.Opened != 0)
-                                        return;
+//                                    if (ChatFragmentNego.Opened != 0)
+//                                        return;
                                     ChatFragmentNego.Opened = 1;
                                     //important
                                     Log.v("lancer", pos);
