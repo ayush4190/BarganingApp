@@ -35,6 +35,7 @@ public class PayementActivity extends Fragment {
     TextView textView;
 FirebaseUser firebaseUser;
 DatabaseReference databaseReference;
+EditText editText ;
 boolean bool;
     private static final String GOOGLE_TEZ_PACKAGE_NAME = "com.google.android.apps.nbu.paisa.user";
     @Nullable
@@ -125,27 +126,62 @@ boolean bool;
        moneytransfer.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                AlertDialog.Builder mBuilder = new AlertDialog.Builder (v.getContext ());
-                View mView = getLayoutInflater ().inflate (R.layout.activity_add_money, null);
-                final EditText mAmount = (EditText) mView.findViewById (R.id.add);
-                mBuilder.setView (mView);
-                AlertDialog dialog = mBuilder.create ();
-
-                dialog.show ();
-
+//                AlertDialog.Builder mBuilder = new AlertDialog.Builder (v.getContext ());
+//                View mView = getLayoutInflater ().inflate (R.layout.activity_add_money, null);
+//                final EditText mAmount = (EditText) mView.findViewById (R.id.add);
+//                mBuilder.setView (mView);
+//                AlertDialog dialog = mBuilder.create ();
 //
-                Button button = (Button) mView.findViewById(R.id.button4);
-                button.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        TextView textView = (TextView) v.findViewById (R.id.amount);
-                        textView.setText(mAmount.getText().toString());
+//                dialog.show ();
+//
+////
+//                Button button = (Button) mView.findViewById(R.id.button4);
+//                button.setOnClickListener(new View.OnClickListener() {
+//                    @Override
+//                    public void onClick(View v) {
+//                        TextView textView = (TextView) v.findViewById (R.id.amount);
+//                        textView.setText(mAmount.getText().toString());
+//
+//
+//                    }
+//                });
+//
+//                dialog.cancel();
 
+                //#########
 
+                AlertDialog.Builder alertDialog = new AlertDialog.Builder(getActivity());
+                LayoutInflater inflater = getActivity().getLayoutInflater();
+                final View alertDialogView = inflater.inflate(R.layout.addmoney, null);
+                alertDialog.setView(alertDialogView);
+
+                alertDialog.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+                    public void onClick(final DialogInterface dialog, int which) {
+                        final DatabaseReference databaseReference = FirebaseDatabase.getInstance ().getReference ().child ("Shopper").child (firebaseUser.getUid ()).child ("amount");
+                        databaseReference.addListenerForSingleValueEvent (new ValueEventListener () {
+                            @Override
+                            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                                editText =(EditText) alertDialogView.findViewById (R.id.amount_edit);
+                                String temp = editText.getText ().toString ();
+                                Log.v ("its done",temp);
+                                String present = (String) dataSnapshot.getValue ();
+                                Log.v ("present_amount",present);
+                                double up = Double.parseDouble (temp)+ Double.parseDouble (present);
+                                Log.v ("done",String.valueOf (up));
+                                databaseReference.setValue (String.valueOf (up));
+                            }
+
+                            @Override
+                            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                            }
+                        });
+
+                        dialog.cancel();
                     }
                 });
-
-                dialog.cancel();
+                alertDialog.show();
+                //#########
 
 
             }

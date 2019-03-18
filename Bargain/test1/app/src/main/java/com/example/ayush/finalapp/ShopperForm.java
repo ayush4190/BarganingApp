@@ -543,8 +543,7 @@ public class ShopperForm extends Activity implements Serializable {
                 public void onProgress(UploadTask.TaskSnapshot taskSnapshot) {
 
                     double progress=(100.0 * taskSnapshot.getBytesTransferred () / taskSnapshot.getTotalByteCount ());
-                   // mprogressbar.setProgress ((int)progress);
-                    setContentView (R.layout.dialog);
+
 
                 }
             });
