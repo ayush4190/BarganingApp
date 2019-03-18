@@ -52,6 +52,8 @@ public class ChatFragmentNego extends Fragment {
     View view;
     //List
     ListView chatlist;
+    TextView quote;
+    ImageView cartoon;
     ChatAdapter adapter1;
 
     String User;
@@ -70,8 +72,11 @@ public class ChatFragmentNego extends Fragment {
 
 
         InitializeFields();
-
-
+        cartoon=(ImageView)view.findViewById(R.id.chatcartoon);
+        quote = (TextView)view.findViewById(R.id.quotechat) ;
+        cartoon.setVisibility(View.GONE);
+        quote.setVisibility(View.GONE);
+        chatlist.setVisibility(View.GONE);
         //ListVIew Setup
         adapter1 = new ChatAdapter();
         chatlist.setAdapter(adapter1);
@@ -105,30 +110,39 @@ public class ChatFragmentNego extends Fragment {
                 //Deleting Previous Data on List
                 list.clear();
                 //Retrieving data
-                for (DataSnapshot data : dataSnapshot.getChildren()) {
+                if(dataSnapshot.exists()) {
+                    for (DataSnapshot data : dataSnapshot.getChildren()) {
+                        chatlist.setVisibility(View.VISIBLE);
+                        cartoon.setVisibility(View.GONE);
+                        quote.setVisibility(View.GONE);
+                        if (data.getKey().equals(User)) {
+                            continue;
+                        }
+                        //Adding names of friends to list
+                        try {
+                            String name;
+                            String uid;
 
-                    if (data.getKey().equals(User)) {
-                        continue;
-                    }
-                    //Adding names of friends to list
-                    try {
-                        String name;
-                        String  uid;
+                            name = data.child("name").getValue(String.class);
+                            uid = data.getKey();
 
-                        name= data.child("name").getValue(String.class);
-                        uid= data.getKey();
-
-                        while(name==null );
-                        list.add(new String[]{name, uid});
+                            while (name == null) ;
+                            list.add(new String[]{name, uid});
+                        } catch (Exception e) {
+                            Log.d("ChatFragmentGet", e.getMessage());
+                        }
                     }
-                    catch (Exception e){
-                        Log.d("ChatFragmentGet",e.getMessage());
-                    }
+                    //updating listview
+                    adapter1.notifyDataSetChanged();
+                    if (i == 0)
+                        dialog.dismiss();
                 }
-                //updating listview
-                adapter1.notifyDataSetChanged();
-                if(i==0)
+                else{
                     dialog.dismiss();
+                    chatlist.setVisibility(View.GONE);
+                    cartoon.setVisibility(View.VISIBLE);
+                    quote.setVisibility(View.VISIBLE);
+                }
             }
 
             @Override
