@@ -709,6 +709,7 @@ public class NegotiatorProfileActivity extends AppCompatActivity implements Seri
                 @Override
                 public void onSuccess(Uri uri) {
                     String imageURL = uri.toString ();
+                    Log.v ("image",imageURL);
                     Glide.with (getApplicationContext ()).load (imageURL).into (viewImage);
                 }
             }).addOnFailureListener (new OnFailureListener () {

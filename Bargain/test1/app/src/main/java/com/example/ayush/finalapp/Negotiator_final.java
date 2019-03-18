@@ -427,7 +427,8 @@ ProgressBar mprogressbar;
                     Toast.makeText (Negotiator_final.this,"Image uploaded",Toast.LENGTH_LONG).show ();
                     if(bool)
                     {
-                        startActivity (new Intent (Negotiator_final.this,Negotiator_dash.class));
+                        mauth.signOut ();
+                        startActivity (new Intent (Negotiator_final.this,LoginShopper.class));
                         finish ();
                     }
 

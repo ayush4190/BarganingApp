@@ -163,142 +163,76 @@ SessionManagment sessionManagment;
         fdb = FirebaseDatabase.getInstance ().getReference ();
         DatabaseReference shopper = fdb.child ("Negotiator").child (muser.getUid ());
 //########################
-//        shopper.addValueEventListener (new ValueEventListener () {
-//            @Override
-//            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-//                NegotiatorDetails profile = dataSnapshot.getValue (NegotiatorDetails.class);
-//                assert profile != null;
-//                String key = profile.getFirstname () +" "+ profile.getLastname ();
-//                nego_name=key;
-//
-//                NavigationView navigationView = (NavigationView) findViewById (R.id.nav_view);
-//                View headerView = navigationView.getHeaderView (0);
-//                TextView navUsername = (TextView) headerView.findViewById (R.id.nego_name);
-//                navUsername.setText (key);
-//                final TextView user_email = (TextView) headerView.findViewById (R.id.nego_email);
-//                user_email.setText (profile.getEmail ());
-//
-//            }
-//
-//            @Override
-//            public void onCancelled(@NonNull DatabaseError databaseError) {
-//
-//            }
-//        });
-        //#########################
-        //#########################
+        try {
+            shopper.addValueEventListener (new ValueEventListener () {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                    NegotiatorDetails profile = dataSnapshot.getValue (NegotiatorDetails.class);
+                    assert profile != null;
+                    try {
+                        String key = profile.getFirstname () + " " + profile.getLastname ();
+
+                        NavigationView navigationView = (NavigationView) findViewById (R.id.nav_view);
+                        View headerView = navigationView.getHeaderView (0);
+                        TextView navUsername = (TextView) headerView.findViewById (R.id.nego_name);
+                        navUsername.setText (key);
+                        final TextView user_email = (TextView) headerView.findViewById (R.id.nego_email);
+                        user_email.setText (profile.getEmail ());
+
+                        i1 = (CircleImageView) headerView.findViewById (R.id.image_nego);
 
 
-        shopper.addListenerForSingleValueEvent (new ValueEventListener () {
-                                                    @Override
-                                                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                                                        NegotiatorDetails profile = dataSnapshot.getValue (NegotiatorDetails.class);
-                                                        assert profile != null;
-                                                        String key = profile.getFirstname () + " " + profile.getLastname ();
-                                                        nego_name = key;
+                    photo_storage = FirebaseStorage.getInstance ().getReference ().child ("Negotiator_profile_image");
+                    try {
 
-                                                        NavigationView navigationView = (NavigationView) findViewById (R.id.nav_view);
-                                                        View headerView = navigationView.getHeaderView (0);
-                                                        TextView navUsername = (TextView) headerView.findViewById (R.id.nego_name);
-                                                        navUsername.setText (key);
-                                                        final TextView user_email = (TextView) headerView.findViewById (R.id.nego_email);
-                                                        user_email.setText (profile.getEmail ());
-                                                        i1 = (CircleImageView) headerView.findViewById (R.id.image_nego);
+                        final String location = muser.getUid () + "." + "jpg";
+                        Log.v ("userid", muser.getUid ());
+                        photo_storage.child (location).getDownloadUrl ().addOnSuccessListener (new OnSuccessListener <Uri> () {
+                            @Override
+                            public void onSuccess(Uri uri) {
+                                String imageURL = uri.toString ();
+                                Glide.with (getApplicationContext ()).load (imageURL).into (i1);
+                                Log.v ("its done", imageURL);
+                            }
+                        }).addOnFailureListener (new OnFailureListener () {
+                            @Override
+                            public void onFailure(@NonNull Exception exception) {
+                                String location2 = muser.getUid () + "." + "null";
+                                photo_storage.child (location2).getDownloadUrl ().addOnSuccessListener (new OnSuccessListener <Uri> () {
+                                    @Override
+                                    public void onSuccess(Uri uri) {
+                                        String imageurl2 = uri.toString ();
+                                        Glide.with (getApplicationContext ()).load (imageurl2).into (i1);
+                                    }
+                                }).addOnFailureListener (new OnFailureListener () {
+                                    @Override
+                                    public void onFailure(@NonNull Exception e) {
+                                        //Toast.makeText (Negotiator_dash.this,e.getMessage (),Toast.LENGTH_LONG).show ();
+                                    }
+                                });
 
-                                                        photo_storage = FirebaseStorage.getInstance ().getReference ().child ("Negotiator_profile_image");
-                                                        try {
+                                // Handle any errors
+                                // Toast.makeText (Negotiator_dash.this, exception.getMessage (), Toast.LENGTH_LONG).show ();
+                            }
+                        });
 
-                                                            final String location = muser.getUid () + "." + "jpg";
-                                                            Log.v ("userid", muser.getUid ());
-                                                            photo_storage.child (location).getDownloadUrl ().addOnSuccessListener (new OnSuccessListener <Uri> () {
-                                                                @Override
-                                                                public void onSuccess(Uri uri) {
-                                                                    String imageURL = uri.toString ();
-                                                                    Glide.with (getApplicationContext ()).load (imageURL).into (i1);
-                                                                    Log.v ("its done", imageURL);
-                                                                }
-                                                            }).addOnFailureListener (new OnFailureListener () {
-                                                                @Override
-                                                                public void onFailure(@NonNull Exception exception) {
-                                                                    String location2 = muser.getUid () + "." + "null";
-                                                                    photo_storage.child (location2).getDownloadUrl ().addOnSuccessListener (new OnSuccessListener <Uri> () {
-                                                                        @Override
-                                                                        public void onSuccess(Uri uri) {
-                                                                            String imageurl2 = uri.toString ();
-                                                                            Glide.with (getApplicationContext ()).load (imageurl2).into (i1);
-                                                                        }
-                                                                    }).addOnFailureListener (new OnFailureListener () {
-                                                                        @Override
-                                                                        public void onFailure(@NonNull Exception e) {
-                                                                            //Toast.makeText (Negotiator_dash.this,e.getMessage (),Toast.LENGTH_LONG).show ();
-                                                                        }
-                                                                    });
+                    }catch (NullPointerException e)
+                    {}
+                    } catch (NullPointerException e) {
+                    }
+                }
 
-                                                                    // Handle any errors
-                                                                    // Toast.makeText (Negotiator_dash.this, exception.getMessage (), Toast.LENGTH_LONG).show ();
-                                                                }
-                                                            });
+                @Override
+                public void onCancelled(@NonNull DatabaseError databaseError) {
 
-
-                                                        } catch (NullPointerException e) {
-                                                        }
-                                                    }
-
-                                                    @Override
-                                                    public void onCancelled(@NonNull DatabaseError databaseError) {
-
-                                                    }
-                                                });
-
-
-
-        //#########################
+                }
+            });
+        }catch (NullPointerException e)
+        {}
 
 
 
 
-//        photo_storage = FirebaseStorage.getInstance ().getReference ().child ("Negotiator_profile_image");
-//        try {
-//
-//            final String location = muser.getUid ()  +"."+ "jpg";
-//            Log.v ("userid",muser.getUid ());
-//            photo_storage.child (location).getDownloadUrl ().addOnSuccessListener (new OnSuccessListener <Uri> () {
-//                @Override
-//                public void onSuccess(Uri uri) {
-//                    String imageURL = uri.toString ();
-//                    Glide.with (getApplicationContext ()).load (imageURL).into (i1);
-//                    Log.v ("its done",imageURL);
-//                }
-//            }).addOnFailureListener (new OnFailureListener () {
-//                @Override
-//                public void onFailure(@NonNull Exception exception) {
-//                    String location2 = muser.getUid () +"."+"null";
-//                    photo_storage.child (location2).getDownloadUrl ().addOnSuccessListener (new OnSuccessListener <Uri> () {
-//                        @Override
-//                        public void onSuccess(Uri uri) {
-//                            String imageurl2 = uri.toString ();
-//                            Glide.with (getApplicationContext ()).load (imageurl2).into (i1);
-//                        }
-//                    }).addOnFailureListener (new OnFailureListener () {
-//                        @Override
-//                        public void onFailure(@NonNull Exception e) {
-//                            //Toast.makeText (Negotiator_dash.this,e.getMessage (),Toast.LENGTH_LONG).show ();
-//                        }
-//                    });
-//
-//                    // Handle any errors
-//                    // Toast.makeText (Negotiator_dash.this, exception.getMessage (), Toast.LENGTH_LONG).show ();
-//                }
-//            });
-//
-//
-//            //////////////////////////////////////////////////////
-//
-//        }catch (NullPointerException e)
-//        {
-//            //Toast.makeText (Negotiator_dash.this,e.getMessage (),Toast.LENGTH_LONG).show ();
-//        }
-/////////////////////
     }
 
     @Override
