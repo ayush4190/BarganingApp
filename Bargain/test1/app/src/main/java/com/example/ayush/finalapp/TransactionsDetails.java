@@ -1,7 +1,7 @@
 package com.example.ayush.finalapp;
 
 public class TransactionsDetails {
-    String debitedFrom, creditedTo, amount, date, status;
+    String debitedFrom, creditedTo,amount, date, status;
     String creditedToName,debitedFromName;
 
     TransactionsDetails(){
@@ -10,6 +10,7 @@ public class TransactionsDetails {
 
     public TransactionsDetails(String debitedFrom, String creditedTo, String creditedToName, String date, String status,String amount, String debitedFromName) {
         this.debitedFrom = debitedFrom;
+
         this.creditedTo = creditedTo;
         this.creditedToName=creditedToName;
         this.debitedFromName=debitedFromName;
