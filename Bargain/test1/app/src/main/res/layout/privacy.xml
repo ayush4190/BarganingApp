@@ -13,7 +13,7 @@
             android:layout_height="wrap_content"
             android:layout_alignParentTop="true"
             android:gravity="center"
-            android:text="Privacy Policy"
+            android:text="@string/string_privacy_policy"
             android:textSize="20dp"
             android:id="@+id/uu"
             android:textColor="@color/colorPrimaryDark"
@@ -23,7 +23,7 @@
             android:layout_height="wrap_content"
             android:layout_below="@+id/uu"
             android:layout_marginTop="10dp"
-            android:text="privacy"
+            android:text="@string/privacy"
             android:textColor="@color/colorPrimary"
             android:textSize="15dp"
             />
