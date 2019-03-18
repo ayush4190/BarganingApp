@@ -5,8 +5,8 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="privacy"
-        android:textSize="24dp"
+        android:text="@string/privacy"
+        android:textSize="24sp"
         android:scrollbars="vertical"
         />
 
