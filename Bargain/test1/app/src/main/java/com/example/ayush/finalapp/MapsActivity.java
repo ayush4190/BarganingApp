@@ -45,7 +45,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         mMap = googleMap;
 
         mMap.addCircle(new CircleOptions ()
-                .radius(800)
+                .radius(8000)
                 .strokeWidth(0f)
                 .fillColor(0x550000FF));
         // Add a marker in Sydney and move the camera

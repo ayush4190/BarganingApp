@@ -519,9 +519,9 @@ public class ShopperForm extends Activity implements Serializable {
                     handler.postDelayed (new Runnable () {
                         @Override
                         public void run() {
-                            mprogressbar.setProgress (0);
+                           // mprogressbar.setProgress (0);
                         }
-                    },5000);
+                    },0);
                     aBoolean = true;
                     Toast.makeText (ShopperForm.this,"image uploaded",Toast.LENGTH_SHORT).show ();
                     if(aBoolean)
@@ -543,7 +543,7 @@ public class ShopperForm extends Activity implements Serializable {
                 public void onProgress(UploadTask.TaskSnapshot taskSnapshot) {
 
                     double progress=(100.0 * taskSnapshot.getBytesTransferred () / taskSnapshot.getTotalByteCount ());
-                    mprogressbar.setProgress ((int)progress);
+
 
                 }
             });

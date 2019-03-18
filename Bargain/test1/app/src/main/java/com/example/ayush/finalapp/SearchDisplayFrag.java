@@ -18,7 +18,9 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.SearchView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.firebase.database.ChildEventListener;
@@ -36,7 +38,9 @@ public class SearchDisplayFrag extends Fragment{
     EditText msearchtext;
     private List<NegotiatorDetails> negotiatorList = new ArrayList<>();
     private RecyclerView recyclerView;
-    private NegotiatorProfileAdapter adapter;
+    ImageView cartoon;
+    NegotiatorProfileAdapter adapter;
+    TextView quote,textbelow;
     FirebaseDatabase firebaseDatabase;
     DatabaseReference databaseReference;
     //String searchvalue = (Searchfrag)getIntent().getExtras("Searchtext");
@@ -57,13 +61,20 @@ public class SearchDisplayFrag extends Fragment{
         Bundle bundle = this.getArguments ();
         if(bundle != null)
         {
-
             searchvalue = getArguments().getString("Searchtext");
             age=Integer.parseInt(getArguments().getString ("Agevalue"));
             //Toast.makeText (getActivity (),"here",Toast.LENGTH_SHORT).show ();
 
         }
+        recyclerView = (RecyclerView) view.findViewById(R.id.recyclerView);//
+        quote=(TextView)view.findViewById(R.id.quotesearch);
+        textbelow=(TextView)view.findViewById(R.id.search_text_nomore);
+        cartoon=(ImageView)view.findViewById(R.id.search_cartoon);
 
+        recyclerView.setVisibility(View.GONE);
+        cartoon.setVisibility(View.VISIBLE);
+        quote.setVisibility(View.VISIBLE);
+        textbelow.setVisibility(View.GONE);
 
         //String pos=bundle.getString("filter_result_pos");
         //anime
@@ -99,10 +110,9 @@ public class SearchDisplayFrag extends Fragment{
         Log.v("Serachdis age:",String.valueOf (age));
         Log.v("Searchdis Search text" , searchvalue);
         // Toast.makeText(SearchDisplay.this,searchvalue,Toast.LENGTH_SHORT);
-        recyclerView = (RecyclerView) view.findViewById(R.id.recyclerView);//
+
+
         adapter = new NegotiatorProfileAdapter(negotiatorList,getActivity (),0);
-
-
         firebaseDatabase = FirebaseDatabase.getInstance();
         Log.v("before getdata" , "hello ");
 
@@ -188,8 +198,10 @@ public class SearchDisplayFrag extends Fragment{
 
                 if(dataSnapshot.exists()){
                     Log.v("inondata after ifexists" , "hello ");
-
-
+                    recyclerView.setVisibility(View.VISIBLE);
+                    textbelow.setVisibility(View.VISIBLE);
+                    cartoon.setVisibility(View.GONE);
+                    quote.setVisibility(View.GONE);
                     // for(DataSnapshot issue: dataSnapshot.getChildren()) {
                     Log.v("inside loop" , "hello ");
                     NegotiatorDetails data =dataSnapshot.getValue(NegotiatorDetails.class);
@@ -241,6 +253,10 @@ public class SearchDisplayFrag extends Fragment{
                 Log.v("inondata beforeifexists" , "hello ");
 
                 if(dataSnapshot.exists()){
+                    recyclerView.setVisibility(View.VISIBLE);
+                    textbelow.setVisibility(View.VISIBLE);
+                    cartoon.setVisibility(View.GONE);
+                    quote.setVisibility(View.GONE);
                     Log.v("inondata after ifexists" , "hello ");
 
                     // for(DataSnapshot issue: dataSnapshot.getChildren()) {
@@ -299,6 +315,11 @@ public class SearchDisplayFrag extends Fragment{
                 Log.v("inondata beforeifexists" , "hello ");
 
                 if(dataSnapshot.exists()){
+                    recyclerView.setVisibility(View.VISIBLE);
+
+                    textbelow.setVisibility(View.VISIBLE);
+                    cartoon.setVisibility(View.GONE);
+                    quote.setVisibility(View.GONE);
                     Log.v("inondata after ifexists" , "hello ");
 
                     // for(DataSnapshot issue: dataSnapshot.getChildren()) {

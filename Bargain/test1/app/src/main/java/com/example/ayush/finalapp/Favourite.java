@@ -10,6 +10,8 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -19,6 +21,7 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -27,11 +30,13 @@ public class Favourite extends Fragment {
     FirebaseAuth fba;
     FirebaseUser user;
     int count;
+    ImageView cartoon;
     public ArrayList<String> KeyList;
     private List<NegotiatorDetails> negotiatorList = new ArrayList<>();
     private RecyclerView recyclerView;
     private NegotiatorProfileAdapter adapter;
     private DatabaseReference fdb,shopper;
+    TextView quote;
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -50,7 +55,12 @@ public class Favourite extends Fragment {
         fdb= FirebaseDatabase.getInstance().getReference();
         fba=FirebaseAuth.getInstance();
         user=fba.getCurrentUser();
+        quote = (TextView)view.findViewById(R.id.quotefav) ;
         shopper = fdb.child ("Shopper").child (user.getUid ());
+        cartoon=(ImageView)view.findViewById(R.id.favcarton);
+        cartoon.setVisibility(View.GONE);
+        quote.setVisibility(View.GONE);
+        recyclerView.setVisibility(View.GONE);
 
        //shopper
         Log.v("before getdata" , "hello ");
@@ -72,49 +82,48 @@ public class Favourite extends Fragment {
 
         // databaseReference=FirebaseDatabase.getInstance().getReference().child("Negotiator");
 //        Query query=databaseReference.child("Negotiator").child("category1").startAt(searchvalue).endAt(searchvalue+'\uf8ff');
-        Query query = shopper.child("Favourite");
+        Query query = shopper;
         Log.v("inside query 1", "hello ");
-
-        query.addChildEventListener(new ChildEventListener() {
-
+        query.addValueEventListener(new ValueEventListener() {
             @Override
-            public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
-//                Log.v("inondata beforeifexists", "hello ");
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                Log.v("inondata beforeifexists", "hello ");
 
-                if (dataSnapshot.exists()) {
-//                    Log.v("inondata after ifexists", "hello ");
+                if (dataSnapshot.child("Favourite").exists()) {
+                    Log.v("inondata after ifexists", "hello ");
 
 
                     // for(DataSnapshot issue: dataSnapshot.getChildren()) {
                     Log.v("inside loop", "hello ");
-                    String ss = dataSnapshot.getValue().toString();
+//                    Iterable q =dataSnapshot.child("Favourite").getChildren();
+                    String ss;
+                    for (DataSnapshot postSnapshot: dataSnapshot.child("Favourite").getChildren()) {
+                        ss = postSnapshot.getValue(String.class);
+
+                        Log.v("before keylist add", ss);
+                        newfunction(ss);
+//                        Log.e("Get Data", post.<YourMethod>());
+                    }
+//                    String[] q=new String[((int) dataSnapshot.getChildrenCount())];
+
+//                    q=dataSnapshot.child("Favouri;
+
+//                    String ss = dataSnapshot.child("Favourite").getValue();
                     //
-                    Log.v("before keylist add", ss);
+//                    Log.v("before keylist add", ss);
 //                    KeyList.add(count,ss);
 //                    KeyList.add(ss);
 //
 //
 //                    count++;
 
-                    newfunction(ss);
+//                    newfunction(ss);
 //                    Log.v("after keylist add", KeyList.get(count-1));
-                }
-
-            }
-
-            @Override
-            public void onChildChanged(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
-
-            }
-
-            @Override
-            public void onChildRemoved(@NonNull DataSnapshot dataSnapshot) {
-
-            }
-
-            @Override
-            public void onChildMoved(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
-
+                }else{
+                    cartoon.setVisibility(View.VISIBLE);
+                    quote.setVisibility(View.VISIBLE);
+                    recyclerView.setVisibility(View.GONE);
+                    Log.v("aya na tu","aa gaya");}
             }
 
             @Override
@@ -122,6 +131,55 @@ public class Favourite extends Fragment {
 
             }
         });
+//        query.addChildEventListener(new ChildEventListener() {
+//            @Override
+//            public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
+//                Log.v("inondata beforeifexists", "hello ");
+//
+//                if (dataSnapshot.child("Favourite").exists()) {
+//                    Log.v("inondata after ifexists", "hello ");
+//
+//
+//                    // for(DataSnapshot issue: dataSnapshot.getChildren()) {
+//                    Log.v("inside loop", "hello ");
+//                    String ss = dataSnapshot.child("Favourite").getValue().toString();
+//                    //
+//                    Log.v("before keylist add", ss);
+////                    KeyList.add(count,ss);
+////                    KeyList.add(ss);
+////
+////
+////                    count++;
+//
+//                    newfunction(ss);
+////                    Log.v("after keylist add", KeyList.get(count-1));
+//                }else{
+//                    cartoon.setVisibility(View.VISIBLE);
+//                    quote.setVisibility(View.VISIBLE);
+//                    Log.v("aya na tu","aa gaya");}
+//
+//            }
+//
+//            @Override
+//            public void onChildChanged(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
+//
+//            }
+//
+//            @Override
+//            public void onChildRemoved(@NonNull DataSnapshot dataSnapshot) {
+//
+//            }
+//
+//            @Override
+//            public void onChildMoved(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
+//
+//            }
+//
+//            @Override
+//            public void onCancelled(@NonNull DatabaseError databaseError) {
+//
+//            }
+//        });
 
 //        Log.v("out funcytion", KeyList.get(count-1));
     }
@@ -133,6 +191,12 @@ public class Favourite extends Fragment {
 //        Log.v("size of keylist", KeyList.size()+"");
 //            Log.v("ke", KeyList.get(0));
 //        for(int i=0;i<KeyList.size();i++) {
+
+////////////////////////////
+
+
+
+/////////////////////////////
             Log.v("after loop for loop", "hello ");
             Query query2 = databaseReference.orderByKey().equalTo(tt);
 
@@ -144,6 +208,8 @@ public class Favourite extends Fragment {
                     Log.v("inondata beforeifexists", "hello ");
 
                     if (dataSnapshot.exists()) {
+                        recyclerView.setVisibility(View.VISIBLE);
+
                         Log.v("inondata after ifexists", "hello ");
 
                         // for(DataSnapshot issue: dataSnapshot.getChildren()) {
@@ -155,6 +221,8 @@ public class Favourite extends Fragment {
                         adapter.addItem(data, dataSnapshot.getKey());
                         adapter.notifyDataSetChanged();
                     }
+
+
 
                 }
 

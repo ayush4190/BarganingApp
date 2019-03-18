@@ -23,8 +23,11 @@ import android.widget.TextView;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.google.zxing.BarcodeFormat;
 import com.google.zxing.WriterException;
 
@@ -46,14 +49,15 @@ public class NegotiatorWallet extends Fragment {
     public void onViewCreated(@NonNull final View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated (view, savedInstanceState);
 
-
+        textViewamount = (TextView) view.findViewById (R.id.money_text);
 
         f=getActivity ();
 
-        mAuth = FirebaseAuth.getInstance ();
-        mUser = mAuth.getCurrentUser ();
+
+        mUser = FirebaseAuth.getInstance ().getCurrentUser ();
         assert mUser != null;
         temp = mUser.getUid ();
+        fetch ();
         Button button1 = (Button) view.findViewById(R.id.button1);
         button1.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -79,49 +83,23 @@ public class NegotiatorWallet extends Fragment {
         });
 
 
-//        Button button2 = (Button) view.findViewById(R.id.button2);
-//        button2.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                AlertDialog.Builder mBuilder = new AlertDialog.Builder(getActivity ());
-//                View mView = getLayoutInflater().inflate(R.layout.activity_add_money,null);
-//                final EditText mAmount  = (EditText) mView.findViewById(R.id.add);
-//                mBuilder.setView(mView);
-//                AlertDialog dialog = mBuilder.create();
-//                dialog.show();
-//                Button button = (Button) mView.findViewById(R.id.button4);
-//                button.setOnClickListener(new View.OnClickListener() {
-//                    @Override
-//                    public void onClick(View v) {
-//                        TextView textView = (TextView) view.findViewById(R.id.amount);
-//                        textView.setText(mAmount.getText().toString());
-//
-//
-//                    }
-//                });
-//                //   mBuilder.setView(mView);
-//                //  AlertDialog dialog = mBuilder.create();
-//                // dialog.show();
-//                dialog.cancel();
-//
-//                // Intent intent = new Intent(v.getContext(),AddMoney.class);
-//                // v.getContext().startActivity(intent);
-//            }
-//        });
-//
-//        Button button3 = (Button) view.findViewById(R.id.button3);
-//        button3.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                Intent intent = new Intent(v.getContext(),PreviousTransactions.class);
-//                v.getContext().startActivity(intent);
-//            }
-//        });
 
     }
     public  void fetch()
     {
-        DatabaseReference databaseReference = FirebaseDatabase.getInstance ().getReference ().child ("Negotiator").child (mUser.getUid ());
+        DatabaseReference databaseReference = FirebaseDatabase.getInstance ().getReference ().child ("Negotiator").child (mUser.getUid ()).child ("amount");
+        databaseReference.addListenerForSingleValueEvent (new ValueEventListener () {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                String am = (String) dataSnapshot.getValue ();
+                textViewamount.setText (am);
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
 
     }
 

@@ -93,18 +93,21 @@ public class Searchfrag extends Fragment {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id)
             {
+
                 for (int i = 0; i <categories.length ; i++)
                 {
                     if (ids[i]==id)
                         searchfragedit.setText(categories[i]);
                 }
+                searchfragedit.setText(categories[position]);
+
             }
         });
         /*location_selector = (Button) view.findViewById(R.id.shopper_home_loc_button);
         if (location_selector == null)
             Toast.makeText(getActivity(), "not all can be empty", Toast.LENGTH_SHORT).show();
         else
-            Toast.makeText(getActivity(), "maa chuda", Toast.LENGTH_SHORT).show()        location_selector.setOnClickListener(new View.OnClickListener() {
+            Toast.makeText(getActivity(), "maafg", Toast.LENGTH_SHORT).show()        location_selector.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 PlacePicker.IntentBuilder intentBuilder = new PlacePicker.IntentBuilder();
