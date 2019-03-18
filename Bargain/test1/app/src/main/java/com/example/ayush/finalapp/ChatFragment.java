@@ -214,8 +214,8 @@ public class ChatFragment extends Fragment {
             constraintLayout.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    if(ChatFragment.Opened != 0)
-                        return;
+//                    if(ChatFragment.Opened != 0)
+//                        return;
                     ChatFragment.Opened = 1;
                     //important
                     Intent intent = new Intent(getActivity(),ChatBox.class);
