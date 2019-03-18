@@ -336,7 +336,9 @@ String name;
                                 @Override
                                 public void onClick(DialogInterface dialog, int which) {
                                     meetDetails.isAccepted=true;
-                                    m1.child(Reciever[1]).setValue(meetDetails);
+                                    //set transaction id also
+
+
                                     FirebaseDatabase.getInstance().getReference().child("Shopper").child(Reciever[1]).child("meet").child(firebaseUser.getUid()).setValue(meetDetails);
                                     message_sent=Negotiator_dash.nego_name+" has accepted your request, Happy Bargaining:)";
 //                                    sendNotification();
@@ -345,16 +347,18 @@ String name;
                                     nego_id=firebaseAuth.getCurrentUser().getUid();
                                     shop_id=meetDetails.getShopper();
 
-
                                     transactionsDetails=new TransactionsDetails(shop_id,nego_id,meetDetails.getNegoname(),meetDetails.getDate(),"pending","0.0",Reciever[0]);
 
                                     DatabaseReference m2=FirebaseDatabase.getInstance().getReference().child("Transactions").child(shop_id).push();
                                     m2.setValue(transactionsDetails);
+                                    meetDetails.transaction_id_shopper=m2.getKey();
 //                                        amount_payable.MostRecentIdShopper=m1.getKey ();
 //                                        Log.v ("manas",amount_payable.MostRecentIdShopper);
                                     m2=FirebaseDatabase.getInstance().getReference().child("Transactions").child(nego_id).push();
                                     m2.setValue (transactionsDetails);
-
+                                    meetDetails.transaction_id_nego=m2.getKey();
+                                    m1.child(Reciever[1]).setValue(meetDetails);
+                                    FirebaseDatabase.getInstance().getReference().child("Shopper").child(Reciever[1]).child("meet").child(firebaseUser.getUid()).setValue(meetDetails);
                                     builder = new NotificationCompat.Builder(ChatBoxNego.this, channelId)
                                             .setContentTitle("Request Accepted")
                                             .setSmallIcon(R.drawable.appicon1)
