@@ -520,7 +520,7 @@ public class ShopperHomepage extends AppCompatActivity implements NavigationView
                     }).addOnFailureListener (new OnFailureListener () {
                         @Override
                         public void onFailure(@NonNull Exception e) {
-                            Toast.makeText (ShopperHomepage.this,e.getMessage (),Toast.LENGTH_LONG).show ();
+                            //Toast.makeText (ShopperHomepage.this,e.getMessage (),Toast.LENGTH_LONG).show ();
                         }
                     });
                     //Toast.makeText (ShopperHomepage.this, exception.getMessage (), Toast.LENGTH_LONG).show ();
@@ -607,6 +607,5 @@ public class ShopperHomepage extends AppCompatActivity implements NavigationView
     }
 
 }
-
 
 

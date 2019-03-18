@@ -209,7 +209,7 @@ SessionManagment sessionManagment;
                             }).addOnFailureListener (new OnFailureListener () {
                                 @Override
                                 public void onFailure(@NonNull Exception e) {
-                                    Toast.makeText (Negotiator_dash.this,e.getMessage (),Toast.LENGTH_LONG).show ();
+                                    //Toast.makeText (Negotiator_dash.this,e.getMessage (),Toast.LENGTH_LONG).show ();
                                 }
                             });
 

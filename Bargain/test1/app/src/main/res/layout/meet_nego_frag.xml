@@ -88,4 +88,14 @@
         android:padding="10dp"
         android:layout_height="wrap_content"
         android:text="Oops, there is no valid meet proposed yet by this shopper"/>
+    <TextView
+        android:layout_width="match_parent"
+        android:textColor="@color/colorPrimaryDark"
+        android:textSize="20dp"
+        android:id="@+id/already_accepted"
+        android:visibility="gone"
+
+        android:padding="10dp"
+        android:layout_height="wrap_content"
+        android:text="Most Recent meet is already accepted"/>
 </RelativeLayout>

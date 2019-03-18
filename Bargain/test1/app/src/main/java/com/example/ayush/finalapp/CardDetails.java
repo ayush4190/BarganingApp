@@ -39,6 +39,7 @@ public class CardDetails extends AppCompatActivity {
     CircleImageView pro_image;
     NegotiatorDetails n;
     StorageReference photo_storage;
+    String location2;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -241,6 +242,7 @@ public class CardDetails extends AppCompatActivity {
 
 
             String location = pos + "." + "jpg";
+            location2 = pos+"."+"null";
             photo_storage.child(location).getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
                 @Override
                 public void onSuccess(Uri uri) {
@@ -251,7 +253,15 @@ public class CardDetails extends AppCompatActivity {
                 @Override
                 public void onFailure(@NonNull Exception exception) {
                     // Handle any errors
-                    Toast.makeText(CardDetails.this, exception.getMessage(), Toast.LENGTH_LONG).show();
+                    photo_storage.child (location2).getDownloadUrl ().addOnSuccessListener (new OnSuccessListener <Uri> () {
+                        @Override
+                        public void onSuccess(Uri uri) {
+                            String imageurl2 = uri.toString ();
+                            Log.v ("url link", imageurl2);
+                            Glide.with (getApplicationContext ()).load (imageurl2).into (pro_image);
+                            // Toast.makeText(CardDetails.this, exception.getMessage(), Toast.LENGTH_LONG).show();
+                        }
+                    });
                 }
             });
         } catch (NullPointerException e) {
