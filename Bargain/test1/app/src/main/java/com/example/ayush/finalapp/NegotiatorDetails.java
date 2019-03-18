@@ -51,6 +51,8 @@ public class NegotiatorDetails implements Serializable {
     }
     public NegotiatorDetails() {
        this.amount = "0";
+       this.ratings ="0";
+       this.count = "0";
 
     }
 
