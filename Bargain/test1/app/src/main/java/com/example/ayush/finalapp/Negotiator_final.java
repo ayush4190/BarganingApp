@@ -76,7 +76,7 @@ ProgressBar mprogressbar;
 
     AlertDialog.Builder builder2;
     boolean bool = false;
-    private  Dialog dialog;
+
 
 
     @Override
@@ -420,7 +420,7 @@ ProgressBar mprogressbar;
                     handler.postDelayed (new Runnable () {
                         @Override
                         public void run() {
-                            mprogressbar.setProgress (0);
+
                         }
                     },0);
                      bool = true;
@@ -445,22 +445,9 @@ ProgressBar mprogressbar;
                 public void onProgress(UploadTask.TaskSnapshot taskSnapshot) {
 
                             double progress=(100.0 * taskSnapshot.getBytesTransferred () / taskSnapshot.getTotalByteCount ());
-                          mprogressbar.setProgress ((int)progress);
-                    dialog = new Dialog (Negotiator_final.this);
-                    dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
-                    dialog.setContentView(R.layout.info_dialog);
-                    dialog.setTitle("Info");
-                    dialog.setCancelable(false);
-                    ProgressBar progressBar = (ProgressBar) dialog.findViewById(R.id.progress_Bar);
-                    dialog.show ();
-                    if(progress == 100)
-                    {
-                        dialog.dismiss ();
-                        Log.d("closing diaolog box" , String.valueOf (progress));
-                        dialog.hide ();
+                    setContentView (R.layout.dialog);
 
-                        finish ();
-                    }
+//
 
 
                 }

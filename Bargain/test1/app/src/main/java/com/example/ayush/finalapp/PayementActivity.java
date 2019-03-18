@@ -3,6 +3,7 @@ package com.example.ayush.finalapp;
 import android.app.AlertDialog;
 import android.content.Intent;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -34,6 +35,7 @@ public class PayementActivity extends Fragment {
     TextView textView;
 FirebaseUser firebaseUser;
 DatabaseReference databaseReference;
+boolean bool;
     private static final String GOOGLE_TEZ_PACKAGE_NAME = "com.google.android.apps.nbu.paisa.user";
     @Nullable
     @Override
@@ -76,8 +78,13 @@ DatabaseReference databaseReference;
                 paytm.setVisibility (View.VISIBLE);
 
 
+
             }
         });
+
+
+
+
 
         token.setOnClickListener (new View.OnClickListener () {
             @Override
@@ -172,6 +179,7 @@ DatabaseReference databaseReference;
             Log.d("result", data.getStringExtra("Status"));
         }
     }
+
 }
 
 

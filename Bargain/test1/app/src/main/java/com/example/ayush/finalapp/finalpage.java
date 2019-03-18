@@ -47,6 +47,7 @@ public class finalpage extends AppCompatActivity implements Serializable {
     String message;
     AlertDialog.Builder builder2;
     double existing_amount;
+    MeetDetails meetDetails;
     String amount_pay;
     double finaly;
     TextView usernametxt;
@@ -156,45 +157,18 @@ final DatabaseReference mroot = FirebaseDatabase.getInstance ().getReference ().
 
 
 /////////////////////////////////////////////////////////////////////
-
-
-            DatabaseReference mdatabaseReference = FirebaseDatabase.getInstance ().getReference ();
-            mdatabaseReference.child ("Transactions").child (nego_user);
-
-
-
-            Query query2 = mdatabaseReference.child ("Transactions").child (nego_user);
-            Log.v ("ASUS", query2.toString ());
-            query2.addChildEventListener (new ChildEventListener () {
+            DatabaseReference p=FirebaseDatabase.getInstance().getReference().child("Shopper").child(ShopperHomepage.shopper_uid).child("meet").child(nego_user);
+            p.addListenerForSingleValueEvent(new ValueEventListener() {
                 @Override
-                public void onChildAdded(@NonNull final DataSnapshot dataSnapshot, @Nullable String s) {
-                    if (dataSnapshot.exists () && check) {
-                        nego_transaction_id = dataSnapshot.getKey ();
-                        Log.v ("manas", nego_transaction_id);
-                        transactionsDetails = dataSnapshot.getValue (TransactionsDetails.class);
-                        if (transactionsDetails.getStatus ().compareToIgnoreCase ("completed") != 0) {
-                            Log.v ("manas", transactionsDetails.getCreditedToName ());
-                            transactionsDetails.setStatus ("Completed");
-                            transactionsDetails.setAmount (String.valueOf (message));
-                            FirebaseDatabase.getInstance ().getReference ().child ("Transactions").child (nego_user).child (nego_transaction_id).setValue (transactionsDetails);
-                            check = false;
-                        }
+                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                    if(dataSnapshot.exists()) {
+                        meetDetails=dataSnapshot.getValue(MeetDetails.class);
+                        final String dd=String.valueOf(amount_pay);
+                        TransactionsDetails transactionsDetails=new TransactionsDetails(ShopperHomepage.shopper_uid,nego_user,meetDetails.negoname,meetDetails.date,"completed",dd,ShopperHomepage.shopper_name);
+                        FirebaseDatabase.getInstance().getReference().child("Transactions").child(ShopperHomepage.shopper_uid).child(meetDetails.getTransaction_id_shopper()).setValue(transactionsDetails);
+                        FirebaseDatabase.getInstance().getReference().child("Transactions").child(nego_user).child(meetDetails.getTransaction_id_nego()).setValue(transactionsDetails);
+
                     }
-                }
-
-                @Override
-                public void onChildChanged(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
-
-                }
-
-                @Override
-                public void onChildRemoved(@NonNull DataSnapshot dataSnapshot) {
-
-                }
-
-                @Override
-                public void onChildMoved(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
-
                 }
 
                 @Override
@@ -202,48 +176,94 @@ final DatabaseReference mroot = FirebaseDatabase.getInstance ().getReference ().
 
                 }
             });
-            Query query = FirebaseDatabase.getInstance ().getReference ().child ("Transactions").child (shop_user);
-            query.addChildEventListener (new ChildEventListener () {
-                @Override
-                public void onChildAdded(@NonNull final DataSnapshot dataSnapshot, @Nullable String s) {
-                    if (dataSnapshot.exists () && check2) {
-                        shop_transaction_id = dataSnapshot.getKey ();
-                        Log.v ("manas", shop_transaction_id);
-
-
-                        transactionsDetails = dataSnapshot.getValue (TransactionsDetails.class);
-                        if (transactionsDetails.getStatus ().compareToIgnoreCase ("completed") != 0) {
-                            Log.v ("manas", transactionsDetails.getDebitedFromName ());
-                            transactionsDetails.setStatus ("Completed");
-                            transactionsDetails.setAmount (String.valueOf (message));
-                            FirebaseDatabase.getInstance ().getReference ().child ("Transactions").child (shop_user).child (shop_transaction_id).setValue (transactionsDetails);
-                            check2 = false;
-                        }
-
-                    }
-                }
-
-                @Override
-                public void onChildChanged(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
-
-                }
-
-                @Override
-                public void onChildRemoved(@NonNull DataSnapshot dataSnapshot) {
-
-                }
-
-                @Override
-                public void onChildMoved(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
-
-                }
-
-                @Override
-                public void onCancelled(@NonNull DatabaseError databaseError) {
-
-                }
-            });
-
+////////////////////////////////////////
+//
+//            DatabaseReference mdatabaseReference = FirebaseDatabase.getInstance ().getReference ();
+//            mdatabaseReference.child ("Transactions").child (nego_user);
+//
+//
+//
+//            Query query2 = mdatabaseReference.child ("Transactions").child (nego_user);
+//            Log.v ("ASUS", query2.toString ());
+//            query2.addChildEventListener (new ChildEventListener () {
+//                @Override
+//                public void onChildAdded(@NonNull final DataSnapshot dataSnapshot, @Nullable String s) {
+//                    if (dataSnapshot.exists () && check) {
+//                        nego_transaction_id = dataSnapshot.getKey ();
+//                        Log.v ("manas", nego_transaction_id);
+//                        transactionsDetails = dataSnapshot.getValue (TransactionsDetails.class);
+//                        if (transactionsDetails.getStatus ().compareToIgnoreCase ("completed") != 0) {
+//                            Log.v ("manas", transactionsDetails.getCreditedToName ());
+//                            transactionsDetails.setStatus ("Completed");
+//                            transactionsDetails.setAmount (String.valueOf (message));
+//                            FirebaseDatabase.getInstance ().getReference ().child ("Transactions").child (nego_user).child (nego_transaction_id).setValue (transactionsDetails);
+//                            check = false;
+//                        }
+//                    }
+//                }
+//
+//                @Override
+//                public void onChildChanged(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
+//
+//                }
+//
+//                @Override
+//                public void onChildRemoved(@NonNull DataSnapshot dataSnapshot) {
+//
+//                }
+//
+//                @Override
+//                public void onChildMoved(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
+//
+//                }
+//
+//                @Override
+//                public void onCancelled(@NonNull DatabaseError databaseError) {
+//
+//                }
+//            });
+//            Query query = FirebaseDatabase.getInstance ().getReference ().child ("Transactions").child (shop_user);
+//            query.addChildEventListener (new ChildEventListener () {
+//                @Override
+//                public void onChildAdded(@NonNull final DataSnapshot dataSnapshot, @Nullable String s) {
+//                    if (dataSnapshot.exists () && check2) {
+//                        shop_transaction_id = dataSnapshot.getKey ();
+//                        Log.v ("manas", shop_transaction_id);
+//
+//
+//                        transactionsDetails = dataSnapshot.getValue (TransactionsDetails.class);
+//                        if (transactionsDetails.getStatus ().compareToIgnoreCase ("completed") != 0) {
+//                            Log.v ("manas", transactionsDetails.getDebitedFromName ());
+//                            transactionsDetails.setStatus ("Completed");
+//                            transactionsDetails.setAmount (String.valueOf (message));
+//                            FirebaseDatabase.getInstance ().getReference ().child ("Transactions").child (shop_user).child (shop_transaction_id).setValue (transactionsDetails);
+//                            check2 = false;
+//                        }
+//
+//                    }
+//                }
+//
+//                @Override
+//                public void onChildChanged(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
+//
+//                }
+//
+//                @Override
+//                public void onChildRemoved(@NonNull DataSnapshot dataSnapshot) {
+//
+//                }
+//
+//                @Override
+//                public void onChildMoved(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
+//
+//                }
+//
+//                @Override
+//                public void onCancelled(@NonNull DatabaseError databaseError) {
+//
+//                }
+//            });
+/////////////////////////////
            return 1;
         } catch (NumberFormatException e) {
             return 0;

@@ -195,8 +195,8 @@ public class ChatFragmentNego extends Fragment {
             constraintLayout.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    if(ChatFragmentNego.Opened != 0)
-                        return;
+//                    if(ChatFragmentNego.Opened != 0)
+//                        return;
                     ChatFragmentNego.Opened = 1;
                     //important
                     Intent intent = new Intent(getActivity(),ChatBoxNego.class);

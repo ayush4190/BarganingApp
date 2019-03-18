@@ -18,6 +18,7 @@ import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 import android.content.Context;
@@ -148,6 +149,8 @@ public class WelcomePage extends AppCompatActivity {
             public void onClick(View v) {
                 Intent intent = new Intent (v.getContext (),LoginShopper.class);
                 v.getContext ().startActivity (intent);
+
+
             }
         });
 

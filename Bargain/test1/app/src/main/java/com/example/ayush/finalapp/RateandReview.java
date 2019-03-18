@@ -62,20 +62,20 @@ public class RateandReview extends AppCompatActivity implements Serializable {
                 Log.v ("nego_user",nego_id);
                 try {
                     mroot = FirebaseDatabase.getInstance ().getReference ().child ("Negotiator").child (nego_id);
-                    mroot.addValueEventListener (new ValueEventListener () {
+                    mroot.addListenerForSingleValueEvent (new ValueEventListener () {
                         @Override
                         public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                             NegotiatorDetails details = new NegotiatorDetails ();
                             details = dataSnapshot.getValue (NegotiatorDetails.class);
-//                            Log.v ("ratings", details.getRatings ());
-//                            details.setRatings (String.valueOf (rateval));
-//                            mroot.child ("ratings").setValue (details.getRatings ());
-//                           // mroot.child ("count").setValue (details.getCount ()+1);
-//                            Log.v ("addition",details.getCount ()+1);
-                            // infinite loop check here
-//                            details.setCount (details.getCount () +1);
-//                            mroot.child ("count").setValue (details.getCount ());
-                           startActivity (new Intent (RateandReview.this,ShopperHomepage.class));
+                            int t = Integer.parseInt (details.getCount ()) +1;
+                           // mroot.child ("ratings").setValue (details.getRatings ());
+                            float rate = (float) ((rateval+Float.parseFloat (details.getRatings ())) /((1.0)*t));
+                            details.setRatings (String.valueOf (rate));
+                            mroot.child ("ratings").setValue (details.getRatings ());
+                            Log.v ("rating", String.valueOf (rate));
+                            mroot.child ("count").setValue (String.valueOf (t));
+                            startActivity (new Intent (RateandReview.this,ShopperHomepage.class));
+
                         }
 
                         @Override
@@ -83,6 +83,9 @@ public class RateandReview extends AppCompatActivity implements Serializable {
 
                         }
                     });
+
+
+
                 }catch (NullPointerException e)
                 {
 
