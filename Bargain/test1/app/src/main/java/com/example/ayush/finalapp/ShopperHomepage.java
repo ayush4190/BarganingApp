@@ -96,7 +96,7 @@ public class ShopperHomepage extends AppCompatActivity implements NavigationView
     Fragment fragment = null;
     ImageView mcommunity;
     ImageView mfav, msetting;
-
+    ImageView mhome;
     // for user name
     FirebaseDatabase firebaseDatabase;
 
@@ -178,7 +178,8 @@ public class ShopperHomepage extends AppCompatActivity implements NavigationView
         mwallet = findViewById (R.id.wallet);
         mcommunity= findViewById (R.id.communityimage);
         mfav = findViewById (R.id.favimage);
-        msetting=findViewById(R.id.settingimage);
+//        msetting=findViewById(R.id.settingimage);
+        mhome=findViewById(R.id.home);
 
 //dead code
         //mfaq = (ImageView) findViewById (R.id.faq);
@@ -235,11 +236,14 @@ public class ShopperHomepage extends AppCompatActivity implements NavigationView
 //                .setPriority(NotificationCompat.PRIORITY_DEFAULT).setLargeIcon(BitmapFactory.decodeResource(getResources(),
 //                        R.drawable.appicon1));
 
-        msetting.setOnClickListener (new View.OnClickListener () {
+        mhome.setOnClickListener (new View.OnClickListener () {
             @Override
             public void onClick(View v) {
 //                sendNotification();
-                startActivity(new Intent(ShopperHomepage.this, SettingsActivity.class));
+                FragmentTransaction fragmentTransaction = getSupportFragmentManager ().beginTransaction ();
+                fragmentTransaction.replace (R.id.content_frame, new HomeShopperfrag (), "Homefrag");
+                fragmentTransaction.commit ();
+               // startActivity(new Intent(ShopperHomepage.this, SettingsActivity.class));
             }
         });
 
@@ -409,7 +413,12 @@ public class ShopperHomepage extends AppCompatActivity implements NavigationView
             fragmentTransaction.commit ();
 
 
-        } else if (id == R.id.nav_rate) {
+        } else if (id == R.id.nav_settings) {
+
+             startActivity(new Intent(ShopperHomepage.this, SettingsActivity.class));
+
+        }
+        else if (id == R.id.nav_rate) {
 
 
             builder2 = new AlertDialog.Builder (ShopperHomepage.this);
