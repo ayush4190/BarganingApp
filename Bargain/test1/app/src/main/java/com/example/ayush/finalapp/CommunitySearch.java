@@ -125,7 +125,7 @@ public class CommunitySearch extends Fragment {
         // databaseReference=FirebaseDatabase.getInstance().getReference().child("Shopper");
 //        Query query=databaseReference.child("Shopper").child("category1").startAt(searchvalue).endAt(searchvalue+'\uf8ff');
         databaseReference=FirebaseDatabase.getInstance().getReference().child("Shopper");
-        Query query=databaseReference.orderByChild("email").equalTo(searchtext);
+        Query query=databaseReference.orderByChild("username").equalTo(searchtext);
         Log.v("inside query" , "hello ");
 
         query.addChildEventListener(new ChildEventListener() {
