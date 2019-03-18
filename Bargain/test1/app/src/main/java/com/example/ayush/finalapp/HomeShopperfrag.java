@@ -340,6 +340,8 @@ public class HomeShopperfrag extends Fragment implements Serializable {
     }
 
     public void list_negotiators() {
+        adapter.clear();
+        recyclerView.setAdapter(adapter);
         DatabaseReference databaseReference;
         databaseReference = FirebaseDatabase.getInstance ().getReference ().child ("Negotiator");
 

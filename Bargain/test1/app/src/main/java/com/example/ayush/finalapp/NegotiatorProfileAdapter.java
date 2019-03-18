@@ -85,7 +85,7 @@ public class NegotiatorProfileAdapter extends RecyclerView.Adapter<NegotiatorPro
         public TextView first;
         ImageButton imgbutton;
         public TextView last;
-        TextView city;
+        TextView city,rating;
         CircleImageView proimage;
         TextView age;
         CardView cardView;
@@ -95,6 +95,7 @@ public class NegotiatorProfileAdapter extends RecyclerView.Adapter<NegotiatorPro
 
         public NegotiatorProfileViewHolder(View view) {
             super(view);
+            rating=(TextView)view.findViewById(R.id.rate_search_list);
             city=(TextView) view.findViewById(R.id.city_search_list);
             first =(TextView) view.findViewById(R.id.first_name);
             last =(TextView) view.findViewById(R.id.last_name);
@@ -122,6 +123,7 @@ public class NegotiatorProfileAdapter extends RecyclerView.Adapter<NegotiatorPro
         photo_storage = FirebaseStorage.getInstance ().getReference ().child ("Negotiator_profile_image");
         holder.first.setText(n.getFirstname());
         holder.last.setText(n.getLastname());
+        holder.rating.setText(n.getRatings());
         holder.city.setText(n.getCity());
         holder.age.setText(n.getYear()+" Yrs");
 //        holder.phone.setText(n.getPhone());
@@ -365,7 +367,10 @@ public class NegotiatorProfileAdapter extends RecyclerView.Adapter<NegotiatorPro
         Log.i("Item-Count",Integer.toString(negotiatorProfileList.size()));
         return negotiatorProfileList.size();
     }
-
+    public void clear(){
+        negotiatorProfileList.clear();
+        notifyDataSetChanged();
+    }
 
 //    String location = s.get(position)+"."+"jpg";
 //        Log.v("animesh",location);

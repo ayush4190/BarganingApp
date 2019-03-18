@@ -63,9 +63,10 @@ public class ShopperProfileActivity extends AppCompatActivity implements Seriali
     FirebaseUser user;
     CircleImageView viewImage;
     Context applicationContext;
-    ShopperProfile profile;
+    ShopperDetails profile;
     private TextView mDisplayDate;
     EditText profile_name_first;
+    EditText profile_email,profile_phone,profile_username;
     TextView profile_dob;
     EditText profile_name_last;
     FirebaseDatabase firebaseDatabase;
@@ -89,12 +90,12 @@ public class ShopperProfileActivity extends AppCompatActivity implements Seriali
         applicationContext = ShopperHomepage.getContextOfApplication();
         profile_name_first = (EditText) findViewById(R.id.shoppernameanifirst);
         profile_name_last = (EditText) findViewById(R.id.shoppernameanilast);
-        final EditText profile_email =(EditText) findViewById (R.id.shopperprofilemailani);
+        profile_email =(EditText) findViewById (R.id.shopperprofilemailani);
         final Button edit = (Button) findViewById(R.id.editbutton);
         final Button save = (Button) findViewById(R.id.savebutton);
-        final EditText profile_phone=(EditText) findViewById(R.id.shopperphonenumberani);
+        profile_phone=(EditText) findViewById(R.id.shopperphonenumberani);
         profile_dob=(TextView) findViewById(R.id.shopperprofiledobani);
-        final EditText profile_username=(EditText) findViewById(R.id.shopperprofileusernameani);
+        profile_username=(EditText) findViewById(R.id.shopperprofileusernameani);
         final  TextView textView=(TextView)findViewById(R.id.dobtextview);
         final Button select = (Button)findViewById(R.id.selectbtnprofile);
 
@@ -121,13 +122,15 @@ public class ShopperProfileActivity extends AppCompatActivity implements Seriali
         shopper.addValueEventListener (new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                profile = dataSnapshot.getValue (ShopperProfile.class);
+                profile = dataSnapshot.getValue (ShopperDetails.class);
                 assert profile != null;
                 profile_name_first.setText(profile.getFname ());
                 profile_name_last.setText(profile.getLname ());
                 profile_email.setText (profile.getEmail ());
                 profile_dob.setText(profile.getDob());
-
+                profile_phone.setText(profile.getPhno());
+                profile_username.setText(profile.getUsername());
+//                profile_username.setText(profile.get);
             }
 
             @Override

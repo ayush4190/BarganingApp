@@ -5,14 +5,15 @@ import java.io.Serializable;
 
 public class ShopperDetails implements Serializable {
 
-    String fname, lname, email, dob, phno, amount;
+    String fname, lname, email, dob, phone, amount,username;
 
-    public ShopperDetails(String fname, String lname, String email, String dob, String phno, String amount) {
+    public ShopperDetails(String fname, String lname, String email, String dob, String phone, String amount,String username) {
         this.fname = fname;
         this.lname = lname;
+        this.username=username;
         this.email = email;
         this.dob = dob;
-        this.phno = phno;
+        this.phone = phone;
         this.amount = amount;
 
     }
@@ -20,12 +21,28 @@ public class ShopperDetails implements Serializable {
     public ShopperDetails() {
     }
 
+    public String getPhone() {
+        return phone;
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    public void setPhone(String phone) {
+        this.phone = phone;
+    }
+
     public String getDob() {
         return dob;
     }
 
     public String getPhno() {
-        return phno;
+        return phone;
     }
 
     public void setDob(String dob) {
@@ -33,7 +50,7 @@ public class ShopperDetails implements Serializable {
     }
 
     public void setPhno(String phno) {
-        this.phno = phno;
+        this.phone = phno;
     }
 
     public String getFname() {
