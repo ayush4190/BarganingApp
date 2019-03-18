@@ -18,7 +18,9 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.SearchView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.firebase.database.ChildEventListener;
@@ -36,7 +38,9 @@ public class SearchDisplayFrag extends Fragment{
     EditText msearchtext;
     private List<NegotiatorDetails> negotiatorList = new ArrayList<>();
     private RecyclerView recyclerView;
-    private NegotiatorProfileAdapter adapter;
+    ImageView cartoon;
+    NegotiatorProfileAdapter adapter;
+    TextView quote,textbelow;
     FirebaseDatabase firebaseDatabase;
     DatabaseReference databaseReference;
     //String searchvalue = (Searchfrag)getIntent().getExtras("Searchtext");
@@ -63,6 +67,15 @@ public class SearchDisplayFrag extends Fragment{
             //Toast.makeText (getActivity (),"here",Toast.LENGTH_SHORT).show ();
 
         }
+        recyclerView = (RecyclerView) view.findViewById(R.id.recyclerView);//
+        quote=(TextView)view.findViewById(R.id.quotesearch);
+        textbelow=(TextView)view.findViewById(R.id.search_text_nomore);
+        cartoon=(ImageView)view.findViewById(R.id.search_cartoon);
+
+//        recyclerView.setVisibility(View.GONE);
+//        cartoon.setVisibility(View.GONE);
+//        quote.setVisibility(View.GONE);
+//        textbelow.setVisibility(View.GONE);
 
 
         //String pos=bundle.getString("filter_result_pos");
@@ -99,7 +112,8 @@ public class SearchDisplayFrag extends Fragment{
         Log.v("Serachdis age:",String.valueOf (age));
         Log.v("Searchdis Search text" , searchvalue);
         // Toast.makeText(SearchDisplay.this,searchvalue,Toast.LENGTH_SHORT);
-        recyclerView = (RecyclerView) view.findViewById(R.id.recyclerView);//
+
+
         adapter = new NegotiatorProfileAdapter(negotiatorList,getActivity (),0);
 
 

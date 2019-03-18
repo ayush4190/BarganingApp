@@ -26,17 +26,40 @@ android:iconifiedByDefault="false"/>
     android:background="@color/cardview_light_background"
     android:scrollbars="vertical"
     android:textAlignment="center"
+    android:visibility="gone"
     android:scrollbarSize="5dip">
 
 </android.support.v7.widget.RecyclerView>
+
+
         <TextView
             android:text="No More Search Results"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="8dp"
+            android:id="@+id/search_text_nomore"
             android:layout_gravity="center"
+            android:visibility="gone"
             android:fontFamily="sans-serif-thin"
             android:layout_marginBottom="60dp"
             />
+        <ImageView
+            android:layout_marginTop="150dp"
+            android:layout_width="200dp"
+            android:layout_height="290dp"
+            android:layout_gravity="center"
+            android:visibility="gone"
+            android:id="@+id/search_cartoon"
+            android:src="@drawable/search_cartoon"/>
+
+        <TextView
+            android:id="@+id/quotesearch"
+            android:layout_width="350dp"
+android:visibility="gone"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:fontFamily="sans-serif-thin"
+            android:text="“Through Our Willingness to help others we can learn to be happy rather than depressed.”
+― Gerald Jempolsky " />
     </LinearLayout>
 </ScrollView>

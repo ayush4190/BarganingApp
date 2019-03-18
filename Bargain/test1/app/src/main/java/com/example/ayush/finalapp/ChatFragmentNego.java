@@ -52,6 +52,8 @@ public class ChatFragmentNego extends Fragment {
     View view;
     //List
     ListView chatlist;
+    TextView quote;
+    ImageView cartoon;
     ChatAdapter adapter1;
 
     String User;
@@ -70,8 +72,11 @@ public class ChatFragmentNego extends Fragment {
 
 
         InitializeFields();
-
-
+        cartoon=(ImageView)view.findViewById(R.id.chatcartoon);
+        quote = (TextView)view.findViewById(R.id.quotechat) ;
+        cartoon.setVisibility(View.GONE);
+        quote.setVisibility(View.GONE);
+        chatlist.setVisibility(View.GONE);
         //ListVIew Setup
         adapter1 = new ChatAdapter();
         chatlist.setAdapter(adapter1);

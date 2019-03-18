@@ -55,6 +55,8 @@ public class ChatFragment extends Fragment {
     ChatAdapter adapter1;
 
     String User;
+    ImageView cartoon;
+    TextView quote;
     DatabaseReference reference;
     DatabaseReference mreference;
     static ArrayList<String[]> list = new ArrayList<>();
@@ -69,18 +71,18 @@ public class ChatFragment extends Fragment {
 
 
         InitializeFields();
-
-
+        quote = (TextView)view.findViewById(R.id.quotechat) ;
+        cartoon=(ImageView)view.findViewById(R.id.chatcartoon);
+        cartoon.setVisibility(View.GONE);
+        quote.setVisibility(View.GONE);
+        chatlist.setVisibility(View.GONE);
         //ListVIew Setup
         adapter1 = new ChatAdapter();
         chatlist.setAdapter(adapter1);
-
-
         //User is not null confirmation
         User = "Alpha";
             if(FirebaseAuth.getInstance().getCurrentUser()!=null)
                 User = FirebaseAuth.getInstance().getCurrentUser().getUid();
-
           //Retrieving data from database
             mreference = FirebaseDatabase.getInstance().getReference().child("Shopper").child(ShopperHomepage.shopper_uid).child("nego_chat");
         reference = FirebaseDatabase.getInstance().getReference().child("Negotiator");
@@ -103,30 +105,39 @@ public class ChatFragment extends Fragment {
                 //Deleting Previous Data on List
                 list.clear();
                 //Retrieving data
-                for (DataSnapshot data : dataSnapshot.getChildren()) {
+                if(dataSnapshot.exists()) {
+                    chatlist.setVisibility(View.VISIBLE);
+                    cartoon.setVisibility(View.GONE);
+                    quote.setVisibility(View.GONE);
+                    for (DataSnapshot data : dataSnapshot.getChildren()) {
 
-                    if (data.getKey().equals(User)) {
-                        continue;
-                    }
-                    //Adding names of friends to list
-                    try {
-                        String name;
-                        String  uid;
+                        if (data.getKey().equals(User)) {
+                            continue;
+                        }
+                        //Adding names of friends to list
+                        try {
+                            String name;
+                            String uid;
+                            name = data.child("name").getValue(String.class);
+                            uid = data.getKey();
 
-                        name= data.child("name").getValue(String.class);
-                        uid= data.getKey();
-
-                        while(name==null );
-                        list.add(new String[]{name, uid});
+                            while (name == null) ;
+                            list.add(new String[]{name, uid});
+                        } catch (Exception e) {
+                            Log.d("ChatFragmentGet", e.getMessage());
+                        }
                     }
-                    catch (Exception e){
-                        Log.d("ChatFragmentGet",e.getMessage());
-                    }
-                    }
-                //updating listview
-                adapter1.notifyDataSetChanged();
-               if(i==0)
-                  dialog.dismiss();
+                    //updating listview
+                    adapter1.notifyDataSetChanged();
+                    if (i == 0)
+                        dialog.dismiss();
+                }
+                else{
+                    dialog.dismiss();
+                    chatlist.setVisibility(View.GONE);
+                    cartoon.setVisibility(View.VISIBLE);
+                    quote.setVisibility(View.VISIBLE);
+                }
             }
 
             @Override
