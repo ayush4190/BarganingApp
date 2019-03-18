@@ -70,7 +70,9 @@ public class RateandReview extends AppCompatActivity implements Serializable {
                             int t = Integer.parseInt (details.getCount ()) +1;
                            // mroot.child ("ratings").setValue (details.getRatings ());
                             float rate = (float) ((rateval+Float.parseFloat (details.getRatings ())) /((1.0)*t));
-                            details.setRatings (String.valueOf (rate));
+                            String trun = String.format ("%.2f",rate);
+                            Log.v ("truncated",trun);
+                            details.setRatings (String.valueOf (trun));
                             mroot.child ("ratings").setValue (details.getRatings ());
                             Log.v ("rating", String.valueOf (rate));
                             mroot.child ("count").setValue (String.valueOf (t));

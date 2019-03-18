@@ -108,7 +108,7 @@ public class WelcomePage extends AppCompatActivity {
             catch (NullPointerException e)
             {}
 
-            Toast.makeText (WelcomePage.this,"in testing mode",Toast.LENGTH_SHORT).show ();
+            //Toast.makeText (WelcomePage.this,"in testing mode",Toast.LENGTH_SHORT).show ();
 
         }
 

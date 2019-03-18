@@ -92,7 +92,9 @@ public class NegotiatorWallet extends Fragment {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 String am = (String) dataSnapshot.getValue ();
-                textViewamount.setText (am);
+                double trun = Double.parseDouble (am);
+                String temptrun = String.format ("%.2f",trun);
+                textViewamount.setText (temptrun);
             }
 
             @Override

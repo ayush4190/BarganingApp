@@ -57,7 +57,10 @@ boolean bool;
                 ShopperDetails details = dataSnapshot.getValue (ShopperDetails.class);
                 Log.v ("amount",details.getAmount ());
 
-                textView.setText (String.format ("₹%s", details.getAmount ()));
+                double trun = Double.parseDouble (details.getAmount ());
+                String temptrun = String.format ("%.2f",trun);
+                Log.v ("truncated",temptrun);
+                textView.setText (String.format ("₹%s", temptrun));
             }
 
             @Override

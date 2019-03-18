@@ -78,22 +78,10 @@
                     <ImageView
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
-                        android:layout_weight="25"
-                        android:src="@drawable/ic_account_balance_wallet_black_24dp"
-                        android:id="@+id/wallet"/>
-                    <ImageView
-                        android:layout_width="0dp"
-                        android:layout_height="match_parent"
-                        android:layout_weight="25"
-                        android:src="@drawable/ic_group_black_24dp"
-                        android:id="@+id/communityimage"/>
+                        android:layout_weight="50"
+                        android:src="@drawable/ic_home_black_24dp"
+                        android:id="@+id/nego_home"/>
 
-                    <ImageView
-                        android:layout_width="0dp"
-                        android:layout_height="match_parent"
-                        android:layout_weight="25"
-                        android:src="@drawable/ic_account_circle_black_24dp"
-                        android:id="@+id/negprofile"/>
 
                     <!--<ImageView-->
                         <!--android:layout_width="0dp"-->
@@ -105,9 +93,9 @@
                     <ImageView
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
-                        android:layout_weight="25"
-                        android:src="@drawable/ic_settings_black_24dp"
-                        android:id="@+id/settingimage"/>
+                        android:layout_weight="50"
+                        android:src="@drawable/ic_account_balance_wallet_black_24dp"
+                        android:id="@+id/wallet"/>
 
 
 

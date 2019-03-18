@@ -215,23 +215,20 @@ public class NegotiatorRegistration extends AppCompatActivity {
                   //  startActivity (new Intent (NegotiatorRegistration.this,NegotiatorForm.class));
                     Intent intent = new Intent (NegotiatorRegistration.this,NegotiatorForm.class);
                     intent.putExtra ("basic",profile);
-                    session.createLoginSession ("nego",profile.getMemail ());
-
-                    startActivity (intent);
-                    finish ();// adding here
-
-
-
-                    ///// some error in email verification
-                 ////// check for email verification once
-                    //   user.sendEmailVerification ();
-                    /* user.sendEmailVerification ().addOnCompleteListener (new OnCompleteListener <Void> () {
+                   // session.createLoginSession ("nego",profile.getMemail ());
+                    user = firebaseAuth.getCurrentUser ();
+                    Log.v ("check",user.getUid ());
+//                    user.sendEmailVerification ();
+                     user.sendEmailVerification ().addOnCompleteListener (new OnCompleteListener <Void> () {
                         @Override
                         public void onComplete(@NonNull Task <Void> task) {
                             Toast.makeText (NegotiatorRegistration.this, "Verification link is send to your email id", Toast.LENGTH_SHORT).show ();
 
                         }
-                    });*/
+                    });
+//                    session.createLoginSession ("nego",profile.getMemail ());
+                    startActivity (intent);
+                     finish ();
 
                 }
                 if(!task.isSuccessful()){
