@@ -3,6 +3,7 @@ package com.example.ayush.finalapp;
 import android.Manifest;
 import android.annotation.SuppressLint;
 import android.app.AlertDialog;
+import android.app.NotificationChannelGroup;
 import android.graphics.BitmapFactory;
 import android.location.Geocoder;
 import android.os.AsyncTask;
@@ -124,7 +125,14 @@ public class ShopperHomepage extends AppCompatActivity implements NavigationView
         fdb = FirebaseDatabase.getInstance ().getReference ();
         photo_storage = FirebaseStorage.getInstance ().getReference ().child ("Shopper_profile_image");
 
-
+        NotificationManager notificationManager =
+                (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+           NotificationChannelGroup n = new NotificationChannelGroup("sad","dsD");
+           n.equals(false);
+            notificationManager.createNotificationChannelGroup(new NotificationChannelGroup("sad","dsD"));
+        }
+        createNotificationChannel();
 
         //initialise the context of the shopper homepage to be used in fragments
         contextOfApplication=getApplicationContext();
@@ -581,6 +589,7 @@ public class ShopperHomepage extends AppCompatActivity implements NavigationView
             int importance = NotificationManager.IMPORTANCE_HIGH;
             NotificationChannel channel = new NotificationChannel(channelId, name, importance);
             channel.setDescription(description);
+            channel.setGroup("sad");
             // Register the channel with the system; you can't change the importance
             // or other notification behaviors after this
             NotificationManager notificationManager = getSystemService(NotificationManager.class);
