@@ -195,7 +195,8 @@ public class CardDetails extends AppCompatActivity {
                                     //x contains x[0] contains name and x[1] contains uid of that negotiator
                                     String[] x = {n.getFirstname() + " " + n.getLastname(), pos};
                                     String User = FirebaseAuth.getInstance().getCurrentUser().getUid();
-                                    Intent intent = new Intent(getApplicationContext(), ChatBox.class);
+
+                                    Intent intent = new Intent(CardDetails.this, ChatBox.class);
                                     intent.putExtra("User", User);
                                     intent.putExtra("Reciever", x);
                                     intent.putExtra("Number", 0);
