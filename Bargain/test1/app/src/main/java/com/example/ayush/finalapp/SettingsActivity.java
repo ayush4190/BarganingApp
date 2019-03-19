@@ -199,20 +199,20 @@ public class SettingsActivity extends AppCompatPreferenceActivity implements Ser
                 }
             });
 
-            SwitchPreference notification =(SwitchPreference)findPreference(getString(R.string.notifications_new_message));
-            notification.setOnPreferenceChangeListener(new Preference.OnPreferenceChangeListener() {
-                @Override
-                public boolean onPreferenceChange(Preference preference, Object newValue) {
-                    boolean istrue = (boolean)newValue;
-                    if(istrue){
-
-
-
-                    }
-
-                    return false;
-                }
-            });
+//            SwitchPreference notification =(SwitchPreference)findPreference(getString(R.string.notifications_new_message));
+//            notification.setOnPreferenceChangeListener(new Preference.OnPreferenceChangeListener() {
+//                @Override
+//                public boolean onPreferenceChange(Preference preference, Object newValue) {
+//                    boolean istrue = (boolean)newValue;
+//                    if(istrue){
+//
+//
+//
+//                    }
+//
+//                    return false;
+//                }
+//            });
 
 
 

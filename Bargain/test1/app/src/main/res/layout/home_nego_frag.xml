@@ -140,5 +140,14 @@
             android:scrollbarSize="5dip">
 
         </android.support.v7.widget.RecyclerView>
+        <TextView
+            android:text="No More Upcoming Meets"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="8dp"
+            android:layout_gravity="center"
+            android:fontFamily="sans-serif-thin"
+            android:layout_marginBottom="60dp"
+            />
     </LinearLayout>
 </ScrollView>
