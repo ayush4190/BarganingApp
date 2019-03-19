@@ -1,17 +1,22 @@
 package com.example.ayush.finalapp;
 
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.RatingBar;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.ChildEventListener;
@@ -21,9 +26,13 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import de.hdodenhof.circleimageview.CircleImageView;
 
 public class HomeNegoFrag extends Fragment {
 
@@ -37,6 +46,7 @@ public class HomeNegoFrag extends Fragment {
 
     private RecyclerView recyclerView;
     private PrevPaymentAdapterNego adapter;
+    CircleImageView circleImageView;
 
    @Nullable
     @Override
@@ -54,11 +64,19 @@ public class HomeNegoFrag extends Fragment {
     recyclerView = (RecyclerView) view.findViewById(R.id.nego_home_recyclerView);
     adapter = new PrevPaymentAdapterNego(transactionsDetailsList,getActivity ());
 
+
+    //###########
+        circleImageView = (CircleImageView)view.findViewById (R.id.sportsImage_negoani) ;
+
+        //###########
+
     adapter.clear();
     recyclerView.setAdapter(adapter);
     firebaseUser=FirebaseAuth.getInstance().getCurrentUser();
     databaseReference= FirebaseDatabase.getInstance().getReference().child("Negotiator").child(firebaseUser.getUid());
-
+ //####
+        fetch ();
+        //####
     fetch_data();
     fetch_meet();
 
@@ -167,4 +185,47 @@ public class HomeNegoFrag extends Fragment {
 
 
     }
+    public void fetch()
+    {
+        try {
+
+            final StorageReference photo_storage = FirebaseStorage.getInstance ().getReference ().child ("Negotiator_profile_image");
+
+            String location = firebaseUser.getUid () + "." + "jpg";
+            final String location2 = firebaseUser.getUid () + "."+"null";
+
+
+            Log.v("manas",photo_storage.getPath().toString());
+            photo_storage.child (location).getDownloadUrl ().addOnSuccessListener (new OnSuccessListener<Uri> () {
+                @Override
+                public void onSuccess(Uri uri) {
+                    String imageURL = uri.toString ();
+                    Glide.with (getActivity ().getApplicationContext ()).load (imageURL).into (circleImageView);
+                }
+            }).addOnFailureListener (new OnFailureListener () {
+                @Override
+                public void onFailure(@NonNull Exception exception) {
+                    // Handle any errors
+                    photo_storage.child (location2).getDownloadUrl ().addOnSuccessListener (new OnSuccessListener <Uri> () {
+                        @Override
+                        public void onSuccess(Uri uri) {
+                            String imageurl2 =uri.toString ();
+                            Log.v ("url link",imageurl2);
+                            Glide.with (getActivity ().getApplicationContext ()).load (imageurl2).into (circleImageView);
+                        }
+                    }).addOnFailureListener (new OnFailureListener () {
+                        @Override
+                        public void onFailure(@NonNull Exception e) {
+                            //Toast.makeText (ShopperHomepage.this,e.getMessage (),Toast.LENGTH_LONG).show ();
+                        }
+                    });
+                    //Toast.makeText (ShopperHomepage.this, exception.getMessage (), Toast.LENGTH_LONG).show ();
+                }
+            });
+        }catch (NullPointerException e)
+        {
+
+        }
+    }
+
 }

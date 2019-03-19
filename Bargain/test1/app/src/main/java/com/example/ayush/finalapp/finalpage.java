@@ -94,7 +94,9 @@ public class finalpage extends AppCompatActivity implements Serializable {
                 {
                    Intent intent = new Intent (finalpage.this,RateandReview.class);
                    intent.putExtra ("nego_user",nego_user);
+                   finish ();
                    startActivity (intent);
+                   finish ();
                 }
             }
         });

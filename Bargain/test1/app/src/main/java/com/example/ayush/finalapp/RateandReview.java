@@ -96,4 +96,9 @@ public class RateandReview extends AppCompatActivity implements Serializable {
             }
         });
     }
+
+    @Override
+    public void onBackPressed() {
+        Toast.makeText (RateandReview.this,"Please rate the negotiator and help us to serve you better",Toast.LENGTH_LONG).show ();
+    }
 }
