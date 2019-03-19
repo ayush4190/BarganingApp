@@ -237,9 +237,9 @@ String name;
                                 //here check if accepted or not
                         meetDetails=dataSnapshot.getValue(MeetDetails.class);
                                     ////////////
+                        Negotiator_dash.nego_name=meetDetails.negoname;
 
                         Log.v("asus inside exist","yo");
-
 
                         //if already accepted show dialog already accepted
                         if(meetDetails.isAccepted){
