@@ -10,6 +10,7 @@
         android:id="@+id/ChatAct_Recycler"
         android:layout_width="match_parent"
         android:padding="5sp"
+        app:layoutManager="android.support.v7.widget.LinearLayoutManager"
         android:layout_height="match_parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintBottom_toTopOf="@id/ChatAct_message"
