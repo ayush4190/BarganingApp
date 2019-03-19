@@ -5,6 +5,18 @@
     android:layout_width="match_parent"
     android:orientation="vertical"
     >
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:gravity="center"
+        android:text="PassBook"
+        android:textSize="20dp"
+        android:fontFamily="sans-serif-smallcaps"
+
+        android:background="@color/colorPrimary"
+        android:textColor="@color/white"
+        />
     <android.support.v7.widget.RecyclerView
 
         android:id="@+id/recyclerView_passbooknego"
