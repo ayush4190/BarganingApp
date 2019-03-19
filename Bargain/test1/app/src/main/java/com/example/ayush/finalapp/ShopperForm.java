@@ -487,7 +487,7 @@ public class ShopperForm extends Activity implements Serializable {
             databaseReference= mroot.child ("Shopper");
             databaseReference.child (firebaseUser.getUid ()).setValue (detail);
 //            upload_image ();
-            Toast.makeText (ShopperForm.this,"Shopper profile Initialised",Toast.LENGTH_SHORT).show ();
+            //Toast.makeText (ShopperForm.this,"Shopper profile Initialised",Toast.LENGTH_SHORT).show ();
             upload_image ();
         }
 
@@ -527,7 +527,9 @@ public class ShopperForm extends Activity implements Serializable {
                     Toast.makeText (ShopperForm.this,"image uploaded",Toast.LENGTH_SHORT).show ();
                     if(aBoolean)
                     {
+                        finish ();
                         startActivity (new Intent (ShopperForm.this,ShopperHomepage.class));
+                        finish ();
                     }
 
 
