@@ -61,7 +61,7 @@ public class ChatFragment extends Fragment {
     DatabaseReference mreference;
     static ArrayList<String[]> list = new ArrayList<>();
 
-    static int Opened=0;
+//    static int Opened=0;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
