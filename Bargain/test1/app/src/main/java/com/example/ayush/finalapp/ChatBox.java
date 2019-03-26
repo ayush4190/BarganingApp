@@ -206,12 +206,30 @@ public class ChatBox extends AppCompatActivity {
                 }
             };
             builder2.setPositiveButton("Submit", new DialogInterface.OnClickListener() {
-                    @Override
                     public void onClick(DialogInterface dialog, int which) {
+
 //                        message_sent=ShopperHomepage.shopper_name+" has requested you for help ";
 //                        messagebox.setText(message_sent);
 //                        sendButton.performClick();
 //                        sendNotification();
+                        //reciever[2] contains requestno
+                        databaseReference.child("Negotiator").child(Reciever[1]).child("requestno").addListenerForSingleValueEvent(new ValueEventListener() {
+                            @Override
+                            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                                if(dataSnapshot.exists()){
+
+                                    String s=dataSnapshot.getValue(String.class);
+                                    s=String.valueOf(Integer.parseInt(s)+1);
+                                    FirebaseDatabase.getInstance().getReference().child("Negotiator").child(Reciever[1]).child("requestno").setValue(s);
+                                }
+
+                            }
+
+                            @Override
+                            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                            }
+                        });
 
                         place=(EditText)v1.findViewById(R.id.meet_place_edit);
                         time=(EditText)v1.findViewById(R.id.meet_time_edit);

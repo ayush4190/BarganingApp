@@ -3,9 +3,9 @@ package com.example.ayush.finalapp;
 import java.io.Serializable;
 
 public class NegotiatorDetails implements Serializable {
-    String phone, dob, gender , bl,address,city,state,pincode,category1,category2,category3, firstname, lastname,year ,email ,amount , ratings , count;
+    String phone, dob, gender , bl,address,city,state,pincode,category1,category2,category3, firstname, lastname,year ,email ,amount , ratings , count,acceptno,requestno;
 
-    public NegotiatorDetails(String phone, String dob, String gender, String address, String city, String year,String state, String pincode, String category1, String category2, String category3, String firstname, String lastname, String bl,String email ,String amount , String ratings , String count) {
+    public NegotiatorDetails(String phone, String dob, String gender, String address, String city, String year,String state, String pincode, String category1, String category2, String category3, String firstname, String lastname, String bl,String email ,String amount , String ratings , String count, String requestno, String acceptno) {
         this.phone = phone;
         this.dob = dob;
         this.gender = gender;
@@ -24,7 +24,8 @@ public class NegotiatorDetails implements Serializable {
         this.amount = amount;
         this.ratings = ratings;
         this.count = count;
-
+        this.acceptno=acceptno;
+        this.requestno=requestno;
 
 
     }
@@ -48,6 +49,8 @@ public class NegotiatorDetails implements Serializable {
         this.amount = w.amount;
         this.ratings = w.ratings;
         this.count = w.count;
+        this.acceptno=w.acceptno;
+        this.requestno=w.requestno;
     }
     public NegotiatorDetails() {
 
@@ -198,6 +201,22 @@ public class NegotiatorDetails implements Serializable {
 
     public void setCount(String count) {
         this.count = count;
+    }
+
+    public String getAcceptno() {
+        return acceptno;
+    }
+
+    public String getRequestno() {
+        return requestno;
+    }
+
+    public void setAcceptno(String acceptno) {
+        this.acceptno = acceptno;
+    }
+
+    public void setRequestno(String requestno) {
+        this.requestno = requestno;
     }
     //    public String getYear() {
 //        return year;

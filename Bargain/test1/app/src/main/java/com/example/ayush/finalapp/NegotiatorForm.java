@@ -374,6 +374,8 @@ public class NegotiatorForm extends Activity {
         details.setCount ("0");
         details.setRatings ("0");
         details.setAmount ("0");
+        details.setAcceptno("0");
+        details.setRequestno("0");
         NegotiatorProfile obj = new NegotiatorProfile ();
         obj=(NegotiatorProfile)getIntent ().getSerializableExtra ("basic");
         details.setYear (String.valueOf (2019 -year));

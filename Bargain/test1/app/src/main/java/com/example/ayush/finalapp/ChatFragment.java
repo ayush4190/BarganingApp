@@ -118,11 +118,13 @@ public class ChatFragment extends Fragment {
                         try {
                             String name;
                             String uid;
+                            String requestno;
                             name = data.child("name").getValue(String.class);
                             uid = data.getKey();
+                            requestno=data.child("requestno").getValue(String.class);
 
                             while (name == null) ;
-                            list.add(new String[]{name, uid});
+                            list.add(new String[]{name, uid,requestno});
                         } catch (Exception e) {
                             Log.d("ChatFragmentGet", e.getMessage());
                         }
