@@ -32,7 +32,8 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning">
-        <activity android:name=".finalpage"></activity>
+        <activity android:name=".nointernet"></activity>
+        <activity android:name=".finalpage" />
         <activity android:name=".RateandReview" />
         <activity android:name=".ForgotPassword" />
         <activity
