@@ -23,6 +23,7 @@ public class nointernet extends AppCompatActivity {
                 if(connectivityManager.getActiveNetworkInfo ()!=null)
                 {
                     startActivity (new Intent (nointernet.this,ShopperHomepage.class));
+                    finish ();
                 }
 
                 //pullToRefresh.setRefreshing(true);

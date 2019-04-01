@@ -121,10 +121,12 @@ public class HomeShopperfrag extends Fragment implements Serializable {
                             e.printStackTrace ();
                         }
 
-
-                        String postalCode = addresses.get (0).getPostalCode ();
-                        pincode=postalCode;
-                        list_negotiators();
+                        try {
+                            String postalCode = addresses.get (0).getPostalCode ();
+                            pincode = postalCode;
+                            list_negotiators ();
+                        }catch (NullPointerException e)
+                        {}
                     }
                 }
             });

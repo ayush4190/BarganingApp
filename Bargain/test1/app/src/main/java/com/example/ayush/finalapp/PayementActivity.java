@@ -36,7 +36,7 @@ public class PayementActivity extends Fragment {
 FirebaseUser firebaseUser;
 DatabaseReference databaseReference;
 EditText editText ;
-boolean bool;
+boolean bool = false;
     private static final String GOOGLE_TEZ_PACKAGE_NAME = "com.google.android.apps.nbu.paisa.user";
     @Nullable
     @Override
@@ -69,17 +69,18 @@ boolean bool;
             }
         });
 
-        final TextView tez = (TextView)view.findViewById (R.id.tez);
+
        final TextView token = (TextView)view.findViewById (R.id.token);
-       final TextView paytm = (TextView)view.findViewById (R.id.paytm);
+
 
         CardView cardView=(CardView) view.findViewById (R.id.init_payment_card);
         cardView.setOnClickListener (new View.OnClickListener () {
             @Override
             public void onClick(View v) {
-                tez.setVisibility (View.VISIBLE);
+                status_check();
+
                 token.setVisibility (View.VISIBLE);
-                paytm.setVisibility (View.VISIBLE);
+
 
 
 
@@ -98,58 +99,12 @@ boolean bool;
             }
         });
 
-        tez.setOnClickListener (new View.OnClickListener () {
-            @Override
-            public void onClick(View v) {
 
-//                Uri uri =
-//                        new Uri.Builder()
-//                                .scheme("upi")
-//                                .authority("pay")
-//                                .appendQueryParameter("pa", "a.ayushkumar1997@okaxis")
-//                                .appendQueryParameter("pn", "Test Merchant")
-//                                .appendQueryParameter("mc", "1234")
-//                                .appendQueryParameter("tr", "123456789")
-//                                .appendQueryParameter("tn", "test transaction note")
-//                                .appendQueryParameter("am", "10.01")
-//                                .appendQueryParameter("cu", "INR")
-//                                .appendQueryParameter("url", "a.ayushkumar1997@okaxis")
-//                                .build();
-//                Intent intent = new Intent(Intent.ACTION_VIEW);
-//                intent.setData(uri);
-//                intent.setPackage(GOOGLE_TEZ_PACKAGE_NAME);
-//                startActivityForResult(intent, TEZ_REQUEST_CODE);
-                Toast.makeText (getActivity (),"in trail mode ",Toast.LENGTH_SHORT).show ();
 
-            }
-        });
-//
-//
        TextView moneytransfer = (TextView)view.findViewById (R.id.money_transfer) ;
        moneytransfer.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-//                AlertDialog.Builder mBuilder = new AlertDialog.Builder (v.getContext ());
-//                View mView = getLayoutInflater ().inflate (R.layout.activity_add_money, null);
-//                final EditText mAmount = (EditText) mView.findViewById (R.id.add);
-//                mBuilder.setView (mView);
-//                AlertDialog dialog = mBuilder.create ();
-//
-//                dialog.show ();
-//
-////
-//                Button button = (Button) mView.findViewById(R.id.button4);
-//                button.setOnClickListener(new View.OnClickListener() {
-//                    @Override
-//                    public void onClick(View v) {
-//                        TextView textView = (TextView) v.findViewById (R.id.amount);
-//                        textView.setText(mAmount.getText().toString());
-//
-//
-//                    }
-//                });
-//
-//                dialog.cancel();
 
                 //#########
 
@@ -196,8 +151,6 @@ boolean bool;
         passbook.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-//                Intent intent = new Intent(v.getContext(),PreviousTransactions.class);
-//                v.getContext().startActivity(intent);
                 assert f != null;
                 previouspayment_fragment next= new previouspayment_fragment ();
                 f.getSupportFragmentManager ().beginTransaction()
@@ -209,6 +162,12 @@ boolean bool;
         });
 
     }
+
+    private void status_check() {
+        bool = true;
+
+    }
+
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
