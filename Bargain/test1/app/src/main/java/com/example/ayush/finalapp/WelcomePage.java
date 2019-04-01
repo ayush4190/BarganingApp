@@ -202,7 +202,7 @@ public class WelcomePage extends AppCompatActivity {
 
             }
         });
-        // Toast.makeText (LoginPage.this,""+s,Toast.LENGTH_SHORT).show ();
+
 
     }
 
