@@ -157,10 +157,7 @@ public class ShopperRegistration extends AppCompatActivity implements Serializab
 //
                     shopperdetails ();
 
-                   /* Intent myIntent = new Intent (ShopperRegistration.this,
-                           LoginPage.class);
-                    myIntent.putExtra ("profile", profile);
-                    startActivity (myIntent);*/
+
                 }
 
             }

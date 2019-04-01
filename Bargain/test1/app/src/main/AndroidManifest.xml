@@ -119,10 +119,6 @@
             android:name=".QrCode"
             android:label="QR Scanner"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity
-            android:name=".LoginPage"
-            android:label="Login page"
-            android:theme="@style/AppTheme.NoActionBar" />
 
         <uses-library
             android:name="org.apache.http.legacy"
