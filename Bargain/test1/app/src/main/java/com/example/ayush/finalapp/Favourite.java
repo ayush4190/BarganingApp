@@ -51,6 +51,7 @@ public class Favourite extends Fragment {
         count=0;
         recyclerView = (RecyclerView) view.findViewById(R.id.recyclerView2);//
         adapter = new NegotiatorProfileAdapter(negotiatorList,getActivity (),1);
+        adapter.clear();
 
         fdb= FirebaseDatabase.getInstance().getReference();
         fba=FirebaseAuth.getInstance();
@@ -64,22 +65,24 @@ public class Favourite extends Fragment {
 
        //shopper
         Log.v("before getdata" , "hello ");
+        adapter.clear();
+        recyclerView.setAdapter(adapter);
 
         Getdatafirebase();
 //        newfunction();
         Log.v("after getdata" , "hello ");
-
+//        adapter.clear();
         recyclerView.setAdapter(adapter);
         RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getActivity());//
         recyclerView.setLayoutManager(mLayoutManager);//n
         adapter.notifyDataSetChanged();
         //
 
-
+adapter.clear();
     }
     void Getdatafirebase() {
         //
-
+adapter.clear();
         // databaseReference=FirebaseDatabase.getInstance().getReference().child("Negotiator");
 //        Query query=databaseReference.child("Negotiator").child("category1").startAt(searchvalue).endAt(searchvalue+'\uf8ff');
         Query query = shopper;
@@ -194,7 +197,9 @@ public class Favourite extends Fragment {
 
 ////////////////////////////
 
-
+            adapter.clear();
+            adapter.notifyDataSetChanged();
+            recyclerView.setAdapter(adapter);
 
 /////////////////////////////
             Log.v("after loop for loop", "hello ");
@@ -205,6 +210,7 @@ public class Favourite extends Fragment {
             query2.addChildEventListener(new ChildEventListener() {
                 @Override
                 public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
+
                     Log.v("inondata beforeifexists", "hello ");
 
                     if (dataSnapshot.exists()) {
@@ -221,19 +227,21 @@ public class Favourite extends Fragment {
                         adapter.addItem(data, dataSnapshot.getKey());
                         adapter.notifyDataSetChanged();
                     }
-
-
-
                 }
 
                 @Override
                 public void onChildChanged(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
 
+                   adapter.clear();
+                    adapter.notifyDataSetChanged();
+recyclerView.setAdapter(adapter);
                 }
 
                 @Override
                 public void onChildRemoved(@NonNull DataSnapshot dataSnapshot) {
-
+adapter.clear();
+                    adapter.notifyDataSetChanged();
+recyclerView.setAdapter(adapter);
                 }
 
                 @Override

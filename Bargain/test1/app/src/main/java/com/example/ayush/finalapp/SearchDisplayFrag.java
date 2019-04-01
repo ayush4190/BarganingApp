@@ -118,7 +118,7 @@ public class SearchDisplayFrag extends Fragment{
 
         GetDataFireBase();
         Log.v("after getdata" , "hello ");
-
+        adapter.clear();
         recyclerView.setAdapter(adapter);
         RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getActivity());//
         recyclerView.setLayoutManager(mLayoutManager);//n
