@@ -281,32 +281,34 @@ String name;
                                     databaseReference1 = FirebaseDatabase.getInstance().getReference();
                                     nego_id=firebaseAuth.getCurrentUser().getUid();
 
-                                    Query d=databaseReference1.child("Negotiator").child(nego_id).child("amount");
+                                    Query d=databaseReference1.child("Negotiator").child(nego_id);
                                     Log.v("ani",d.getPath().toString());
                                     d.addListenerForSingleValueEvent(new ValueEventListener() {
                                         @Override
                                         public void onDataChange(@NonNull DataSnapshot dataSnapshot1) {
-                                            String amount="";
-                                            amount =dataSnapshot1.getValue(String.class);
+//                                            String amount="";
+//                                            amount =dataSnapshot1.child("amount").getValue(String.class);
 //                              Log.v("amount",amount);
-                                            amount_int =Double.parseDouble (amount);
-                                            int deductable_amount = new Random().nextInt((50 - 20) + 1) + 20;
-                                            if (amount_int>=50.0){
-                                                amount_int-=deductable_amount;
-                                                amount= String.valueOf(amount_int);
-                                            }
-                                            FirebaseDatabase.getInstance().getReference().child("Negotiator").child(nego_id).child("amount").setValue(amount);
-                                            nameshop=Reciever[0];
-                                            builder = new NotificationCompat.Builder(ChatBoxNego.this, channelId)
-                                                    .setContentTitle("Amount Deducted")
-                                                    .setSmallIcon(R.drawable.appicon1)
-                                                    .setContentText("Rs." + deductable_amount +" deducted for rejecting service of "+Reciever[0])
-                                                    .setPriority(NotificationCompat.PRIORITY_DEFAULT).setLargeIcon(BitmapFactory.decodeResource(getResources(),
-                                                            R.drawable.appicon1));
-                                            NotificationManagerCompat notificationManager = NotificationManagerCompat.from(ChatBoxNego.this);
 
-// notificationId is a unique int for each notification that you must define
-                                            notificationManager.notify(11, builder.build());
+//                                            amount_int =Double.parseDouble (amount);
+//                                            int deductable_amount = new Random().nextInt((50 - 20) + 1) + 20;
+//                                            if (amount_int>=50.0){
+//                                                amount_int-=deductable_amount;
+//                                                amount= String.valueOf(amount_int);
+//                                            }
+//                                            FirebaseDatabase.getInstance().getReference().child("Negotiator").child(nego_id).child("amount").setValue(amount);
+                                            nameshop=Reciever[0];
+
+//                                            builder = new NotificationCompat.Builder(ChatBoxNego.this, channelId)
+//                                                    .setContentTitle("Amount Deducted")
+//                                                    .setSmallIcon(R.drawable.appicon1)
+//                                                    .setContentText("Rs." + deductable_amount +" deducted for rejecting service of "+Reciever[0])
+//                                                    .setPriority(NotificationCompat.PRIORITY_DEFAULT).setLargeIcon(BitmapFactory.decodeResource(getResources(),
+//                                                            R.drawable.appicon1));
+//                                            NotificationManagerCompat notificationManager = NotificationManagerCompat.from(ChatBoxNego.this);
+//
+//// notificationId is a unique int for each notification that you must define
+//                                            notificationManager.notify(11, builder.build());
 
                                         }
 
@@ -347,6 +349,27 @@ String name;
                                     nego_id=firebaseAuth.getCurrentUser().getUid();
                                     shop_id=meetDetails.getShopper();
 
+                                    //
+                                    FirebaseDatabase.getInstance().getReference().child("Negotiator").child(nego_id).child("acceptno").addListenerForSingleValueEvent(new ValueEventListener() {
+                                        @Override
+                                        public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                                            if(dataSnapshot.exists()){
+
+                                                String s=dataSnapshot.getValue(String.class);
+                                                s=String.valueOf(Integer.parseInt(s)+1);
+                                                FirebaseDatabase.getInstance().getReference().child("Negotiator").child(nego_id).child("acceptno").setValue(s);
+                                            }
+
+                                        }
+
+                                        @Override
+                                        public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                                        }
+                                    });
+
+
+                                    //
                                     transactionsDetails=new TransactionsDetails(shop_id,nego_id,meetDetails.getNegoname(),meetDetails.getDate(),"pending","0.0",Reciever[0]);
 
                                     DatabaseReference m2=FirebaseDatabase.getInstance().getReference().child("Transactions").child(shop_id).push();

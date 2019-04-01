@@ -128,7 +128,15 @@ public class NegotiatorProfileAdapter extends RecyclerView.Adapter<NegotiatorPro
         holder.last.setText(n.getLastname());
         holder.rating.setText(n.getRatings());
         holder.city.setText(n.getCity());
-        holder.age.setText(n.getYear()+" Yrs");
+        Double x;
+        if(Double.parseDouble(n.getRequestno())==0.0){
+            x=100.0;
+        }else{
+
+            x=(Double.parseDouble(n.getAcceptno())/Double.parseDouble(n.getRequestno()))*100;
+
+        }
+        holder.age.setText(String.valueOf(x)+" %");
 //        holder.phone.setText(n.getPhone());
         try {
 

@@ -12,7 +12,6 @@ import android.os.AsyncTask;
 import android.os.Build;
 import android.os.StrictMode;
 import android.support.annotation.NonNull;
-import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.NotificationCompat;
 import android.support.v4.app.NotificationManagerCompat;
 import android.support.v7.app.AlertDialog;
@@ -30,9 +29,7 @@ import android.view.View;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageButton;
-import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
@@ -49,14 +46,9 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Date;
 import java.util.List;
 import java.util.Scanner;
 import java.util.regex.Pattern;
-
-import de.hdodenhof.circleimageview.CircleImageView;
-
-import static com.example.ayush.finalapp.NegotiatorProfileAdapter.n;
 
 public class ChatBox extends AppCompatActivity {
     private DatePickerDialog.OnDateSetListener mDateSetListener;
@@ -206,12 +198,30 @@ public class ChatBox extends AppCompatActivity {
                 }
             };
             builder2.setPositiveButton("Submit", new DialogInterface.OnClickListener() {
-                    @Override
                     public void onClick(DialogInterface dialog, int which) {
+
 //                        message_sent=ShopperHomepage.shopper_name+" has requested you for help ";
 //                        messagebox.setText(message_sent);
 //                        sendButton.performClick();
 //                        sendNotification();
+                        //reciever[2] contains requestno
+                        databaseReference.child("Negotiator").child(Reciever[1]).child("requestno").addListenerForSingleValueEvent(new ValueEventListener() {
+                            @Override
+                            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                                if(dataSnapshot.exists()){
+
+                                    String s=dataSnapshot.getValue(String.class);
+                                    s=String.valueOf(Integer.parseInt(s)+1);
+                                    FirebaseDatabase.getInstance().getReference().child("Negotiator").child(Reciever[1]).child("requestno").setValue(s);
+                                }
+
+                            }
+
+                            @Override
+                            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                            }
+                        });
 
                         place=(EditText)v1.findViewById(R.id.meet_place_edit);
                         time=(EditText)v1.findViewById(R.id.meet_time_edit);
@@ -223,7 +233,7 @@ public class ChatBox extends AppCompatActivity {
 
                         builder = new NotificationCompat.Builder(ChatBox.this, channelId)
                                 .setContentTitle("Request sent successfully")
-                                .setSmallIcon(R.drawable.appicon1)
+                                .setSmallIcon(R.drawable.notify)
                                 .setContentText("Please wait for "+Reciever[0]+" to accept")
                                 .setPriority(NotificationCompat.PRIORITY_DEFAULT).setLargeIcon(BitmapFactory.decodeResource(getResources(),
                                         R.drawable.appicon1));
