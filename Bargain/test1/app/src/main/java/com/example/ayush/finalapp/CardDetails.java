@@ -2,6 +2,7 @@ package com.example.ayush.finalapp;
 
 import android.content.Intent;
 import android.net.Uri;
+import android.os.Debug;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
@@ -39,6 +40,7 @@ public class CardDetails extends AppCompatActivity {
     int amount_int;
     CircleImageView pro_image;
     NegotiatorDetails n;
+    boolean boolFav;
     StorageReference photo_storage;
     String location2;
     @Override
@@ -128,13 +130,45 @@ public class CardDetails extends AppCompatActivity {
                     public void onClick(View v) {
                         fav.setVisibility(View.GONE);
                         favdone.setVisibility(View.VISIBLE);
-                        String negokey = pos;
+                        final String negokey = pos;
                         Log.v("fsgfht",pos);
                         FirebaseUser firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
                         DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference();
-                        DatabaseReference favourite;
+                        final DatabaseReference favourite;
                         favourite=databaseReference.child("Shopper").child(firebaseUser.getUid());
-                        favourite.child("Favourite").push().setValue(negokey);
+                        favourite.addListenerForSingleValueEvent(new ValueEventListener() {
+                            @Override
+                            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                                if(!dataSnapshot.hasChild("Favourite"))
+                                {
+                                    Log.v("meaaya","enteredfav");
+                                    favourite.child("Favourite").push().setValue(negokey);
+                                }
+                            }
+
+                            @Override
+                            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                            }
+                        });
+                            final DatabaseReference favChild;
+                            favChild=favourite.child("Favourite");
+                            favChild.addListenerForSingleValueEvent(new ValueEventListener() {
+                                @Override
+                                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                                    if(dataSnapshot.getValue()!=null)
+                                        if((dataSnapshot.getValue().toString().compareToIgnoreCase(negokey))!=0)
+                                        {
+                                            Log.v("meaayaidhar","2");
+                                            favourite.child("Favourite").push().setValue(negokey);
+                                        }
+                                }
+
+                                @Override
+                                public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                                }
+                            });
                     }
                 });
 

@@ -1,94 +1,214 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.v4.widget.NestedScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:layout_height="match_parent"
+    android:background="@color/toolbarwhite"
+    >
     <RelativeLayout
+
+        xmlns:card_view="http://schemas.android.com/apk/res-auto"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="match_parent">
         <RelativeLayout
+            android:id="@+id/parent_of_card"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:background="@color/primaryLightColor"
-            android:id="@+id/re1">
+            android:layout_height="220dp"
+            android:background="@drawable/moneytransfer">
+            <LinearLayout
+                android:layout_width="wrap_content"
 
-
-
-
-            <TextView
-                android:id="@+id/amount"
-
-                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="10dp"
-                android:layout_marginTop="20dp"
-                android:fontFamily="sans-serif-thin"
-                android:text="Amount:"
-                android:textSize="24sp"
-                android:textColor="@color/toolbarwhite"
-                android:textAllCaps="true" />
+                android:orientation="horizontal"
+                android:layout_alignParentRight="true">
 
-            <TextView
+
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/favdone"
+                    android:src="@drawable/ic_favorite_white_40dp"
+                    android:visibility="gone"
+                    />
+            </LinearLayout>
+
+        </RelativeLayout>
+
+        <!--<ImageView-->
+        <!--android:layout_width="150dp"-->
+        <!--android:id="@+id/sportsImage"-->
+        <!--android:layout_centerHorizontal="true"-->
+        <!--android:layout_marginTop="50dp"-->
+        <!--android:adjustViewBounds="true"-->
+        <!--android:src="@drawable/negoreg"-->
+        <!--android:layout_height="150dp"-->
+        <!--/>-->
+
+        <android.support.design.card.MaterialCardView
+            android:layout_width="290dp"
+            app:cardCornerRadius="10dp"
+            android:layout_height="70dp"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="180dp">
+
+
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:fontFamily="sans-serif-thin"
-                android:text="0.0"
-                android:textAlignment="center"
-                android:layout_marginTop="20dp"
-                android:layout_marginBottom="20dp"
-                android:layout_marginLeft="20dp"
-                android:textColor="@color/toolbarwhite"
-                android:textSize="32sp"
-                android:layout_below="@id/amount"
-                android:id="@+id/money_text"/>
-        </RelativeLayout>
+                android:orientation="vertical"
+                android:gravity="center">
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:layout_gravity="center">
+                    <TextView
+                        android:id="@+id/money_text"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Amount"
+                        android:textColor="@color/colorPrimaryDark"
+                        android:layout_marginRight="10dp"
+                        android:textSize="25dp" />
 
-        <RelativeLayout
-            android:layout_below="@id/re1"
-            android:layout_width="fill_parent"
-            android:layout_height="fill_parent">
 
-            <Button
-                android:id="@+id/button1"
-                android:layout_marginTop="100dp"
-                android:layout_width="300dp"
-                android:textSize="20sp"
-                android:fontFamily="sans-serif-thin"
-                android:layout_centerHorizontal="true"
+                </LinearLayout>
+
+
+            </LinearLayout>
+        </android.support.design.card.MaterialCardView>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_below="@+id/parent_of_card"
+            android:layout_marginTop="50dp"
+            android:orientation="vertical">
+
+
+
+            <android.support.design.card.MaterialCardView
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="display qr"
-                android:background="@color/colorPrimaryDark"
-                android:textColor="#FFFFFF"
-
-                />
-            <Button
-                android:layout_width="300dp"
-                android:layout_height="wrap_content"
-                android:id="@+id/button2"
-                android:fontFamily="sans-serif-thin"
                 android:layout_centerHorizontal="true"
-                android:layout_marginTop="50dp"
-                android:text="Send Money To Bank"
-                android:textSize="19.5sp"
-                android:layout_below="@id/button1"
-                android:background="@color/colorPrimaryDark"
-                android:textColor="#FFFFFF"
-                />
+                android:layout_marginTop="10dp"
+                android:elevation="10dp"
+                android:id="@+id/init_payment_card"
+                card_view:strokeColor="@color/diabledgray"
+                card_view:strokeWidth="1dp"
+                android:paddingTop="50dp"
+                android:paddingLeft="50dp"
+                android:paddingRight="50dp"
+                android:paddingBottom="50dp"
+                android:clickable="true"
 
-            <Button
-                android:id="@+id/button3"
-                android:layout_width="300dp"
+
+
+                android:layout_marginRight="15dp"
+                android:layout_marginLeft="15dp"
+                app:cardCornerRadius="10dp">
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:paddingTop="20dp"
+                    android:paddingLeft="20dp"
+                    android:paddingRight="20dp"
+                    android:paddingBottom="20dp"
+                    android:orientation="vertical"
+                    android:layout_height="match_parent">
+                    <TextView
+
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Display QR"
+                        android:textAlignment="center"
+                        android:textSize="30sp"
+                        android:textColor="@color/colorPrimaryDark"
+                        android:id="@+id/button1"/>
+
+                </LinearLayout>
+            </android.support.design.card.MaterialCardView>
+
+
+
+
+
+
+            <android.support.design.card.MaterialCardView
+                android:layout_width="match_parent"
+                android:layout_marginRight="15dp"
+                android:layout_marginLeft="15dp"
+                android:paddingTop="10dp"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp"
+                android:paddingBottom="10dp"
+                card_view:strokeColor="@color/diabledgray"
+                card_view:strokeWidth="1dp"
                 android:layout_height="wrap_content"
-                android:textSize="19sp"
-                android:fontFamily="sans-serif-thin"
                 android:layout_centerHorizontal="true"
-                android:layout_below="@id/button2"
-                android:textAllCaps="true"
-                android:text="Previous transactions"
-                android:layout_marginTop="50dp"
-                android:background="@color/colorPrimaryDark"
-                android:textColor="#FFFFFF"
+                android:elevation="10dp"
+                android:layout_marginTop="10dp"
+                app:cardCornerRadius="10dp">
 
-                />
-        </RelativeLayout>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:paddingTop="20dp"
+                    android:paddingLeft="20dp"
+                    android:paddingRight="20dp"
+                    android:paddingBottom="20dp">
+
+
+
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Send money to bank"
+                        android:textSize="30sp"
+                        android:textAlignment="center"
+                        android:textColor="@color/colorPrimaryDark"
+                        android:id="@+id/button2"/>
+                </LinearLayout>
+            </android.support.design.card.MaterialCardView>
+            <android.support.design.card.MaterialCardView
+                android:layout_width="match_parent"
+
+                android:layout_marginRight="15dp"
+                android:layout_marginLeft="15dp"
+                card_view:strokeColor="@color/diabledgray"
+                card_view:strokeWidth="1dp"
+                android:layout_height="wrap_content"
+                android:elevation="10dp"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="10dp"
+                app:cardCornerRadius="10dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:paddingTop="20dp"
+                    android:paddingLeft="20dp"
+                    android:paddingRight="20dp"
+                    android:paddingBottom="20dp">
+
+
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Previous transactions"
+                        android:textSize="30sp"
+                        android:textAlignment="center"
+                        android:textColor="@color/colorPrimaryDark"
+                        android:id="@+id/button3"/>
+                </LinearLayout>
+            </android.support.design.card.MaterialCardView>
+
+
+        </LinearLayout>
     </RelativeLayout>
-</ScrollView>
+</android.support.v4.widget.NestedScrollView>

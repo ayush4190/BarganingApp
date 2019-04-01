@@ -130,7 +130,7 @@ public class NegotiatorProfileAdapter extends RecyclerView.Adapter<NegotiatorPro
         holder.city.setText(n.getCity());
         Double x;
         if(Double.parseDouble(n.getRequestno())==0.0){
-            x=0.0;
+            x=100.0;
         }else{
 
             x=(Double.parseDouble(n.getAcceptno())/Double.parseDouble(n.getRequestno()))*100;

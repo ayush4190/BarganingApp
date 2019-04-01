@@ -58,7 +58,7 @@ public class NegotiatorWallet extends Fragment {
         assert mUser != null;
         temp = mUser.getUid ();
         fetch ();
-        Button button1 = (Button) view.findViewById(R.id.button1);
+        TextView button1 = (TextView) view.findViewById(R.id.button1);
         button1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -70,7 +70,7 @@ public class NegotiatorWallet extends Fragment {
             }
         });
 
-        Button button3 = (Button) view.findViewById(R.id.button3);
+        TextView button3 = (TextView) view.findViewById(R.id.button3);
         button3.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
