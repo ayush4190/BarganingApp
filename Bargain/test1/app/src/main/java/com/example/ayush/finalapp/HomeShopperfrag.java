@@ -1,6 +1,7 @@
 package com.example.ayush.finalapp;
 
 import android.Manifest;
+import android.accounts.NetworkErrorException;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
@@ -11,6 +12,7 @@ import android.location.Geocoder;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
+import android.net.ConnectivityManager;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.NonNull;
@@ -81,6 +83,7 @@ public class HomeShopperfrag extends Fragment implements Serializable {
     int NUM_PAGES = 3;
     String pincode;
     Intent datalocation;
+    ConnectivityManager connectivityManager;
 
     @Nullable
     @Override
@@ -97,6 +100,10 @@ public class HomeShopperfrag extends Fragment implements Serializable {
 //        } catch (NullPointerException e) {
 //            Log.v ("error specified ", e.getMessage ());
 //        }
+
+        ///
+
+        ///
         fusedLocationProviderClient= LocationServices.getFusedLocationProviderClient(getActivity());
         try {
             fusedLocationProviderClient.getLastLocation().addOnSuccessListener(getActivity(), new OnSuccessListener<Location>() {
@@ -114,10 +121,12 @@ public class HomeShopperfrag extends Fragment implements Serializable {
                             e.printStackTrace ();
                         }
 
-
-                        String postalCode = addresses.get (0).getPostalCode ();
-                        pincode=postalCode;
-                        list_negotiators();
+                        try {
+                            String postalCode = addresses.get (0).getPostalCode ();
+                            pincode = postalCode;
+                            list_negotiators ();
+                        }catch (NullPointerException e)
+                        {}
                     }
                 }
             });

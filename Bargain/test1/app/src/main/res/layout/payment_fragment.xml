@@ -129,33 +129,14 @@
     <TextView
 
         android:layout_width="match_parent"
-        android:text="token"
+        android:text="Mobile wallet"
         android:layout_height="wrap_content"
         android:textAlignment="center"
         android:textSize="30sp"
         android:textColor="@color/colorPrimaryDark"
         android:id="@+id/token"
         android:visibility="gone"/>
-    <TextView
 
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:textAlignment="center"
-        android:text="Google Pay"
-        android:textSize="30sp"
-        android:textColor="@color/colorPrimaryDark"
-        android:id="@+id/tez"
-        android:visibility="gone"/>
-    <TextView
-
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:textAlignment="center"
-        android:text="payment"
-        android:textSize="30sp"
-        android:textColor="@color/colorPrimaryDark"
-        android:id="@+id/paytm"
-        android:visibility="gone"/>
 </LinearLayout>
                     </android.support.design.card.MaterialCardView>
 

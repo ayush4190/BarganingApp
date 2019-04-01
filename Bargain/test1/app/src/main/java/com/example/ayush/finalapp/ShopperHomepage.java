@@ -6,6 +6,7 @@ import android.app.AlertDialog;
 import android.app.NotificationChannelGroup;
 import android.graphics.BitmapFactory;
 import android.location.Geocoder;
+import android.net.ConnectivityManager;
 import android.os.AsyncTask;
 import com.google.android.gms.location.places.GeoDataClient;
 import com.google.android.gms.location.places.Place;
@@ -104,6 +105,7 @@ public class ShopperHomepage extends AppCompatActivity implements NavigationView
     private LocationListener locationListener;
     SessionManagment sessionManagment;
     CircleImageView shopper_pic;
+    ConnectivityManager connectivityManager;
 
     String check = "false";
 
@@ -154,6 +156,13 @@ public class ShopperHomepage extends AppCompatActivity implements NavigationView
         toolbar.setLogo(R.drawable.applogo1);
         setSupportActionBar (toolbar);
 
+        ///
+        connectivityManager = (ConnectivityManager) getSystemService (Context.CONNECTIVITY_SERVICE);
+        if(connectivityManager.getActiveNetworkInfo ()== null) {
+            Log.v ("network_status", String.valueOf (connectivityManager.getActiveNetworkInfo ()));
+            startActivity (new Intent (ShopperHomepage.this,nointernet.class));
+            finish ();
+        }////
 /*        DatabaseReference mref = fdb.child ("Shopper").child (user.getUid ());
         mref.addValueEventListener (new ValueEventListener () {
             @Override
