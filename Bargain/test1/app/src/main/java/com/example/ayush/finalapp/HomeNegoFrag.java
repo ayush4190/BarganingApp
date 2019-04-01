@@ -97,7 +97,15 @@ public class HomeNegoFrag extends Fragment {
                     negotiatorDetails=dataSnapshot.getValue(NegotiatorDetails.class);
                     first_name.setText(negotiatorDetails.getFirstname());
                     last_name.setText(negotiatorDetails.getLastname());
-                    count.setText(negotiatorDetails.getCount());
+                    Double x;
+                    if(Double.parseDouble(negotiatorDetails.getRequestno())==0.0){
+                        x=100.0;
+                    }else{
+
+                        x=(Double.parseDouble(negotiatorDetails.getAcceptno())/Double.parseDouble(negotiatorDetails.getRequestno()))*100;
+
+                    }
+                    count.setText(String.valueOf(x)+" %");
                     ratingBar.setRating(Float.parseFloat(negotiatorDetails.getRatings()));
                 }
             }
