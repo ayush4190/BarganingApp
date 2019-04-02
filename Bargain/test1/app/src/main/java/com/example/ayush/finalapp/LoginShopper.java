@@ -57,7 +57,6 @@ public class LoginShopper extends AppCompatActivity {
         firebaseAuth = FirebaseAuth.getInstance();
 
         if (firebaseAuth.getCurrentUser() != null) {
-            Toast.makeText (LoginShopper.this,"testing mode",Toast.LENGTH_SHORT).show ();
             try {
                 session.checkLogin ();
 
@@ -83,7 +82,6 @@ public class LoginShopper extends AppCompatActivity {
                 }
                 else
                 {
-                    Toast.makeText (LoginShopper.this,"still to decide",Toast.LENGTH_LONG).show ();
                 }
             }
             catch (NullPointerException e)

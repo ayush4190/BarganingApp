@@ -72,11 +72,10 @@ public class Negotiator_final extends AppCompatActivity {
 
     private  Uri selectedImage;
 
-ProgressBar mprogressbar;
+    ProgressBar mprogressbar;
 
     AlertDialog.Builder builder2;
     boolean bool = false;
-
 
 
     @Override
@@ -91,15 +90,11 @@ ProgressBar mprogressbar;
         mUser = mauth.getCurrentUser ();
 
         final CheckBox rb2 = (CheckBox) findViewById (R.id.rb);
-
-
-        //// using the intent object of NegotiatorDetails
-
         details = (NegotiatorDetails) getIntent ().getSerializableExtra ("details");
 
         rb2.setChecked (!rb2.isChecked ());
 
-    mprogressbar = (ProgressBar) findViewById (R.id.progress_image);
+        mprogressbar = (ProgressBar) findViewById (R.id.progress_image);
 
         TextView term1 = (TextView) findViewById (R.id.terms);
 
@@ -151,126 +146,54 @@ ProgressBar mprogressbar;
             //
 
         });
-
-
-
-        //3
-//        b1 = (Button) findViewById (R.id.btnSelectPhoto);
-//
-//        viewImage = (ImageView) findViewById (R.id.profilepic);
-//
-//
-//        b1.setOnClickListener (new View.OnClickListener () {
-//
-//            @Override
-//
-//            public void onClick(View v) {
-//
-//                selectImage ();
-//
-//            }
-//
-//        });
-
         b = (Button) findViewById (R.id.btnSelectID);
-
         viewImage = (ImageView) findViewById (R.id.idimage); // id picture for valid id .
-
         b.setOnClickListener (new View.OnClickListener () {
-
             @Override
-
             public void onClick(View v) {
-
                 selectImage ();
-
             }
-
         });
-
         Button nextButton = (Button) findViewById (R.id.next1);
-
-
-
         nextButton.setOnClickListener (new View.OnClickListener () {
 
 
             @Override
             public void onClick(View v) {
-
-//                //3c2
-//                final ImageView test = (ImageView) findViewById (R.id.profilepic); //image stored here
-//                final Bitmap bmap = ((BitmapDrawable) test.getDrawable ()).getBitmap ();
-//                Drawable myDrawable = getResources ().getDrawable (R.drawable.user);
-//                final Bitmap myLogo = ((BitmapDrawable) myDrawable).getBitmap ();
-
-                //idk
                 int k = 1;
-
-// changed final string to variable name
-//                3
                 if (viewImage.getDrawable () == null) {
                     k--;
                     Toast.makeText (Negotiator_final.this, "Enter an ID", Toast.LENGTH_SHORT).show ();
 
-                }//3
-
-//                if (bmap.sameAs (myLogo)) {
-//                    k--;
-//                    Toast.makeText (Negotiator_final.this, "Add Profile Picture", Toast.LENGTH_SHORT).show ();
-//
-//                }
-               if (k == 1 && rb2.isChecked ()) {
+                }
+                if (k == 1 && rb2.isChecked ()) {
                     upload_image ();
-//                    Intent myIntent = new Intent (Negotiator_final.this,
-//                           Negotiator_dash.class);
-//                    startActivity (myIntent);
-//                    finish (); // added here
                 }
             }
 
 
         });
-
     }
         private void selectImage () {
 
-
             final CharSequence[] options = {"Take Photo", "Choose from Gallery", "Cancel"};
-
-
             AlertDialog.Builder builder = new AlertDialog.Builder (Negotiator_final.this);
-
             builder.setTitle ("Add Photo!");
-
             builder.setItems (options, new DialogInterface.OnClickListener () {
 
                 @Override
 
                 public void onClick(DialogInterface dialog, int item) {
-
                     if (options[item].equals ("Take Photo")) {
-
                         Intent intent = new Intent (MediaStore.ACTION_IMAGE_CAPTURE);
-
                         File f = new File (android.os.Environment.getExternalStorageDirectory (), "temp.jpg");
-
                         intent.putExtra (MediaStore.EXTRA_OUTPUT, Uri.fromFile (f));
-
                         startActivityForResult (intent, 1);
-
                     } else if (options[item].equals ("Choose from Gallery")) {
-
                         Intent intent = new Intent (Intent.ACTION_PICK, android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
-
                         startActivityForResult (intent, 2);
-
-
                     } else if (options[item].equals ("Cancel")) {
-
                         dialog.dismiss ();
-
-
                     }
                 }
 
@@ -278,16 +201,9 @@ ProgressBar mprogressbar;
 
             builder.show ();
 
-
-
     }
-
-      //2
         @Override
-
         protected void onActivityResult ( int requestCode, int resultCode, Intent data){
-            Log.v ("ssasad", "RESULTCODE:" + Integer.toString (requestCode));
-
             super.onActivityResult (requestCode, resultCode, data);
 
             if (resultCode == RESULT_OK) {
