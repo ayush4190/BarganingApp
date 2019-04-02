@@ -28,7 +28,6 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 public class LoginPage extends AppCompatActivity {
-
     TextInputLayout password_w;
     TextInputLayout email_w;
     TextInputEditText email_q,password_q ;
@@ -37,7 +36,7 @@ public class LoginPage extends AppCompatActivity {
     Button button;
     FirebaseUser user;
     FirebaseDatabase data;
-    DatabaseReference ref ,mroot;
+    DatabaseReference ref;
     String s;
 
 

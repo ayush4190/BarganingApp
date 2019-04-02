@@ -17,7 +17,6 @@ public class CardFrag extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated (view, savedInstanceState);
-        //msearchview=(SearchView) view.findViewById(R.id.search);
 
     }
 }

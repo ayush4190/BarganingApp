@@ -18,22 +18,20 @@ import static com.example.ayush.finalapp.ChatBoxNego.chats;
 
 class ChatBoxNegoAdapter extends RecyclerView.Adapter<ChatBoxNegoAdapter.myViewHolder>{
     List<Message> chat_list;
-    Context mContext;
-    String current_user,receiver;
+    private Context mContext;
+    private  String current_user;
+    String receiver;
     ChatBoxNego activity;
     AlertDialog.Builder builder;
 
     ChatBoxNegoAdapter(List<Message> chat_list, Context mContext, String current_user, String receiver, ChatBoxNego activity)
     {
-
         this.chat_list = chat_list;
         this.mContext = mContext;
         this.current_user = current_user;
         this.receiver = receiver;
         this.activity = activity;
-        Log.v("datap2",chat_list.get(0).message.toString());
     }
-
 
     @NonNull
     @Override
@@ -75,16 +73,17 @@ class ChatBoxNegoAdapter extends RecyclerView.Adapter<ChatBoxNegoAdapter.myViewH
                 builder.setCancelable (false);
                 AlertDialog alert = builder.create ();
                 alert.show ();
-
                 return true;
             }
         });
     }
 
+
     @Override
     public int getItemCount() {
         return chats.size();
     }
+
 
     @Override
     public int getItemViewType(int position) {
@@ -92,8 +91,8 @@ class ChatBoxNegoAdapter extends RecyclerView.Adapter<ChatBoxNegoAdapter.myViewH
             return ChatBoxNego.Right;
         else
             return ChatBoxNego.Left;
-
     }
+
 
     class myViewHolder extends RecyclerView.ViewHolder{
         View view;

@@ -50,7 +50,6 @@
         <!-- android:name="com.google.firebase.messaging.default_notification_color" -->
         <!-- android:resource="@color/colorAccent" /> -->
         <activity android:name=".ChatBoxNego" />
-        <activity android:name=".ChatMain" />
         <activity
             android:name=".ShopperProfileActivity"
             android:label="User Profile" />

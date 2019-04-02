@@ -29,9 +29,8 @@ public class ForgotPassword extends AppCompatActivity {
         email_w = findViewById(R.id.forgotemail_up);
         verification_link=findViewById(R.id.send_verification_link);
         email_q =  findViewById(R.id.forgotemail);
-//        String memail = email_q.getText().toString().trim();
 
-    auth = FirebaseAuth.getInstance ();
+        auth = FirebaseAuth.getInstance ();
         verification_link.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -42,8 +41,6 @@ public class ForgotPassword extends AppCompatActivity {
                     Toast.makeText(getApplication(), "Enter your registered email id", Toast.LENGTH_SHORT).show();
                     return;
                 }
-
-
                 auth.sendPasswordResetEmail(email)
                         .addOnCompleteListener(new OnCompleteListener<Void> () {
                             @Override
@@ -53,14 +50,8 @@ public class ForgotPassword extends AppCompatActivity {
                                 } else {
                                     Toast.makeText(ForgotPassword.this, "Failed to send reset email!", Toast.LENGTH_SHORT).show();
                                 }
-
-
                             }
         });
-
-
-
-
     }
 });
     }

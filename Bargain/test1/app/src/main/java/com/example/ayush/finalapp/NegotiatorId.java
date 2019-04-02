@@ -52,9 +52,6 @@ public class NegotiatorId extends AppCompatActivity {
     Button b;
     ////// java class for adding profile photo
     private Uri selectedImage;
-
-    ///to store image
-
     private FirebaseStorage mstorage;
 
     private StorageReference store;
