@@ -195,7 +195,7 @@ public class LoginShopper extends AppCompatActivity {
         {
             Toast.makeText (LoginShopper.this,e.getMessage (),Toast.LENGTH_LONG).show ();
         }
-        // Toast.makeText (LoginPage.this,""+s,Toast.LENGTH_SHORT).show ();
+
 
     }
 

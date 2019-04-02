@@ -122,52 +122,91 @@ public class CardDetails extends AppCompatActivity {
                     favdone.setVisibility(View.VISIBLE);
                 }
 
-                fav.setOnClickListener(new View.OnClickListener() {
+
+/////////////
+        fav.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ////////////
+                fav.setVisibility(View.GONE);
+                favdone.setVisibility(View.VISIBLE);
+                final String negokey = pos;
+//                Log.v("fsgfht",pos);
+//                FirebaseUser firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
+//                DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference();
+//                final DatabaseReference favourite;
+//                favourite=databaseReference.child("Shopper").child(firebaseUser.getUid());
+//                favourite.addListenerForSingleValueEvent(new ValueEventListener() {
+//                    @Override
+//                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+//                        if(!dataSnapshot.hasChild("Favourite"))
+//                        {
+//                            Log.v("meaaya","enteredfav");
+//                            favourite.child("Favourite").push().setValue(negokey);
+//                        }
+//                    }
+//
+//                    @Override
+//                    public void onCancelled(@NonNull DatabaseError databaseError) {
+//                    }
+//                });
+//                final DatabaseReference favChild;
+//                favChild=favourite.child("Favourite");
+//                favChild.addListenerForSingleValueEvent(new ValueEventListener() {
+//                    @Override
+//                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+//                        if(dataSnapshot.getValue()!=null)
+//                            if((dataSnapshot.getValue().toString().compareToIgnoreCase(negokey))!=0)
+//                            {
+//                                Log.v("meaayaidhar","2");
+//                                favourite.child("Favourite").push().setValue(negokey);
+//                            }
+//                    }
+//
+//                    @Override
+//                    public void onCancelled(@NonNull DatabaseError databaseError) {
+//
+//                    }
+//                });
+//
+//                ///////////
+//                      //open chatbox for this nego
+                Log.v("lancer1", "0");
+                final DatabaseReference mdatabaseReference =FirebaseDatabase.getInstance().getReference().child("Shopper").child(ShopperHomepage.shopper_uid).child("Favourite");
+
+                ValueEventListener eventListener = new ValueEventListener() {
                     @Override
-                    public void onClick(View v) {
-                        fav.setVisibility(View.GONE);
-                        favdone.setVisibility(View.VISIBLE);
-                        final String negokey = pos;
-                        Log.v("fsgfht",pos);
-                        FirebaseUser firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
-                        DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference();
-                        final DatabaseReference favourite;
-                        favourite=databaseReference.child("Shopper").child(firebaseUser.getUid());
-                        favourite.addListenerForSingleValueEvent(new ValueEventListener() {
-                            @Override
-                            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                                if(!dataSnapshot.hasChild("Favourite"))
-                                {
-                                    Log.v("meaaya","enteredfav");
-                                    favourite.child("Favourite").push().setValue(negokey);
-                                }
-                            }
+                    public void onDataChange(DataSnapshot dataSnapshot) {
+                        Log.v("lancer2", "0");
+                        if(!dataSnapshot.exists()) {
+                            //create new entry
+                            Log.v("lancer3", "0");
+                            mdatabaseReference.child(pos).setValue(pos);
 
-                            @Override
-                            public void onCancelled(@NonNull DatabaseError databaseError) {
+//                                    if (ChatFragmentNego.Opened != 0)
+//                                        return;
+//                                    ChatFragmentNego.Opened = 1;
+                            //important
 
-                            }
-                        });
-                            final DatabaseReference favChild;
-                            favChild=favourite.child("Favourite");
-                            favChild.addListenerForSingleValueEvent(new ValueEventListener() {
-                                @Override
-                                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                                    if(dataSnapshot.getValue()!=null)
-                                        if((dataSnapshot.getValue().toString().compareToIgnoreCase(negokey))!=0)
-                                        {
-                                            Log.v("meaayaidhar","2");
-                                            favourite.child("Favourite").push().setValue(negokey);
-                                        }
-                                }
+                        }
 
-                                @Override
-                                public void onCancelled(@NonNull DatabaseError databaseError) {
-
-                                }
-                            });
                     }
-                });
+
+                    @Override
+                    public void onCancelled(DatabaseError databaseError) {
+
+                    }
+                };
+                mdatabaseReference.child(pos).addListenerForSingleValueEvent(eventListener);
+
+                //if already there is some chat with this nego, start chat box actvity
+                //else add it in the chats fields of this shopper
+
+
+            }
+        });
+
+        //////////////////////////
 
                 favdone.setOnClickListener(new View.OnClickListener() {
                     @Override
@@ -211,6 +250,7 @@ public class CardDetails extends AppCompatActivity {
                                 Log.v("lancer2", "0");
                                 if(!dataSnapshot.exists()) {
                                     //create new entry
+
                                     Log.v("lancer3", "0");
                                    DatabaseReference m=FirebaseDatabase.getInstance().getReference().child("Negotiator").child(pos).child("nego_chat");
                                    m.child(ShopperHomepage.shopper_uid).setValue(ShopperHomepage.shopper_uid);
