@@ -44,23 +44,27 @@ public class CommunityFragment extends Fragment {
     private RecyclerView recyclerView;
     private ShopperProfileAdapter adapter;
     private DatabaseReference fdb,shopper;
+
+
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         return inflater.inflate (R.layout.community_fragment,null);
     }
+
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated (view, savedInstanceState);
         msearchview=(SearchView) view.findViewById(R.id.searchcommunity);
-       quote = (TextView)view.findViewById(R.id.quotecommunity);
+        quote = (TextView)view.findViewById(R.id.quotecommunity);
         int idtxt = msearchview.getContext().getResources().getIdentifier("android:id/search_src_text", null, null);
         msearchtext = (EditText)view.findViewById(idtxt);
         recyclerView = (RecyclerView) view.findViewById(R.id.recyclerViewcommunityfrag);//
-     cartoon=(ImageView)view.findViewById(R.id.communitycarton);
+        cartoon=(ImageView)view.findViewById(R.id.communitycarton);
         cartoon.setVisibility(View.GONE);
         quote.setVisibility(View.GONE);
         recyclerView.setVisibility(View.GONE);
+
         msearchtext.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
@@ -79,162 +83,68 @@ public class CommunityFragment extends Fragment {
                 fragmentTransaction.replace(R.id.content_frame,new CommunitySearch ());
                 fragmentTransaction.addToBackStack ("SearchTag");
                 fragmentTransaction.commit ();
-
             }
         });
 
         KeyList=new ArrayList<String>();
         count=0;
-
         adapter = new ShopperProfileAdapter(shopperList,getActivity (),1);
         fdb= FirebaseDatabase.getInstance().getReference();
         fba=FirebaseAuth.getInstance();
         user=fba.getCurrentUser();
         shopper = fdb.child ("Shopper").child (user.getUid ());
-
-        //shopper
-        Log.v("before getdata" , "hello ");
-
         Getdatafirebase();
-//        newfunction();
-        Log.v("after getdata" , "hello ");
-
         recyclerView.setAdapter(adapter);
         RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getActivity());//
         recyclerView.setLayoutManager(mLayoutManager);//n
         adapter.notifyDataSetChanged();
-        //
-
-
     }
+
+
+
+
     void Getdatafirebase() {
-        //
-
-        // databaseReference=FirebaseDatabase.getInstance().getReference().child("Shopper");
-//        Query query=databaseReference.child("Shopper").child("category1").startAt(searchvalue).endAt(searchvalue+'\uf8ff');
-//        Query query = shopper.child("Community");
-//        Log.v("inside query 1", "hello ");
-//        query.addChildEventListener(new ChildEventListener() {
-//            @Override
-//            public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
-//                Log.v("inondata beforeifexists", "hello ");
-//
-//                if (dataSnapshot.exists()) {
-//                    Log.v("inondata after ifexists", "hello ");
-//
-//
-//                    // for(DataSnapshot issue: dataSnapshot.getChildren()) {
-//                    Log.v("inside loop", "hello ");
-//                    String ss = dataSnapshot.getValue().toString();
-//                    //
-//                    Log.v("before keylist add", ss);
-////                    KeyList.add(count,ss);
-////                    KeyList.add(ss);
-////                    count++;
-//
-//                    newfunction(ss);
-////                    Log.v("after keylist add", KeyList.get(count-1));
-//                }
-//
-//            }
-//
-//            @Override
-//            public void onChildChanged(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
-//
-//            }
-//
-//            @Override
-//            public void onChildRemoved(@NonNull DataSnapshot dataSnapshot) {
-//
-//            }
-//
-//            @Override
-//            public void onChildMoved(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
-//
-//            }
-//
-//            @Override
-//            public void onCancelled(@NonNull DatabaseError databaseError) {
-//
-//            }
-//        });
-
-//        Log.v("out funcytion", KeyList.get(count-1));
-
-
-
-    ////////////////////////
-
         Query query = shopper;
-        Log.v("inside query 1", "hello ");
         query.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                Log.v("inondata beforeifexists", "hello ");
-
                 if (dataSnapshot.child("Community").exists()) {
                     recyclerView.setVisibility(View.VISIBLE);
-
-                    Log.v("inondata after ifexists", "hello ");
-
-                    // for(DataSnapshot issue: dataSnapshot.getChildren()) {
-                    Log.v("inside loop", "hello ");
-//                    Iterable q =dataSnapshot.child("Favourite").getChildren();
                     String ss;
                     for (DataSnapshot postSnapshot: dataSnapshot.child("Community").getChildren()) {
                         ss = postSnapshot.getValue(String.class);
-
-                        Log.v("before keylist add", ss);
                         newfunction(ss);
-//                        Log.e("Get Data", post.<YourMethod>());
                     }
-    }else{
-        cartoon.setVisibility(View.VISIBLE);
-        quote.setVisibility(View.VISIBLE);
-        recyclerView.setVisibility(View.GONE);
-        Log.v("aya na tu","aa gaya");}
-}
+                }else {
+                    cartoon.setVisibility(View.VISIBLE);
+                    quote.setVisibility(View.VISIBLE);
+                    recyclerView.setVisibility(View.GONE);
+                }
+            }
 
-    @Override
-    public void onCancelled(@NonNull DatabaseError databaseError) {
+        @Override
+        public void onCancelled(@NonNull DatabaseError databaseError) {
+
+        }
+    });
 
     }
-});
-    /////////////////////
-    }
+
+
 
     void newfunction(String tt){
-        Log.v("starting newfunction", "hello ");
         DatabaseReference databaseReference;
         databaseReference=FirebaseDatabase.getInstance().getReference().child("Shopper");
-//        Log.v("size of keylist", KeyList.size()+"");
-//            Log.v("ke", KeyList.get(0));
-//        for(int i=0;i<KeyList.size();i++) {
-        Log.v("after loop for loop", "hello ");
         Query query2 = databaseReference.orderByKey().equalTo(tt);
-
-        Log.v("after query 2", "hello ");
-
         query2.addChildEventListener(new ChildEventListener() {
             @Override
             public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
-                Log.v("inondata beforeifexists", "hello ");
-
                 if (dataSnapshot.exists()) {
-                    Log.v("inondata after ifexists", "hello ");
-
-                    // for(DataSnapshot issue: dataSnapshot.getChildren()) {
-                    Log.v("gamma","fghg" );
-//                        dataSnapshot.getValue(ShopperDetails.class);
                     ShopperDetails data = dataSnapshot.getValue(ShopperDetails.class);
-//                            Log.v("display data" , dataSnapshot.ge);
-
                     adapter.addItem(data, dataSnapshot.getKey());
                     adapter.notifyDataSetChanged();
                 }
-
             }
-
             @Override
             public void onChildChanged(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
 

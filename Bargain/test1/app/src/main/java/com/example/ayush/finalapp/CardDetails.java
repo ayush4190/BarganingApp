@@ -51,9 +51,6 @@ public class CardDetails extends AppCompatActivity {
             this.getSupportActionBar().hide();
         }
         catch (NullPointerException e){}
-
-
-
         setContentView(R.layout.card_frag);
         Intent i=getIntent();
         n=(NegotiatorDetails)i.getSerializableExtra("nego_data");

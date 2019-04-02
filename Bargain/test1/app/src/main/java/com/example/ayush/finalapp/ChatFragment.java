@@ -33,42 +33,29 @@ import java.io.InputStream;
 import java.util.ArrayList;
 
 
-/**
- * A simple {@link Fragment} subclass.
- */
 public class ChatFragment extends Fragment {
 
-    //Account
     static String NameUser,DobUser;
-
-  //  static int Method_Used = 1;
-
     static ProgressDialog dialog;
-
     public ChatFragment() {
-        // Required empty public constructor
     }
 
     View view;
-   //List
     ListView chatlist;
     ChatAdapter adapter1;
-
-    String User;
-    ImageView cartoon;
-    TextView quote;
+    private String User;
+    private ImageView cartoon;
+    private TextView quote;
     DatabaseReference reference;
     DatabaseReference mreference;
     static ArrayList<String[]> list = new ArrayList<>();
 
-//    static int Opened=0;
 
+    //onCreateView
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
         view =  inflater.inflate(R.layout.fragment_chat, container, false);
-
 
         InitializeFields();
         quote = (TextView)view.findViewById(R.id.quotechat) ;
@@ -76,24 +63,18 @@ public class ChatFragment extends Fragment {
         cartoon.setVisibility(View.GONE);
         quote.setVisibility(View.GONE);
         chatlist.setVisibility(View.GONE);
-        //ListVIew Setup
         adapter1 = new ChatAdapter();
         chatlist.setAdapter(adapter1);
-        //User is not null confirmation
         User = "Alpha";
             if(FirebaseAuth.getInstance().getCurrentUser()!=null)
                 User = FirebaseAuth.getInstance().getCurrentUser().getUid();
-          //Retrieving data from database
             mreference = FirebaseDatabase.getInstance().getReference().child("Shopper").child(ShopperHomepage.shopper_uid).child("nego_chat");
         reference = FirebaseDatabase.getInstance().getReference().child("Negotiator");
-
-                AtStartUp();
-               UpdateAccount();
-             //   UpdateContacts();
-
-
+        AtStartUp();
+        UpdateAccount();
         return view;
     }
+
 
     void AtStartUp()
     {
@@ -102,19 +83,15 @@ public class ChatFragment extends Fragment {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 int i=0;
-                //Deleting Previous Data on List
                 list.clear();
-                //Retrieving data
                 if(dataSnapshot.exists()) {
                     chatlist.setVisibility(View.VISIBLE);
                     cartoon.setVisibility(View.GONE);
                     quote.setVisibility(View.GONE);
                     for (DataSnapshot data : dataSnapshot.getChildren()) {
-
                         if (data.getKey().equals(User)) {
                             continue;
                         }
-                        //Adding names of friends to list
                         try {
                             String name;
                             String uid;
@@ -129,7 +106,6 @@ public class ChatFragment extends Fragment {
                             Log.d("ChatFragmentGet", e.getMessage());
                         }
                     }
-                    //updating listview
                     adapter1.notifyDataSetChanged();
                     if (i == 0)
                         dialog.dismiss();
@@ -157,14 +133,12 @@ public class ChatFragment extends Fragment {
             {
                 if(dataSnapshot.child("firstname").getValue()!=null&&dataSnapshot.child("lastname").getValue()!=null)
                     NameUser = dataSnapshot.child("firstname").getValue().toString()+" "+dataSnapshot.child("lastname").getValue().toString();
-//                DobUser = dataSnapshot.child("year").getValue().toString();
             }
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
 
             }
         });
-        //Toast.makeText(getContext(), "I was here", Toast.LENGTH_SHORT).show();
         adapter1.notifyDataSetChanged();
     }
 
@@ -197,29 +171,15 @@ public class ChatFragment extends Fragment {
         @Override
         public View getView(final int position, View convertView, ViewGroup parent) {
 
-            //Setting up view on the list
             Context context = getContext();
             convertView = ((FragmentActivity) context).getLayoutInflater().inflate(R.layout.chatdesign,parent,false);
             TextView text = convertView.findViewById(R.id.Design_text);
             ConstraintLayout constraintLayout=convertView.findViewById(R.id.chatdesign_constraint);
             text.setText(list.get(position)[0]);
 
-
-            //show the most recent message
-            //if message sent from here display tick
-
-            //else display message only
-
-
-
-
             constraintLayout.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-//                    if(ChatFragment.Opened != 0)
-//                        return;
-//                    ChatFragment.Opened = 1;
-                    //important
                     Intent intent = new Intent(getActivity(),ChatBox.class);
                     intent.putExtra("User",User);
                     intent.putExtra("Reciever",list.get(position));
@@ -228,14 +188,9 @@ public class ChatFragment extends Fragment {
                 }
             });
 
-
             return convertView;
         }
-
     }
-
-
-
 }
 
 
