@@ -16,9 +16,9 @@ import java.util.List;
 import static com.example.ayush.finalapp.ChatBox.chats;
 
 class ChatBoxAdapter extends RecyclerView.Adapter<ChatBoxAdapter.myViewHolder>{
-    List<Message> chat_list;
-    Context mContext;
-    String current_user,receiver;
+    private List<Message> chat_list;
+    private Context mContext;
+    private String current_user,receiver;
     ChatBox activity;
     AlertDialog.Builder builder;
 
@@ -49,7 +49,6 @@ class ChatBoxAdapter extends RecyclerView.Adapter<ChatBoxAdapter.myViewHolder>{
             return;
         final int j = i;
         TextView textView = viewHolder.view.findViewById(R.id.Message);
-
         textView.setText(chats.get(i).message);
         textView.setOnLongClickListener(new View.OnLongClickListener() {
             @Override
@@ -71,7 +70,6 @@ class ChatBoxAdapter extends RecyclerView.Adapter<ChatBoxAdapter.myViewHolder>{
                 builder.setCancelable (false);
                 AlertDialog alert = builder.create ();
                 alert.show ();
-
                 return true;
             }
         });
@@ -88,7 +86,6 @@ class ChatBoxAdapter extends RecyclerView.Adapter<ChatBoxAdapter.myViewHolder>{
             return ChatBox.Right;
         else
             return ChatBox.Left;
-
     }
 
     class myViewHolder extends RecyclerView.ViewHolder{

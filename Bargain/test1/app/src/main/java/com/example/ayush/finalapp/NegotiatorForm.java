@@ -106,21 +106,10 @@ public class NegotiatorForm extends Activity {
         //2
         setContentView (R.layout.activity_negotiator_form);
 
-        //idk
-
-        //idk
         firebaseAuth = FirebaseAuth.getInstance ();
 
         mUser = firebaseAuth.getCurrentUser ();
 
-        //2c1
-        //2c1
-        //  mDisplayDate = (TextView) findViewById (R.id.dob);
-
-        //2c1
-        //2
-        //2c1
-        //2c1
         mDisplayDate = (TextView) findViewById (R.id.dob);
 
         //2c1

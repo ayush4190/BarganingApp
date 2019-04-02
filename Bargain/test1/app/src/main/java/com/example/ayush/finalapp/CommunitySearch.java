@@ -33,11 +33,9 @@ import java.util.List;
 
 public class CommunitySearch extends Fragment {
     SearchView msearchview;
-    //    FirebaseDatabase firebaseDatabase;
     DatabaseReference databaseReference;
     EditText msearchtext;
     String searchtext;
-
     FirebaseAuth fba;
     FirebaseUser user;
     int count;
@@ -47,7 +45,6 @@ public class CommunitySearch extends Fragment {
     private ShopperProfileAdapter adapter;
     private DatabaseReference fdb,shopper;
 
-    // TextView textView;
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -62,14 +59,11 @@ public class CommunitySearch extends Fragment {
         count=0;
         recyclerView = (RecyclerView) view.findViewById(R.id.recyclerView_community);//
         adapter = new ShopperProfileAdapter(shopperList,getActivity (),0);
-
         fdb= FirebaseDatabase.getInstance().getReference();
         fba=FirebaseAuth.getInstance();
         user=fba.getCurrentUser();
         shopper = fdb.child ("Shopper").child (user.getUid ());
 
-
-        //textView=(TextView)view.findViewById(R.id.textview_community);
         int idtxt = msearchview.getContext().getResources().getIdentifier("android:id/search_src_text", null, null);
         msearchtext = (EditText) view.findViewById(idtxt);
         msearchtext.requestFocus();
@@ -80,20 +74,11 @@ public class CommunitySearch extends Fragment {
             public boolean onQueryTextSubmit(String query) {
 
                 searchtext = msearchview.getQuery().toString();
-                Log.v("search value ", searchtext);
-                Log.v("searchtext" , searchtext);
-                //shopper
-                Log.v("before getdata" , "hello ");
                 GetDataFireBase();
-//        newfunction();
-                Log.v("after getdata" , "hello ");
-
                 recyclerView.setAdapter(adapter);
                 RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getActivity());//
                 recyclerView.setLayoutManager(mLayoutManager);//n
                 adapter.notifyDataSetChanged();
-                //
-
                 return false;
             }
 
@@ -103,47 +88,22 @@ public class CommunitySearch extends Fragment {
                 return false;
             }
         });
-
-//        Log.v("searchtext" , searchtext);
-//        //shopper
-//        Log.v("before getdata" , "hello ");
-//
-//      GetDataFireBase();
-////        newfunction();
-//        Log.v("after getdata" , "hello ");
-//
-//        recyclerView.setAdapter(adapter);
-//        RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getActivity());//
-//        recyclerView.setLayoutManager(mLayoutManager);//n
-//        adapter.notifyDataSetChanged();
-
     }
 
-    //        //
+
     void GetDataFireBase() {
 
-        // databaseReference=FirebaseDatabase.getInstance().getReference().child("Shopper");
-//        Query query=databaseReference.child("Shopper").child("category1").startAt(searchvalue).endAt(searchvalue+'\uf8ff');
         databaseReference=FirebaseDatabase.getInstance().getReference().child("Shopper");
         Query query=databaseReference.orderByChild("username").equalTo(searchtext);
-        Log.v("inside query" , "hello ");
 
         query.addChildEventListener(new ChildEventListener() {
             @Override
             public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
-                Log.v("inondata beforeifexists" , "hello ");
-
                 if(dataSnapshot.exists()){
-                    Log.v("inondata after ifexists" , "hello ");
-
-                    // for(DataSnapshot issue: dataSnapshot.getChildren()) {
-                    Log.v("inside loop" , "hello ");
                     ShopperDetails data =dataSnapshot.getValue(ShopperDetails.class);
-                    //    Log.v("display data" , data.getFirstname());
                     adapter.addItem(data,dataSnapshot.getKey());
                     adapter.notifyDataSetChanged();
                     recyclerView.setAdapter(adapter);
-                    //   }
                 }
             }
 
@@ -171,11 +131,3 @@ public class CommunitySearch extends Fragment {
     }
 
 }
-
-
-
-
-
-
-
-

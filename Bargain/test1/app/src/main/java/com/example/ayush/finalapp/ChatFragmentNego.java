@@ -32,45 +32,28 @@ import com.google.firebase.database.ValueEventListener;
 import java.io.InputStream;
 import java.util.ArrayList;
 
-
-/**
- * A simple {@link Fragment} subclass.
- */
 public class ChatFragmentNego extends Fragment {
 
-    //Account
     static String NameUser,DobUser;
-
-    //  static int Method_Used = 1;
-
     static ProgressDialog dialog;
 
     public ChatFragmentNego() {
-        // Required empty public constructor
     }
 
     View view;
-    //List
     ListView chatlist;
     TextView quote;
     ImageView cartoon;
     ChatAdapter adapter1;
-
     String User;
     DatabaseReference reference;
     DatabaseReference mreference;
     static ArrayList<String[]> list = new ArrayList<>();
 
-//    static int Opened=0;
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
         view =  inflater.inflate(R.layout.fragment_chat, container, false);
-
-
-
         InitializeFields();
         cartoon=(ImageView)view.findViewById(R.id.chatcartoon);
         quote = (TextView)view.findViewById(R.id.quotechat) ;
@@ -81,21 +64,13 @@ public class ChatFragmentNego extends Fragment {
         adapter1 = new ChatAdapter();
         chatlist.setAdapter(adapter1);
 
-
-        //User is not null confirmation
         User = "Alpha";
         if(FirebaseAuth.getInstance().getCurrentUser()!=null)
             User = FirebaseAuth.getInstance().getCurrentUser().getUid();
-
-        //Retrieving data from database
-        mreference = FirebaseDatabase.getInstance().getReference().child("Negotiator").child(User).child("nego_chat");
-        reference = FirebaseDatabase.getInstance().getReference().child("Shopper");
-
-
+            mreference = FirebaseDatabase.getInstance().getReference().child("Negotiator").child(User).child("nego_chat");
+            reference = FirebaseDatabase.getInstance().getReference().child("Shopper");
         AtStartUp();
         UpdateAccount();
-        //   UpdateContacts();
-
 
         return view;
     }
@@ -118,7 +93,6 @@ public class ChatFragmentNego extends Fragment {
                         if (data.getKey().equals(User)) {
                             continue;
                         }
-                        //Adding names of friends to list
                         try {
                             String name;
                             String uid;
@@ -160,14 +134,13 @@ public class ChatFragmentNego extends Fragment {
             {
                 if(dataSnapshot.child("fname").getValue()!=null&&dataSnapshot.child("lname").getValue()!=null)
                     NameUser = dataSnapshot.child("fname").getValue().toString()+" "+dataSnapshot.child("lname").getValue().toString();
-//                DobUser = dataSnapshot.child("year").getValue().toString();
+
             }
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
 
             }
         });
-        //Toast.makeText(getContext(), "I was here", Toast.LENGTH_SHORT).show();
         adapter1.notifyDataSetChanged();
     }
 

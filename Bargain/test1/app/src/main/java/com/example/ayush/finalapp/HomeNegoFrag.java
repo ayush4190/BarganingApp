@@ -63,33 +63,23 @@ public class HomeNegoFrag extends Fragment {
     ratingBar=(RatingBar) view.findViewById(R.id.ratingBar_nego);
     recyclerView = (RecyclerView) view.findViewById(R.id.nego_home_recyclerView);
     adapter = new PrevPaymentAdapterNego(transactionsDetailsList,getActivity ());
-
-
-    //###########
-        circleImageView = (CircleImageView)view.findViewById (R.id.sportsImage_negoani) ;
-
-        //###########
-
+    circleImageView = (CircleImageView)view.findViewById (R.id.sportsImage_negoani) ;
     adapter.clear();
     recyclerView.setAdapter(adapter);
     firebaseUser=FirebaseAuth.getInstance().getCurrentUser();
     databaseReference= FirebaseDatabase.getInstance().getReference().child("Negotiator").child(firebaseUser.getUid());
- //####
         fetch ();
-        //####
     fetch_data();
     fetch_meet();
-
-
         recyclerView.setAdapter(adapter);
         RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getActivity());//
         recyclerView.setLayoutManager(mLayoutManager);//n
-
         adapter.notifyDataSetChanged();
    }
 
-    public void fetch_data(){
 
+
+    public void fetch_data(){
         databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
@@ -115,22 +105,11 @@ public class HomeNegoFrag extends Fragment {
 
             }
         });
-
-
     }
+
+
     public void fetch_meet(){
-//        FirebaseDatabase.getInstance().getReference().child("Transactions").child(firebaseUser.getUid()).
-//        if(dataSnapshot.exists())
-//        {
-//            transactionsDetails=dataSnapshot.getValue(TransactionsDetails.class);
-//            adapter.addItem(transactionsDetails);
-//            adapter.notifyDataSetChanged();
-//            recyclerView.setAdapter(adapter);
-//            //   }
-//        }
-
         Query q=FirebaseDatabase.getInstance().getReference().child("Transactions").child(firebaseUser.getUid());
-
         q.addChildEventListener(new ChildEventListener() {
             @Override
             public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
@@ -142,7 +121,6 @@ public class HomeNegoFrag extends Fragment {
                         adapter.notifyDataSetChanged();
                         recyclerView.setAdapter(adapter);
                     }
-                     //   }
                 }
             }
 
@@ -167,42 +145,15 @@ public class HomeNegoFrag extends Fragment {
 
             }
         });
-
-//        q.addValueEventListener(new ValueEventListener() {
-//            @Override
-//            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-//                if(dataSnapshot.exists())
-//                {
-//                    transactionsDetails=dataSnapshot.getValue(TransactionsDetails.class);
-//                    adapter.addItem(transactionsDetails);
-//                    adapter.notifyDataSetChanged();
-//                    recyclerView.setAdapter(adapter);
-//                    //   }
-//                }
-//
-//            }
-//
-//            @Override
-//            public void onCancelled(@NonNull DatabaseError databaseError) {
-//
-//            }
-//        });
-//
-
-
-
-
     }
+
+
     public void fetch()
     {
         try {
-
             final StorageReference photo_storage = FirebaseStorage.getInstance ().getReference ().child ("Negotiator_profile_image");
-
             String location = firebaseUser.getUid () + "." + "jpg";
             final String location2 = firebaseUser.getUid () + "."+"null";
-
-
             Log.v("manas",photo_storage.getPath().toString());
             photo_storage.child (location).getDownloadUrl ().addOnSuccessListener (new OnSuccessListener<Uri> () {
                 @Override
@@ -213,7 +164,6 @@ public class HomeNegoFrag extends Fragment {
             }).addOnFailureListener (new OnFailureListener () {
                 @Override
                 public void onFailure(@NonNull Exception exception) {
-                    // Handle any errors
                     photo_storage.child (location2).getDownloadUrl ().addOnSuccessListener (new OnSuccessListener <Uri> () {
                         @Override
                         public void onSuccess(Uri uri) {
@@ -224,15 +174,12 @@ public class HomeNegoFrag extends Fragment {
                     }).addOnFailureListener (new OnFailureListener () {
                         @Override
                         public void onFailure(@NonNull Exception e) {
-                            //Toast.makeText (ShopperHomepage.this,e.getMessage (),Toast.LENGTH_LONG).show ();
                         }
                     });
-                    //Toast.makeText (ShopperHomepage.this, exception.getMessage (), Toast.LENGTH_LONG).show ();
                 }
             });
         }catch (NullPointerException e)
         {
-
         }
     }
 

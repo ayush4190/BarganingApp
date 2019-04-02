@@ -48,27 +48,21 @@ import java.net.URL;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
-public class Negotiator_dash extends AppCompatActivity
-        implements NavigationView.OnNavigationItemSelectedListener {
-    Toolbar toolbar;
-
+public class Negotiator_dash extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
     private DatabaseReference fdb;
     FirebaseAuth fba;
     static String nego_name;
     FirebaseUser muser;
     FirebaseUser user;
-    ImageView mwallet, nfaq, mcommunity, mhome;
+    ImageView mwallet, mcommunity, mhome;
     Fragment fragment = null;
-    FirebaseStorage firebaseStorage;
     StorageReference photo_storage;
     AlertDialog.Builder builder2;
     public static Context contextOfApplication;
     CircleImageView i1;
-SessionManagment sessionManagment;
+    SessionManagment sessionManagment;
     // for user name
     FirebaseDatabase firebaseDatabase;
-
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -79,28 +73,14 @@ SessionManagment sessionManagment;
         setSupportActionBar(toolbar);
         fba = FirebaseAuth.getInstance ();
 
-        // ferencing storage refernce
-
-       // photo_storage = FirebaseStorage.getInstance ().getReference ().child ("Negotiator_profile_image");
-
         OneSignal.startInit(this)
                 .inFocusDisplaying(OneSignal.OSInFocusDisplayOption.Notification)
                 .unsubscribeWhenNotificationsAreDisabled(true)
                 .init();
-        //
         OneSignal.sendTag("USER_ID",FirebaseAuth.getInstance().getCurrentUser().getUid());
         FragmentTransaction fragmentTransaction = getSupportFragmentManager ().beginTransaction ();
         fragmentTransaction.replace (R.id.content_frame, new HomeNegoFrag(), "Homefrag");
         fragmentTransaction.commit ();
-
-      /*  FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-            }
-        });*/
         muser=fba.getCurrentUser ();
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
@@ -111,15 +91,10 @@ SessionManagment sessionManagment;
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
-
         mwallet = (ImageView) findViewById (R.id.wallet);//creating the buttons
-//        nfaq = (ImageView) findViewById(R.id.faq); //faqfragbutton
         mcommunity = (ImageView) findViewById (R.id.communityimage);
         mhome=(ImageView)findViewById(R.id.nego_home);
 
-
-
-        // calling wallet page using fragments
         mwallet.setOnClickListener (new View.OnClickListener () {
             @Override
             public void onClick(View v) {
@@ -130,19 +105,6 @@ SessionManagment sessionManagment;
 
             }
         });
-
-        // calling community page using fragments
-//        mcommunity.setOnClickListener (new View.OnClickListener () {
-//            @Override
-//            public void onClick(View v) {
-//                FragmentTransaction fragmentTransaction = getSupportFragmentManager ().beginTransaction ();
-//                fragmentTransaction.replace (R.id.content_frame, new CommunityFragment ());
-//                fragmentTransaction.addToBackStack ("community");
-//                fragmentTransaction.commit ();
-//
-//            }
-//        });
-
         mhome.setOnClickListener ( new View.OnClickListener () {
             @Override
             public void onClick(View v) {
@@ -153,23 +115,9 @@ SessionManagment sessionManagment;
             }
         });
 
-//        // calling wallet page using fragments
-//        nfaq.setOnClickListener (new View.OnClickListener () {
-//            @Override
-//            public void onClick(View v) {
-//                FragmentTransaction fragmentTransaction = getSupportFragmentManager ().beginTransaction ();
-//                fragmentTransaction.replace(R.id.content_frame,new FAQ ());
-//                fragmentTransaction.addToBackStack("faq");
-//                fragmentTransaction.commit ();
-//
-//            }
-//        });
-
-        //// added new content here
         final TextView textView = (TextView) findViewById (R.id.shopper_name);
         fdb = FirebaseDatabase.getInstance ().getReference ();
         DatabaseReference shopper = fdb.child ("Negotiator").child (muser.getUid ());
-//########################
         try {
             shopper.addValueEventListener (new ValueEventListener () {
                 @Override
@@ -188,44 +136,7 @@ SessionManagment sessionManagment;
 
                         i1 = (CircleImageView) headerView.findViewById (R.id.image_nego);
                         fetch ();
-
-                 //   photo_storage = FirebaseStorage.getInstance ().getReference ().child ("Negotiator_profile_image");
-//                    try {
-//
-//                        final String location = muser.getUid () + "." + "jpg";
-//                        Log.v ("userid", muser.getUid ());
-//                        photo_storage.child (location).getDownloadUrl ().addOnSuccessListener (new OnSuccessListener <Uri> () {
-//                            @Override
-//                            public void onSuccess(Uri uri) {
-//                                String imageURL = uri.toString ();
-//                                Glide.with (getApplicationContext ()).load (imageURL).into (i1);
-//                                Log.v ("its done", imageURL);
-//                            }
-//                        }).addOnFailureListener (new OnFailureListener () {
-//                            @Override
-//                            public void onFailure(@NonNull Exception exception) {
-//                                String location2 = muser.getUid () + "." + "null";
-//                                photo_storage.child (location2).getDownloadUrl ().addOnSuccessListener (new OnSuccessListener <Uri> () {
-//                                    @Override
-//                                    public void onSuccess(Uri uri) {
-//                                        String imageurl2 = uri.toString ();
-//                                        Glide.with (getApplicationContext ()).load (imageurl2).into (i1);
-//                                    }
-//                                }).addOnFailureListener (new OnFailureListener () {
-//                                    @Override
-//                                    public void onFailure(@NonNull Exception e) {
-//                                        //Toast.makeText (Negotiator_dash.this,e.getMessage (),Toast.LENGTH_LONG).show ();
-//                                    }
-//                                });
-//
-//                                // Handle any errors
-//                                // Toast.makeText (Negotiator_dash.this, exception.getMessage (), Toast.LENGTH_LONG).show ();
-//                            }
-//                        });
-//
-//                    }catch (NullPointerException e)
-//                    {}
-                    } catch (NullPointerException e) {
+         } catch (NullPointerException e) {
                     }
                 }
 
@@ -268,40 +179,25 @@ SessionManagment sessionManagment;
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_chatbox) {//R.id.action_setting
-
-            //open chat fragment
-//            Intent intent = new Intent (ShopperHomepage.this,ChatMain.class);
-//            startActivity (intent);
             FragmentTransaction fragmentTransaction = getSupportFragmentManager ().beginTransaction ();
             fragmentTransaction.replace (R.id.content_frame, new ChatFragmentNego ());
             fragmentTransaction.addToBackStack ("chatfrag");
             fragmentTransaction.commit ();
         }
-
-
         return super.onOptionsItemSelected (item);
     }
 
     @SuppressWarnings("StatementWithEmptyBody")
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
-        // Handle navigation view item clicks here.
-        //  TextView fullname=(TextView)findViewById(R.id.nav_drawer_username);
-        //fullname.setText(user.getDisplayName());
-        // user.getEmail();
-        //  user.getDisplayName();
-        // Fragment fragment = null;
 
         int id = item.getItemId ();
 
         if (id == R.id.nav_logout) {
-
             // Handle the camera action
             sessionManagment = new SessionManagment (getApplicationContext ());
-
             fba.signOut ();
             sessionManagment.logoutUser ();
-
             fba.signOut ();
             finish ();
             startActivity (new Intent (Negotiator_dash.this, WelcomePage.class));
@@ -310,33 +206,23 @@ SessionManagment sessionManagment;
           else if (id == R.id.nav_profile) {
             Intent intent = new Intent (Negotiator_dash.this, NegotiatorProfileActivity.class);
             startActivity (intent);
-
         }
-
         else if (id == R.id.nav_settings) {
             Intent intent = new Intent (Negotiator_dash.this, SettingsActivity.class);
             startActivity (intent);
-
         }
             else if (id == R.id.nav_faq) {
-
             FragmentTransaction fragmentTransaction = getSupportFragmentManager ().beginTransaction ();
             fragmentTransaction.replace (R.id.content_frame, new FAQ ());
             fragmentTransaction.addToBackStack ("faq");
             fragmentTransaction.commit ();
-
         } else if (id == R.id.nav_cs) {
             FragmentTransaction fragmentTransaction = getSupportFragmentManager ().beginTransaction ();
             fragmentTransaction.replace (R.id.content_frame, new CustomerServiceFrag ());
             fragmentTransaction.addToBackStack ("faq");
             fragmentTransaction.commit ();
-
-
         }
-        /////////
         else if (id == R.id.nav_rate) {
-
-
             builder2 = new AlertDialog.Builder (Negotiator_dash.this);
             builder2.setTitle("Rate App");
             builder2.setMessage("Show us some love!!");
@@ -348,21 +234,17 @@ SessionManagment sessionManagment;
                     LinearLayout.LayoutParams.WRAP_CONTENT,
                     LinearLayout.LayoutParams.WRAP_CONTENT
             );
-
             rating.setLayoutParams(lp);
             rating.setNumStars(5);
             rating.setStepSize(1);
             linearLayout.addView(rating);
             linearLayout.setGravity(Gravity.CENTER);
-
-//            rating.setNumStars(5);
             builder2.setIcon(android.R.drawable.star_on);
             builder2.setView(linearLayout);
 
             builder2.setPositiveButton("Submit", new DialogInterface.OnClickListener() {
                 public void onClick(DialogInterface dialog, int which) {
                     int rate_val =rating.getProgress();
-                    Log.v("RAAAAA",String.valueOf(rating.getProgress()));
                     if (rate_val>=4)
                         Toast.makeText(Negotiator_dash.this,"Thank you for your Support!",Toast.LENGTH_SHORT).show();
                     else
@@ -437,10 +319,8 @@ SessionManagment sessionManagment;
                     }).addOnFailureListener (new OnFailureListener () {
                         @Override
                         public void onFailure(@NonNull Exception e) {
-                            //Toast.makeText (ShopperHomepage.this,e.getMessage (),Toast.LENGTH_LONG).show ();
                         }
                     });
-                    //Toast.makeText (ShopperHomepage.this, exception.getMessage (), Toast.LENGTH_LONG).show ();
                 }
             });
         }catch (NullPointerException e)

@@ -40,23 +40,15 @@ public class finalpage extends AppCompatActivity implements Serializable {
     NegotiatorDetails details;
     TransactionsDetails transactionsDetails;
     String nego_user;
-    boolean check, check2;
-    String nego_transaction_id;
-    String shop_transaction_id;
     String shop_user;
     TextView negonametxt;
-    EditText editText;
     TextView amountpaytxt;
-    double temp_amount;
     String message_sent;
-    Button ok;
     Button procced;
     String message;
     AlertDialog.Builder builder2;
     double existing_amount;
     MeetDetails meetDetails;
-    String amount_pay;
-    double finaly;
     TextView usernametxt;
     DatabaseReference mroot ;
 
@@ -100,72 +92,37 @@ public class finalpage extends AppCompatActivity implements Serializable {
                 }
             }
         });
-
-
     }
 
 
-    //########################### function to complete payment
     private int proceed_payment(final double amount_pay) {
-
-
         try {
             details = new NegotiatorDetails ();
             ShopperDetails shopperDetails = (ShopperDetails)getIntent ().getSerializableExtra ("shopper_details");
             final double[] temp = {Double.parseDouble (shopperDetails.getAmount ()) - amount_pay};
             String am = String.valueOf (temp[0]);
-
             mroot = FirebaseDatabase.getInstance ().getReference ().child ("Shopper").child (firebaseUser.getUid ()).child ("amount");
             mroot.setValue (am);
             Log.v ("final_amount",am);
-
-
-
-final DatabaseReference mroot = FirebaseDatabase.getInstance ().getReference ().child ("Negotiator").child (nego_user).child ("amount");
+            final DatabaseReference mroot = FirebaseDatabase.getInstance ().getReference ().child ("Negotiator").child (nego_user).child ("amount");
             databaseReference = FirebaseDatabase.getInstance ().getReference ().child ("Negotiator").child (nego_user);
-          databaseReference.addListenerForSingleValueEvent (new ValueEventListener () {
+            databaseReference.addListenerForSingleValueEvent (new ValueEventListener () {
               @Override
               public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                  // details = new NegotiatorDetails ();
                   details = dataSnapshot.getValue (NegotiatorDetails.class);
                   existing_amount = Double.parseDouble (details.getAmount ());
                   existing_amount = existing_amount + amount_pay;
-                  Log.v("amounttest", String.valueOf (existing_amount));
                   mroot.setValue (String.valueOf (existing_amount));
               }
 
               @Override
               public void onCancelled(@NonNull DatabaseError databaseError) {
-
               }
           });
 
-//            databaseReference.addValueEventListener (new ValueEventListener () {
-//                @Override
-//                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-//
-//
-//        // update in negotiators wallet
-//
-
-
-//
-//
-//                }
-//
-//                @Override
-//                public void onCancelled(@NonNull DatabaseError databaseError) {
-//
-//                }
-//            });
-            Log.v ("hello", String.valueOf (existing_amount));
             Toast.makeText (finalpage.this, "Payment completed", Toast.LENGTH_LONG).show ();
             //go to transactions in both and using meetdetails nego transaction id and shopper transaction id update transactions for both
             //also need the amount of transaction here
-            Log.v ("intel", nego_user);
-
-
-/////////////////////////////////////////////////////////////////////
             DatabaseReference p=FirebaseDatabase.getInstance().getReference().child("Shopper").child(ShopperHomepage.shopper_uid).child("meet").child(nego_user);
             p.addListenerForSingleValueEvent(new ValueEventListener() {
                 @Override
@@ -178,119 +135,24 @@ final DatabaseReference mroot = FirebaseDatabase.getInstance ().getReference ().
                         FirebaseDatabase.getInstance().getReference().child("Transactions").child(nego_user).child(meetDetails.getTransaction_id_nego()).setValue(transactionsDetails);
                         message_sent=transactionsDetails.debitedFromName+" paid you ₹ "+dd+" .";
                         sendNotification();
-
                     }
                 }
-
                 @Override
                 public void onCancelled(@NonNull DatabaseError databaseError) {
 
                 }
             });
-////////////////////////////////////////
-//
-//            DatabaseReference mdatabaseReference = FirebaseDatabase.getInstance ().getReference ();
-//            mdatabaseReference.child ("Transactions").child (nego_user);
-//
-//
-//
-//            Query query2 = mdatabaseReference.child ("Transactions").child (nego_user);
-//            Log.v ("ASUS", query2.toString ());
-//            query2.addChildEventListener (new ChildEventListener () {
-//                @Override
-//                public void onChildAdded(@NonNull final DataSnapshot dataSnapshot, @Nullable String s) {
-//                    if (dataSnapshot.exists () && check) {
-//                        nego_transaction_id = dataSnapshot.getKey ();
-//                        Log.v ("manas", nego_transaction_id);
-//                        transactionsDetails = dataSnapshot.getValue (TransactionsDetails.class);
-//                        if (transactionsDetails.getStatus ().compareToIgnoreCase ("completed") != 0) {
-//                            Log.v ("manas", transactionsDetails.getCreditedToName ());
-//                            transactionsDetails.setStatus ("Completed");
-//                            transactionsDetails.setAmount (String.valueOf (message));
-//                            FirebaseDatabase.getInstance ().getReference ().child ("Transactions").child (nego_user).child (nego_transaction_id).setValue (transactionsDetails);
-//                            check = false;
-//                        }
-//                    }
-//                }
-//
-//                @Override
-//                public void onChildChanged(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
-//
-//                }
-//
-//                @Override
-//                public void onChildRemoved(@NonNull DataSnapshot dataSnapshot) {
-//
-//                }
-//
-//                @Override
-//                public void onChildMoved(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
-//
-//                }
-//
-//                @Override
-//                public void onCancelled(@NonNull DatabaseError databaseError) {
-//
-//                }
-//            });
-//            Query query = FirebaseDatabase.getInstance ().getReference ().child ("Transactions").child (shop_user);
-//            query.addChildEventListener (new ChildEventListener () {
-//                @Override
-//                public void onChildAdded(@NonNull final DataSnapshot dataSnapshot, @Nullable String s) {
-//                    if (dataSnapshot.exists () && check2) {
-//                        shop_transaction_id = dataSnapshot.getKey ();
-//                        Log.v ("manas", shop_transaction_id);
-//
-//
-//                        transactionsDetails = dataSnapshot.getValue (TransactionsDetails.class);
-//                        if (transactionsDetails.getStatus ().compareToIgnoreCase ("completed") != 0) {
-//                            Log.v ("manas", transactionsDetails.getDebitedFromName ());
-//                            transactionsDetails.setStatus ("Completed");
-//                            transactionsDetails.setAmount (String.valueOf (message));
-//                            FirebaseDatabase.getInstance ().getReference ().child ("Transactions").child (shop_user).child (shop_transaction_id).setValue (transactionsDetails);
-//                            check2 = false;
-//                        }
-//
-//                    }
-//                }
-//
-//                @Override
-//                public void onChildChanged(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
-//
-//                }
-//
-//                @Override
-//                public void onChildRemoved(@NonNull DataSnapshot dataSnapshot) {
-//
-//                }
-//
-//                @Override
-//                public void onChildMoved(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
-//
-//                }
-//
-//                @Override
-//                public void onCancelled(@NonNull DatabaseError databaseError) {
-//
-//                }
-//            });
-/////////////////////////////
-           return 1;
+            return 1;
         } catch (NumberFormatException e) {
             return 0;
-
         }
-
     }
 
 
 
-
+    //onesignal notification
     public void sendNotification()
     {
-
-//        Toast.makeText(this, "Current Recipients is : user1@gmail.com ( Just For Demo )", Toast.LENGTH_SHORT).show();
-
         AsyncTask.execute(new Runnable() {
             @Override
             public void run() {
@@ -300,13 +162,6 @@ final DatabaseReference mroot = FirebaseDatabase.getInstance ().getReference ().
                             .permitAll().build();
                     StrictMode.setThreadPolicy(policy);
                     String send_email;
-
-                    //This is a Simple Logic to Send Notification different Device Programmatically....
-//                    if (FirebaseAuth.getInstance().getCurrentUser().getUid().equals()) {
-//                        send_email = "user2@gmail.com";
-//                    } else {
-//                        send_email = "user1@gmail.com";
-//                    }
                     send_email=nego_user;
 
                     try {
@@ -326,12 +181,9 @@ final DatabaseReference mroot = FirebaseDatabase.getInstance ().getReference ().
                                 + "\"app_id\": \"7b482b83-38de-4653-ba78-c04403c3b4c9\","
 
                                 + "\"filters\": [{\"field\": \"tag\", \"key\": \"USER_ID\", \"relation\": \"=\", \"value\": \"" + send_email + "\"}],"
-//                                + "\"headings\": {\"en\":\""+ShopperHomepage.shop_name+"\"}"
                                 + "\"data\": {\"foo\": \"bar\"},"
                                 + "\"contents\": {\"en\": \""+message_sent+"\"}"
                                 + "}";
-
-
                         System.out.println("strJsonBody:\n" + strJsonBody);
 
                         byte[] sendBytes = strJsonBody.getBytes("UTF-8");
@@ -364,9 +216,3 @@ final DatabaseReference mroot = FirebaseDatabase.getInstance ().getReference ().
     }
 
 }
-
-
-
-//###############################
-
-

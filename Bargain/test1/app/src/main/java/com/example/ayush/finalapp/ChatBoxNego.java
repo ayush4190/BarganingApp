@@ -66,56 +66,46 @@ import static com.example.ayush.finalapp.ChatBox.chats;
 import static com.example.ayush.finalapp.NegotiatorProfileAdapter.n;
 
 public class ChatBoxNego extends AppCompatActivity {
-    private DatePickerDialog.OnDateSetListener mDateSetListener;
-    private TextView mDisplayDate;
     private FirebaseAuth firebaseAuth;
     private static final String channelId ="com.example.ayush.finalapp";
-String message_sent;
-     DatabaseReference databaseReference1;
-    double amount_int;
-String name;
+    private String message_sent;
+    DatabaseReference databaseReference1;
     static Context mContext;
     NotificationCompat.Builder builder;
     private FirebaseUser firebaseUser;
     DatabaseReference m1;
     private DatabaseReference databaseReference;
-    private DatabaseReference mdatabaseReference;
-    EditText place;
-    String nego_id;
-    String shop_id;
-    EditText time;
-    Toolbar toolbar;
+    private String nego_id;
+    private String shop_id;
     RecyclerView recyclerView;
-    EditText messagebox;
-    Button displayMeet;
-    String nameshop;
-    ImageButton sendButton;
-    int i,alpha;
+    private EditText messagebox;
+    private String nameshop;
+    private ImageButton sendButton;
+    private int i,alpha;
     TransactionsDetails transactionsDetails;
     MeetDetails meetDetails;
-    TextView placeText,dateText,timeText,noMeet,already_accepted;
-    TextView placeText1,dateText1,timeText1;
+    private TextView placeText,dateText,timeText,noMeet,already_accepted;
+    private TextView placeText1,dateText1,timeText1;
     AlertDialog.Builder builder2;
-
     final static int Left = 1;
     final static int Right = 2;
-
-    String User;
+    private String User;
     String[] Reciever;
-    String meet_date;
     static String empty="does not exist";
     static String ChatRoom = "manas";
     ChatBoxNegoAdapter adapter;
     static List<Message> chats = new ArrayList<>();
 
 
+    //Oncreate method
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_chat_box_nego);
+
+
         InitializeFields();
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-//        displayMeet=findViewById(R.id.Button_display_meet);
         firebaseAuth=FirebaseAuth.getInstance();
         mContext=getApplicationContext ();
         firebaseUser = firebaseAuth.getCurrentUser ();
@@ -128,26 +118,12 @@ String name;
                 .unsubscribeWhenNotificationsAreDisabled(true)
                 .init();
 
-
         Reciever = intent.getStringArrayExtra("Reciever");
-        int Num = intent.getIntExtra("Number",0);
 
-
-//        OneSignal.startInit(this)
-//                .inFocusDisplaying(OneSignal.OSInFocusDisplayOption.None)
-//                .unsubscribeWhenNotificationsAreDisabled(true)
-//                .init();
-//
-//        setSupportActionBar(toolbar);
-//        getSupportActionBar().setTitle(Reciever[0]);
-//        createNotificationChannel();
         setTitle(Reciever[0]);
         LinearLayoutManager layoutManager = new LinearLayoutManager(this);
         layoutManager.setStackFromEnd(true);
         recyclerView.setLayoutManager(layoutManager);
-
-        //adapter = new ChatBoxAdapter(chats,getApplicationContext(),User,Reciever[1]);
-        //recyclerView.setAdapter(adapter);
 
         if(User.compareTo(Reciever[1])>0)
             ChatRoom = User + Reciever[1];
@@ -155,46 +131,31 @@ String name;
             ChatRoom = Reciever[1] + User;
 
         ReadMessages();
-
     }
+
 
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater ().inflate (R.menu.chat_meet_accept, menu);
         return true;
     }
+
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
         if (item.getItemId() == android.R.id.home) {
             onBackPressed();
-
             OneSignal.startInit(this)
                     .inFocusDisplaying(OneSignal.OSInFocusDisplayOption.Notification)
                     .unsubscribeWhenNotificationsAreDisabled(true)
                     .init();
         }
-
-
-        //noinspection SimplifiableIfStatement
         if (id == R.id.action_accept) {
-            /////////
-            //check here
-            //if a meet proposal exists then open dialog box with details else show a dialog saying that no meet exists
-
-
-
-            //end here
             builder2 = new AlertDialog.Builder (ChatBoxNego.this);
             LayoutInflater inflater = ChatBoxNego.this.getLayoutInflater ();
             final View v1= inflater.inflate(R.layout.meet_nego_frag,null);
             builder2.setView (v1);
-
             dateText=v1.findViewById(R.id.meet_date_edit);
             placeText=v1.findViewById(R.id.meet_place_edit);
             timeText=v1.findViewById(R.id.meet_time_edit);
@@ -208,18 +169,11 @@ String name;
             timeText.setText("empty");
             i=0;
             alpha=0;
-
-//                                            Log.v("manas",mdatabaseReference.get);
-
- m1=FirebaseDatabase.getInstance().getReference().child("Negotiator").child(firebaseUser.getUid()).child("meet");
-            ////
+            m1=FirebaseDatabase.getInstance().getReference().child("Negotiator").child(firebaseUser.getUid()).child("meet");
             ValueEventListener eventListener = new ValueEventListener() {
                 @Override
                 public void onDataChange(DataSnapshot dataSnapshot) {
                     if(!dataSnapshot.exists()) {
-                                //does not exists
-                                //so show dialog that it does not exist
-                        Log.v("asus inside notexist","yo");
                         dateText.setVisibility(v1.GONE);
                         timeText.setVisibility(v1.GONE);
                         placeText.setVisibility(v1.GONE);
@@ -232,19 +186,11 @@ String name;
                         alert.show ();
 
                     }else {
-
-                     //exists
-                                //here check if accepted or not
                         meetDetails=dataSnapshot.getValue(MeetDetails.class);
-                                    ////////////
                         Negotiator_dash.nego_name=meetDetails.negoname;
-
-                        Log.v("asus inside exist","yo");
 
                         //if already accepted show dialog already accepted
                         if(meetDetails.isAccepted){
-
-                            Log.v("asus inside isaccepted","yo");
                             dateText.setVisibility(v1.GONE);
                             timeText.setVisibility(v1.GONE);
                             placeText.setVisibility(v1.GONE);
@@ -256,81 +202,41 @@ String name;
                             AlertDialog alert = builder2.create ();
                             alert.show ();
                         }
-
-
-                        else{
                         //else display all details and give two options accept or reject in dialog and show it
-                            Log.v("asus inside !isaccepted","yo");
-
+                        else{
                             placeText.setText(meetDetails.getPlace());
                             timeText.setText(meetDetails.getTime());
                             dateText.setText(meetDetails.getDate());
 
-
                             //now two options to accept or reject
-
                             //reject
                             builder2.setNegativeButton("Reject", new DialogInterface.OnClickListener() {
                                 @Override
                                 public void onClick(DialogInterface dialog, int which) {
                                     message_sent="Sorry, your service request has been denied by "+Negotiator_dash.nego_name+". For further grievances and refund related queries, please contact us at refund@bargainers.com";
                                     messagebox.setText(message_sent);
-                                sendButton.performClick();
-//                                    sendNotification();
+                                    sendButton.performClick();
                                     //refund issues
                                     databaseReference1 = FirebaseDatabase.getInstance().getReference();
                                     nego_id=firebaseAuth.getCurrentUser().getUid();
-
                                     Query d=databaseReference1.child("Negotiator").child(nego_id);
-                                    Log.v("ani",d.getPath().toString());
                                     d.addListenerForSingleValueEvent(new ValueEventListener() {
                                         @Override
                                         public void onDataChange(@NonNull DataSnapshot dataSnapshot1) {
-//                                            String amount="";
-//                                            amount =dataSnapshot1.child("amount").getValue(String.class);
-//                              Log.v("amount",amount);
-
-//                                            amount_int =Double.parseDouble (amount);
-//                                            int deductable_amount = new Random().nextInt((50 - 20) + 1) + 20;
-//                                            if (amount_int>=50.0){
-//                                                amount_int-=deductable_amount;
-//                                                amount= String.valueOf(amount_int);
-//                                            }
-//                                            FirebaseDatabase.getInstance().getReference().child("Negotiator").child(nego_id).child("amount").setValue(amount);
-                                            nameshop=Reciever[0];
-
-//                                            builder = new NotificationCompat.Builder(ChatBoxNego.this, channelId)
-//                                                    .setContentTitle("Amount Deducted")
-//                                                    .setSmallIcon(R.drawable.appicon1)
-//                                                    .setContentText("Rs." + deductable_amount +" deducted for rejecting service of "+Reciever[0])
-//                                                    .setPriority(NotificationCompat.PRIORITY_DEFAULT).setLargeIcon(BitmapFactory.decodeResource(getResources(),
-//                                                            R.drawable.appicon1));
-//                                            NotificationManagerCompat notificationManager = NotificationManagerCompat.from(ChatBoxNego.this);
-//
-//// notificationId is a unique int for each notification that you must define
-//                                            notificationManager.notify(11, builder.build());
-
+                                        nameshop=Reciever[0];
                                         }
-
                                         @Override
                                         public void onCancelled(@NonNull DatabaseError databaseError) {
 
                                         }
                                     });
-                                    ////////////////
 
 
                                     //now after all this remove meet from both nego and shopper meet field as it is deleted
-                                    ////
-
                                     m1.child(Reciever[1]).removeValue();
-//                                    m1=FirebaseDatabase.getInstance().getReference().child("Negotiator").child(firebaseUser.getUid()).child("meet");
-
                                     FirebaseDatabase.getInstance().getReference().child("Shopper").child(Reciever[1]).child("meet").child(firebaseUser.getUid()).removeValue();
-                                    ////
                                 }
                             });
-
                             //end of reject button
 
                             //accept
@@ -339,44 +245,30 @@ String name;
                                 public void onClick(DialogInterface dialog, int which) {
                                     meetDetails.isAccepted=true;
                                     //set transaction id also
-
-
                                     FirebaseDatabase.getInstance().getReference().child("Shopper").child(Reciever[1]).child("meet").child(firebaseUser.getUid()).setValue(meetDetails);
                                     message_sent=Negotiator_dash.nego_name+" has accepted your request, Happy Bargaining:)";
-//                                    sendNotification();
                                     messagebox.setText(message_sent);
                                     sendButton.performClick();
                                     nego_id=firebaseAuth.getCurrentUser().getUid();
                                     shop_id=meetDetails.getShopper();
-
-                                    //
                                     FirebaseDatabase.getInstance().getReference().child("Negotiator").child(nego_id).child("acceptno").addListenerForSingleValueEvent(new ValueEventListener() {
                                         @Override
                                         public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                                             if(dataSnapshot.exists()){
-
                                                 String s=dataSnapshot.getValue(String.class);
                                                 s=String.valueOf(Integer.parseInt(s)+1);
                                                 FirebaseDatabase.getInstance().getReference().child("Negotiator").child(nego_id).child("acceptno").setValue(s);
                                             }
-
                                         }
-
                                         @Override
                                         public void onCancelled(@NonNull DatabaseError databaseError) {
 
                                         }
                                     });
-
-
-                                    //
                                     transactionsDetails=new TransactionsDetails(shop_id,nego_id,meetDetails.getNegoname(),meetDetails.getDate(),"pending","0.0",Reciever[0]);
-
                                     DatabaseReference m2=FirebaseDatabase.getInstance().getReference().child("Transactions").child(shop_id).push();
                                     m2.setValue(transactionsDetails);
                                     meetDetails.transaction_id_shopper=m2.getKey();
-//                                        amount_payable.MostRecentIdShopper=m1.getKey ();
-//                                        Log.v ("manas",amount_payable.MostRecentIdShopper);
                                     m2=FirebaseDatabase.getInstance().getReference().child("Transactions").child(nego_id).push();
                                     m2.setValue (transactionsDetails);
                                     meetDetails.transaction_id_nego=m2.getKey();
@@ -389,30 +281,17 @@ String name;
                                             .setPriority(NotificationCompat.PRIORITY_DEFAULT).setLargeIcon(BitmapFactory.decodeResource(getResources(),
                                                     R.drawable.appicon1));
                                     NotificationManagerCompat notificationManager = NotificationManagerCompat.from(ChatBoxNego.this);
-
-// notificationId is a unique int for each notification that you must define
                                     notificationManager.notify(12, builder.build());
-
-
                                 }
                             });
-
                             //end of accept button
 
                             //show dialog
                             builder2.setTitle("Accept or decline the meet");
-
                             AlertDialog alert = builder2.create ();
                             alert.show ();
                         }//finish of if condition of isaccepted!
-
-////////////////
-
-
-
-                        ///////////////
                     }
-
                 }
 
                 @Override
@@ -421,71 +300,54 @@ String name;
                 }
             };
             m1.child(Reciever[1]).addListenerForSingleValueEvent(eventListener);
-
-            ///
-            ////////
-
-
         }
         return true;
     }
+
+    //Read messages function
     private void ReadMessages() {
-
-
         DatabaseReference reference = FirebaseDatabase.getInstance().getReference().child("Chats");
         reference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-
                 chats.clear();
                 if(dataSnapshot.child(ChatRoom).exists())
                 {
-                    //Toast.makeText(ChatActivity.this, "here", Toast.LENGTH_SHORT).show();
                     for(DataSnapshot snapshot : dataSnapshot.child(ChatRoom).getChildren()) {
-
                         Message message = snapshot.getValue(Message.class);
                         while (message.message == null) ;
-                        Log.v("datap",message.message);
-
-                        // Toast.makeText(ChatActivity.this, "AfterWhile", Toast.LENGTH_SHORT).show();
-                        chats.add(message);
-                        //   Toast.makeText(ChatActivity.this, chats.get(0).message, Toast.LENGTH_SHORT).show();
-                    }
+                         chats.add(message);
+                     }
                     adapter = new ChatBoxNegoAdapter(chats,getApplicationContext(),User,Reciever[1],ChatBoxNego.this);
                     Log.v("datap",adapter.receiver);
                     recyclerView.setAdapter(adapter);
-
-
                 }
-                //else
-                //   Toast.makeText(ChatActivity.this, "here1", Toast.LENGTH_SHORT).show();
             }
-
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
                 Log.d("databaseerror",databaseError.getMessage());
-
             }
         });
-
     }
 
+
+    //initialization function
     private void InitializeFields() {
         recyclerView = findViewById(R.id.ChatAct_Recycler_nego);
-//        toolbar = findViewById(R.id.ChatAct_Toolbar);
         messagebox = findViewById(R.id.ChatAct_message);
         sendButton = findViewById(R.id.ChatAct_Send);
         ChatRoom =null;
     }
 
+
     @Override
     public void onBackPressed() {
         super.onBackPressed();
-//        ChatFragmentNego.Opened=0;
     }
 
-    public void SendMessage(View view) {
 
+    //Send messages function
+    public void SendMessage(View view) {
         String message = messagebox.getText().toString();
         message= Pattern.compile("^\n*",Pattern.DOTALL).matcher(message).replaceFirst("");
         if(!TextUtils.isEmpty(message))
@@ -499,14 +361,13 @@ String name;
                 @Override
                 public void onSuccess(Void aVoid) {
                     messagebox.setText(null);
-//                    Log.v("nego_name",Negotiator_dash.nego_name);
                 }
             });
-
         }
-
-
     }
+
+
+    //Delete messages
     void DeleteMessage(int i)
     {
         DatabaseReference reference = FirebaseDatabase.getInstance().getReference().child("Chats/"+ChatRoom);
@@ -514,13 +375,12 @@ String name;
         chats.remove(i);
         adapter = new ChatBoxNegoAdapter(chats,getApplicationContext(),User,Reciever[1],ChatBoxNego.this);
         recyclerView.setAdapter(adapter);
-
     }
+
+
+    //Send notification by one signal notification
     public void sendNotification()
     {
-
-//        Toast.makeText(this, "Current Recipients is : user1@gmail.com ( Just For Demo )", Toast.LENGTH_SHORT).show();
-
         AsyncTask.execute(new Runnable() {
             @Override
             public void run() {
@@ -530,48 +390,29 @@ String name;
                             .permitAll().build();
                     StrictMode.setThreadPolicy(policy);
                     String send_email;
-
-                    //This is a Simple Logic to Send Notification different Device Programmatically....
-//                    if (FirebaseAuth.getInstance().getCurrentUser().getUid().equals()) {
-//                        send_email = "user2@gmail.com";
-//                    } else {
-//                        send_email = "user1@gmail.com";
-//                    }
                     send_email=Reciever[1];
-
                     try {
                         String jsonResponse;
-
                         URL url = new URL("https://onesignal.com/api/v1/notifications");
                         HttpURLConnection con = (HttpURLConnection) url.openConnection();
                         con.setUseCaches(false);
                         con.setDoOutput(true);
                         con.setDoInput(true);
-
                         con.setRequestProperty("Content-Type", "application/json; charset=UTF-8");
                         con.setRequestProperty("Authorization", "Basic OTk2YzU1NDktMzE5Yi00MGEwLTk0NDMtYzZkMzI1YzNjM2Jj");
                         con.setRequestMethod("POST");
-
                         String strJsonBody = "{"
                                 + "\"app_id\": \"7b482b83-38de-4653-ba78-c04403c3b4c9\","
-
                                 + "\"filters\": [{\"field\": \"tag\", \"key\": \"USER_ID\", \"relation\": \"=\", \"value\": \"" + send_email + "\"}],"
-
                                 + "\"data\": {\"foo\": \"bar\"},"
-
                                 + "\"contents\": {\"en\": \""+message_sent+"\"}"
-//                                + "\"headings\": {\"en\":\""+Negotiator_dash.nego_name+"\"}"
                                 + "}";
 
-
                         System.out.println("strJsonBody:\n" + strJsonBody);
-
                         byte[] sendBytes = strJsonBody.getBytes("UTF-8");
                         con.setFixedLengthStreamingMode(sendBytes.length);
-
                         OutputStream outputStream = con.getOutputStream();
                         outputStream.write(sendBytes);
-
                         int httpResponse = con.getResponseCode();
                         System.out.println("httpResponse: " + httpResponse);
 
@@ -594,26 +435,4 @@ String name;
             }
         });
     }
-    private void createNotificationChannel() {
-        // Create the NotificationChannel, but only on API 26+ because
-        // the NotificationChannel class is new and not in the support library
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            CharSequence name = "Channel1";
-            String description = "Channel discription";
-            int importance = NotificationManager.IMPORTANCE_HIGH;
-            NotificationChannel channel = new NotificationChannel(channelId, name, importance);
-            channel.setDescription(description);
-            // Register the channel with the system; you can't change the importance
-            // or other notification behaviors after this
-            NotificationManager notificationManager = getSystemService(NotificationManager.class);
-            notificationManager.createNotificationChannel(channel);
-        }
-    }
-    //
-    public static Context getContextOfApplication()
-    {
-        return mContext;
-    }
-
-
 }

@@ -66,7 +66,6 @@ public class HomeShopperfrag extends Fragment implements Serializable {
     EditText msearchtext;
     Button location_selector;
     FusedLocationProviderClient fusedLocationProviderClient;
-    AutoCompleteTextView atv;
     int PLACE_PICKER_REQUEST = 1;
     String loc_cat;
     Place place;
@@ -76,14 +75,11 @@ public class HomeShopperfrag extends Fragment implements Serializable {
     private List <NegotiatorDetails> negotiatorList = new ArrayList <> ();
     private RecyclerView recyclerView;
     private NegotiatorProfileAdapter adapter;
-
     MyCustomPagerAdapter myCustomPagerAdapter;
     Context context;
     int currentPage = 0;
     int NUM_PAGES = 3;
     String pincode;
-    Intent datalocation;
-    ConnectivityManager connectivityManager;
 
     @Nullable
     @Override
@@ -95,15 +91,7 @@ public class HomeShopperfrag extends Fragment implements Serializable {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated (view, savedInstanceState);
-//        try {
-//            latest_pincode ();
-//        } catch (NullPointerException e) {
-//            Log.v ("error specified ", e.getMessage ());
-//        }
 
-        ///
-
-        ///
         fusedLocationProviderClient= LocationServices.getFusedLocationProviderClient(getActivity());
         try {
             fusedLocationProviderClient.getLastLocation().addOnSuccessListener(getActivity(), new OnSuccessListener<Location>() {
@@ -153,7 +141,6 @@ public class HomeShopperfrag extends Fragment implements Serializable {
                 viewPager.setCurrentItem (currentPage++, true);
             }
         };
-
         Timer swipeTimer = new Timer ();
         swipeTimer.schedule (new TimerTask () {
 
@@ -162,61 +149,6 @@ public class HomeShopperfrag extends Fragment implements Serializable {
                 handler.post (Update);
             }
         }, 800, 4500);
-
-
-//////
-//        DatabaseReference databaseReference;
-//        databaseReference= FirebaseDatabase.getInstance().getReference().child("Negotiator");
-//
-//        Query query2 = databaseReference.orderByChild("pincode").equalTo(pincode);
-//        query2.addChildEventListener(new ChildEventListener() {
-//            @Override
-//            public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
-//                Log.v("inondata beforeifexists", "hello ");
-//
-//                if (dataSnapshot.exists()) {
-//                    Log.v("inondata after ifexists", "hello ");
-//
-//                    // for(DataSnapshot issue: dataSnapshot.getChildren()) {
-//                    Log.v("gamma","fghg" );
-////                        dataSnapshot.getValue(NegotiatorDetails.class);
-//                    NegotiatorDetails data = dataSnapshot.getValue(NegotiatorDetails.class);
-////                            Log.v("display data" , dataSnapshot.ge);
-//
-//                    adapter.addItem(data, dataSnapshot.getKey());
-//                    adapter.notifyDataSetChanged();
-//                }
-//
-//            }
-//
-//            @Override
-//            public void onChildChanged(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
-//
-//            }
-//
-//            @Override
-//            public void onChildRemoved(@NonNull DataSnapshot dataSnapshot) {
-//
-//            }
-//
-//            @Override
-//            public void onChildMoved(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
-//
-//            }
-//
-//            @Override
-//            public void onCancelled(@NonNull DatabaseError databaseError) {
-//
-//            }
-//        });
-//
-//
-//        recyclerView.setAdapter(adapter);
-//        RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getActivity());//
-//        recyclerView.setLayoutManager(mLayoutManager);//n
-//        adapter.notifyDataSetChanged();
-        //////
-
         location_selector.setOnClickListener (new View.OnClickListener () {
             @Override
             public void onClick(View v) {
@@ -235,8 +167,6 @@ public class HomeShopperfrag extends Fragment implements Serializable {
                 }
             }
         });
-
-
         int idtxt = msearchview.getContext ().getResources ().getIdentifier ("android:id/search_src_text", null, null);
         msearchtext = (EditText) view.findViewById (idtxt);//initialising the searched text in an edit text
 
@@ -258,33 +188,8 @@ public class HomeShopperfrag extends Fragment implements Serializable {
                 fragmentTransaction.replace (R.id.content_frame, new Searchfrag ());
                 fragmentTransaction.addToBackStack ("SearchTag");
                 fragmentTransaction.commit ();
-
             }
         });
-
-
-
-
-
-
-     /*   location_selector = (Button) view.findViewById(R.id.shopper_home_loc_button);
-        if (location_selector == null)
-            Toast.makeText(getActivity(), "not all can be empty", Toast.LENGTH_SHORT).show();
-        else
-            Toast.makeText(getActivity(), "maa chuda", Toast.LENGTH_SHORT).show();
-        location_selector.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                PlacePicker.IntentBuilder intentBuilder = new PlacePicker.IntentBuilder();
-                try {
-                    startActivityForResult(intentBuilder.build(getActivity()), PLACE_PICKER_REQUEST);
-                } catch (GooglePlayServicesRepairableException e) {
-                    e.printStackTrace();
-                } catch (GooglePlayServicesNotAvailableException e) {
-                    e.printStackTrace();
-                }
-            }
-        });*/
     }
 
     @Override
@@ -304,7 +209,6 @@ public class HomeShopperfrag extends Fragment implements Serializable {
                 int ab = a.get (0);
                 Bundle s_l = new Bundle ();
 
-
                 if (ab == Place.TYPE_ELECTRONICS_STORE) {
                     loc_cat = "Electronics";
                 } else if (ab == Place.TYPE_CLOTHING_STORE) {
@@ -323,13 +227,11 @@ public class HomeShopperfrag extends Fragment implements Serializable {
                     loc_cat = "Groceries";
                 }
                 msearchtext.setText (loc_cat);
-
                 s_l.putString ("loctype", String.valueOf (loc_cat));
-
-
             }
         }
     }
+
 
     public String test() {
         geocoder = new Geocoder (getContext (), Locale.getDefault ());
@@ -343,10 +245,9 @@ public class HomeShopperfrag extends Fragment implements Serializable {
 
 
         String postalCode = addresses.get (0).getPostalCode ();
-        Log.d ("pincode", postalCode);
-
         return postalCode;
     }
+
 
     public void list_negotiators() {
         adapter.clear();
@@ -358,17 +259,8 @@ public class HomeShopperfrag extends Fragment implements Serializable {
         query2.addChildEventListener (new ChildEventListener () {
             @Override
             public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
-                Log.v ("inondata beforeifexists", "hello ");
-
                 if (dataSnapshot.exists ()) {
-                    Log.v ("inondata after ifexists", "hello ");
-
-                    // for(DataSnapshot issue: dataSnapshot.getChildren()) {
-                    Log.v ("gamma", "fghg");
-//                        dataSnapshot.getValue(NegotiatorDetails.class);
                     NegotiatorDetails data = dataSnapshot.getValue (NegotiatorDetails.class);
-//                            Log.v("display data" , dataSnapshot.ge);
-
                     adapter.addItem (data, dataSnapshot.getKey ());
                     adapter.notifyDataSetChanged ();
                 }
@@ -395,71 +287,12 @@ public class HomeShopperfrag extends Fragment implements Serializable {
 
             }
         });
-
-
         recyclerView.setAdapter (adapter);
         RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager (getActivity ());//
         recyclerView.setLayoutManager (mLayoutManager);//n
         adapter.notifyDataSetChanged ();
-
     }
 
-//    public int latest_pincode() {
-//        LocationManager locationManager = (LocationManager) getActivity ().getSystemService (Context.LOCATION_SERVICE);
-//
-//        LocationListener locationListener = new LocationListener () {
-//            public void onLocationChanged(Location location) {
-//                // Called when a new location is found by the network location provider.
-//                makeUseOfNewLocation (location);
-//            }
-//
-//            public void onStatusChanged(String provider, int status, Bundle extras) {
-//            }
-//
-//            public void onProviderEnabled(String provider) {
-//            }
-//
-//            public void onProviderDisabled(String provider) {
-//            }
-//        };
-//
-//// Register the listener with the Location Manager to receive location updates
-//        Context context = getContext ();
-//
-//        assert context != null;
-//        if (ActivityCompat.checkSelfPermission (context, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission (context, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-//            // TODO: Consider calling
-//            //    ActivityCompat#requestPermissions
-//            // here to request the missing permissions, and then overriding
-//            //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
-//            //                                          int[] grantResults)
-//            // to handle the case where the user grants the permission. See the documentation
-//            // for ActivityCompat#requestPermissions for more details.
-//
-//        }
-//        locationManager.requestLocationUpdates (LocationManager.NETWORK_PROVIDER, 0, 0, locationListener);
-//        return 0;
-//    }
-//
-//    private void makeUseOfNewLocation(Location location) {
-//
-//
-//        Geocoder geocoder = new Geocoder(getContext (), Locale.getDefault());
-//        double latitude = place.getLatLng ().latitude;
-//        double longitiute = place.getLatLng ().longitude;
-//        try {
-//            addresses = geocoder.getFromLocation (latitude,longitiute, 1); // Here 1 represent max location result to returned, by documents it recommended 1 to 5
-//        } catch (IOException e) {
-//            e.printStackTrace ();
-//        }
-//
-//
-//        String postalCode = addresses.get(0).getPostalCode();
-//        Log.d ("pincode new",postalCode);
-//
-//    }
-
-
-    }
+}
 
 
