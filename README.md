@@ -20,6 +20,9 @@ We have applied search filters where ever necessary to optimize the user experie
 
 ### ChatBox
 
+We have our very own chatbox to facilitate the conversation between the negotiator and shopper thus we don't have a dependency on any third party application.
+Chatbox has the functionality to propose a meet to the negotiator and within the chat app itself on the negotiator side, the negotiator has the right to accept or reject the meet. rejecting the meet will reduce the acceptance percentage of the negotiator and will be reflected in the negotiator list.  
+
 
 
 ###  Wallet
@@ -36,6 +39,16 @@ After successful scanning of the QR, the shopper is asked to enter the amount wh
 
 This feature allows the shopper to rate the negotiators thus helping the other user to decide whether the negotiator is suitable to provide the service or not i.e it provides an overall satisfaction status of the shopper and the reviews allows the product owner to decide whether the negotiator is doing a satisfactory job or not and also helps the product owner to decide whether to increase his profit margin or not . 
 
+## Negotiator Side
+
+This side of the application focuses on the need of the negotiators like his current rating, the total number of completed transactions, previous transaction details, etc. As soon as you log in as a negotiator you will see your homepage with all these basic functionalities. You can toggle between your profile, transactions, chats, etc.
+
+## Some tips to create a valid account 
+
+* Make sure you have given the permission to the application to access storage, camera, internet, and location. 
+* A valid email id, you will receive a verification link on your registered mail id.(example: test@gmail.com)
+* A valid working phone number which is present in the device on which you are using the application.
+* Password must be at least 6 characters in length containing an uppercase, lowercase, digits, and special character   @, _.    (password: Aa@1234)
 
 
 
