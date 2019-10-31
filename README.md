@@ -50,10 +50,13 @@ This side of the application focuses on the need of the negotiators like his cur
 * A valid working phone number which is present in the device on which you are using the application.
 * Password must be at least 6 characters in length containing an uppercase, lowercase, digits, and special character   @, _.    (password: Aa@1234)
 
-
-
-
-
-
-
+### Team
+```
+Ayush Kumar 171CO111
+Animesh Kumar 171CO108
+Manas Gupta 171CO122
+Akash Nair 171CO107
+Abha Abhay Wadjikar 171CO102
+Aditya Rastogi 171CO105
+```
 
