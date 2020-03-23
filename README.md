@@ -1,10 +1,18 @@
 # Bargainer Android Application
---------------------------
+**Why weep when YOU can get it for cheap :P **
+
+## The Vision
+**To make local market shopping affordable, memorable and reliable, hence providing the best buying experience.**
 
 ## Introduction 
-
-This android based app is developed with the intention of helping those people who don't have bargaining skills and can easily be conned or for those people who have moved to a new town or city and are looking for a local guide who can help them to shop for their requirements.
+This android application is developed with the intention of helping those people who don't have bargaining skills and can easily be conned or for those people who have moved to a new town or city and are looking for a local guide who can help them to shop for their requirements.
 We have incorporated features of both types of user i.e Shopper and Negotiator in a single app and on the basis of their registration email we segregate them into respective class.
+
+
+## The Problem 
+People who don't have bargaining skills can easily be conned. Also, those who have moved to a new town or city and are looking for a local guide who can help them to shop for their requirements need a solution.
+No reliable, affordable and convenient platform for Bargaining is present for tourists which often results in the tourists getting duped/conned by the shopkeepers leading to overspending of money and a bad experience overall.
+
 
 ## Shopper Side
 
