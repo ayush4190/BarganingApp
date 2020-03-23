@@ -1,5 +1,5 @@
 # Bargainer Android Application
-**Why weep when YOU can get it for cheap :P **
+**Why weep when YOU can get it for cheap :P**
 
 ## The Vision
 **To make local market shopping affordable, memorable and reliable, hence providing the best buying experience.**
@@ -14,7 +14,7 @@ People who don't have bargaining skills can easily be conned. Also, those who ha
 No reliable, affordable and convenient platform for Bargaining is present for tourists which often results in the tourists getting duped/conned by the shopkeepers leading to overspending of money and a bad experience overall.
 
 
-## Shopper Side
+## Features on the Shopper Side
 
 This side of the app focuses on providing the best in class functionalities to the shopper with a clean and interactive user interface which is easy to use and navigate through the entire application as the simple user interface makes it very self-explanatory.
 
@@ -47,7 +47,7 @@ After successful scanning of the QR, the shopper is asked to enter the amount wh
 
 This feature allows the shopper to rate the negotiators thus helping the other user to decide whether the negotiator is suitable to provide the service or not i.e it provides an overall satisfaction status of the shopper and the reviews allows the product owner to decide whether the negotiator is doing a satisfactory job or not and also helps the product owner to decide whether to increase his profit margin or not . 
 
-## Negotiator Side
+## Features on the Negotiator Side
 
 This side of the application focuses on the need of the negotiators like his current rating, the total number of completed transactions, previous transaction details, etc. As soon as you log in as a negotiator you will see your homepage with all these basic functionalities. You can toggle between your profile, transactions, chats, etc.
 
