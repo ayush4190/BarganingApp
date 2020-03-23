@@ -1,12 +1,20 @@
-# BarganningApp
---------------------------
+# Bargainer Android Application
+**Why weep when YOU can get it for cheap :P**
+
+## The Vision
+**To make local market shopping affordable, memorable and reliable, hence providing the best buying experience.**
 
 ## Introduction 
-
-This android based app is developed with the intention of helping those people who don't have bargaining skills and can easily be conned or for those people who have moved to a new town or city and are looking for a local guide who can help them to shop for their requirements.
+This android application is developed with the intention of helping those people who don't have bargaining skills and can easily be conned or for those people who have moved to a new town or city and are looking for a local guide who can help them to shop for their requirements.
 We have incorporated features of both types of user i.e Shopper and Negotiator in a single app and on the basis of their registration email we segregate them into respective class.
 
-## Shopper Side
+
+## The Problem 
+People who don't have bargaining skills can easily be conned. Also, those who have moved to a new town or city and are looking for a local guide who can help them to shop for their requirements need a solution.
+No reliable, affordable and convenient platform for Bargaining is present for tourists which often results in the tourists getting duped/conned by the shopkeepers leading to overspending of money and a bad experience overall.
+
+
+## Features on the Shopper Side
 
 This side of the app focuses on providing the best in class functionalities to the shopper with a clean and interactive user interface which is easy to use and navigate through the entire application as the simple user interface makes it very self-explanatory.
 
@@ -39,7 +47,7 @@ After successful scanning of the QR, the shopper is asked to enter the amount wh
 
 This feature allows the shopper to rate the negotiators thus helping the other user to decide whether the negotiator is suitable to provide the service or not i.e it provides an overall satisfaction status of the shopper and the reviews allows the product owner to decide whether the negotiator is doing a satisfactory job or not and also helps the product owner to decide whether to increase his profit margin or not . 
 
-## Negotiator Side
+## Features on the Negotiator Side
 
 This side of the application focuses on the need of the negotiators like his current rating, the total number of completed transactions, previous transaction details, etc. As soon as you log in as a negotiator you will see your homepage with all these basic functionalities. You can toggle between your profile, transactions, chats, etc.
 
@@ -50,13 +58,47 @@ This side of the application focuses on the need of the negotiators like his cur
 * A valid working phone number which is present in the device on which you are using the application.
 * Password must be at least 6 characters in length containing an uppercase, lowercase, digits, and special character   @, _.    (password: Aa@1234)
 
-### Team
-```
-Ayush Kumar 171CO111
-Animesh Kumar 171CO108
-Manas Gupta 171CO122
-Akash Nair 171CO107
-Abha Abhay Wadjikar 171CO102
-Aditya Rastogi 171CO105
-```
 
+## Contributors and maintainers
+
+This project and repository is created and maintained by:
+
+
+* **Ayush Kumar 171CO111**
+
+ Email: a.ayushkumar1997@gmail.com
+    
+ Github: [ayush4190](https://github.com/ayush4190/)
+
+* **Manas Gupta 171CO122**
+
+ Email: manasgupta1109@gmail.com
+    
+ Github: [manas11](https://github.com/manas11)
+    
+* **Animesh Kumar 171CO108**
+
+ Email: animuz111@gmail.com
+    
+ Github: [animeshk08](https://github.com/animeshk08)
+
+
+* **Abha Wadjikar 171CO102**
+
+ Email: awadjikar@gmail.com
+    
+ Github: [abha224](https://github.com/abha224/)
+
+
+* **Aditya Rastogi 171CO105**
+
+ Email: adit.rastogi2014@gmail.com
+    
+ Github: [aditya-rastogi23](https://github.com/aditya-rastogi23)
+
+
+* **Akash Nair 171CO107**
+
+ Email: akash30121998@gmail.com
+    
+ Github: [nimbus98](https://github.com/nimbus98/)
