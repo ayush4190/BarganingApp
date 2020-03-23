@@ -1,4 +1,4 @@
-# BarganningApp
+# Bargainer Android Application
 --------------------------
 
 ## Introduction 
@@ -50,13 +50,47 @@ This side of the application focuses on the need of the negotiators like his cur
 * A valid working phone number which is present in the device on which you are using the application.
 * Password must be at least 6 characters in length containing an uppercase, lowercase, digits, and special character   @, _.    (password: Aa@1234)
 
-### Team
-```
-Ayush Kumar 171CO111
-Animesh Kumar 171CO108
-Manas Gupta 171CO122
-Akash Nair 171CO107
-Abha Abhay Wadjikar 171CO102
-Aditya Rastogi 171CO105
-```
 
+## Contributors and maintainers
+
+This project and repository is created and maintained by:
+
+
+* **Ayush Kumar 171CO111**
+
+ Email: a.ayushkumar1997@gmail.com
+    
+ Github: [ayush4190](https://github.com/ayush4190/)
+
+* **Manas Gupta 171CO122**
+
+ Email: manasgupta1109@gmail.com
+    
+ Github: [manas11](https://github.com/manas11)
+    
+* **Animesh Kumar 171CO108**
+
+ Email: animuz111@gmail.com
+    
+ Github: [animeshk08](https://github.com/animeshk08)
+
+
+* **Abha Wadjikar 171CO102**
+
+ Email: awadjikar@gmail.com
+    
+ Github: [abha224](https://github.com/abha224/)
+
+
+* **Aditya Rastogi 171CO105**
+
+ Email: adit.rastogi2014@gmail.com
+    
+ Github: [aditya-rastogi23](https://github.com/aditya-rastogi23)
+
+
+* **Akash Nair 171CO107**
+
+ Email: akash30121998@gmail.com
+    
+ Github: [nimbus98](https://github.com/nimbus98/)
